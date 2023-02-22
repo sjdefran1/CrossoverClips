@@ -21,5 +21,9 @@ url = "https://stats.nba.com/stats/leaguegamelog?Counter=0&DateFrom=&DateTo=&Dir
 
 response = requests.get(url, headers=headers)
 
-print(json.dumps(response.json(), indent=1))
+json_response = response.json()
 
+
+
+with open("games_2023_test.txt", "w") as f:
+    f.write(json.dumps(json_response['resultSets'][0]['rowSet'], indent=1))
