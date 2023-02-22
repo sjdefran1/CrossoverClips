@@ -19,22 +19,23 @@ import requests
 
 # # date: {"vs":"id"}
 
+# League Schedule to json
 with open("games_nba_endpoint.txt", "r") as f:
     content = f.read()
     parsed_data = json.loads(content)
 
-#print(json.dumps(parsed_data, indent=1))
-
-#print(parsed_data.keys())
-
+# Day -> Games Dictionary
 day_games = {}
 
+# For each day create a list of the games for that day
 for day in parsed_data:
-    #print(json.dumps(parsed_data.get(day), indent=1))
     games = parsed_data.get(day)
     game_list = []
+    # for each game append to game_list
+    # {gameID: "away @ home"} EX {'0022201213': 'DEN @ UTA'}
     for game in games:
         game_list.append({game['gameId']: f"{game['awayTeam']['teamTricode']} @ {game['homeTeam']['teamTricode']}"})
-    day_games.update({day: game_list})
+    # {'09/30/2022':[games list]}
+    day_games.update({day.split(" ")[0]: game_list})
 
 print(day_games)
