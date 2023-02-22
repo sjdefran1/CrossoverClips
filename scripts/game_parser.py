@@ -20,7 +20,7 @@ import requests
 # # date: {"vs":"id"}
 
 # League Schedule to json
-with open("games_nba_endpoint.txt", "r") as f:
+with open("../txt/games_nba_endpoint.txt", "r") as f:
     content = f.read()
     parsed_data = json.loads(content)
 
