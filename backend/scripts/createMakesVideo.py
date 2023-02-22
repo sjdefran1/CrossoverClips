@@ -1,13 +1,19 @@
 from playbyplayToUrls import getPlayByPlayWithUrl
 from moviepy.editor import VideoFileClip, concatenate_videoclips
+from get_schedule import get_games_on_date
 import requests
 import shutil
 import os
 from time import sleep
 
-def main():
+def choose_game():
+    date = input('enter date month/day/year\nEx(02/04/2023):')
+    games = get_games_on_date(date)
+    print(games)
+
+def create_video(gameID: str, year: str, month: str, day: str):
     print("getting plays")
-    plays = getPlayByPlayWithUrl(gameID='0012200005', year='2022', month='10', day='02')
+    plays = getPlayByPlayWithUrl(gameID=gameID, year=year, month=month, day=day)
     print("Got plays")
 
     dir_path = 'temp_clips_folder'
@@ -34,7 +40,7 @@ def main():
         # finally concat all clips together than write final product
         # to mp4s folder
         final_clip = concatenate_videoclips(clips)
-        final_clip.write_videofile("../mp4s/celtics_hornets.mp4")
+        final_clip.write_videofile("../mp4s/{gameID}.mp4")
         
         # CLOSE ALL CLIPS BEFORE DELETING DIRECTORY
         # mind the caps lol
@@ -49,5 +55,5 @@ def main():
         print(f"Directory {dir_path} deleted")
 
 if __name__ == "__main__":
-    main()
-
+    #create_video(gameID='0012200005', year='2022', month='10', day='02')
+    choose_game()

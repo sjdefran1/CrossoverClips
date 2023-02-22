@@ -1,12 +1,12 @@
 import json
 
-def get_schedule():
+def get_schedule() -> dict:
     # League Schedule to json
     with open("../txt/games_nba_endpoint.txt", "r") as f:
         content = f.read()
         parsed_data = json.loads(content)
 
-    # Day -> Games Dictionary
+    # (date) -> [List of Games] 
     day_games = {}
     # For each day create a list of the games for that day
     for day in parsed_data:
@@ -20,3 +20,17 @@ def get_schedule():
         day_games.update({day.split(" ")[0]: game_list})
 
     return day_games
+
+def get_games_on_date(date: str):
+    sched = get_schedule()
+    return sched[date]
+
+
+
+# ------------------------------
+def main():
+    s = get_schedule()
+    print(s)
+
+if __name__ == "__main__":
+    main()

@@ -317,8 +317,81 @@ One issue I am running into is writing the larger file. For some reason past aro
 
 The other thing you might notice is this code is currently only working for one specific game. Next we want to take advantage of the parsing we did earlier to be able select a date, then choose a game for our code to create the highlight reel of.
 
+## Fix
+
+To hell with tempfile.Temp.. it is only causing issues, instead I changed routes and manually created the temp folder and then deleted it myself
+
+```python
+import shutil
+dir_path = 'temp_clips_folder'
+if not os.path.exists(dir_path):
+    # create temp dir
+    os.makedirs(dir_path)
+    print(f"Directory {dir_path} created")
+
+...
+
+# later delete
+
+# delete directory
+if os.path.exists(dir_path):
+    shutil.rmtree(dir_path)
+    print(f"Directory {dir_path} deleted")
+```
+
+**make sure to import `shutil`**
+
+WELP
+
+Still not fixed... but we finally got it. The process that was using the file was us. our python file. I was not closing each indivual clip... but it finally works
+
+```python
+final_clip = concatenate_videoclips(clips)
+final_clip.write_videofile("../mp4s/celtics_hornets2.mp4")
+for clip in clips:
+    print("closing clip")
+    clip.close()
+final_clip.close()
+```
+
 ---
 
 # Reformatting directories
 
 > One thing that is bothering me is everything is currently living in one directory, time to fix that
+
+```
+C:.
+|   .gitignore
+|   README.md
+|
++---docs
+|       proccess.md
+|
++---mp4s
+|       celtics_hornets.mp4
+|       celtics_hornets2.mp4
+|       video.mp4
+|
++---scripts
+|   |   celtics_hornets2TEMP_MPY_wvf_snd.mp3
+|   |   createMakesVideo.py
+|   |   gameLog.py
+|   |   game_parser.py
+|   |   nbaTest.py
+|   |   nba_games_endpoint.py
+|   |   playbyplayToUrls.py
+|   |
+|
++---txt
+|       actions.txt
+|       games_nba_endpoint.txt
+|       params.txt
+|       reponse_playbyplay.txt
+|       videos.txt
+|       videos1.txt
+|
+\
+```
+
+---
