@@ -1,0 +1,85 @@
+
+# params = {
+#     'AheadBehind': '',
+#     'CFID': '',
+#     'CFPARAMS': '',
+#     'ClutchTime': '',
+#     'Conference': '',
+#     'ContextFilter': '',
+#     'ContextMeasure': 'FGA',
+#     'DateFrom': '',
+#     'DateTo': '',
+#     'Division': '',
+#     'EndPeriod': '0',
+#     'EndRange': '31800',
+#     'GROUP_ID': '',
+#     'GameEventID': '',
+#     'GameID': '0022200224',
+#     'GameSegment': '',
+#     'GroupID': '',
+#     'GroupMode': '',
+#     'GroupQuantity': '5',
+#     'LastNGames': '0',
+#     'LeagueID': '00',
+#     'Location': '',
+#     'Month': '0',
+#     'OnOff': '',
+#     'OppPlayerID': '',
+#     'OpponentTeamID': '0',
+#     'Outcome': '',
+#     'PORound': '0',
+#     'Period': '0',
+#     'PlayerID': '1631115',
+#     'PlayerID1': '',
+#     'PlayerID2': '',
+#     'PlayerID3': '',
+#     'PlayerID4': '',
+#     'PlayerID5': '',
+#     'PlayerPosition': '',
+#     'PointDiff': '',
+#     'Position': '',
+#     'RangeType': '0',
+#     'RookieYear': '',
+#     'Season': '2022-23',
+#     'SeasonSegment': '',
+#     'SeasonType': 'Regular Season',
+#     'ShotClockRange': '',
+#     'StartPeriod': '0',
+#     'StartRange': '0',
+#     'StarterBench': '',
+#     'TeamID': '1610612748',
+#     'VsConference': '',
+#     'VsDivision': '',
+#     'VsPlayerID1': '',
+#     'VsPlayerID2': '',
+#     'VsPlayerID3': '',
+#     'VsPlayerID4': '',
+#     'VsPlayerID5': '',
+#     'VsTeamID': '',
+# }
+
+
+
+# required // = b''
+
+# Working wiz vs heat
+# params = {
+#     #'ContextMeasure': 'FGA', # not required
+#     #'EndPeriod': '0', # not required
+#     #'EndRange': '31800', # not required
+#     'GameID': '0022200224', # not required
+#     #'GroupQuantity': '5', # not required
+#     #'LastNGames': '0', # not required
+#     #'LeagueID': '00', # not required
+#     'Month': '0', # required //
+#     'OpponentTeamID': '0', # required //
+#     #'PORound': '0',  # not required
+#     'Period': '0', # required //
+#     'PlayerID': '1631115', # required nullable
+#     #'RangeType': '0', # not required
+#     #'Season': '2022-23', # not required
+#     #'SeasonType': 'Regular Season', # not required
+#     #'StartPeriod': '0', # not required
+#     #'StartRange': '0', # not required
+#     'TeamID': '1610612748', # required //
+# }
