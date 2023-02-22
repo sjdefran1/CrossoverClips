@@ -22,10 +22,10 @@ headers = {
 # working cp3 clips suns
 #gameID = '0022200885'
 
-gameID = '0022200877'
-year = '2023'
-month = '02'
-day = '15'
+# gameID = '0022200877'
+# year = '2023'
+# month = '02'
+# day = '15'
 
 def getActionNumberToURLs(gameID: str) -> dict:
   params = {
@@ -79,9 +79,20 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str) -> dict:
       if(action['shotResult'] == 'Made'):
         act_num = action['actionNumber']
         vid_url = base_video_url + f'{act_num}/' + action_hex.get(f"{act_num}")
-        print(f"#{action['actionNumber']} {action['description']} {vid_url}")
+        #print(f"#{action['actionNumber']} {action['description']} {vid_url}")
         desc_vid.update({action['description']: vid_url})
   
   return desc_vid
 
 #print(json.dumps(desc_vid, indent=1))
+
+
+def main():
+  test = getPlayByPlayWithUrl(gameID='0012200005', year='2022', month='10', day='02' )
+  print(json.dumps(test, indent=1))
+
+
+
+if __name__ == "__main__":
+    main()
+
