@@ -13,9 +13,12 @@ def get_schedule() -> dict:
         games = parsed_data.get(day)
         game_list = []
         # for each game append to game_list
-        # {gameID: "away @ home"} EX {'0022201213': 'DEN @ UTA'}
+        # ['gameid', 'tricode vs', 'score'] EX ['0022201213', 'DEN @ UTA', '123-125']
+        # Score and tricode vs will always be in format away - home / away @ Home
         for game in games:
-            game_list.append( [ game['gameId'], f"{game['awayTeam']['teamTricode']} @ {game['homeTeam']['teamTricode']}"])
+            game_list.append( [ game['gameId'], \
+                            f"{game['awayTeam']['teamTricode']} @ {game['homeTeam']['teamTricode']}", \
+                            f"{game['awayTeam']['score']} - {game['homeTeam']['score']}"])
         # {'09/30/2022':[games list]}
         day_games.update({day.split(" ")[0]: game_list})
 

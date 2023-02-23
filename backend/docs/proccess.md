@@ -395,3 +395,96 @@ C:.
 ```
 
 ---
+
+# Frontend
+
+Now were gonna create a simple frontend for making calls to our backend. Start with getting react setup on windows
+
+**Update npm**
+
+```
+npm install -g npm
+```
+
+**Install create-react-app**
+
+```
+npm install -g create-react-app
+```
+
+```
+cd projects/highlight_maker/frontend/
+```
+
+**Create react app**
+
+```
+npx create-react-app nba-frontend
+```
+
+**Install mui**
+
+```
+npm install @mui/material @emotion/react @emotion/styled
+```
+
+---
+
+## Remove clutter
+
+Delete all the uneccesary stuff, left with `App.js`, `index.js`
+
+Create components folder in `src`
+
+---
+
+## Creating Landing Screen
+
+### Inital Prototypes
+
+- Starting point
+
+![](./ss/starting.JPG)
+
+- Later on Landing page
+
+![](./ss/final1.JPG)
+
+- Later On results page
+
+![](./ss/final2.JPG)
+
+That leaves us with some work to do. Lets start on our initial starting point.
+
+## What We need to do
+
+### Frontend
+
+- We need to create a split grid that has this calender on one side
+  - Eventually it needs to store the date choosen and make a request to our currently non-existing backend
+  - The backend will then return list of games functionallity froim game_list_for_date.py
+- On the other side we need to create a static results list
+
+### Calendar
+
+Mui is the best. They have like 10 different date pickers to choose from. Heres what i went with
+
+**Initial installion**
+
+```npm
+npm install @mui/x-date-pickers
+```
+
+```npm
+npm install moment
+```
+
+```
+npm install dayjs
+```
+
+**React Code**
+
+### Backend
+
+-

@@ -1,30 +1,10 @@
 from playbyplayToUrls import getPlayByPlayWithUrl
 from moviepy.editor import VideoFileClip, concatenate_videoclips
-from get_schedule import get_games_on_date
+from game_list_for_date import choose_game
 import requests
 import shutil
 import os
 from time import sleep
-
-def choose_game():
-    date = input('enter date month/day/year\nEx(02/04/2023):')
-    games = get_games_on_date(date)
-    #print(games)
-
-    # {0: ['0022200793', 'WAS @ BKN'], ...}
-    games_output = {}
-    for i, game in enumerate(games):
-        games_output.update({i: game})
-        print(f"{i} {game[1]}")
-    index = int(input("Choose game based on number next to it:"))
-    # ['0022200794', 'PHX @ DET']
-    game_chosen = games_output.get(index)
-    print(f"You chose {game_chosen[1]}.. Creating Video Now")
-
-    # ['02', '04', '2023']
-    split_date = date.split('/')
-    create_video(gameID=game_chosen[0], month=split_date[0], \
-                day=split_date[1], year=split_date[2], matchup=game_chosen[1])
 
 
 def create_video(gameID: str, year: str, month: str, day: str, matchup: str):
@@ -72,4 +52,4 @@ def create_video(gameID: str, year: str, month: str, day: str, matchup: str):
 
 if __name__ == "__main__":
     #create_video(gameID='0012200005', year='2022', month='10', day='02')
-    choose_game()
+    choose_game(create_video_yn='y')
