@@ -15,7 +15,7 @@ def get_schedule() -> dict:
         # for each game append to game_list
         # {gameID: "away @ home"} EX {'0022201213': 'DEN @ UTA'}
         for game in games:
-            game_list.append({game['gameId']: f"{game['awayTeam']['teamTricode']} @ {game['homeTeam']['teamTricode']}"})
+            game_list.append( [ game['gameId'], f"{game['awayTeam']['teamTricode']} @ {game['homeTeam']['teamTricode']}"])
         # {'09/30/2022':[games list]}
         day_games.update({day.split(" ")[0]: game_list})
 

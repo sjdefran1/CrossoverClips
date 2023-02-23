@@ -9,14 +9,30 @@ from time import sleep
 def choose_game():
     date = input('enter date month/day/year\nEx(02/04/2023):')
     games = get_games_on_date(date)
-    print(games)
+    #print(games)
 
-def create_video(gameID: str, year: str, month: str, day: str):
+    # {0: ['0022200793', 'WAS @ BKN'], ...}
+    games_output = {}
+    for i, game in enumerate(games):
+        games_output.update({i: game})
+        print(f"{i} {game[1]}")
+    index = int(input("Choose game based on number next to it:"))
+    # ['0022200794', 'PHX @ DET']
+    game_chosen = games_output.get(index)
+    print(f"You chose {game_chosen[1]}.. Creating Video Now")
+
+    # ['02', '04', '2023']
+    split_date = date.split('/')
+    create_video(gameID=game_chosen[0], month=split_date[0], \
+                day=split_date[1], year=split_date[2], matchup=game_chosen[1])
+
+
+def create_video(gameID: str, year: str, month: str, day: str, matchup: str):
     print("getting plays")
     plays = getPlayByPlayWithUrl(gameID=gameID, year=year, month=month, day=day)
     print("Got plays")
 
-    dir_path = 'temp_clips_folder'
+    dir_path = 'temp_clips_folder_' + matchup
     if not os.path.exists(dir_path):
         # create temp dir
         os.makedirs(dir_path)
@@ -40,12 +56,12 @@ def create_video(gameID: str, year: str, month: str, day: str):
         # finally concat all clips together than write final product
         # to mp4s folder
         final_clip = concatenate_videoclips(clips)
-        final_clip.write_videofile("../mp4s/{gameID}.mp4")
+        final_file_name = month + '-' + day + '-' + year + '-' + matchup
+        final_clip.write_videofile(f"../mp4s/{final_file_name}.mp4")
         
         # CLOSE ALL CLIPS BEFORE DELETING DIRECTORY
         # mind the caps lol
         for clip in clips:
-            print("closing clip")
             clip.close()
         final_clip.close()
     
