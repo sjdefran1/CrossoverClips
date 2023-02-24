@@ -485,6 +485,108 @@ npm install dayjs
 
 **React Code**
 
+Imports
+
+```js
+import * as React from "react";
+import dayjs from "dayjs";
+import TextField from "@mui/material/TextField";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
+```
+
+Component
+
+```js
+const isWeekend = (date) => {
+  const day = date.day();
+
+  return day === 0 || day === 6;
+};
+
+export default function StaticDatePickerLandscape() {
+  const [value, setValue] = React.useState(dayjs("2022-04-07"));
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <StaticDatePicker
+        orientation='landscape'
+        openTo='day'
+        value={value}
+        onChange={(newValue) => {
+          setValue(newValue);
+        }}
+        renderInput={(params) => <TextField {...params} />}
+      />
+    </LocalizationProvider>
+  );
+}
+```
+
+Result
+
+![](./ss/datpicker.png)
+
 ### Backend
 
--
+- Recieve date, parse it into format we are using for our dictionaries
+- Get games on that date
+- Return Json respose of list of games
+
+## Quick fastAPI setup
+
+fastAPI is good for setting up a quick backend. At the moment ours doesn't need to be doing anything crazy.
+
+**Imports**
+
+```python
+from fastapi import FastAPI, Body, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel, Field
+from get_schedule import get_games_on_date
+from datetime import datetime
+import json
+```
+
+**Data model for recieving post requests, allowed requesters**
+
+```python
+class DateStr(BaseModel):
+    value: str
+
+origins = [
+    "http://localhost:3000/",
+    "localhost:3000"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+```
+
+**Request reciever**
+
+```python
+# start backend
+app = FastAPI()
+
+# Post request reciever
+@app.post("/date")
+async def get_games_on_date_controller(data: DateStr):
+    date = fix_date(data.value)
+    s = get_games_on_date(date)
+    print("\n" + date)
+    print(json.dumps(s, indent=1))
+    return JSONResponse(content=get_games_on_date(date))
+
+# starts server when python file is run
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="localhost", port=8000)
+```

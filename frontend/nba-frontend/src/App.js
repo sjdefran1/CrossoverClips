@@ -1,6 +1,6 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import NbaHome from "./components/NbaHome.jsx"
+import Main from "./components/Main.jsx";
 
 const darkTheme = createTheme({
   palette: {
@@ -54,14 +54,13 @@ const darkTheme = createTheme({
   },
 });
 const App = () => {
-  
   return (
     <>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-          <>
-          <NbaHome />
-          </>
+        <>
+          <Main />
+        </>
       </ThemeProvider>
     </>
   );
