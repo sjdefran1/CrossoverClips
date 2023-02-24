@@ -6,30 +6,39 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
+import { Avatar } from "@mui/material";
 
-// props.gameList.map((game) => (
-//     <p key={game.gameID}>
-//       {game.matchup}: {game.score}
-//     </p>
-//   ))
 export default function GameList(props) {
-  console.log(props.gameList);
+  //console.log(props.gameList);
   return (
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
       <nav aria-label='games'>
         <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon></ListItemIcon>
-              <ListItemText primary='Inbox' />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon></ListItemIcon>
-              <ListItemText primary='Drafts' />
-            </ListItemButton>
-          </ListItem>
+          {props.gameList.map((game) => (
+            <>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <Avatar
+                      src={
+                        "https://cdn.nba.com/logos/nba/" +
+                        game.awayTeamID +
+                        "/primary/L/logo.svg"
+                      }></Avatar>
+                  </ListItemIcon>
+                  <ListItemText primary={game.matchup} secondary={game.score} />
+                  <ListItemIcon>
+                    <Avatar
+                      src={
+                        "https://cdn.nba.com/logos/nba/" +
+                        game.homeTeamID +
+                        "/primary/L/logo.svg"
+                      }></Avatar>
+                  </ListItemIcon>
+                </ListItemButton>
+              </ListItem>
+            </>
+          ))}
         </List>
       </nav>
       <Divider />

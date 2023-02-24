@@ -10,8 +10,6 @@ def get_schedule() -> dict:
     # (date) -> [List of Games] 
     day_games = {}
 
-    #day_games_2 = []
-
     # For each day create a list of the games for that day
     for day in parsed_data:
         games = parsed_data.get(day)
@@ -24,18 +22,15 @@ def get_schedule() -> dict:
             if score == '0 - 0':
                 score = 'TBD'
             
-            # game_list.append( [ game['gameId'], \
-            #                 f"{game['awayTeam']['teamTricode']} @ {game['homeTeam']['teamTricode']}", \
-            #                 score])
-
             single_game_dict = {
                 'gameID': game['gameId'],
+                'homeTeamID': game['homeTeam']['teamId'],
+                'awayTeamID': game['awayTeam']['teamId'],
                 'matchup': f"{game['awayTeam']['teamTricode']} @ {game['homeTeam']['teamTricode']}",
                 'score': score
             }
             game_list.append(single_game_dict)
         
-        #day_games_2.append(single_game_dict)
         # {'09/30/2022':[games list]}
         day_games.update({day.split(" ")[0]: game_list})
      
