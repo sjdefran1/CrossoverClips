@@ -8,6 +8,7 @@ import axios from "axios";
 import { Container, Grid } from "@mui/material";
 import GameList from "./GameList";
 import GameList2 from "./GameList2";
+import Paper from "@mui/material/Paper";
 
 class DateChosen extends React.Component {
   constructor(props) {
@@ -43,24 +44,33 @@ class DateChosen extends React.Component {
   render() {
     return (
       <>
+        <Paper>
+          <br></br>
+          <br></br>
+        </Paper>
         <Container maxWidth='lg' sx={{ mt: 8 }}>
           <Grid container spacing={1}>
             <Grid item xs={6}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <StaticDatePicker
-                  orientation='landscape'
-                  openTo='day'
-                  value={this.state.value}
-                  onChange={(newValue) => {
-                    this.setState({ value: newValue });
-                    this.submitMessageAxios(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
+              <Paper>
+                <br></br>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <StaticDatePicker
+                    orientation='landscape'
+                    openTo='day'
+                    value={this.state.value}
+                    onChange={(newValue) => {
+                      this.setState({ value: newValue });
+                      this.submitMessageAxios(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+              </Paper>
             </Grid>
             <Grid item xs={6}>
-              <GameList2 gameList={this.state.responseData} />
+              {this.state.shouldRender && (
+                <GameList2 gameList={this.state.responseData} />
+              )}
             </Grid>
           </Grid>
         </Container>

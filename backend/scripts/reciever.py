@@ -36,6 +36,8 @@ app.add_middleware(
 async def get_games_on_date_controller(data: DateStr):
     date = fix_date(data.value)
     games = get_games_on_date(date)
+    #print(json.dumps(games, indent=1))
+    
     # if no games type will be string
     if type(games) is str:
         return "no games"

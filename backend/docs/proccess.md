@@ -528,6 +528,8 @@ Result
 
 ![](./ss/datpicker.png)
 
+---
+
 ### Backend
 
 - Recieve date, parse it into format we are using for our dictionaries
@@ -580,9 +582,6 @@ app = FastAPI()
 @app.post("/date")
 async def get_games_on_date_controller(data: DateStr):
     date = fix_date(data.value)
-    s = get_games_on_date(date)
-    print("\n" + date)
-    print(json.dumps(s, indent=1))
     return JSONResponse(content=get_games_on_date(date))
 
 # starts server when python file is run
@@ -590,3 +589,104 @@ if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="localhost", port=8000)
 ```
+
+At this point there has been some changes to our scripts to have easier use of our data on the frontend
+
+**What we had**
+
+```
+{
+
+    '12/25/2022': [
+                    ['0022200493', 'PHI@NYK', '119-112'],
+                    ['0022200494','LAL@DAL', '115-124],
+                    ...
+                  ]
+}
+```
+
+**What We Changed Too**
+
+```
+'12/25/2022':
+[
+ {
+  "gameID": "0022200514",
+  "homeTeamID": 1610612758,
+  "awayTeamID": 1610612743,
+  "matchup": "DEN @ SAC",
+  "score": "113 - 106"
+ }
+ ...
+ ...
+]
+```
+
+This is what allows us to use `return JSONResponse(content=get_games_on_date(date))`
+and is much more suitable overall rather than indexing with numbers which isn't very readible in a code sense.
+
+---
+
+## Making Calls to our new backend
+
+This is never an easy task I have seem to have found out. Axios seems to be the easiest way of doing it that I have discovered, but next time im going to give `fetch()` another try.
+
+Anyways my main plan here was to take advantage of our MUI calendar's onChange hook. Inside of that I pass the new value (the date) into our function that makes the post request to our backend
+
+**Calendar Comp**
+
+```js
+<StaticDatePicker
+  orientation='landscape'
+  openTo='day'
+  value={this.state.value}
+  onChange={(newValue) => {
+    this.setState({ value: newValue });
+    this.submitMessageAxios(newValue);
+  }}
+  renderInput={(params) => <TextField {...params} />}
+/>
+```
+
+**Function that makes Post Request**
+
+```js
+submitMessageAxios = (e) => {
+  //for json
+  const data = {
+    value: e.toString(),
+  };
+  axios
+    .post("http://localhost:8000/date", data)
+    .then((response) => {
+      // when we have games returned
+      // save the data from the response (an array) into a state var
+      if (response.data !== "no games") {
+        this.setState({ responseData: response.data, shouldRender: true });
+      } else {
+        // no games, don't render the
+        // list of games..
+        this.setState({ shouldRender: false });
+      }
+    })
+    // do absolutley nothing w/ the error :)
+    // for nowwwww
+    .catch((error) => {
+      console.log(error);
+    });
+};
+```
+
+---
+
+## Frontend Progress
+
+So now when we make a request to our backend using what we have done we get a response. If there is games its a list of `JSON` objects and if we don't we get a string 'no games'
+
+Heres what it looks like when we do!
+
+![](ss/progress.png)
+
+**Looking quite similar to our inital proto from above! :)**
+
+Our next steps are going to get maybe sort of brutal. Our plan here is to be able to click one of those games and then be routed to a page where we can click each indivual play and be directed to the nba highlight. The problem there is the keyword route. AKA learning how to use React routing :)
