@@ -72,6 +72,7 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str) -> dict:
   actions = json_response['game']['actions']
   action_hex = getActionNumberToURLs(gameID=gameID)
   desc_vid = {}
+  desc_vid2 = []
 
   # Base highlight url, will be appended to
   base_video_url = f'https://videos.nba.com/nba/pbp/media/{year}/{month}/{day}/{gameID}/'
@@ -82,9 +83,20 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str) -> dict:
         act_num = action['actionNumber']
         vid_url = base_video_url + f'{act_num}/' + action_hex.get(f"{act_num}")
         #print(f"#{action['actionNumber']} {action['description']} {vid_url}")
-        desc_vid.update({action['description']: vid_url})
+        update_val = {
+           "description": action['description'],
+           "url":  vid_url,
+           "quarter": action['period'],
+           "teamID": action['teamId'],
+           "scoreHome": action['scoreHome'],
+           "scoreAway": action['scoreAway'],
+        }
+       # desc_vid.update({action['description']: vid_url})
+        #desc_vid.update({update_val})
+        desc_vid2.append(update_val)
   
-  return desc_vid
+  #return desc_vid
+  return desc_vid2
 
 #print(json.dumps(desc_vid, indent=1))
 

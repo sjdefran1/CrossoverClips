@@ -1,8 +1,12 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import Main from "./components/Main.jsx";
+import GameDetails from "./components/GameDetails.jsx";
 
 const darkTheme = createTheme({
+  a: { textDecoration: "none" },
+
   palette: {
     mode: "dark",
     secondary: {
@@ -59,7 +63,12 @@ const App = () => {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <>
-          <Main />
+          <BrowserRouter>
+            <Routes>
+              <Route exact path='/' element={<Main />} />
+              <Route exact path='/games/:date/:id' element={<GameDetails />} />
+            </Routes>
+          </BrowserRouter>
         </>
       </ThemeProvider>
     </>

@@ -6,7 +6,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import axios from "axios";
 import { Container, Grid } from "@mui/material";
-import GameList from "./GameList";
 import GameList2 from "./GameList2";
 import Paper from "@mui/material/Paper";
 
@@ -24,6 +23,7 @@ class DateChosen extends React.Component {
       //value: this.state.value.toString(),
       value: e.toString(),
     };
+    this.setState({ value: e.toString() });
     axios
       .post("http://localhost:8000/date", data)
       .then((response) => {
@@ -69,7 +69,10 @@ class DateChosen extends React.Component {
             </Grid>
             <Grid item xs={6}>
               {this.state.shouldRender && (
-                <GameList2 gameList={this.state.responseData} />
+                <GameList2
+                  gameList={this.state.responseData}
+                  date={this.state.value}
+                />
               )}
             </Grid>
           </Grid>
