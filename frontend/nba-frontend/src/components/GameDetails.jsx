@@ -27,9 +27,12 @@ export default function GameDetails(props) {
   const { id } = useParams();
   const { date } = useParams();
   const [playByPlay, setPlayByPlay] = React.useState([]);
+  const [gameInfo, setGameInfo] = React.useState({});
   const [currentQuarter, setCurrentQuarter] = React.useState(1);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const submitMessageAxios = (e) => {
+  const [playsIsLoading, setPlaysIsLoading] = React.useState(true);
+  const [gameInfoIsLoading, setGameInfoIsLoading] = React.useState(true);
+
+  const getPlaysAxios = (e) => {
     const data = {
       //value: this.state.value.toString(),
       gameID: e.toString(),
@@ -46,10 +49,30 @@ export default function GameDetails(props) {
         console.log(error);
       })
       .finally(() => {
-        setIsLoading(false); // Set isLoading back to false once the response is received
+        setPlaysIsLoading(false); // Set isLoading back to false once the response is received
       });
   };
 
+  const getGameInfoAxios = (e) => {
+    const data = {
+      //value: this.state.value.toString(),
+      gameID: e.toString(),
+      date: date,
+    };
+    axios
+      .post("http://localhost:8000/gameInfo", data)
+      .then((response) => {
+        console.log(response.data);
+        setGameInfo(response.data);
+        //const data = JSON.parse(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setGameInfoIsLoading(false); // Set isLoading back to false once the response is received
+      });
+  };
   const handleQuarterChangeLeft = (val) => {
     if (currentQuarter === 1) {
       return;
@@ -65,7 +88,8 @@ export default function GameDetails(props) {
   };
 
   React.useEffect(() => {
-    submitMessageAxios(id);
+    getPlaysAxios(id);
+    getGameInfoAxios(id);
     console.log("useeffect");
   }, []);
 
@@ -74,8 +98,18 @@ export default function GameDetails(props) {
       <Container maxWidth='lg'>
         <Grid container>
           <Grid item xs={6}>
-            <p>{id}</p>
-            <p>{date}</p>
+            {gameInfoIsLoading && (
+              <Stack sx={{ justifyContent: "center" }}>
+                <CircularProgress />
+              </Stack>
+            )}
+            {!gameInfoIsLoading && (
+              <>
+                <p>{id}</p>
+                <p>{date}</p>
+                <p>{gameInfo.home_name}</p>
+              </>
+            )}
           </Grid>
           <Grid item xs={6}>
             <AppBar position='static'>
@@ -83,28 +117,32 @@ export default function GameDetails(props) {
                 <IconButton onClick={handleQuarterChangeLeft}>
                   <KeyboardArrowLeftIcon />
                 </IconButton>
-                <Typography>Quarter: {currentQuarter}</Typography>
+                <Typography variant='h5'>Quarter: {currentQuarter}</Typography>
                 <IconButton onClick={handleQuarterChangeRight}>
                   <KeyboardArrowRightIcon />
                 </IconButton>
               </Toolbar>
             </AppBar>
-            <Stack spacing={1} sx={{ maxHeight: "70vh", overflow: "auto" }}>
+            <Stack spacing={1} sx={{ maxHeight: "80vh", overflow: "auto" }}>
               {/* Loading */}
-              {isLoading && (
+              {playsIsLoading && (
                 <Stack sx={{ justifyContent: "center" }}>
                   <CircularProgress />
                 </Stack>
               )}
 
               {/* Request Recieved, Map plays to list */}
-              {!isLoading &&
+              {!playsIsLoading &&
                 playByPlay
                   .filter((play) => play.quarter === currentQuarter)
                   .map((play) => (
                     <>
-                      <nav aria-label='main mailbox folders'>
-                        <Link target='_blank' rel='noreferrer' href={play.url}>
+                      <nav aria-label='playbyplay'>
+                        <Link
+                          target='_blank'
+                          rel='noreferrer'
+                          href={play.url}
+                          sx={{ textDecoration: "none" }}>
                           <List>
                             <ListItem disablePadding>
                               <ListItemButton>
@@ -115,8 +153,10 @@ export default function GameDetails(props) {
                                       play.teamID +
                                       "/primary/L/logo.svg"
                                     }
+                                    sx={{ width: 56, height: 56 }}
                                   />
                                 </ListItemIcon>
+
                                 <ListItemText
                                   primary={play.description}
                                   secondary={
@@ -126,7 +166,18 @@ export default function GameDetails(props) {
                                     play.scoreAway +
                                     " Away"
                                   }
+                                  sx={{ textAlign: "center" }}
                                 />
+                                <ListItemIcon>
+                                  <Avatar
+                                    src={
+                                      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
+                                      play.playerID +
+                                      ".png"
+                                    }
+                                    sx={{ width: 56, height: 56 }}
+                                  />
+                                </ListItemIcon>
                               </ListItemButton>
                             </ListItem>
                           </List>

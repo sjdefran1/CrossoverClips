@@ -44,12 +44,13 @@ def getActionNumberToURLs(gameID: str) -> dict:
   }
 
   response = requests.get('https://stats.nba.com/stats/videodetailsasset', params=params, headers=headers)
-
+  #print(response)
   # with open("videos1.txt", "w") as f:
   #   f.write(json.dumps(response.json(), indent=1))
   # print(response.content)
 
   urls = response.json()['resultSets']['Meta']['videoUrls']
+  #print(urls)
   action_hex = {}
 
   # parse uid for each action number
@@ -60,6 +61,8 @@ def getActionNumberToURLs(gameID: str) -> dict:
           # ['9', 'e89c8c5a-78bb-4a1d-08af-b36491bffeda_1280x720.mp4']
           split = element['lurl'].split(f'{gameID}/')[1].split("/")
           action_hex.update({split[0]: split[1]})
+  
+  #print(json.dumps(action_hex, indent=1))
   return action_hex
 
 ### -------PlayByPlay--------------------------------------------------------
@@ -67,6 +70,7 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str) -> dict:
   url = f"https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_{gameID}.json"
   response = requests.request("GET", url, headers=headers)
   json_response = response.json()
+  # print(json_response)
 
   # Gets only each play from the game, excludes meta and headers
   actions = json_response['game']['actions']
@@ -81,8 +85,24 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str) -> dict:
       #print(json.dumps(action, indent=1))
       if(action['shotResult'] == 'Made'):
         act_num = action['actionNumber']
+        
+        #print(type(action_hex.get(f"{act_num}")))
+        # if no clip exists, rare occurence, continue loop
+        if action_hex.get(f"{act_num}") is None:
+           continue
+        #print(act_num)
         vid_url = base_video_url + f'{act_num}/' + action_hex.get(f"{act_num}")
-        #print(f"#{action['actionNumber']} {action['description']} {vid_url}")
+
+        # '11M57.00S'   
+        time_str = action['clock']
+        # '11'
+        time_min = time_str.split("PT")[1].split("M")[0]
+        # '52.23' || '41'
+        time_sec = time_str.split("PT")[1].split("M")[1]
+        # if ends in .00 get rid of it, else keep it
+        if time_sec.split(".")[1] == '00':
+           time_sec = time_str.split("PT")[1].split("M")[1].split(".")[0]
+
         update_val = {
            "description": action['description'],
            "url":  vid_url,
@@ -90,6 +110,8 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str) -> dict:
            "teamID": action['teamId'],
            "scoreHome": action['scoreHome'],
            "scoreAway": action['scoreAway'],
+           "time": f"{time_min}:{time_sec}",
+           "playerID": action['personId']
         }
        # desc_vid.update({action['description']: vid_url})
         #desc_vid.update({update_val})

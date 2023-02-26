@@ -18,7 +18,7 @@ class DateChosen extends React.Component {
       shouldRender: false,
     };
   }
-  submitMessageAxios = (e) => {
+  getGamesAxios = (e) => {
     const data = {
       //value: this.state.value.toString(),
       value: e.toString(),
@@ -41,6 +41,32 @@ class DateChosen extends React.Component {
         console.log(error);
       });
   };
+
+  // updateScoresAxios = (e) => {
+  //   const data = {
+  //     //value: this.state.value.toString(),
+  //     value: e.toString(),
+  //   };
+  //   this.setState({ value: e.toString() });
+  //   axios
+  //     .post("http://localhost:8000/updateScores", data)
+  //     .then((response) => {
+  //       //console.log(response.data);
+  //       //const data = JSON.parse(response.data);
+  //       if (response.data !== "no games") {
+  //         this.setState({ responseData: response.data, shouldRender: true });
+  //       } else {
+  //         this.setState({ shouldRender: false });
+  //       }
+  //       //console.log(this.responseData);
+  //       //console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
+  componentDidMount() {}
   render() {
     return (
       <>
@@ -60,7 +86,7 @@ class DateChosen extends React.Component {
                     value={this.state.value}
                     onChange={(newValue) => {
                       this.setState({ value: newValue });
-                      this.submitMessageAxios(newValue);
+                      this.getGamesAxios(newValue);
                     }}
                     renderInput={(params) => <TextField {...params} />}
                   />
