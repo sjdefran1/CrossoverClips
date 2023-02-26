@@ -75,9 +75,10 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str) -> dict:
   # Gets only each play from the game, excludes meta and headers
   actions = json_response['game']['actions']
   action_hex = getActionNumberToURLs(gameID=gameID)
-  desc_vid = {}
+
   desc_vid2 = []
   players_list = []
+  ids = []
 
   # {"players": [], "actions": []}
 
@@ -121,6 +122,7 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str) -> dict:
           action['playerNameI'])
         
         players_list.append(player)
+        ids.append(action['teamId'])
         #desc_vid.update({action['description']: vid_url})
         #desc_vid.update({update_val})
         desc_vid2.append(update_val)
@@ -129,7 +131,8 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str) -> dict:
   #return desc_vid2
   ret_dict = {
      "players": list(set(players_list)), # remove dups
-     "plays": desc_vid2
+     "plays": desc_vid2,
+     "team_ids": list(set(ids))
   }
   return ret_dict
 

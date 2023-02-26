@@ -20,7 +20,6 @@ import {
   CircularProgress,
   Paper,
 } from "@mui/material";
-import PlayerFilter from "./PlayerFilter";
 
 //const project = projects[0];
 export default function GameDash(props) {
@@ -38,8 +37,8 @@ export default function GameDash(props) {
     axios
       .post("http://localhost:8000/gameInfo", data)
       .then((response) => {
-        console.log(response.data);
         setGameInfo(response.data);
+        //console.log(response.data);
         //const data = JSON.parse(response.data);
       })
       .catch((error) => {
@@ -134,7 +133,6 @@ export default function GameDash(props) {
               </Grid>
             </Grid>
             <br></br>
-            <PlayerFilter propTest={gameInfo} />
           </Paper>
         </>
       )}

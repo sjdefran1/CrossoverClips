@@ -41,7 +41,7 @@ export default function GameDetails(props) {
     axios
       .post("http://localhost:8000/playByPlay", data)
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         setPlayByPlay(response.data);
         //const data = JSON.parse(response.data);
       })
@@ -53,19 +53,24 @@ export default function GameDetails(props) {
       });
   };
 
-  const handleQuarterChangeLeft = (val) => {
-    if (currentQuarter === 1) {
-      return;
-    }
-    setCurrentQuarter(currentQuarter - 1);
-  };
+  const handleQuarterChange = React.useCallback(
+    (val) => {
+      if (currentQuarter === 1 && val === 0) {
+        return;
+      }
+      if (currentQuarter === 4 && val === 1) {
+        return;
+      }
 
-  const handleQuarterChangeRight = (val) => {
-    if (currentQuarter === 4) {
-      return;
-    }
-    setCurrentQuarter(currentQuarter + 1);
-  };
+      if (val === 1) {
+        setCurrentQuarter(currentQuarter + 1);
+      }
+      if (val === 0) {
+        setCurrentQuarter(currentQuarter - 1);
+      }
+    },
+    [currentQuarter]
+  );
 
   React.useEffect(() => {
     getPlaysAxios(id);
@@ -82,7 +87,12 @@ export default function GameDetails(props) {
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <GameDash />
-            {!playsIsLoading && <PlayerFilter players={playByPlay.players} />}
+            {!playsIsLoading && (
+              <PlayerFilter
+                players={playByPlay.players}
+                teamIDs={playByPlay.team_ids}
+              />
+            )}
           </Grid>
           {/* ------------------------------------------------ */}
           {/* PlayByPlay */}
@@ -90,18 +100,18 @@ export default function GameDetails(props) {
           <Grid item xs={6}>
             <AppBar position='static' sx={{ borderRadius: 1 }}>
               <Toolbar sx={{ justifyContent: "center" }}>
-                <IconButton onClick={handleQuarterChangeLeft}>
+                <IconButton onClick={() => handleQuarterChange(0)}>
                   <KeyboardArrowLeftIcon />
                 </IconButton>
                 <Typography variant='h5' color='text.secondary'>
                   Quarter: {currentQuarter}
                 </Typography>
-                <IconButton onClick={handleQuarterChangeRight}>
+                <IconButton onClick={() => handleQuarterChange(1)}>
                   <KeyboardArrowRightIcon />
                 </IconButton>
               </Toolbar>
             </AppBar>
-            <Stack spacing={1} sx={{ maxHeight: "80vh", overflow: "auto" }}>
+            <Stack spacing={1} sx={{ maxHeight: "75vh", overflow: "auto" }}>
               {/* Loading */}
               {playsIsLoading && (
                 <Stack sx={{ justifyContent: "center" }}>
