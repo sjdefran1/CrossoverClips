@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import Main from "./components/Main.jsx";
 import GameDetails from "./components/GameDetails.jsx";
+import TopBar from "./components/TopBar.jsx";
 
 const darkTheme = createTheme({
   a: { textDecoration: "none" },
@@ -63,6 +64,7 @@ const App = () => {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <>
+          <TopBar />
           <BrowserRouter>
             <Routes>
               <Route exact path='/' element={<Main />} />

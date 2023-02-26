@@ -24,12 +24,15 @@ export default function GameList2(props) {
               {props.gameList.map((game) => (
                 <li key={game.gameID}>
                   <>
-                    <Link to={"/games/" + props.date + "/" + game.gameID}>
+                    <Link
+                      to={"/games/" + props.date + "/" + game.gameID}
+                      sx={{ textDecoration: "none" }}>
                       <Paper
                         variant='outlined'
                         sx={{
                           "&:hover": {
                             backgroundColor: "#696666",
+                            textDecoration: "none",
                           },
                         }}>
                         <Stack

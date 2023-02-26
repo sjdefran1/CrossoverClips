@@ -31,8 +31,14 @@ def games_info_by_date(year: str, month: str, day: str) -> dict:
         away_stats = line_score[i-1]
         game_id = away_stats[2]
         game_info = {
-            "home_name" : f"{home_stats[5]} {home_stats[6]}",
-            "away_name": f"{away_stats[5]} {away_stats[6]}",
+            "home_city" : f"{home_stats[5]}",
+            "home_name" : f"{home_stats[6]}",
+            "away_city": f"{away_stats[5]}",
+            "away_name": f"{away_stats[6]}",
+            "home_teamID": home_stats[3],
+            "away_teamID": away_stats[3],
+            "home_tri": home_stats[4],
+            "away_tri": away_stats[4],
             "home_record": home_stats[7],
             "away_record": away_stats[7],
             "home_pts": home_stats[22],

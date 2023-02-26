@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import { withRouter } from "react-router";
 import axios from "axios";
 import {
   Avatar,
@@ -22,15 +21,14 @@ import {
 } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import GameDash from "./GameDash";
 
 export default function GameDetails(props) {
   const { id } = useParams();
   const { date } = useParams();
   const [playByPlay, setPlayByPlay] = React.useState([]);
-  const [gameInfo, setGameInfo] = React.useState({});
   const [currentQuarter, setCurrentQuarter] = React.useState(1);
   const [playsIsLoading, setPlaysIsLoading] = React.useState(true);
-  const [gameInfoIsLoading, setGameInfoIsLoading] = React.useState(true);
 
   const getPlaysAxios = (e) => {
     const data = {
@@ -53,26 +51,6 @@ export default function GameDetails(props) {
       });
   };
 
-  const getGameInfoAxios = (e) => {
-    const data = {
-      //value: this.state.value.toString(),
-      gameID: e.toString(),
-      date: date,
-    };
-    axios
-      .post("http://localhost:8000/gameInfo", data)
-      .then((response) => {
-        console.log(response.data);
-        setGameInfo(response.data);
-        //const data = JSON.parse(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setGameInfoIsLoading(false); // Set isLoading back to false once the response is received
-      });
-  };
   const handleQuarterChangeLeft = (val) => {
     if (currentQuarter === 1) {
       return;
@@ -89,35 +67,32 @@ export default function GameDetails(props) {
 
   React.useEffect(() => {
     getPlaysAxios(id);
-    getGameInfoAxios(id);
+    // getGameInfoAxios(id);
     console.log("useeffect");
   }, []);
 
   return (
     <>
+      {/* GameInfo */}
+      {/* ------------------------------------------------ */}
+      <br></br>
       <Container maxWidth='lg'>
-        <Grid container>
+        <Grid container spacing={2}>
           <Grid item xs={6}>
-            {gameInfoIsLoading && (
-              <Stack sx={{ justifyContent: "center" }}>
-                <CircularProgress />
-              </Stack>
-            )}
-            {!gameInfoIsLoading && (
-              <>
-                <p>{id}</p>
-                <p>{date}</p>
-                <p>{gameInfo.home_name}</p>
-              </>
-            )}
+            <GameDash />
           </Grid>
+          {/* ------------------------------------------------ */}
+          {/* PlayByPlay */}
+          {/* ---------------------------------------------- */}
           <Grid item xs={6}>
-            <AppBar position='static'>
+            <AppBar position='static' sx={{ borderRadius: 1 }}>
               <Toolbar sx={{ justifyContent: "center" }}>
                 <IconButton onClick={handleQuarterChangeLeft}>
                   <KeyboardArrowLeftIcon />
                 </IconButton>
-                <Typography variant='h5'>Quarter: {currentQuarter}</Typography>
+                <Typography variant='h5' color='text.secondary'>
+                  Quarter: {currentQuarter}
+                </Typography>
                 <IconButton onClick={handleQuarterChangeRight}>
                   <KeyboardArrowRightIcon />
                 </IconButton>
@@ -168,6 +143,7 @@ export default function GameDetails(props) {
                                   }
                                   sx={{ textAlign: "center" }}
                                 />
+
                                 <ListItemIcon>
                                   <Avatar
                                     src={
@@ -188,6 +164,7 @@ export default function GameDetails(props) {
                   ))}
             </Stack>
           </Grid>
+          {/* ------------------------------------- */}
         </Grid>
       </Container>
     </>
