@@ -27,10 +27,11 @@ import PlayerFilter from "./PlayerFilter";
 export default function GameDetails(props) {
   const { id } = useParams();
   const { date } = useParams();
-  //const [playByPlay, setPlayByPlay] = React.useState([]);
   const [playByPlay, setPlayByPlay] = React.useState({});
   const [currentQuarter, setCurrentQuarter] = React.useState(1);
   const [playsIsLoading, setPlaysIsLoading] = React.useState(true);
+  const [filteredPlayers, setFilteredPlayers] = React.useState([]);
+  const [isFilteredPlayers, setIsFilteredPlayers] = React.useState(false);
 
   const getPlaysAxios = (e) => {
     const data = {
@@ -72,6 +73,14 @@ export default function GameDetails(props) {
     [currentQuarter]
   );
 
+  const getFilteredPlayers = (players) => {
+    setFilteredPlayers(players);
+    setIsFilteredPlayers(true);
+    if (players.length === 0) {
+      setIsFilteredPlayers(false);
+    }
+  };
+
   React.useEffect(() => {
     getPlaysAxios(id);
     // getGameInfoAxios(id);
@@ -91,8 +100,16 @@ export default function GameDetails(props) {
               <PlayerFilter
                 players={playByPlay.players}
                 teamIDs={playByPlay.team_ids}
+                setPlayerFilter={getFilteredPlayers}
               />
             )}
+
+            {filteredPlayers.map((player) => (
+              <>
+                <p>{player}</p>
+              </>
+            ))}
+            {isFilteredPlayers && <p>filter</p>}
           </Grid>
           {/* ------------------------------------------------ */}
           {/* PlayByPlay */}
@@ -121,8 +138,71 @@ export default function GameDetails(props) {
 
               {/* Request Recieved, Map plays to list */}
               {!playsIsLoading &&
+                !isFilteredPlayers &&
                 playByPlay.plays
                   .filter((play) => play.quarter === currentQuarter)
+                  .map((play) => (
+                    <>
+                      <nav aria-label='playbyplay'>
+                        <Link
+                          target='_blank'
+                          rel='noreferrer'
+                          href={play.url}
+                          sx={{ textDecoration: "none" }}>
+                          <List>
+                            <ListItem disablePadding>
+                              <ListItemButton>
+                                <ListItemIcon>
+                                  <Avatar
+                                    src={
+                                      "https://cdn.nba.com/logos/nba/" +
+                                      play.teamID +
+                                      "/primary/L/logo.svg"
+                                    }
+                                    sx={{ width: 56, height: 56 }}
+                                  />
+                                </ListItemIcon>
+
+                                <ListItemText
+                                  primary={play.description}
+                                  secondary={
+                                    "Home " +
+                                    play.scoreHome +
+                                    "-" +
+                                    play.scoreAway +
+                                    " Away " +
+                                    play.time
+                                  }
+                                  sx={{ textAlign: "center" }}
+                                />
+
+                                <ListItemIcon>
+                                  <Avatar
+                                    src={
+                                      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
+                                      play.playerID +
+                                      ".png"
+                                    }
+                                    sx={{ width: 56, height: 56 }}
+                                  />
+                                </ListItemIcon>
+                              </ListItemButton>
+                            </ListItem>
+                          </List>
+                        </Link>
+                      </nav>
+                      <Divider />
+                    </>
+                  ))}
+
+              {!playsIsLoading &&
+                isFilteredPlayers &&
+                playByPlay.plays
+                  .filter(
+                    (play) =>
+                      play.quarter === currentQuarter &&
+                      filteredPlayers.includes(play.playerID)
+                  )
                   .map((play) => (
                     <>
                       <nav aria-label='playbyplay'>

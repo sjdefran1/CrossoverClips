@@ -13,10 +13,13 @@ import {
   Grid,
   AppBar,
   Toolbar,
+  Button,
   Typography,
   IconButton,
   CircularProgress,
   Paper,
+  Checkbox,
+  FormControlLabel,
 } from "@mui/material";
 
 //const project = projects[0];
@@ -24,6 +27,7 @@ export default function PlayerFilter(props) {
   const teamIDs = props.teamIDs;
   const [currTeamId, setCurrTeamId] = React.useState(teamIDs[0]);
   const [teamIndex, setTeamIndex] = React.useState(0);
+  const [selectedPlayers, setSelectedPlayers] = React.useState([]);
 
   const handleTeamChange = React.useCallback(
     (val) => {
@@ -41,6 +45,22 @@ export default function PlayerFilter(props) {
     },
     [teamIndex]
   );
+
+  const handlePlayerSelect = (playerId) => {
+    // if (selectedPlayers.includes(playerId)) {
+    //   return;
+    // }
+    if (selectedPlayers.includes(playerId[0])) {
+      setSelectedPlayers(selectedPlayers.filter((id) => id !== playerId[0]));
+    } else {
+      setSelectedPlayers(selectedPlayers.concat(playerId[0]));
+    }
+    //props.setPlayerFilter(selectedPlayers);
+  };
+
+  const handleSave = () => {
+    props.setPlayerFilter(selectedPlayers);
+  };
 
   return (
     <>
@@ -76,9 +96,26 @@ export default function PlayerFilter(props) {
             .filter((player) => player[0] === currTeamId)
             .map((player) => (
               <>
-                <p>{player[1]}</p>
+                <FormControlLabel
+                  key={player[2]}
+                  label={player[1]}
+                  control={
+                    <Checkbox
+                      checked={selectedPlayers.includes(player[2])}
+                      onChange={() => handlePlayerSelect([player[2]])}
+                    />
+                  }
+                />
               </>
             ))}
+        <Button onClick={handleSave}>Save</Button>
+        <br></br>
+
+        {/* {selectedPlayers.map((player) => (
+          <>
+            <p>{player}</p>
+          </>
+        ))} */}
       </Paper>
     </>
   );

@@ -119,7 +119,7 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str) -> dict:
         }
         player = (
           action['teamId'],
-          action['playerNameI'])
+          action['playerNameI'], action['personId'])
         
         players_list.append(player)
         ids.append(action['teamId'])
