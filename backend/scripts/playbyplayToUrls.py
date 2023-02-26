@@ -77,6 +77,9 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str) -> dict:
   action_hex = getActionNumberToURLs(gameID=gameID)
   desc_vid = {}
   desc_vid2 = []
+  players_list = []
+
+  # {"players": [], "actions": []}
 
   # Base highlight url, will be appended to
   base_video_url = f'https://videos.nba.com/nba/pbp/media/{year}/{month}/{day}/{gameID}/'
@@ -111,14 +114,24 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str) -> dict:
            "scoreHome": action['scoreHome'],
            "scoreAway": action['scoreAway'],
            "time": f"{time_min}:{time_sec}",
-           "playerID": action['personId']
+           "playerID": action['personId'],  
         }
-       # desc_vid.update({action['description']: vid_url})
+        player = (
+          action['teamId'],
+          action['playerNameI'])
+        
+        players_list.append(player)
+        #desc_vid.update({action['description']: vid_url})
         #desc_vid.update({update_val})
         desc_vid2.append(update_val)
-  
+        
   #return desc_vid
-  return desc_vid2
+  #return desc_vid2
+  ret_dict = {
+     "players": list(set(players_list)), # remove dups
+     "plays": desc_vid2
+  }
+  return ret_dict
 
 #print(json.dumps(desc_vid, indent=1))
 

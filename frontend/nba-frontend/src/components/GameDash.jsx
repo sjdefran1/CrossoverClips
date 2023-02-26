@@ -20,6 +20,7 @@ import {
   CircularProgress,
   Paper,
 } from "@mui/material";
+import PlayerFilter from "./PlayerFilter";
 
 //const project = projects[0];
 export default function GameDash(props) {
@@ -133,6 +134,7 @@ export default function GameDash(props) {
               </Grid>
             </Grid>
             <br></br>
+            <PlayerFilter propTest={gameInfo} />
           </Paper>
         </>
       )}

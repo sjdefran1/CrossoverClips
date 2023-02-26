@@ -22,11 +22,13 @@ import {
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import GameDash from "./GameDash";
+import PlayerFilter from "./PlayerFilter";
 
 export default function GameDetails(props) {
   const { id } = useParams();
   const { date } = useParams();
-  const [playByPlay, setPlayByPlay] = React.useState([]);
+  //const [playByPlay, setPlayByPlay] = React.useState([]);
+  const [playByPlay, setPlayByPlay] = React.useState({});
   const [currentQuarter, setCurrentQuarter] = React.useState(1);
   const [playsIsLoading, setPlaysIsLoading] = React.useState(true);
 
@@ -80,6 +82,7 @@ export default function GameDetails(props) {
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <GameDash />
+            {!playsIsLoading && <PlayerFilter players={playByPlay.players} />}
           </Grid>
           {/* ------------------------------------------------ */}
           {/* PlayByPlay */}
@@ -108,7 +111,7 @@ export default function GameDetails(props) {
 
               {/* Request Recieved, Map plays to list */}
               {!playsIsLoading &&
-                playByPlay
+                playByPlay.plays
                   .filter((play) => play.quarter === currentQuarter)
                   .map((play) => (
                     <>
@@ -139,7 +142,8 @@ export default function GameDetails(props) {
                                     play.scoreHome +
                                     "-" +
                                     play.scoreAway +
-                                    " Away"
+                                    " Away " +
+                                    play.time
                                   }
                                   sx={{ textAlign: "center" }}
                                 />
