@@ -104,12 +104,12 @@ export default function GameDetails(props) {
               />
             )}
 
-            {filteredPlayers.map((player) => (
+            {/* {filteredPlayers.map((player) => (
               <>
                 <p>{player}</p>
               </>
             ))}
-            {isFilteredPlayers && <p>filter</p>}
+            {isFilteredPlayers && <p>filter</p>} */}
           </Grid>
           {/* ------------------------------------------------ */}
           {/* PlayByPlay */}

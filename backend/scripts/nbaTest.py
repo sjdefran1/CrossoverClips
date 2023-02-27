@@ -51,7 +51,7 @@ headers = {
 # CLOSEST ATTEMPT
 #=-----------------------------------------------------------------------
 
-url = "https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_0022200885.json"
+url = "https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_0022200908.json"
 
 response = requests.request("GET", url, headers=headers, data=payload)
 
@@ -84,5 +84,5 @@ for action in actions:
 # 
 #=================================================================================
 # actions file
-# with open("actions.txt", "w") as f:
-#   f.write(json.dumps(response.json()['game']['actions'], indent=1))
+with open("actions.txt", "w") as f:
+  f.write(json.dumps(response.json()['game']['actions'], indent=1))

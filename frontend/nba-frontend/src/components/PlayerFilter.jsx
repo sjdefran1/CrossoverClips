@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   Avatar,
   Stack,
+  Box,
   List,
   ListItem,
   ListItemText,
@@ -62,61 +63,148 @@ export default function PlayerFilter(props) {
     props.setPlayerFilter(selectedPlayers);
   };
 
+  const clearPlayers = () => {
+    setSelectedPlayers([]);
+    props.setPlayerFilter([]);
+  };
+
   return (
     <>
       <br></br>
+      <Box sx={{ maxHeight: "50vh", overflow: "auto" }}>
+        <Paper>
+          <AppBar position='static' sx={{ borderRadius: 1 }}>
+            <Toolbar sx={{ justifyContent: "center" }}>
+              <Stack direction='row' spacing={20}>
+                <IconButton onClick={() => handleTeamChange(0)}>
+                  <Avatar
+                    src={
+                      "https://cdn.nba.com/logos/nba/" +
+                      teamIDs[0] +
+                      "/primary/L/logo.svg"
+                    }
+                  />
+                </IconButton>
 
-      <Paper>
-        <AppBar position='static' sx={{ borderRadius: 1 }}>
-          <Toolbar sx={{ justifyContent: "center" }}>
-            <IconButton onClick={() => handleTeamChange(0)}>
-              <Avatar
-                src={
-                  "https://cdn.nba.com/logos/nba/" +
-                  teamIDs[0] +
-                  "/primary/L/logo.svg"
-                }
-              />
-            </IconButton>
+                <IconButton onClick={() => handleTeamChange(1)}>
+                  <Avatar
+                    src={
+                      "https://cdn.nba.com/logos/nba/" +
+                      teamIDs[1] +
+                      "/primary/L/logo.svg"
+                    }
+                  />
+                </IconButton>
+              </Stack>
+            </Toolbar>
+          </AppBar>
+          <Container>
+            <Grid container>
+              <Grid item xs={6}>
+                <Stack
+                  direction='column'
+                  spacing={1}
+                  sx={{
+                    justifyContent: "center",
+                  }}>
+                  {props.players &&
+                    props.players
+                      .filter((player) => player[0] === teamIDs[0])
+                      .map((player) => (
+                        <>
+                          <Stack direction='row'>
+                            <Avatar
+                              src={
+                                "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
+                                player[2] +
+                                ".png"
+                              }
+                              sx={{ width: 40, height: 40, ml: 1 }}
+                            />
+                            <FormControlLabel
+                              key={player[2]}
+                              label={player[1]}
+                              sx={{ ml: 1 }}
+                              control={
+                                <Checkbox
+                                  checked={selectedPlayers.includes(player[2])}
+                                  onChange={() =>
+                                    handlePlayerSelect([player[2]])
+                                  }
+                                />
+                              }
+                            />
+                          </Stack>
+                        </>
+                      ))}
+                </Stack>
+              </Grid>
+              <Grid item xs={6}>
+                <Stack
+                  direction='column'
+                  spacing={1}
+                  sx={{
+                    justifyContent: "center",
+                  }}>
+                  {props.players &&
+                    props.players
+                      .filter((player) => player[0] === teamIDs[1])
+                      .map((player) => (
+                        <>
+                          <Stack direction='row'>
+                            <Avatar
+                              src={
+                                "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
+                                player[2] +
+                                ".png"
+                              }
+                              sx={{ width: 40, height: 40, ml: 1 }}
+                            />
+                            <FormControlLabel
+                              key={player[2]}
+                              label={player[1]}
+                              sx={{ ml: 1 }}
+                              control={
+                                <Checkbox
+                                  checked={selectedPlayers.includes(player[2])}
+                                  onChange={() =>
+                                    handlePlayerSelect([player[2]])
+                                  }
+                                />
+                              }
+                            />
+                          </Stack>
+                        </>
+                      ))}
+                </Stack>
+              </Grid>
+            </Grid>
+          </Container>
 
-            <IconButton onClick={() => handleTeamChange(1)}>
-              <Avatar
-                src={
-                  "https://cdn.nba.com/logos/nba/" +
-                  teamIDs[1] +
-                  "/primary/L/logo.svg"
-                }
-              />
-            </IconButton>
-            <IconButton onClick={handleTeamChange}></IconButton>
-          </Toolbar>
-        </AppBar>
-        {props.players &&
-          props.players
-            .filter((player) => player[0] === currTeamId)
-            .map((player) => (
-              <>
-                <FormControlLabel
-                  key={player[2]}
-                  label={player[1]}
-                  control={
-                    <Checkbox
-                      checked={selectedPlayers.includes(player[2])}
-                      onChange={() => handlePlayerSelect([player[2]])}
-                    />
-                  }
-                />
-              </>
-            ))}
-        <Button onClick={handleSave}>Save</Button>
-        <br></br>
+          <br></br>
 
-        {/* {selectedPlayers.map((player) => (
+          {/* {selectedPlayers.map((player) => (
           <>
             <p>{player}</p>
           </>
         ))} */}
-      </Paper>
+        </Paper>
+      </Box>
+      <Stack
+        direction='row'
+        spacing={1}
+        sx={{ justifyContent: "center", mt: 1 }}>
+        <Button variant='outlined' color='success' onClick={handleSave} sx={{}}>
+          Save
+        </Button>
+        <Button
+          variant='outlined'
+          color='success'
+          onClick={clearPlayers}
+          sx={{}}>
+          Clear
+        </Button>
+      </Stack>
     </>
   );
 }

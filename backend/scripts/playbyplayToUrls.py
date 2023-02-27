@@ -139,6 +139,48 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str) -> dict:
 #print(json.dumps(desc_vid, indent=1))
 
 
+def handle_FGM(action: dict, action_hex: dict, base_video_url: str) -> tuple:
+  if(action['isFieldGoal']):
+      #print(json.dumps(action, indent=1))
+      if(action['shotResult'] == 'Made'):
+        act_num = action['actionNumber']
+        
+        #print(type(action_hex.get(f"{act_num}")))
+        # if no clip exists, rare occurence, continue loop
+        if action_hex.get(f"{act_num}") is None:
+           return
+        #print(act_num)
+        vid_url = base_video_url + f'{act_num}/' + action_hex.get(f"{act_num}")
+
+        # '11M57.00S'   
+        time_str = action['clock']
+        # '11'
+        time_min = time_str.split("PT")[1].split("M")[0]
+        # '52.23' || '41'
+        time_sec = time_str.split("PT")[1].split("M")[1]
+        # if ends in .00 get rid of it, else keep it
+        if time_sec.split(".")[1] == '00':
+           time_sec = time_str.split("PT")[1].split("M")[1].split(".")[0]
+
+        update_val = {
+           "description": action['description'],
+           "url":  vid_url,
+           "quarter": action['period'],
+           "teamID": action['teamId'],
+           "scoreHome": action['scoreHome'],
+           "scoreAway": action['scoreAway'],
+           "time": f"{time_min}:{time_sec}",
+           "playerID": action['personId'],  
+        }
+        player = (
+          action['teamId'],
+          action['playerNameI'], action['personId'])
+        
+        return (update_val, player)
+
+def handle_AST():
+   ...
+
 def main():
   test = getPlayByPlayWithUrl(gameID='0012200005', year='2022', month='10', day='02' )
   print(json.dumps(test, indent=1))
@@ -148,3 +190,11 @@ def main():
 if __name__ == "__main__":
     main()
 
+
+
+# 
+# 
+# 
+# 
+# 
+# 
