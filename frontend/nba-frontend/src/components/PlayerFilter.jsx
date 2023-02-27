@@ -22,6 +22,7 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
+import StatFilter from "./StatFilters";
 
 //const project = projects[0];
 export default function PlayerFilter(props) {
@@ -29,6 +30,7 @@ export default function PlayerFilter(props) {
   const [currTeamId, setCurrTeamId] = React.useState(teamIDs[0]);
   const [teamIndex, setTeamIndex] = React.useState(0);
   const [selectedPlayers, setSelectedPlayers] = React.useState([]);
+  const [statFilterFrom, setStatFilterFrom] = React.useState("FGM");
 
   const handleTeamChange = React.useCallback(
     (val) => {
@@ -61,11 +63,17 @@ export default function PlayerFilter(props) {
 
   const handleSave = () => {
     props.setPlayerFilter(selectedPlayers);
+    props.getStatFilter(statFilterFrom);
   };
 
   const clearPlayers = () => {
     setSelectedPlayers([]);
     props.setPlayerFilter([]);
+  };
+
+  const getStatFilter = (filter) => {
+    setStatFilterFrom(filter);
+    //props.getStatFilter(filter);
   };
 
   return (
@@ -182,18 +190,13 @@ export default function PlayerFilter(props) {
           </Container>
 
           <br></br>
-
-          {/* {selectedPlayers.map((player) => (
-          <>
-            <p>{player}</p>
-          </>
-        ))} */}
         </Paper>
       </Box>
       <Stack
         direction='row'
         spacing={1}
         sx={{ justifyContent: "center", mt: 1 }}>
+        <StatFilter updateFilter={getStatFilter} />
         <Button variant='outlined' color='success' onClick={handleSave} sx={{}}>
           Save
         </Button>
@@ -202,7 +205,7 @@ export default function PlayerFilter(props) {
           color='success'
           onClick={clearPlayers}
           sx={{}}>
-          Clear
+          Clear Players
         </Button>
       </Stack>
     </>

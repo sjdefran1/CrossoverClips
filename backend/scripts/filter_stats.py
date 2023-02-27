@@ -42,5 +42,4 @@ def filter_stats(stat: str):
 
 
 if __name__ == '__main__':
-
     filter_stats('AST')

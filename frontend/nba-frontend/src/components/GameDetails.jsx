@@ -32,12 +32,14 @@ export default function GameDetails(props) {
   const [playsIsLoading, setPlaysIsLoading] = React.useState(true);
   const [filteredPlayers, setFilteredPlayers] = React.useState([]);
   const [isFilteredPlayers, setIsFilteredPlayers] = React.useState(false);
+  const [statFilterFrom, setStatFilterFrom] = React.useState("FGM");
 
   const getPlaysAxios = (e) => {
     const data = {
       //value: this.state.value.toString(),
       gameID: e.toString(),
       date: date,
+      statType: statFilterFrom,
     };
     axios
       .post("http://localhost:8000/playByPlay", data)
@@ -81,10 +83,13 @@ export default function GameDetails(props) {
     }
   };
 
+  const getStatFilter = (stat) => {
+    setStatFilterFrom(stat);
+    setTimeout(getPlaysAxios(id), 1000);
+  };
+
   React.useEffect(() => {
     getPlaysAxios(id);
-    // getGameInfoAxios(id);
-    console.log("useeffect");
   }, []);
 
   return (
@@ -92,16 +97,20 @@ export default function GameDetails(props) {
       {/* GameInfo */}
       {/* ------------------------------------------------ */}
       <br></br>
+      {statFilterFrom}
       <Container maxWidth='lg'>
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <GameDash />
             {!playsIsLoading && (
-              <PlayerFilter
-                players={playByPlay.players}
-                teamIDs={playByPlay.team_ids}
-                setPlayerFilter={getFilteredPlayers}
-              />
+              <>
+                <PlayerFilter
+                  players={playByPlay.players}
+                  teamIDs={playByPlay.team_ids}
+                  setPlayerFilter={getFilteredPlayers}
+                  getStatFilter={getStatFilter}
+                />
+              </>
             )}
 
             {/* {filteredPlayers.map((player) => (

@@ -37,6 +37,12 @@ class DateStr(BaseModel):
 class PlayByPlayStr(BaseModel):
     gameID: str
     date: str
+    statType: str
+
+class GameInfo(BaseModel):
+    date: str
+    gameID: str
+
 # -------------------------------------
 
 # FASTAPI
@@ -93,12 +99,12 @@ async def get_play_by_play(data: PlayByPlayStr):
     #print(data.gameID + '\n' + data.date)
     new_date = fix_date(data.date)
     split_date = new_date.split('/')
-    plays = getPlayByPlayWithUrl(gameID=data.gameID, year=split_date[2], day=split_date[1], month=split_date[0])
+    plays = getPlayByPlayWithUrl(gameID=data.gameID, year=split_date[2], day=split_date[1], month=split_date[0], stat_type=data.statType)
     #print(plays['team_ids'])
     return JSONResponse(content=plays)
 
 @app.post('/gameInfo')
-async def get_game_info_handler(data: PlayByPlayStr):
+async def get_game_info_handler(data: GameInfo):
     new_date = fix_date(data.date)
     split_date = new_date.split('/')
     game_info = get_game_info(gameID=data.gameID, year=split_date[2], day=split_date[1], month=split_date[0])
