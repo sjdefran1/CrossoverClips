@@ -42,8 +42,10 @@ def getActionNumberToURLs(gameID: str, stat_type='FGM') -> dict:
       #'StartRange': '0', # not required
       'TeamID': '0', # required //
   }
-
-  response = requests.get('https://stats.nba.com/stats/videodetailsasset', params=params, headers=headers)
+  try:
+    response = requests.get('https://stats.nba.com/stats/videodetailsasset', params=params, headers=headers, timeout=15)
+  except:
+    print("request Timeout")
   #print(response)
   # with open("videos1.txt", "w") as f:
   #   f.write(json.dumps(response.json(), indent=1))
@@ -63,13 +65,17 @@ def getActionNumberToURLs(gameID: str, stat_type='FGM') -> dict:
           action_hex.update({split[0]: split[1]})
   
   #print(json.dumps(action_hex, indent=1))
-  print(action_hex)
+  #print(action_hex)
   return action_hex
 
 ### -------PlayByPlay--------------------------------------------------------
 def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str, stat_type='FGM') -> dict:
   url = f"https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_{gameID}.json"
-  response = requests.request("GET", url, headers=headers)
+  try:
+    response = requests.request("GET", url, headers=headers, timeout=15)
+  except:
+    print("request Timeout")
+
   json_response = response.json()
   # print(json_response)
 
@@ -193,7 +199,7 @@ def handle_BLK(action: dict, action_hex: dict, base_video_url: str) -> tuple:
     action['teamId'],
     action['playerName'], action['personId']
   )
-  print(update_val)
+  #print(update_val)
   return (update_val, player)
 
 

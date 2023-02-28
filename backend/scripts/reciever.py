@@ -21,13 +21,13 @@ def fix_date(date: str):
 
 # Scheduler
 # ------------------------------------------------
-def update_scores_job():
-    print(f"Updating Scores @ {str(datetime.now())}")
-    update_scores()
-    print("Scores Updated")
+# def update_scores_job():
+#     print(f"Updating Scores @ {str(datetime.now())}")
+#     update_scores()
+#     print("Scores Updated")
 
-scheduler = BackgroundScheduler()
-scheduler.add_job(update_scores_job, 'interval', seconds=60)
+# scheduler = BackgroundScheduler()
+# scheduler.add_job(update_scores_job, 'interval', seconds=60)
 # -----------------------------------------------------
 
 # Data Models for json Requests
@@ -69,12 +69,12 @@ app.add_middleware(
 # -------------------------------------------
 @app.on_event("startup")
 async def startup_event():
-    scheduler.start()
-    print("Started Scheduler")
+    #scheduler.start()
+    print("Started Scheduler**")
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    scheduler.shutdown()
+    #scheduler.shutdown()
     print("Scheduler shutdown..")
 # ---------------------------------------------
 

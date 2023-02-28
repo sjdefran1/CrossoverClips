@@ -23,6 +23,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import GameDash from "./GameDash";
 import PlayerFilter from "./PlayerFilter";
+import PlaySecondary from "./PlaySecondary";
 
 export default function GameDetails(props) {
   const { id } = useParams();
@@ -96,10 +97,8 @@ export default function GameDetails(props) {
     <>
       {/* GameInfo */}
       {/* ------------------------------------------------ */}
-      <br></br>
-      {statFilterFrom}
       <Container maxWidth='lg'>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} paddingTop>
           <Grid item xs={6}>
             <GameDash />
             {!playsIsLoading && (
@@ -129,7 +128,7 @@ export default function GameDetails(props) {
                 <IconButton onClick={() => handleQuarterChange(0)}>
                   <KeyboardArrowLeftIcon />
                 </IconButton>
-                <Typography variant='h5' color='text.secondary'>
+                <Typography variant='body1' color='text.secondary'>
                   Quarter: {currentQuarter}
                 </Typography>
                 <IconButton onClick={() => handleQuarterChange(1)}>
@@ -137,11 +136,12 @@ export default function GameDetails(props) {
                 </IconButton>
               </Toolbar>
             </AppBar>
-            <Stack spacing={1} sx={{ maxHeight: "75vh", overflow: "auto" }}>
+            <Stack sx={{ maxHeight: "75vh", overflow: "auto" }}>
               {/* Loading */}
               {playsIsLoading && (
                 <Stack sx={{ justifyContent: "center" }}>
-                  <CircularProgress />
+                  <br></br>
+                  <CircularProgress sx={{ ml: "50%" }} />
                 </Stack>
               )}
 
@@ -174,13 +174,24 @@ export default function GameDetails(props) {
 
                                 <ListItemText
                                   primary={play.description}
+                                  // secondary={
+                                  //   "Home " +
+                                  //   play.scoreHome +
+                                  //   "-" +
+                                  //   play.scoreAway +
+                                  //   " Away " +
+                                  //   play.time
+                                  // }
                                   secondary={
-                                    "Home " +
-                                    play.scoreHome +
-                                    "-" +
-                                    play.scoreAway +
-                                    " Away " +
-                                    play.time
+                                    <PlaySecondary
+                                      stuff={[
+                                        play.scoreHome,
+                                        play.scoreAway,
+                                        play.time,
+                                        playByPlay.team_ids[0],
+                                        playByPlay.team_ids[1],
+                                      ]}
+                                    />
                                   }
                                   sx={{ textAlign: "center" }}
                                 />

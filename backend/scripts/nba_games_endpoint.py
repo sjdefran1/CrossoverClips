@@ -33,3 +33,7 @@ def update_scores() -> None:
     with open("../txt/games_nba_endpoint.txt", "w") as f:
         f.write(json.dumps(schedule_dict))
 
+
+
+if __name__ == '__main__':
+    update_scores()

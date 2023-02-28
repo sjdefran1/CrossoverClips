@@ -1,6 +1,6 @@
 from playbyplayToUrls import getPlayByPlayWithUrl
 from moviepy.editor import VideoFileClip, concatenate_videoclips
-from game_list_for_date import choose_game
+#from game_list_for_date import choose_game
 import requests
 import shutil
 import os
@@ -10,6 +10,8 @@ from time import sleep
 def create_video(gameID: str, year: str, month: str, day: str, matchup: str):
     print("getting plays")
     plays = getPlayByPlayWithUrl(gameID=gameID, year=year, month=month, day=day)
+    plays = plays['plays']
+   # print(plays)
     print("Got plays")
 
     dir_path = 'temp_clips_folder_' + matchup
@@ -17,13 +19,13 @@ def create_video(gameID: str, year: str, month: str, day: str, matchup: str):
         # create temp dir
         os.makedirs(dir_path)
         print(f"Directory {dir_path} created")
-
         # download and append each clip
         clips = []        
         for i, play in enumerate(plays):
+            #print(play)
             # Request mp4 from nba, download it into temp directory
             print(f"Getting play ({i+1}/{len(plays)})\n")
-            response = requests.get(plays.get(play))
+            response = requests.get(play.get('url'))
             clip_filename = os.path.join(dir_path, f'{i}_vid.mp4')
             with open(clip_filename, 'w+b') as f:
                 f.write(response.content)
@@ -51,5 +53,5 @@ def create_video(gameID: str, year: str, month: str, day: str, matchup: str):
         print(f"Directory {dir_path} deleted")
 
 if __name__ == "__main__":
-    #create_video(gameID='0012200005', year='2022', month='10', day='02')
-    choose_game(create_video_yn='y')
+    create_video(gameID='0022200917', year='2023', month='02', day='26', matchup='PORvsHou')
+    #choose_game(create_video_yn='y')

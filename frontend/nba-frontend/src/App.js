@@ -6,8 +6,6 @@ import GameDetails from "./components/GameDetails.jsx";
 import TopBar from "./components/TopBar.jsx";
 
 const darkTheme = createTheme({
-  a: { textDecoration: "none" },
-
   palette: {
     mode: "dark",
     secondary: {

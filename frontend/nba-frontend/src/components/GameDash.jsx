@@ -58,7 +58,8 @@ export default function GameDash(props) {
     <>
       {gameInfoIsLoading && (
         <Stack sx={{ justifyContent: "center" }}>
-          <CircularProgress />
+          <br></br>
+          <CircularProgress sx={{ ml: "50%" }} />
         </Stack>
       )}
       {!gameInfoIsLoading && (
@@ -106,10 +107,15 @@ export default function GameDash(props) {
                   </Typography>
                 </Stack>
                 <Stack
-                  direction='row'
-                  spacing={5}
+                  direction='column'
+                  paddingTop
                   sx={{ alignItems: "center", justifyContent: "center" }}>
-                  <Typography color='text.secondary'>Score</Typography>
+                  <Typography variant='body1' color='text.secondary'>
+                    Final
+                  </Typography>
+                  <Typography variant='body2' color='text.secondary'>
+                    {gameInfo.away_tri} @ {gameInfo.home_tri}
+                  </Typography>
                 </Stack>
               </Grid>
               <Grid item xs={4}>

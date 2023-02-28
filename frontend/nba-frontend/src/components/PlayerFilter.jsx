@@ -195,6 +195,7 @@ export default function PlayerFilter(props) {
       <Stack
         direction='row'
         spacing={1}
+        paddingBottom
         sx={{ justifyContent: "center", mt: 1 }}>
         <StatFilter updateFilter={getStatFilter} />
         <Button variant='outlined' color='success' onClick={handleSave} sx={{}}>

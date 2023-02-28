@@ -1,27 +1,5 @@
 import * as React from "react";
-import {
-  Avatar,
-  Stack,
-  Box,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Divider,
-  ListItemButton,
-  Link,
-  Container,
-  Grid,
-  AppBar,
-  Toolbar,
-  Button,
-  Typography,
-  IconButton,
-  CircularProgress,
-  Paper,
-  Checkbox,
-  FormControlLabel,
-} from "@mui/material";
+import { Box, Checkbox, FormControlLabel } from "@mui/material";
 
 export default function StatFilter(props) {
   const [statTypes, setStatTypes] = React.useState(["FGM", "AST", "BLK"]);
