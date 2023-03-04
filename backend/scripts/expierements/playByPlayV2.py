@@ -1,6 +1,7 @@
 import requests
 import json
 
+
 headers = {
     'Accept': '*/*',
     'Accept-Language': 'en-US,en;q=0.9',
@@ -16,18 +17,14 @@ headers = {
     'sec-ch-ua-platform': '"macOS"',
 }
 
-#og
-#url = "https://stats.nba.com/stats/leaguegamelog?Counter=0&DateFrom=&DateTo=&Direction=ASC&LeagueID=00&PlayerOrTeam=T&Season=2022-23&SeasonType=Regular+Season&Sorter=DATE"
+url="https://stats.nba.com/stats/playbyplayv2?EndPeriod=1&GameID=0021600001&StartPeriod=1"
 
-#Older szns url
-url = "https://stats.nba.com/stats/leaguegamelog?Counter=0&DateFrom=&DateTo=&Direction=ASC&LeagueID=00&PlayerOrTeam=T&Season=2013-14&SeasonType=Regular+Season&Sorter=DATE"
+response = requests.get(url=url, headers=headers)
 
-response = requests.get(url, headers=headers)
+response = response.json()
 
-json_response = response.json()
+print(json.dumps(response, indent=1))
 
-
-
-with open("../txt/games_2013_test.txt", "w") as f:
-    f.write(json.dumps(json_response, indent=1))
+with open("../../txt/playByPlayV2.txt", "w") as f:
+    f.write(json.dumps(response, indent=1))
 

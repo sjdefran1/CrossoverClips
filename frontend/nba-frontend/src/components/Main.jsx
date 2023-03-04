@@ -1,9 +1,9 @@
 import * as React from "react";
 import dayjs from "dayjs";
-import TextField from "@mui/material/TextField";
+// import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
+// kimport { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
 import axios from "axios";
 import { Container, Grid, Typography } from "@mui/material";
@@ -14,7 +14,8 @@ class DateChosen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: dayjs("2023-02-04"),
+      //value: dayjs("2023-02-04"),
+      value: dayjs(),
       responseData: [],
       shouldRender: false,
     };
@@ -47,6 +48,14 @@ class DateChosen extends React.Component {
     this.getGamesAxios(this.state.value);
   }
 
+  // disableYear(year) {
+  //   console.log(year);
+  //   if (year < 2014) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
   render() {
     return (
       <>
@@ -77,6 +86,8 @@ class DateChosen extends React.Component {
                     /> */}
                   <Paper variant='outlined' sx={{ borderRadius: 4 }}>
                     <CalendarPicker
+                      minDate={dayjs("2014-08-16")}
+                      maxDate={dayjs().add(7, "day")}
                       openTo='day'
                       onChange={(newValue) => {
                         this.setState({ value: newValue });

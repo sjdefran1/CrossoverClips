@@ -1,6 +1,5 @@
 import json
 
-## needs major cleaning up
 def get_schedule() -> dict:
     # League Schedule to json
     with open("../txt/games_nba_endpoint.txt", "r") as f:
@@ -33,8 +32,6 @@ def get_schedule() -> dict:
         
         # {'09/30/2022':[games list]}
         day_games.update({day.split(" ")[0]: game_list})
-     
-
     return day_games
 
 def get_games_on_date(date: str):
@@ -44,9 +41,6 @@ def get_games_on_date(date: str):
     except:
          return 'No games found on ' + date
    
-
-
-
 # ------------------------------
 def main():
     s = get_schedule()

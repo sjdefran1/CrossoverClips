@@ -21,13 +21,13 @@ def fix_date(date: str):
 
 # Scheduler
 # ------------------------------------------------
-# def update_scores_job():
-#     print(f"Updating Scores @ {str(datetime.now())}")
-#     update_scores()
-#     print("Scores Updated")
+def update_scores_job():
+    print(f"Updating Scores @ {str(datetime.now())}")
+    update_scores()
+    print("Scores Updated")
 
-# scheduler = BackgroundScheduler()
-# scheduler.add_job(update_scores_job, 'interval', seconds=60)
+scheduler = BackgroundScheduler()
+scheduler.add_job(update_scores_job, 'interval', seconds=60 * 5)
 # -----------------------------------------------------
 
 # Data Models for json Requests
@@ -69,12 +69,12 @@ app.add_middleware(
 # -------------------------------------------
 @app.on_event("startup")
 async def startup_event():
-    #scheduler.start()
+    scheduler.start()
     print("Started Scheduler**")
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    #scheduler.shutdown()
+    scheduler.shutdown()
     print("Scheduler shutdown..")
 # ---------------------------------------------
 
@@ -82,6 +82,7 @@ async def shutdown_event():
 # ---------------------------------------------
 @app.post("/date")
 async def get_games_on_date_controller(data: DateStr):
+    print('Requested ' + data.value)
     date = fix_date(data.value)
     games = get_games_on_date(date)
     #print(json.dumps(games, indent=1))
@@ -105,6 +106,7 @@ async def get_play_by_play(data: PlayByPlayStr):
 
 @app.post('/gameInfo')
 async def get_game_info_handler(data: GameInfo):
+    
     new_date = fix_date(data.date)
     split_date = new_date.split('/')
     game_info = get_game_info(gameID=data.gameID, year=split_date[2], day=split_date[1], month=split_date[0])
