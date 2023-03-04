@@ -18,7 +18,7 @@ export default function PlaySecondary(props) {
         />
 
         <Typography variant='subtitle1'>
-          {props.stuff[0]} - {props.stuff[1]}
+          {props.stuff[1]} - {props.stuff[0]}
         </Typography>
         <Avatar
           src={
