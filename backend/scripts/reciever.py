@@ -10,6 +10,10 @@ from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 import json
 
+from backend.scripts.testFolder import function_test
+
+
+
 # Helpers
 # ---------------------------
 def fix_date(date: str):

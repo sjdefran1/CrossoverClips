@@ -26,7 +26,7 @@ def getActionNumberToURLs(gameID: str, stat_type='FGM') -> dict:
       'Period': '0', # required //
       'PlayerID': '0', # required nullable
       #'RangeType': '0', # not required
-      'Season': '2013-14', # not required
+      'Season': '2017-18', # not required
       #'SeasonType': 'Regular Season', # not required
       #'StartPeriod': '0', # not required
       #'StartRange': '0', # not required
@@ -64,6 +64,8 @@ def getActionNumberToURLs(gameID: str, stat_type='FGM') -> dict:
 # pre 2019-2020 : playByPlay does not work 
 # 2014-2015 : videoAssets still working, before does not it seems
 
+#https://videos.nba.com/nba/pbp/media/2017/10/17/0021700001/450/a69cb4f2-ca21-57e7-f444-c3791bd4c1eb_1280x720.mp4
+
 if __name__ == '__main__':
-   s = getActionNumberToURLs(gameID="0021300003")
+   s = getActionNumberToURLs(gameID="0021700001")
    print(json.dumps(s, indent=1))
