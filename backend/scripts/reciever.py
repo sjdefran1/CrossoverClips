@@ -10,9 +10,7 @@ from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 import json
 
-from backend.scripts.testFolder import function_test
-
-
+from db.gamesController import get_games_on_date_db
 
 # Helpers
 # ---------------------------
@@ -20,6 +18,12 @@ def fix_date(date: str):
     date_format = "%a, %d %b %Y %H:%M:%S %Z"
     parsed_date = datetime.strptime(date, date_format)
     new_date = parsed_date.strftime("%m/%d/%Y")
+    return new_date
+
+def fix_date_db(date: str):
+    date_format = "%a, %d %b %Y %H:%M:%S %Z"
+    parsed_date = datetime.strptime(date, date_format)
+    new_date = parsed_date.strftime("%Y-%m-%d")
     return new_date
 # ---------------------------------------
 
@@ -90,7 +94,9 @@ async def get_games_on_date_controller(data: DateStr):
     date = fix_date(data.value)
     games = get_games_on_date(date)
     #print(json.dumps(games, indent=1))
-    
+    db_date = fix_date_db(data.value)
+    get_games_on_date_db(db_date)
+    print(db_date)
     # if no games type will be string
     if type(games) is str:
         return "no games"
@@ -102,6 +108,7 @@ async def get_games_on_date_controller(data: DateStr):
 async def get_play_by_play(data: PlayByPlayStr):
     #s = getPlayByPlayWithUrl(data.gameID)
     #print(data.gameID + '\n' + data.date)
+
     new_date = fix_date(data.date)
     split_date = new_date.split('/')
     plays = getPlayByPlayWithUrl(gameID=data.gameID, year=split_date[2], day=split_date[1], month=split_date[0], stat_type=data.statType)
