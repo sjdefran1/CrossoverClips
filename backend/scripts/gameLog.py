@@ -1,5 +1,6 @@
 import requests
 import json
+import datetime
 
 headers = {
     'Accept': '*/*',
@@ -19,15 +20,102 @@ headers = {
 #og
 #url = "https://stats.nba.com/stats/leaguegamelog?Counter=0&DateFrom=&DateTo=&Direction=ASC&LeagueID=00&PlayerOrTeam=T&Season=2022-23&SeasonType=Regular+Season&Sorter=DATE"
 
-#Older szns url
-url = "https://stats.nba.com/stats/leaguegamelog?Counter=0&DateFrom=&DateTo=&Direction=ASC&LeagueID=00&PlayerOrTeam=T&Season=2013-14&SeasonType=Regular+Season&Sorter=DATE"
+def get_today_json():
+    season = '2022-23'
+    today = str(datetime.date.today())
+    print(today)
+    url = f"https://stats.nba.com/stats/leaguegamelog?Counter=0&DateFrom=&DateTo=&Direction=ASC&LeagueID=00&PlayerOrTeam=T&Season={season}&SeasonType=Regular+Season&Sorter=DATE"
+    response = requests.get(url, headers=headers)
+    json_response = response.json()
+    return json_response
 
-response = requests.get(url, headers=headers)
+def get_season_json(season: str):
+    #Older szns url
+    url = f"https://stats.nba.com/stats/leaguegamelog?Counter=0&DateFrom=&DateTo=&Direction=ASC&LeagueID=00&PlayerOrTeam=T&Season={season}&SeasonType=Regular+Season&Sorter=DATE"
 
-json_response = response.json()
+    response = requests.get(url, headers=headers)
 
+    json_response = response.json()
+    with open("../txt/games_2019_test.txt", "w") as f:
+        f.write(json.dumps(json_response, indent=1))
+    return json_response
 
+# if today = 0 gets season, if 1 gets only today
+def parse_season_json(season: str, today=0):
+    if today == 0:
+        season_json = get_season_json(season)
+    else:
+        season_json = get_today_json()
+    stat_headers = season_json['resultSets'][0]['headers']
+    game_list = season_json['resultSets'][0]['rowSet']
 
-with open("../txt/games_2013_test.txt", "w") as f:
-    f.write(json.dumps(json_response, indent=1))
+    #parsed_game_list = []
+    season_game_dict = {}
+    for game in game_list:
+        game_id = game[4]
+        game_dic = {
+            "TEAM_ID":game[1],
+            "TEAM_ABBREVIATION":game[2],
+            "TEAM_NAME":game[3],
+            "GAME_ID":game[4],
+            "GAME_DATE":game[5],
+            "MATCHUP":game[6],
+            "WL":game[7],
+            "MIN":game[8],
+            "FGM":game[9],
+            "FGA":game[10],
+            "FG_PCT":game[11],
+            "FG3M":game[12],
+            "FG3A":game[13],
+            "FG3_PCT":game[14],
+            "FTM":game[15],
+            "FTA":game[16],
+            "FT_PCT":game[17],
+            "OREB":game[18],
+            "DREB":game[19],
+            "REB":game[20],
+            "AST":game[21],
+            "STL":game[22],
+            "BLK":game[23],
+            "TOV":game[24],
+            "PF":game[25],
+            "PTS":game[26],
+        }
+        # test
+        # init list if not in their yet
+        if game_id not in season_game_dict:
+            season_game_dict[game_id] = {}
+        
+        # away team has @ in matchup string
+        if "@" in game[6]:
+            season_game_dict[game_id].update({'away': game_dic})
+        else:
+            season_game_dict[game_id].update({'home': game_dic})
+            
+    ret_list = organize_dict(season_games=season_game_dict)
+    #print(ret_list)
+    return ret_list
 
+def organize_dict(season_games:dict):
+    game_list = []
+    for game_id in season_games:
+        game_info = season_games.get(game_id)
+        complete_game_dict = {
+            'game_id': game_id,
+            'date': game_info['home']['GAME_DATE'],
+            'home_info': game_info['home'],
+            'away_info': game_info['away']
+        }
+        game_list.append(complete_game_dict)
+    return game_list
+
+# with open("../txt/games_2013_test.txt", "w") as f:
+#     f.write(json.dumps(json_response, indent=1))
+
+if __name__ == '__main__':
+    s = parse_season_json(season='2019-20')
+    # with open("../txt/games_2015_test.txt", "w") as f:
+    #     f.write(json.dumps(s, indent=1))
+    #print(json.dumps(s, indent=1))
+    # print(get_today_json())
+    

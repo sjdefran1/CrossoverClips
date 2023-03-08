@@ -1,3 +1,7 @@
 {
-  "python.analysis.extraPaths": ["./backend/scripts"]
+  "python.analysis.extraPaths": [
+    "./backend/scripts",
+    "./backend",
+    "./backend/scripts/expierements"
+  ]
 }

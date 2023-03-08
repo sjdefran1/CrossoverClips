@@ -17,7 +17,9 @@ headers = {
 }
 
 def games_info_by_date(year: str, month: str, day: str) -> dict:
+    print("Making request to GameInfo Asset....")
     response = requests.get(f'https://stats.nba.com/stats/scoreboardv2?DayOffset=0&GameDate={year}-{month}-{day}&LeagueID=00', headers=headers)
+    print("Request to GameInfo Asset complete")
     res_json = response.json()
     # with open("../txt/scoreboard.txt", 'r') as f:
     #     content = f.read()
