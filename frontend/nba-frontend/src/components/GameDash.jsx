@@ -43,9 +43,7 @@ export default function GameDash(props) {
             <Typography variant='h4' sx={{}}>
               {props.game_link.away_info.PTS}
             </Typography>
-            <Typography variant='h4' sx={{}}>
-              -
-            </Typography>
+            <Typography variant='h4'>-</Typography>
             <Typography variant='h4' sx={{}}>
               {props.game_link.home_info.PTS}
             </Typography>
@@ -59,6 +57,12 @@ export default function GameDash(props) {
             </Typography>
             <Typography variant='body2' color='text.secondary'>
               {props.game_link.away_info.MATCHUP}
+            </Typography>
+            <Typography
+              variant='subtitle2'
+              fontSize={11}
+              color='text.secondary'>
+              {props.game_link.date}
             </Typography>
           </Stack>
         </Grid>

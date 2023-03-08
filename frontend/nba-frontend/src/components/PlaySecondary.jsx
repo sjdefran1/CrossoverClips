@@ -2,13 +2,18 @@ import { Avatar, Stack, Typography } from "@mui/material";
 
 export default function PlaySecondary(props) {
   return (
-    <Stack direction={"column"} sx={{ justifyContent: "center" }}>
+    <Stack
+      component={"span"}
+      direction={"column"}
+      sx={{ justifyContent: "center" }}>
       <Stack
         direction={"row"}
         paddingTop
         paddingBottom
+        component={"span"}
         sx={{ justifyContent: "center", alignItems: "center" }}>
         <Avatar
+          component={"span"}
           src={
             "https://cdn.nba.com/logos/nba/" +
             props.stuff[4] +
@@ -17,10 +22,11 @@ export default function PlaySecondary(props) {
           sx={{ width: 32, height: 32, paddingRight: 1 }}
         />
 
-        <Typography variant='subtitle1'>
+        <Typography variant='subtitle1' component={"span"}>
           {props.stuff[0]} - {props.stuff[1]}
         </Typography>
         <Avatar
+          component={"span"}
           src={
             "https://cdn.nba.com/logos/nba/" +
             props.stuff[3] +
@@ -29,7 +35,9 @@ export default function PlaySecondary(props) {
           sx={{ width: 32, height: 32, paddingLeft: 1 }}
         />
       </Stack>
-      <Typography variant='subtitle2'>{props.stuff[2]}</Typography>
+      <Typography variant='subtitle2' component={"span"}>
+        {props.stuff[2]}
+      </Typography>
     </Stack>
   );
 }

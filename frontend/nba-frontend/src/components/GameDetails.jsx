@@ -87,12 +87,17 @@ export default function GameDetails(props) {
   };
 
   const getStatFilter = (stat) => {
+    // dont need to make request if only players changed, not stat filter
+    if (stat === statFilterFrom) {
+      return;
+    }
     setStatFilterFrom(stat);
     setTimeout(getPlaysAxios(id), 1000);
   };
 
   React.useEffect(() => {
     getPlaysAxios(id);
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -154,7 +159,7 @@ export default function GameDetails(props) {
                 playByPlay.plays
                   .filter((play) => play.quarter === currentQuarter)
                   .map((play) => (
-                    <>
+                    <React.Fragment key={play.url}>
                       <nav aria-label='playbyplay'>
                         <Link
                           target='_blank'
@@ -215,7 +220,7 @@ export default function GameDetails(props) {
                         </Link>
                       </nav>
                       <Divider />
-                    </>
+                    </React.Fragment>
                   ))}
 
               {!playsIsLoading &&
@@ -251,12 +256,15 @@ export default function GameDetails(props) {
                                 <ListItemText
                                   primary={play.description}
                                   secondary={
-                                    "Home " +
-                                    play.scoreHome +
-                                    "-" +
-                                    play.scoreAway +
-                                    " Away " +
-                                    play.time
+                                    <PlaySecondary
+                                      stuff={[
+                                        play.scoreHome,
+                                        play.scoreAway,
+                                        play.time,
+                                        playByPlay.team_ids[0],
+                                        playByPlay.team_ids[1],
+                                      ]}
+                                    />
                                   }
                                   sx={{ textAlign: "center" }}
                                 />

@@ -3,21 +3,11 @@ import {
   Avatar,
   Stack,
   Box,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Divider,
-  ListItemButton,
-  Link,
   Container,
   Grid,
   AppBar,
   Toolbar,
   Button,
-  Typography,
-  IconButton,
-  CircularProgress,
   Paper,
   Checkbox,
   FormControlLabel,
@@ -27,27 +17,9 @@ import StatFilter from "./StatFilters";
 //const project = projects[0];
 export default function PlayerFilter(props) {
   const teamIDs = props.teamIDs;
-  const [currTeamId, setCurrTeamId] = React.useState(teamIDs[0]);
-  const [teamIndex, setTeamIndex] = React.useState(0);
+
   const [selectedPlayers, setSelectedPlayers] = React.useState([]);
   const [statFilterFrom, setStatFilterFrom] = React.useState("FGM");
-
-  const handleTeamChange = React.useCallback(
-    (val) => {
-      if (teamIndex === 0 && val === 0) return;
-      if (teamIndex === 1 && val === 1) return;
-
-      if (teamIndex === 0) {
-        setCurrTeamId(teamIDs[1]);
-        setTeamIndex(1);
-      } else {
-        setCurrTeamId(teamIDs[0]);
-        setTeamIndex(0);
-      }
-      console.log(teamIndex);
-    },
-    [teamIndex]
-  );
 
   const handlePlayerSelect = (playerId) => {
     // if (selectedPlayers.includes(playerId)) {
@@ -84,25 +56,21 @@ export default function PlayerFilter(props) {
           <AppBar position='static' sx={{ borderRadius: 1 }}>
             <Toolbar sx={{ justifyContent: "center" }}>
               <Stack direction='row' spacing={20}>
-                <IconButton onClick={() => handleTeamChange(0)}>
-                  <Avatar
-                    src={
-                      "https://cdn.nba.com/logos/nba/" +
-                      teamIDs[0] +
-                      "/primary/L/logo.svg"
-                    }
-                  />
-                </IconButton>
+                <Avatar
+                  src={
+                    "https://cdn.nba.com/logos/nba/" +
+                    teamIDs[0] +
+                    "/primary/L/logo.svg"
+                  }
+                />
 
-                <IconButton onClick={() => handleTeamChange(1)}>
-                  <Avatar
-                    src={
-                      "https://cdn.nba.com/logos/nba/" +
-                      teamIDs[1] +
-                      "/primary/L/logo.svg"
-                    }
-                  />
-                </IconButton>
+                <Avatar
+                  src={
+                    "https://cdn.nba.com/logos/nba/" +
+                    teamIDs[1] +
+                    "/primary/L/logo.svg"
+                  }
+                />
               </Stack>
             </Toolbar>
           </AppBar>
@@ -119,7 +87,7 @@ export default function PlayerFilter(props) {
                     props.players
                       .filter((player) => player[0] === teamIDs[0])
                       .map((player) => (
-                        <>
+                        <React.Fragment key={player[2]}>
                           <Stack direction='row'>
                             <Avatar
                               src={
@@ -143,7 +111,7 @@ export default function PlayerFilter(props) {
                               }
                             />
                           </Stack>
-                        </>
+                        </React.Fragment>
                       ))}
                 </Stack>
               </Grid>
@@ -158,7 +126,7 @@ export default function PlayerFilter(props) {
                     props.players
                       .filter((player) => player[0] === teamIDs[1])
                       .map((player) => (
-                        <>
+                        <React.Fragment key={player[2]}>
                           <Stack direction='row'>
                             <Avatar
                               src={
@@ -182,7 +150,7 @@ export default function PlayerFilter(props) {
                               }
                             />
                           </Stack>
-                        </>
+                        </React.Fragment>
                       ))}
                 </Stack>
               </Grid>
