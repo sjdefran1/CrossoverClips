@@ -18,6 +18,7 @@ class DateChosen extends React.Component {
       value: dayjs(),
       responseData: [],
       shouldRender: false,
+      //renderToday: true,
     };
   }
   getGamesAxios = (e) => {
@@ -86,8 +87,8 @@ class DateChosen extends React.Component {
                     /> */}
                   <Paper variant='outlined' sx={{ borderRadius: 4 }}>
                     <CalendarPicker
-                      minDate={dayjs("2014-08-16")}
-                      maxDate={dayjs().add(7, "day")}
+                      minDate={dayjs("2014-10-28")}
+                      maxDate={dayjs()}
                       openTo='day'
                       onChange={(newValue) => {
                         this.setState({ value: newValue });
@@ -99,6 +100,12 @@ class DateChosen extends React.Component {
               </Grid>
               <Grid item xs={6}>
                 <Grid container spacing={0.2}>
+                  {/* Today */}
+                  {/* {this.state.shouldRender && this.state.renderToday && (
+                    <p>today</p>
+                  )} */}
+                  {/* Not Today */}
+                  {/* {this.state.shouldRender && !this.state.renderToday && ( */}
                   {this.state.shouldRender && (
                     <GameList2
                       gameList={this.state.responseData}

@@ -18,7 +18,7 @@ headers = {
 }
 
 
-def getActionNumberToURLs(gameID: str, season: str, stat_type='FGM') -> dict:
+def getRetroPlayByPlay(gameID: str, season: str, stat_type='FGM') -> dict:
   params = {
       'GameID': gameID, # not required,
       'ContextMeasure': stat_type,
@@ -44,7 +44,7 @@ def getActionNumberToURLs(gameID: str, season: str, stat_type='FGM') -> dict:
 
   urls = response.json()['resultSets']['Meta']['videoUrls']
   plays = response.json()['resultSets']['playlist']
-  print(plays)
+  #print(plays)
   #print(urls)
   action_hex = {}
 
@@ -88,15 +88,3 @@ def getActionNumberToURLs(gameID: str, season: str, stat_type='FGM') -> dict:
      "number_quarters": num_quarters,
   }
   return ret_dict
-
-#base_video_url = f'https://videos.nba.com/nba/pbp/media/{year}/{month}/{day}/{gameID}/'
-
-
-# pre 2019-2020 : playByPlay does not work 
-# 2014-2015 : videoAssets still working, before does not it seems
-
-#https://videos.nba.com/nba/pbp/media/2017/10/17/0021700001/450/a69cb4f2-ca21-57e7-f444-c3791bd4c1eb_1280x720.mp4
-
-if __name__ == '__main__':
-   s = getActionNumberToURLs(gameID="0021400002", season='2014-15', stat_type='BLK')
-   print(json.dumps(s, indent=1))

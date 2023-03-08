@@ -7,6 +7,7 @@ export default function GameDash(props) {
   return (
     <Paper sx={{ borderRadius: 2 }}>
       <br></br>
+
       <Grid container spacing={1}>
         {/* {props.game_link.date} */}
         <Grid item xs={4}>

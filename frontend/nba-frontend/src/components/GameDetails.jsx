@@ -18,7 +18,16 @@ import {
   Typography,
   IconButton,
   CircularProgress,
+  Menu,
+  MenuItem,
+  Button,
+  FormGroup,
+  FormControlLabel,
+  Switch,
+  Box,
+  Tooltip,
 } from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import GameDash from "./GameDash";
@@ -35,8 +44,20 @@ export default function GameDetails(props) {
   const [filteredPlayers, setFilteredPlayers] = React.useState([]);
   const [isFilteredPlayers, setIsFilteredPlayers] = React.useState(false);
   const [statFilterFrom, setStatFilterFrom] = React.useState("FGM");
+  const [showHighlightPreview, setShowHighlightPreview] = React.useState(false);
   let { state } = useLocation();
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const handleSwitchChange = (event) => {
+    setShowHighlightPreview(!showHighlightPreview);
+  };
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const getPlaysAxios = (e) => {
     const data = {
       //value: this.state.value.toString(),
@@ -75,7 +96,7 @@ export default function GameDetails(props) {
         setCurrentQuarter(currentQuarter - 1);
       }
     },
-    [currentQuarter]
+    [currentQuarter, playByPlay.number_quarters]
   );
 
   const getFilteredPlayers = (players) => {
@@ -132,19 +153,42 @@ export default function GameDetails(props) {
           {/* ---------------------------------------------- */}
           <Grid item xs={6}>
             <AppBar position='static' sx={{ borderRadius: 1 }}>
-              <Toolbar sx={{ justifyContent: "center" }}>
-                <IconButton onClick={() => handleQuarterChange(0)}>
-                  <KeyboardArrowLeftIcon />
-                </IconButton>
-                <Typography variant='body1' color='text.secondary'>
-                  Quarter: {currentQuarter}
-                </Typography>
-                <IconButton onClick={() => handleQuarterChange(1)}>
-                  <KeyboardArrowRightIcon />
-                </IconButton>
+              <Toolbar sx={{ justifyContent: "right" }}>
+                <Stack direction='row' alignItems={"center"} sx={{ mr: 1.5 }}>
+                  <IconButton onClick={() => handleQuarterChange(0)}>
+                    <KeyboardArrowLeftIcon color='info' />
+                  </IconButton>
+                  <Typography variant='body1' color='text.secondary'>
+                    Quarter: {currentQuarter}
+                  </Typography>
+
+                  <IconButton onClick={() => handleQuarterChange(1)}>
+                    <KeyboardArrowRightIcon color='info' />
+                  </IconButton>
+                </Stack>
+
+                <FormGroup>
+                  <FormControlLabel
+                    sx={{ mr: 1 }}
+                    control={<Switch size='small' />}
+                    onChange={handleSwitchChange}
+                    label={
+                      <Typography color={"text.secondary"} variant='subtitle2'>
+                        Highlight Previews
+                      </Typography>
+                    }
+                  />
+                </FormGroup>
+                <Tooltip title='Highlight previews generally load slower than just clicking the play! But feel free to try them.'>
+                  <InfoIcon color='success' />
+                </Tooltip>
               </Toolbar>
             </AppBar>
-            <Stack sx={{ maxHeight: "75vh", overflow: "auto" }}>
+            <Stack
+              sx={{
+                maxHeight: "75vh",
+                overflow: "auto",
+              }}>
               {/* Loading */}
               {playsIsLoading && (
                 <Stack sx={{ justifyContent: "center" }}>
@@ -161,63 +205,96 @@ export default function GameDetails(props) {
                   .map((play) => (
                     <React.Fragment key={play.url}>
                       <nav aria-label='playbyplay'>
-                        <Link
-                          target='_blank'
-                          rel='noreferrer'
-                          href={play.url}
-                          sx={{ textDecoration: "none" }}>
-                          <List>
-                            <ListItem disablePadding>
-                              <ListItemButton>
-                                <ListItemIcon>
-                                  <Avatar
-                                    src={
-                                      "https://cdn.nba.com/logos/nba/" +
-                                      play.teamID +
-                                      "/primary/L/logo.svg"
-                                    }
-                                    sx={{ width: 56, height: 56 }}
-                                  />
-                                </ListItemIcon>
-
-                                <ListItemText
-                                  primary={play.description}
-                                  // secondary={
-                                  //   "Home " +
-                                  //   play.scoreHome +
-                                  //   "-" +
-                                  //   play.scoreAway +
-                                  //   " Away " +
-                                  //   play.time
-                                  // }
-                                  secondary={
-                                    <PlaySecondary
-                                      stuff={[
-                                        play.scoreHome,
-                                        play.scoreAway,
-                                        play.time,
-                                        playByPlay.team_ids[0],
-                                        playByPlay.team_ids[1],
-                                      ]}
+                        <Stack sx={{ justifyContent: "center" }}>
+                          <Link
+                            target='_blank'
+                            rel='noreferrer'
+                            href={play.url}
+                            sx={{ textDecoration: "none" }}>
+                            <List>
+                              <ListItem disablePadding>
+                                <ListItemButton>
+                                  <ListItemIcon>
+                                    <Avatar
+                                      src={
+                                        "https://cdn.nba.com/logos/nba/" +
+                                        play.teamID +
+                                        "/primary/L/logo.svg"
+                                      }
+                                      sx={{ width: 56, height: 56 }}
                                     />
-                                  }
-                                  sx={{ textAlign: "center" }}
-                                />
+                                  </ListItemIcon>
 
-                                <ListItemIcon>
-                                  <Avatar
-                                    src={
-                                      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
-                                      play.playerID +
-                                      ".png"
+                                  <ListItemText
+                                    primary={play.description}
+                                    // secondary={
+                                    //   "Home " +
+                                    //   play.scoreHome +
+                                    //   "-" +
+                                    //   play.scoreAway +
+                                    //   " Away " +
+                                    //   play.time
+                                    // }
+                                    secondary={
+                                      <PlaySecondary
+                                        stuff={[
+                                          play.scoreHome,
+                                          play.scoreAway,
+                                          play.time,
+                                          playByPlay.team_ids[0],
+                                          playByPlay.team_ids[1],
+                                        ]}
+                                      />
                                     }
-                                    sx={{ width: 56, height: 56 }}
+                                    sx={{ textAlign: "center" }}
                                   />
-                                </ListItemIcon>
-                              </ListItemButton>
-                            </ListItem>
-                          </List>
-                        </Link>
+
+                                  <ListItemIcon>
+                                    <Avatar
+                                      src={
+                                        "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
+                                        play.playerID +
+                                        ".png"
+                                      }
+                                      sx={{ width: 56, height: 56 }}
+                                    />
+                                  </ListItemIcon>
+                                </ListItemButton>
+                                {showHighlightPreview && (
+                                  <Menu
+                                    anchorEl={anchorEl}
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleClose}>
+                                    <MenuItem>
+                                      <video
+                                        preload='metadata'
+                                        width='624'
+                                        height='480'
+                                        controls>
+                                        <source
+                                          src={play.url}
+                                          type='video/mp4'
+                                        />
+                                        Your browser does not support the video
+                                        tag.
+                                      </video>
+                                    </MenuItem>
+                                  </Menu>
+                                )}
+                              </ListItem>
+                            </List>
+                          </Link>
+                          {showHighlightPreview && (
+                            <Button
+                              size='small'
+                              color='success'
+                              variant='outlined'
+                              onClick={handleClick}
+                              sx={{ mx: "auto", mb: 1 }}>
+                              View Highlight Preview
+                            </Button>
+                          )}
+                        </Stack>
                       </nav>
                       <Divider />
                     </React.Fragment>
@@ -234,55 +311,88 @@ export default function GameDetails(props) {
                   .map((play) => (
                     <>
                       <nav aria-label='playbyplay'>
-                        <Link
-                          target='_blank'
-                          rel='noreferrer'
-                          href={play.url}
-                          sx={{ textDecoration: "none" }}>
-                          <List>
-                            <ListItem disablePadding>
-                              <ListItemButton>
-                                <ListItemIcon>
-                                  <Avatar
-                                    src={
-                                      "https://cdn.nba.com/logos/nba/" +
-                                      play.teamID +
-                                      "/primary/L/logo.svg"
-                                    }
-                                    sx={{ width: 56, height: 56 }}
-                                  />
-                                </ListItemIcon>
-
-                                <ListItemText
-                                  primary={play.description}
-                                  secondary={
-                                    <PlaySecondary
-                                      stuff={[
-                                        play.scoreHome,
-                                        play.scoreAway,
-                                        play.time,
-                                        playByPlay.team_ids[0],
-                                        playByPlay.team_ids[1],
-                                      ]}
+                        <Stack sx={{ justifyContent: "center" }}>
+                          <Link
+                            target='_blank'
+                            rel='noreferrer'
+                            href={play.url}
+                            sx={{ textDecoration: "none" }}>
+                            <List>
+                              <ListItem disablePadding>
+                                <ListItemButton>
+                                  <ListItemIcon>
+                                    <Avatar
+                                      src={
+                                        "https://cdn.nba.com/logos/nba/" +
+                                        play.teamID +
+                                        "/primary/L/logo.svg"
+                                      }
+                                      sx={{ width: 56, height: 56 }}
                                     />
-                                  }
-                                  sx={{ textAlign: "center" }}
-                                />
+                                  </ListItemIcon>
 
-                                <ListItemIcon>
-                                  <Avatar
-                                    src={
-                                      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
-                                      play.playerID +
-                                      ".png"
+                                  <ListItemText
+                                    primary={play.description}
+                                    secondary={
+                                      <PlaySecondary
+                                        stuff={[
+                                          play.scoreHome,
+                                          play.scoreAway,
+                                          play.time,
+                                          playByPlay.team_ids[0],
+                                          playByPlay.team_ids[1],
+                                        ]}
+                                      />
                                     }
-                                    sx={{ width: 56, height: 56 }}
+                                    sx={{ textAlign: "center" }}
                                   />
-                                </ListItemIcon>
-                              </ListItemButton>
-                            </ListItem>
-                          </List>
-                        </Link>
+
+                                  <ListItemIcon>
+                                    <Avatar
+                                      src={
+                                        "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
+                                        play.playerID +
+                                        ".png"
+                                      }
+                                      sx={{ width: 56, height: 56 }}
+                                    />
+                                  </ListItemIcon>
+                                </ListItemButton>
+                                {showHighlightPreview && (
+                                  <Menu
+                                    anchorEl={anchorEl}
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleClose}>
+                                    <MenuItem>
+                                      <video
+                                        preload='metadata'
+                                        width='624'
+                                        height='480'
+                                        controls>
+                                        <source
+                                          src={play.url}
+                                          type='video/mp4'
+                                        />
+                                        Your browser does not support the video
+                                        tag.
+                                      </video>
+                                    </MenuItem>
+                                  </Menu>
+                                )}
+                              </ListItem>
+                            </List>
+                          </Link>
+                          {showHighlightPreview && (
+                            <Button
+                              size='small'
+                              color='success'
+                              variant='outlined'
+                              onClick={handleClick}
+                              sx={{ mx: "auto", mb: 1 }}>
+                              View Highlight Preview
+                            </Button>
+                          )}
+                        </Stack>
                       </nav>
                       <Divider />
                     </>

@@ -12,7 +12,9 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
-import StatFilter from "./StatFilters";
+import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+import CircleIcon from "@mui/icons-material/Circle";
+import StatFilters from "./StatFilters.jsx";
 
 //const project = projects[0];
 export default function PlayerFilter(props) {
@@ -103,6 +105,8 @@ export default function PlayerFilter(props) {
                               sx={{ ml: 1 }}
                               control={
                                 <Checkbox
+                                  icon={<CircleOutlinedIcon />}
+                                  checkedIcon={<CircleIcon color='success' />}
                                   checked={selectedPlayers.includes(player[2])}
                                   onChange={() =>
                                     handlePlayerSelect([player[2]])
@@ -142,6 +146,8 @@ export default function PlayerFilter(props) {
                               sx={{ ml: 1 }}
                               control={
                                 <Checkbox
+                                  icon={<CircleOutlinedIcon />}
+                                  checkedIcon={<CircleIcon color='success' />}
                                   checked={selectedPlayers.includes(player[2])}
                                   onChange={() =>
                                     handlePlayerSelect([player[2]])
@@ -165,13 +171,19 @@ export default function PlayerFilter(props) {
         spacing={1}
         paddingBottom
         sx={{ justifyContent: "center", mt: 1 }}>
-        <StatFilter updateFilter={getStatFilter} />
-        <Button variant='outlined' color='success' onClick={handleSave} sx={{}}>
+        <StatFilters updateFilter={getStatFilter} />
+        <Button
+          size='small'
+          variant='outlined'
+          color='success'
+          onClick={handleSave}
+          sx={{}}>
           Save
         </Button>
         <Button
           variant='outlined'
           color='success'
+          size='small'
           onClick={clearPlayers}
           sx={{}}>
           Clear Players

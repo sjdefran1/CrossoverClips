@@ -11,20 +11,53 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import json
 
 from db.gamesController import get_games_on_date_db
+from retroPlayByPlay import getRetroPlayByPlay
 
 # Helpers
 # ---------------------------
-def fix_date(date: str):
+def fix_date(date: str) -> str:
     date_format = "%a, %d %b %Y %H:%M:%S %Z"
     parsed_date = datetime.strptime(date, date_format)
     new_date = parsed_date.strftime("%m/%d/%Y")
     return new_date
 
-def fix_date_db(date: str):
+def fix_date_db(date: str) -> str:
     date_format = "%a, %d %b %Y %H:%M:%S %Z"
     parsed_date = datetime.strptime(date, date_format)
     new_date = parsed_date.strftime("%Y-%m-%d")
     return new_date
+
+def isRetroDate(date_recieved: str) -> bool:
+    set_date = datetime(2019, 12, 1).date()
+    # Convert the string to a datetime object
+    check_date = datetime.strptime(date_recieved, '%Y-%m-%d').date()
+    if check_date < set_date:
+        print('retro date')
+        return True
+    else:
+        print('non retro')
+        return False
+
+def get_season_str(date_recieved: str) -> str:
+    date_recieved = datetime.strptime(date_recieved, '%Y-%m-%d').date()
+    # Define the year date ranges
+    season_ranges = {
+        '2014-15': (datetime(2014, 10, 28).date(), datetime(2015, 4, 15).date()),
+        '2015-16': (datetime(2015, 10, 27).date(), datetime(2016, 4, 13).date()),
+        '2016-17': (datetime(2016, 10, 25).date(), datetime(2017, 4, 12).date()),
+        '2017-18': (datetime(2017, 10, 17).date(), datetime(2018, 4, 10).date()),
+        '2018-19': (datetime(2018, 10, 16).date(), datetime(2019, 4, 10).date()),
+        '2019-20': (datetime(2019, 10, 22).date(), datetime(2019, 12, 1).date()),
+    }
+
+    # Iterate over the years and return the matching season
+    for year, (start_date, end_date) in season_ranges.items():
+        print(f"{start_date} <= {date_recieved} <= {end_date}")
+        if start_date <= date_recieved <= end_date:
+            return year
+
+    # Return None if no matching year was found
+    return ""
 # ---------------------------------------
 
 # Scheduler
@@ -97,11 +130,23 @@ async def get_games_on_date_controller(data: DateStr):
     db_date = fix_date_db(data.value)
     games_db = get_games_on_date_db(db_date)
     print(db_date)
-    # if no games type will be string
+
+    # Requesting today and game log is not updated yet
+    # split is getting just date from datetime
+    # if games_db == () and db_date == str(datetime.today()).split(" ")[0]:
+    #     games = get_games_on_date(date)
+    #     print("Requested Today")
+    #     return JSONResponse(content=games)
+    # # if no games type will be string
+    # elif games_db == ():
+    #     return "no games"
+    # else:
+    #      return JSONResponse(content=games_db)
+
     if games_db == ():
         return "no games"
     else:
-         return JSONResponse(content=games_db)
+        return JSONResponse(content=games_db)
    
 
 @app.post('/playByPlay')
@@ -109,9 +154,13 @@ async def get_play_by_play(data: PlayByPlayStr):
     #s = getPlayByPlayWithUrl(data.gameID)
     #print(data.gameID + '\n' + data.date)
 
-    new_date = fix_date(data.date)
-    split_date = new_date.split('/')
-    plays = getPlayByPlayWithUrl(gameID=data.gameID, year=split_date[2], day=split_date[1], month=split_date[0], stat_type=data.statType)
+    new_date = fix_date_db(data.date)
+    if isRetroDate(new_date):
+        season_str = get_season_str(new_date)
+        plays = getRetroPlayByPlay(gameID=data.gameID, season=season_str)
+    else:
+        split_date = new_date.split('-')
+        plays = getPlayByPlayWithUrl(gameID=data.gameID, year=split_date[0], day=split_date[2], month=split_date[1], stat_type=data.statType)
     #print(plays['team_ids'])
     return JSONResponse(content=plays)
 
