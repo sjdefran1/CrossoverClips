@@ -34,8 +34,8 @@ def update_scores_job():
     update_scores()
     print("Scores Updated")
 
-scheduler = BackgroundScheduler()
-scheduler.add_job(update_scores_job, 'interval', seconds=60 * 5)
+# scheduler = BackgroundScheduler()
+# scheduler.add_job(update_scores_job, 'interval', seconds=60 * 5)
 # -----------------------------------------------------
 
 # Data Models for json Requests
@@ -75,15 +75,15 @@ app.add_middleware(
 
 # Startup and Shutdown
 # -------------------------------------------
-@app.on_event("startup")
-async def startup_event():
-    scheduler.start()
-    print("Started Scheduler**")
+# @app.on_event("startup")
+# async def startup_event():
+#     scheduler.start()
+#     print("Started Scheduler**")
 
-@app.on_event("shutdown")
-async def shutdown_event():
-    scheduler.shutdown()
-    print("Scheduler shutdown..")
+# @app.on_event("shutdown")
+# async def shutdown_event():
+#     scheduler.shutdown()
+#     print("Scheduler shutdown..")
 # ---------------------------------------------
 
 # POST Functions
@@ -92,16 +92,16 @@ async def shutdown_event():
 async def get_games_on_date_controller(data: DateStr):
     print('Requested ' + data.value)
     date = fix_date(data.value)
-    games = get_games_on_date(date)
+    #games = get_games_on_date(date)
     #print(json.dumps(games, indent=1))
     db_date = fix_date_db(data.value)
-    get_games_on_date_db(db_date)
+    games_db = get_games_on_date_db(db_date)
     print(db_date)
     # if no games type will be string
-    if type(games) is str:
+    if games_db == ():
         return "no games"
     else:
-         return JSONResponse(content=games)
+         return JSONResponse(content=games_db)
    
 
 @app.post('/playByPlay')

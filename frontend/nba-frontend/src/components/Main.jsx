@@ -37,7 +37,7 @@ class DateChosen extends React.Component {
           this.setState({ shouldRender: false });
         }
         //console.log(this.responseData);
-        //console.log(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);

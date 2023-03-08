@@ -43,7 +43,10 @@ def getActionNumberToURLs(gameID: str, stat_type='FGM') -> dict:
       'TeamID': '0', # required //
   }
   try:
+    print("Making request to VideoDetail Asset...")
     response = requests.get('https://stats.nba.com/stats/videodetailsasset', params=params, headers=headers, timeout=15)
+    print("Request to VideoDetail Asset complete")
+
   except:
     print("request Timeout")
   #print(response)
@@ -72,7 +75,9 @@ def getActionNumberToURLs(gameID: str, stat_type='FGM') -> dict:
 def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str, stat_type='FGM') -> dict:
   url = f"https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_{gameID}.json"
   try:
+    print("Making request to PlaybyPlay Asset...")
     response = requests.request("GET", url, headers=headers, timeout=15)
+    print("Request to PlaybyPlay Asset complete")
   except:
     print("request Timeout")
 
@@ -224,7 +229,7 @@ def get_vid_url(base_video_url: str, act_num: str, action_hex: dict) -> str:
 
 def main():
   test = getPlayByPlayWithUrl(gameID='0022200908', year='2023', month='02', day='25', stat_type='PTS' )
-  #print(json.dumps(test, indent=1))
+  print(json.dumps(test, indent=1))
 
 
 
