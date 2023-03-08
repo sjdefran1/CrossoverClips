@@ -115,6 +115,7 @@ async def get_play_by_play(data: PlayByPlayStr):
     #print(plays['team_ids'])
     return JSONResponse(content=plays)
 
+# deprecated ??
 @app.post('/gameInfo')
 async def get_game_info_handler(data: GameInfo):
     

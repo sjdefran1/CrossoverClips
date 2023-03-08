@@ -24,6 +24,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import GameDash from "./GameDash";
 import PlayerFilter from "./PlayerFilter";
 import PlaySecondary from "./PlaySecondary";
+import { useLocation } from "react-router-dom";
 
 export default function GameDetails(props) {
   const { id } = useParams();
@@ -34,6 +35,7 @@ export default function GameDetails(props) {
   const [filteredPlayers, setFilteredPlayers] = React.useState([]);
   const [isFilteredPlayers, setIsFilteredPlayers] = React.useState(false);
   const [statFilterFrom, setStatFilterFrom] = React.useState("FGM");
+  let { state } = useLocation();
 
   const getPlaysAxios = (e) => {
     const data = {
@@ -100,7 +102,8 @@ export default function GameDetails(props) {
       <Container maxWidth='lg'>
         <Grid container spacing={2} paddingTop>
           <Grid item xs={6}>
-            <GameDash />
+            {/* {state.game_link.date} */}
+            <GameDash game_link={state.game_link} />
             {!playsIsLoading && (
               <>
                 <PlayerFilter

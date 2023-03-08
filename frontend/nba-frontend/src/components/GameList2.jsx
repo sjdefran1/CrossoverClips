@@ -23,17 +23,19 @@ export default function GameList2(props) {
   };
   return (
     <>
-      <Link></Link>
       {/* <Stack direction='column' sx={{ maxHeight: "70vh", overflow: "auto" }}> */}
       {props.gameList.map((game) => (
         <Grid item xs={6}>
           <Box sx={{}}>
-            <a
+            {/* <a
               href={"/games/" + props.date + "/" + game.game_id}
               style={myStyle}
               //href=''
               //</Box>onClick={() => handleClick(props.date, game.game_id, game)}
-            >
+            > */}
+            <Link
+              to={"/games/" + props.date + "/" + game.game_id}
+              state={{ game_link: game }}>
               <Paper
                 variant='outlined'
                 sx={{
@@ -74,7 +76,8 @@ export default function GameList2(props) {
                     }></Avatar>
                 </Stack>
               </Paper>
-            </a>
+            </Link>
+            {/* </a> */}
           </Box>
         </Grid>
       ))}
