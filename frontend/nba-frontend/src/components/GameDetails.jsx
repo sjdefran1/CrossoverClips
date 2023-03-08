@@ -64,7 +64,7 @@ export default function GameDetails(props) {
       if (currentQuarter === 1 && val === 0) {
         return;
       }
-      if (currentQuarter === 4 && val === 1) {
+      if (currentQuarter === playByPlay.number_quarters && val === 1) {
         return;
       }
 
