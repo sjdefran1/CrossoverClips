@@ -11,7 +11,15 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import json
 
 from db.gamesController import get_games_on_date_db
+from db.get_database import get_db
 from retroPlayByPlay import getRetroPlayByPlay
+
+# Global Var
+# ---------------
+
+# db client
+client = get_db()
+
 
 # Helpers
 # ---------------------------
@@ -110,8 +118,10 @@ app.add_middleware(
 # -------------------------------------------
 # @app.on_event("startup")
 # async def startup_event():
-#     scheduler.start()
-#     print("Started Scheduler**")
+#     #scheduler.start()
+#     #print("Started Scheduler**")
+#     ...
+
 
 # @app.on_event("shutdown")
 # async def shutdown_event():
@@ -128,7 +138,7 @@ async def get_games_on_date_controller(data: DateStr):
     #games = get_games_on_date(date)
     #print(json.dumps(games, indent=1))
     db_date = fix_date_db(data.value)
-    games_db = get_games_on_date_db(db_date)
+    games_db = get_games_on_date_db(date=db_date, client=client)
     print(db_date)
 
     # Requesting today and game log is not updated yet
@@ -157,7 +167,7 @@ async def get_play_by_play(data: PlayByPlayStr):
     new_date = fix_date_db(data.date)
     if isRetroDate(new_date):
         season_str = get_season_str(new_date)
-        plays = getRetroPlayByPlay(gameID=data.gameID, season=season_str)
+        plays = getRetroPlayByPlay(gameID=data.gameID, season=season_str, stat_type=data.statType)
     else:
         split_date = new_date.split('-')
         plays = getPlayByPlayWithUrl(gameID=data.gameID, year=split_date[0], day=split_date[2], month=split_date[1], stat_type=data.statType)

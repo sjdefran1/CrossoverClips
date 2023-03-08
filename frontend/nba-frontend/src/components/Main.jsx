@@ -6,7 +6,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 // kimport { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
 import axios from "axios";
-import { Container, Grid, Typography } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Typography,
+  CircularProgress,
+  Stack,
+  Fade,
+} from "@mui/material";
 import GameList2 from "./GameList2";
 import Paper from "@mui/material/Paper";
 
@@ -15,9 +22,10 @@ class DateChosen extends React.Component {
     super(props);
     this.state = {
       //value: dayjs("2023-02-04"),
-      value: dayjs(),
+      value: dayjs().subtract(1, "day"),
       responseData: [],
       shouldRender: false,
+      gamesLoading: true,
       //renderToday: true,
     };
   }
@@ -33,12 +41,16 @@ class DateChosen extends React.Component {
         //console.log(response.data);
         //const data = JSON.parse(response.data);
         if (response.data !== "no games") {
-          this.setState({ responseData: response.data, shouldRender: true });
+          this.setState({
+            responseData: response.data,
+            shouldRender: true,
+            gamesLoading: false,
+          });
         } else {
           this.setState({ shouldRender: false });
         }
         //console.log(this.responseData);
-        console.log(response.data);
+        //console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -85,17 +97,24 @@ class DateChosen extends React.Component {
                       }}
                       renderInput={(params) => <TextField {...params} />}
                     /> */}
-                  <Paper variant='outlined' sx={{ borderRadius: 4 }}>
-                    <CalendarPicker
-                      minDate={dayjs("2014-10-28")}
-                      maxDate={dayjs()}
-                      openTo='day'
-                      onChange={(newValue) => {
-                        this.setState({ value: newValue });
-                        this.getGamesAxios(newValue);
-                      }}
-                    />
-                  </Paper>
+                  <Fade in={true}>
+                    <Paper variant='outlined' sx={{ borderRadius: 4 }}>
+                      <CalendarPicker
+                        minDate={dayjs("2014-10-28")}
+                        maxDate={dayjs()}
+                        openTo='day'
+                        disableHighlightToday
+                        onChange={(newValue) => {
+                          this.setState({
+                            value: newValue,
+                            gamesLoading: true,
+                            shouldRender: false,
+                          });
+                          this.getGamesAxios(newValue);
+                        }}
+                      />
+                    </Paper>
+                  </Fade>
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={6}>
@@ -106,6 +125,13 @@ class DateChosen extends React.Component {
                   )} */}
                   {/* Not Today */}
                   {/* {this.state.shouldRender && !this.state.renderToday && ( */}
+                  {this.state.gamesLoading && (
+                    <Grid item xs={6}>
+                      <br></br>
+                      <CircularProgress sx={{ ml: "50%" }} />
+                    </Grid>
+                  )}
+
                   {this.state.shouldRender && (
                     <GameList2
                       gameList={this.state.responseData}

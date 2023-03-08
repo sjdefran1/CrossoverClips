@@ -8,7 +8,7 @@ from db.get_database import get_db
 def update_all_seasons():
     print("Getting Databse")
     client = get_db()
-    years = ['2022-23','2021-22', '2020-21', '2019-20', '2018-19', '2017-18', '2016-17']
+    years = ['2022-23','2021-22', '2020-21', '2019-20', '2018-19', '2017-18', '2016-17', '2015-16', '2014-15']
     #Seasons = client['Seasons']
 
     # for year in years:
@@ -46,5 +46,6 @@ def update_current_season():
     return
 
 if __name__ == '__main__':
-    update_current_season()
+    #update_current_season()
+    update_all_seasons()
     

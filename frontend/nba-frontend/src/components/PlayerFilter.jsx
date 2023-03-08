@@ -8,6 +8,7 @@ import {
   AppBar,
   Toolbar,
   Button,
+  Fade,
   Paper,
   Checkbox,
   FormControlLabel,
@@ -53,6 +54,7 @@ export default function PlayerFilter(props) {
   return (
     <>
       <br></br>
+
       <Box sx={{ maxHeight: "50vh", overflow: "auto" }}>
         <Paper>
           <AppBar position='static' sx={{ borderRadius: 1 }}>
@@ -90,31 +92,35 @@ export default function PlayerFilter(props) {
                       .filter((player) => player[0] === teamIDs[0])
                       .map((player) => (
                         <React.Fragment key={player[2]}>
-                          <Stack direction='row'>
-                            <Avatar
-                              src={
-                                "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
-                                player[2] +
-                                ".png"
-                              }
-                              sx={{ width: 40, height: 40, ml: 1 }}
-                            />
-                            <FormControlLabel
-                              key={player[2]}
-                              label={player[1]}
-                              sx={{ ml: 1 }}
-                              control={
-                                <Checkbox
-                                  icon={<CircleOutlinedIcon />}
-                                  checkedIcon={<CircleIcon color='success' />}
-                                  checked={selectedPlayers.includes(player[2])}
-                                  onChange={() =>
-                                    handlePlayerSelect([player[2]])
-                                  }
-                                />
-                              }
-                            />
-                          </Stack>
+                          <Fade in={true}>
+                            <Stack direction='row'>
+                              <Avatar
+                                src={
+                                  "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
+                                  player[2] +
+                                  ".png"
+                                }
+                                sx={{ width: 40, height: 40, ml: 1 }}
+                              />
+                              <FormControlLabel
+                                key={player[2]}
+                                label={player[1]}
+                                sx={{ ml: 1 }}
+                                control={
+                                  <Checkbox
+                                    icon={<CircleOutlinedIcon />}
+                                    checkedIcon={<CircleIcon color='success' />}
+                                    checked={selectedPlayers.includes(
+                                      player[2]
+                                    )}
+                                    onChange={() =>
+                                      handlePlayerSelect([player[2]])
+                                    }
+                                  />
+                                }
+                              />
+                            </Stack>
+                          </Fade>
                         </React.Fragment>
                       ))}
                 </Stack>
@@ -131,31 +137,35 @@ export default function PlayerFilter(props) {
                       .filter((player) => player[0] === teamIDs[1])
                       .map((player) => (
                         <React.Fragment key={player[2]}>
-                          <Stack direction='row'>
-                            <Avatar
-                              src={
-                                "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
-                                player[2] +
-                                ".png"
-                              }
-                              sx={{ width: 40, height: 40, ml: 1 }}
-                            />
-                            <FormControlLabel
-                              key={player[2]}
-                              label={player[1]}
-                              sx={{ ml: 1 }}
-                              control={
-                                <Checkbox
-                                  icon={<CircleOutlinedIcon />}
-                                  checkedIcon={<CircleIcon color='success' />}
-                                  checked={selectedPlayers.includes(player[2])}
-                                  onChange={() =>
-                                    handlePlayerSelect([player[2]])
-                                  }
-                                />
-                              }
-                            />
-                          </Stack>
+                          <Fade in={true}>
+                            <Stack direction='row'>
+                              <Avatar
+                                src={
+                                  "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
+                                  player[2] +
+                                  ".png"
+                                }
+                                sx={{ width: 40, height: 40, ml: 1 }}
+                              />
+                              <FormControlLabel
+                                key={player[2]}
+                                label={player[1]}
+                                sx={{ ml: 1 }}
+                                control={
+                                  <Checkbox
+                                    icon={<CircleOutlinedIcon />}
+                                    checkedIcon={<CircleIcon color='success' />}
+                                    checked={selectedPlayers.includes(
+                                      player[2]
+                                    )}
+                                    onChange={() =>
+                                      handlePlayerSelect([player[2]])
+                                    }
+                                  />
+                                }
+                              />
+                            </Stack>
+                          </Fade>
                         </React.Fragment>
                       ))}
                 </Stack>
