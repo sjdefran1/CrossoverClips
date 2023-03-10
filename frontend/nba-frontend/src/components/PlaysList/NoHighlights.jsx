@@ -2,7 +2,7 @@ import * as React from "react";
 import { Typography, Paper, Tooltip, Stack } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 
-import jordanGif from "../static/jordan.gif";
+import jordanGif from "../../static/jordan.gif";
 //const project = projects[0];
 export default function NoHighlights(props) {
   return (

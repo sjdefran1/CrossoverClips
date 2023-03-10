@@ -1,37 +1,21 @@
 import * as React from "react";
-import {
-  Fade,
-  Stack,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  Avatar,
-  Menu,
-  Button,
-  MenuItem,
-  Divider,
-  Link,
-  ListItemText,
-} from "@mui/material";
-import PlaySecondary from "./PlaySecondary";
 import SinglePlay from "./SinglePlay";
 
 //const project = projects[0];
 export default function PlayList(props) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [showHighlightPreview, setShowHighlightPreview] = React.useState(false);
+  //   const [anchorEl, setAnchorEl] = React.useState(null);
+  //   const [showHighlightPreview, setShowHighlightPreview] = React.useState(false);
 
-  const handleSwitchChange = (event) => {
-    setShowHighlightPreview(!showHighlightPreview);
-  };
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  //   const handleSwitchChange = (event) => {
+  //     setShowHighlightPreview(!showHighlightPreview);
+  //   };
+  //   const handleClick = (event) => {
+  //     setAnchorEl(event.currentTarget);
+  //   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  //   const handleClose = () => {
+  //     setAnchorEl(null);
+  //   };
   return (
     <>
       {props.playByPlay.plays
