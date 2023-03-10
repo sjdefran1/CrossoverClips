@@ -1,5 +1,12 @@
 import * as React from "react";
-import { Box, Checkbox, FormControlLabel } from "@mui/material";
+import {
+  Stack,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Tooltip,
+} from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
 
 export default function StatFilter(props) {
   const [statTypes, setStatTypes] = React.useState(["FGM", "AST", "BLK"]);
@@ -7,11 +14,27 @@ export default function StatFilter(props) {
 
   const handleStatSelect = (stat) => {
     setChoosenType(stat);
-    props.updateFilter(stat);
+    //props.updateFilter(stat);
+  };
+
+  const handleSave = () => {
+    //props.setPlayerFilter(selectedPlayers);
+    props.updateFilter(choosenType);
   };
   return (
     <>
-      <Box sx={{ maxHeight: "25vh", overflow: "auto" }}>
+      <Stack
+        direction={"row"}
+        sx={{
+          maxHeight: "25vh",
+          overflow: "auto",
+          ml: "15%",
+          alignItems: "center",
+        }}
+        padding>
+        <Tooltip title='Available Players will change when stat filter is changed, if they do not have any highlights in the new stat type they will be unselected'>
+          <InfoIcon color='success' />
+        </Tooltip>
         {statTypes.map((stat) => (
           <FormControlLabel
             key={stat}
@@ -19,13 +42,22 @@ export default function StatFilter(props) {
             sx={{ ml: 1 }}
             control={
               <Checkbox
+                color='success'
                 checked={choosenType === stat}
                 onChange={() => handleStatSelect(stat)}
               />
             }
           />
         ))}
-      </Box>
+
+        <Button
+          size='small'
+          variant='outlined'
+          onClick={handleSave}
+          color='success'>
+          Save Stat Filter
+        </Button>
+      </Stack>
     </>
   );
 }

@@ -34,7 +34,7 @@ export default function GameList2(props) {
                     direction='row'
                     spacing={1}
                     sx={{ justifyContent: "center", alignItems: "center" }}>
-                    <Tooltip title="Game in Progress. Highlights aren't available until around 20 minutes after game ends.">
+                    <Tooltip title="Game in Progress/Just Finished. Highlights aren't available until around 20-30 minutes after game ends.">
                       <InfoIcon color='error' sx={{ height: "20px" }} />
                     </Tooltip>
 
@@ -50,9 +50,6 @@ export default function GameList2(props) {
                       sx={{ textAlign: "center", fontFamily: "Roboto" }}>
                       <Typography variant='body1'>
                         {game.away_info.MATCHUP}
-                      </Typography>
-                      <Typography variant='body2' color='text.secondary'>
-                        {game.away_info.PTS} - {game.home_info.PTS}
                       </Typography>
                     </Stack>
 

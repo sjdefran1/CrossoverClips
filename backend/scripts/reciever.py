@@ -75,6 +75,7 @@ def get_season_str(date_recieved: str) -> str:
 
 def update_db_today() -> None:
     update_today()
+    print("job finished")
     return
 
 scheduler = BackgroundScheduler()
@@ -139,20 +140,6 @@ async def get_games_on_date_controller(data: DateStr):
     #print(json.dumps(games, indent=1))
     db_date = fix_date_db(data.value)
     games_db = get_games_on_date_db(date=db_date, client=client)
-    print(db_date)
-
-    # Requesting today and game log is not updated yet
-    # split is getting just date from datetime
-    # if games_db == () and db_date == str(datetime.today()).split(" ")[0]:
-    #     games = get_games_on_date(date)
-    #     print("Requested Today")
-    #     return JSONResponse(content=games)
-    # # if no games type will be string
-    # elif games_db == ():
-    #     return "no games"
-    # else:
-    #      return JSONResponse(content=games_db)
-
     if games_db == ():
         return "no games"
     else:
@@ -161,8 +148,6 @@ async def get_games_on_date_controller(data: DateStr):
 
 @app.post('/playByPlay')
 async def get_play_by_play(data: PlayByPlayStr):
-    #s = getPlayByPlayWithUrl(data.gameID)
-    #print(data.gameID + '\n' + data.date)
     start = perf_counter()
     new_date = fix_date_db(data.date)
     if isRetroDate(new_date):
@@ -171,9 +156,9 @@ async def get_play_by_play(data: PlayByPlayStr):
     else:
         split_date = new_date.split('-')
         plays = getPlayByPlayWithUrl(gameID=data.gameID, year=split_date[0], day=split_date[2], month=split_date[1], stat_type=data.statType)
-    #print(plays['team_ids'])
+
     end = perf_counter()
-    print(f"Execution time for PlayByPlay: {end-start:.6f}")
+    print(f"Execution time for PlayByPlay: {end-start:.6f}\n")
     return JSONResponse(content=plays)
 
 # deprecated ??

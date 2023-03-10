@@ -60,7 +60,8 @@ def update_today() -> None:
     for game in games:
         # If it doesn't exists insert it
         # Else find it and update it
-        if collection.find_one({'game_id': game['game_id']}) is None:
+        result = collection.find_one({'game_id': game['game_id']})
+        if result is None:
             print(f"Inserting {game['home_info']['MATCHUP']}")
             collection.insert_one(game)
         else:

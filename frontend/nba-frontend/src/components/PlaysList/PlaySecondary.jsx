@@ -1,4 +1,5 @@
 import { Avatar, Stack, Typography } from "@mui/material";
+import * as React from "react";
 
 export default function PlaySecondary(props) {
   return (
@@ -23,7 +24,7 @@ export default function PlaySecondary(props) {
         />
 
         <Typography variant='subtitle1' component={"span"}>
-          {props.stuff[0]} - {props.stuff[1]}
+          {props.stuff[1]} - {props.stuff[0]}
         </Typography>
         <Avatar
           component={"span"}

@@ -25,6 +25,8 @@ import NoHighlights from "./PlaysList/NoHighlights";
 import PlayList from "./PlaysList/PlayList.jsx";
 import { useLocation } from "react-router-dom";
 import FilteredPlayList from "./PlaysList/FilteredPlayList";
+import StatFilter from "./StatFilters";
+import GameStatsDash from "./GameStatsDash";
 
 export default function GameDetails(props) {
   const { id } = useParams();
@@ -37,18 +39,18 @@ export default function GameDetails(props) {
   const [statFilterFrom, setStatFilterFrom] = React.useState("FGM");
   const [showHighlightPreview, setShowHighlightPreview] = React.useState(false);
   let { state } = useLocation();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  // const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleSwitchChange = (event) => {
     setShowHighlightPreview(!showHighlightPreview);
   };
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleClick = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
   const getPlaysAxios = (e) => {
     const data = {
       //value: this.state.value.toString(),
@@ -56,6 +58,7 @@ export default function GameDetails(props) {
       date: date,
       statType: statFilterFrom,
     };
+    setPlaysIsLoading(true);
     axios
       .post("http://localhost:8000/playByPlay", data)
       .then((response) => {
@@ -104,13 +107,13 @@ export default function GameDetails(props) {
       return;
     }
     setStatFilterFrom(stat);
-    setTimeout(getPlaysAxios(id), 1000);
+    //getPlaysAxios(id), 1000);
   };
 
   React.useEffect(() => {
     getPlaysAxios(id);
     // eslint-disable-next-line
-  }, []);
+  }, [statFilterFrom]);
 
   return (
     <>
@@ -119,23 +122,33 @@ export default function GameDetails(props) {
       <Container maxWidth='lg'>
         <Grid container spacing={2} paddingTop>
           <Grid item xs={6}>
-            {/* {state.game_link.date} */}
+            {/* GAMEDASH AND PLAYER FILTER */}
             <Fade in={true} timeout={800}>
               <div>
                 <GameDash game_link={state.game_link} />
               </div>
             </Fade>
+
+            {playsIsLoading && (
+              <Stack sx={{ justifyContent: "center" }}>
+                <br></br>
+                <CircularProgress sx={{ ml: "50%" }} />
+              </Stack>
+            )}
             {/* if players array is empty -> retro game -> don't load player filters */}
             {!playsIsLoading && playByPlay.players.length > 0 && (
               <>
+                {/* <GameStatsDash gameInfo={state.game_link} /> */}
                 <PlayerFilter
                   players={playByPlay.players}
                   teamIDs={playByPlay.team_ids}
+                  currentFilterPlayers={filteredPlayers}
                   setPlayerFilter={getFilteredPlayers}
                   getStatFilter={getStatFilter}
                 />
               </>
             )}
+            <StatFilter updateFilter={getStatFilter} />
           </Grid>
           {/* ------------------------------------------------ */}
           {/* PlayByPlay */}
@@ -159,6 +172,7 @@ export default function GameDetails(props) {
                 <FormGroup>
                   <FormControlLabel
                     sx={{ mr: 1 }}
+                    disabled
                     control={<Switch size='small' />}
                     onChange={handleSwitchChange}
                     label={
@@ -188,7 +202,7 @@ export default function GameDetails(props) {
 
               {/* Finished Game No Highlights from VideoDetail Yet */}
               {!playsIsLoading && playByPlay.plays.length === 0 && (
-                <NoHighlights />
+                <NoHighlights isPlay={false} />
               )}
 
               {/* Request Recieved, Render PlayList Copmonent */}
@@ -205,6 +219,7 @@ export default function GameDetails(props) {
                   playByPlay={playByPlay}
                   filteredPlayers={filteredPlayers}
                   currentQuarter={currentQuarter}
+                  currentStatType={statFilterFrom}
                 />
               )}
             </Stack>

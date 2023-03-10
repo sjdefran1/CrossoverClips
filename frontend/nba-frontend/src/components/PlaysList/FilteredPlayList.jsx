@@ -1,10 +1,21 @@
 import * as React from "react";
+import NoHighlights from "./NoHighlights";
 
 import SinglePlay from "./SinglePlay";
 //const project = projects[0];
 export default function FilteredPlayList(props) {
   return (
     <>
+      {/* No Plays found for current Filter */}
+      {props.playByPlay.plays
+        .filter(
+          (play) =>
+            play.quarter === props.currentQuarter &&
+            props.filteredPlayers.includes(play.playerID)
+        )
+        .map((play) => play).length === 0 && <NoHighlights isPlay={true} />}
+
+      {/* Plays Found Map them */}
       {props.playByPlay.plays
         .filter(
           (play) =>

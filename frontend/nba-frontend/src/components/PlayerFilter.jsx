@@ -9,6 +9,7 @@ import {
   Toolbar,
   Button,
   Fade,
+  IconButton,
   Paper,
   Checkbox,
   FormControlLabel,
@@ -21,7 +22,9 @@ import StatFilters from "./StatFilters.jsx";
 export default function PlayerFilter(props) {
   const teamIDs = props.teamIDs;
 
-  const [selectedPlayers, setSelectedPlayers] = React.useState([]);
+  const [selectedPlayers, setSelectedPlayers] = React.useState(
+    props.currentFilterPlayers
+  );
   const [statFilterFrom, setStatFilterFrom] = React.useState("FGM");
 
   const handlePlayerSelect = (playerId) => {
@@ -36,9 +39,16 @@ export default function PlayerFilter(props) {
     //props.setPlayerFilter(selectedPlayers);
   };
 
+  const handleTeamSelect = (teamID) => {
+    //console.log(props.players.filter((player) => player[0] === teamID));
+    let players = props.players.filter((player) => player[0] === teamID);
+    let player_ids = players.map((player) => player[2]);
+    setSelectedPlayers(player_ids);
+  };
+
   const handleSave = () => {
     props.setPlayerFilter(selectedPlayers);
-    props.getStatFilter(statFilterFrom);
+    //props.getStatFilter(statFilterFrom);
   };
 
   const clearPlayers = () => {
@@ -55,26 +65,29 @@ export default function PlayerFilter(props) {
     <>
       <br></br>
 
-      <Box sx={{ maxHeight: "50vh", overflow: "auto" }}>
-        <Paper>
+      <Paper>
+        <Box sx={{ maxHeight: "50vh", overflow: "auto" }}>
           <AppBar position='static' sx={{ borderRadius: 1 }}>
             <Toolbar sx={{ justifyContent: "center" }}>
               <Stack direction='row' spacing={20}>
-                <Avatar
-                  src={
-                    "https://cdn.nba.com/logos/nba/" +
-                    teamIDs[0] +
-                    "/primary/L/logo.svg"
-                  }
-                />
-
-                <Avatar
-                  src={
-                    "https://cdn.nba.com/logos/nba/" +
-                    teamIDs[1] +
-                    "/primary/L/logo.svg"
-                  }
-                />
+                <IconButton onClick={() => handleTeamSelect(teamIDs[0])}>
+                  <Avatar
+                    src={
+                      "https://cdn.nba.com/logos/nba/" +
+                      teamIDs[0] +
+                      "/primary/L/logo.svg"
+                    }
+                  />
+                </IconButton>
+                <IconButton onClick={() => handleTeamSelect(teamIDs[1])}>
+                  <Avatar
+                    src={
+                      "https://cdn.nba.com/logos/nba/" +
+                      teamIDs[1] +
+                      "/primary/L/logo.svg"
+                    }
+                  />
+                </IconButton>
               </Stack>
             </Toolbar>
           </AppBar>
@@ -174,31 +187,34 @@ export default function PlayerFilter(props) {
           </Container>
 
           <br></br>
-        </Paper>
-      </Box>
-      <Stack
-        direction='row'
-        spacing={1}
-        paddingBottom
-        sx={{ justifyContent: "center", mt: 1 }}>
-        <StatFilters updateFilter={getStatFilter} />
-        <Button
-          size='small'
-          variant='outlined'
-          color='success'
-          onClick={handleSave}
-          sx={{}}>
-          Save
-        </Button>
-        <Button
-          variant='outlined'
-          color='success'
-          size='small'
-          onClick={clearPlayers}
-          sx={{}}>
-          Clear Players
-        </Button>
-      </Stack>
+        </Box>
+        <Stack
+          direction='row'
+          spacing={1}
+          paddingBottom
+          sx={{ justifyContent: "center", mt: 1 }}>
+          {/* <StatFilters
+          updateFilter={getStatFilter}
+          currentStatType={props.currentStatType}
+        /> */}
+          <Button
+            size='small'
+            variant='outlined'
+            color='success'
+            onClick={handleSave}
+            sx={{}}>
+            Save Players
+          </Button>
+          <Button
+            variant='outlined'
+            color='success'
+            size='small'
+            onClick={clearPlayers}
+            sx={{}}>
+            Clear Players
+          </Button>
+        </Stack>
+      </Paper>
     </>
   );
 }
