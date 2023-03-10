@@ -20,16 +20,16 @@ headers = {
 #og
 #url = "https://stats.nba.com/stats/leaguegamelog?Counter=0&DateFrom=&DateTo=&Direction=ASC&LeagueID=00&PlayerOrTeam=T&Season=2022-23&SeasonType=Regular+Season&Sorter=DATE"
 
-def get_today_json():
+def get_today_json() -> dict:
     season = '2022-23'
     today = str(datetime.date.today())
     print(today)
-    url = f"https://stats.nba.com/stats/leaguegamelog?Counter=0&DateFrom=&DateTo=&Direction=ASC&LeagueID=00&PlayerOrTeam=T&Season={season}&SeasonType=Regular+Season&Sorter=DATE"
+    url = f"https://stats.nba.com/stats/leaguegamelog?Counter=0&DateFrom={today}&DateTo={today}&Direction=ASC&LeagueID=00&PlayerOrTeam=T&Season={season}&SeasonType=Regular+Season&Sorter=DATE"
     response = requests.get(url, headers=headers)
     json_response = response.json()
     return json_response
 
-def get_season_json(season: str):
+def get_season_json(season: str) -> dict:
     #Older szns url
     url = f"https://stats.nba.com/stats/leaguegamelog?Counter=0&DateFrom=&DateTo=&Direction=ASC&LeagueID=00&PlayerOrTeam=T&Season={season}&SeasonType=Regular+Season&Sorter=DATE"
 
@@ -41,7 +41,7 @@ def get_season_json(season: str):
     return json_response
 
 # if today = 0 gets season, if 1 gets only today
-def parse_season_json(season: str, today=0):
+def parse_season_json(season: str, today=0) -> dict:
     if today == 0:
         season_json = get_season_json(season)
     else:
@@ -96,7 +96,7 @@ def parse_season_json(season: str, today=0):
     #print(ret_list)
     return ret_list
 
-def organize_dict(season_games:dict):
+def organize_dict(season_games:dict) -> list:
     game_list = []
     for game_id in season_games:
         game_info = season_games.get(game_id)
@@ -113,7 +113,8 @@ def organize_dict(season_games:dict):
 #     f.write(json.dumps(json_response, indent=1))
 
 if __name__ == '__main__':
-    s = parse_season_json(season='2019-20')
+    #s = parse_season_json(season='2019-20')
+    print(get_today_json())
     # with open("../txt/games_2015_test.txt", "w") as f:
     #     f.write(json.dumps(s, indent=1))
     #print(json.dumps(s, indent=1))

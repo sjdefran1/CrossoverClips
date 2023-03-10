@@ -70,8 +70,8 @@ def getRetroPlayByPlay(gameID: str, season: str, stat_type='FGM') -> dict:
         "url":  video_url,
         "quarter": play['p'],
         "teamID": None,
-        "scoreHome": play['hpa'],
-        "scoreAway": play['vpa'],
+        "scoreHome": play['vpa'],
+        "scoreAway": play['hpa'],
         "time": None,
         "playerID": None,  
       }

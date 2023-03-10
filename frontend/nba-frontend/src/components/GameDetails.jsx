@@ -34,7 +34,10 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import GameDash from "./GameDash";
 import PlayerFilter from "./PlayerFilter";
 import PlaySecondary from "./PlaySecondary";
+import NoHighlights from "./NoHighlights";
+import PlayList from "./PlayList.jsx";
 import { useLocation } from "react-router-dom";
+import FilteredPlayList from "./FilteredPlayList";
 
 export default function GameDetails(props) {
   const { id } = useParams();
@@ -203,8 +206,20 @@ export default function GameDetails(props) {
                 </Stack>
               )}
 
-              {/* Request Recieved, Map plays to list */}
-              {!playsIsLoading &&
+              {/* Finished Game No Highlights from VideoDetail Yet */}
+              {!playsIsLoading && playByPlay.plays.length === 0 && (
+                <NoHighlights />
+              )}
+
+              {/* Request Recieved, Render PlayList Copmonent */}
+
+              {!playsIsLoading && !isFilteredPlayers && (
+                <PlayList
+                  playByPlay={playByPlay}
+                  currentQuarter={currentQuarter}
+                />
+              )}
+              {/* {!playsIsLoading &&
                 !isFilteredPlayers &&
                 playByPlay.plays
                   .filter((play) => play.quarter === currentQuarter)
@@ -308,9 +323,16 @@ export default function GameDetails(props) {
                         </Fade>
                       </nav>
                     </React.Fragment>
-                  ))}
+                  ))} */}
+              {!playsIsLoading && isFilteredPlayers && (
+                <FilteredPlayList
+                  playByPlay={playByPlay}
+                  filteredPlayers={filteredPlayers}
+                  currentQuarter={currentQuarter}
+                />
+              )}
 
-              {!playsIsLoading &&
+              {/* {!playsIsLoading &&
                 isFilteredPlayers &&
                 playByPlay.plays
                   .filter(
@@ -406,7 +428,7 @@ export default function GameDetails(props) {
                       </nav>
                       <Divider />
                     </>
-                  ))}
+                  ))} */}
             </Stack>
           </Grid>
           {/* ------------------------------------- */}

@@ -121,14 +121,18 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str, stat_type
         desc_to_url.append(result[0])
         players_list.append(result[1])
         #print(result)
-
+  
+  try:
+    number_quarters = desc_to_url[-1]['quarter']
+  except:
+    number_quarters = None
+  
   ret_dict = {
      "players": list(set(players_list)), # remove dups
      "plays": desc_to_url,
      "team_ids": list(set(ids)),
-     "number_quarters": desc_to_url[-1]['quarter']
+     "number_quarters": number_quarters
   }
-  #print(ret_dict)
   return ret_dict
 
 

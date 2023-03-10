@@ -5,6 +5,8 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Fade from "@mui/material/Fade";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
 
 //import Link from "@mui/material/Link";
 import { Link } from "react-router-dom";
@@ -16,10 +18,8 @@ export default function GameList2(props) {
       {props.gameList.map((game) => (
         <Grid item xs={6}>
           <Box sx={{}}>
-            <Link
-              to={"/games/" + props.date + "/" + game.game_id}
-              state={{ game_link: game }}
-              style={{ textDecoration: "none" }}>
+            {/* Check if game is over */}
+            {game.away_info.WL === null ? (
               <Fade in={true}>
                 <Paper
                   variant='outlined'
@@ -33,7 +33,11 @@ export default function GameList2(props) {
                   <Stack
                     direction='row'
                     spacing={1}
-                    sx={{ justifyContent: "center" }}>
+                    sx={{ justifyContent: "center", alignItems: "center" }}>
+                    <Tooltip title="Game in Progress. Highlights aren't available until around 20 minutes after game ends.">
+                      <InfoIcon color='error' sx={{ height: "20px" }} />
+                    </Tooltip>
+
                     <Avatar
                       sx={{ width: 50, height: 50 }}
                       src={
@@ -62,7 +66,61 @@ export default function GameList2(props) {
                   </Stack>
                 </Paper>
               </Fade>
-            </Link>
+            ) : (
+              <Link
+                to={"/games/" + props.date + "/" + game.game_id}
+                state={{ game_link: game }}
+                style={{ textDecoration: "none" }}>
+                <Fade in={true}>
+                  <Paper
+                    variant='outlined'
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "#ffffff14",
+                      },
+                      borderRadius: 2,
+                      padding: 0.5,
+                    }}>
+                    <Stack
+                      direction='row'
+                      spacing={1}
+                      sx={{ justifyContent: "center", alignItems: "center" }}>
+                      {game.away_info.WL === null && (
+                        <Tooltip title="Game in Progress. Highlights aren't available until ~20 minutes after game finish">
+                          <InfoIcon color='error' sx={{ height: "20px" }} />
+                        </Tooltip>
+                      )}
+
+                      <Avatar
+                        sx={{ width: 50, height: 50 }}
+                        src={
+                          "https://cdn.nba.com/logos/nba/" +
+                          game.away_info.TEAM_ID +
+                          "/primary/L/logo.svg"
+                        }></Avatar>
+                      <Stack
+                        direction='column'
+                        sx={{ textAlign: "center", fontFamily: "Roboto" }}>
+                        <Typography variant='body1'>
+                          {game.away_info.MATCHUP}
+                        </Typography>
+                        <Typography variant='body2' color='text.secondary'>
+                          {game.away_info.PTS} - {game.home_info.PTS}
+                        </Typography>
+                      </Stack>
+
+                      <Avatar
+                        sx={{ width: 50, height: 50 }}
+                        src={
+                          "https://cdn.nba.com/logos/nba/" +
+                          game.home_info.TEAM_ID +
+                          "/primary/L/logo.svg"
+                        }></Avatar>
+                    </Stack>
+                  </Paper>
+                </Fade>
+              </Link>
+            )}
           </Box>
         </Grid>
       ))}

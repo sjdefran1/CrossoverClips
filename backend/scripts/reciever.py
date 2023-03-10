@@ -9,11 +9,11 @@ from nba_games_endpoint import update_scores
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 import json
-
+from time import perf_counter
 from db.gamesController import get_games_on_date_db
 from db.get_database import get_db
 from retroPlayByPlay import getRetroPlayByPlay
-
+from db.createCollections import update_today
 # Global Var
 # ---------------
 
@@ -40,10 +40,8 @@ def isRetroDate(date_recieved: str) -> bool:
     # Convert the string to a datetime object
     check_date = datetime.strptime(date_recieved, '%Y-%m-%d').date()
     if check_date < set_date:
-        print('retro date')
         return True
     else:
-        print('non retro')
         return False
 
 def get_season_str(date_recieved: str) -> str:
@@ -60,7 +58,7 @@ def get_season_str(date_recieved: str) -> str:
 
     # Iterate over the years and return the matching season
     for year, (start_date, end_date) in season_ranges.items():
-        print(f"{start_date} <= {date_recieved} <= {end_date}")
+        #print(f"{start_date} <= {date_recieved} <= {end_date}")
         if start_date <= date_recieved <= end_date:
             return year
 
@@ -70,13 +68,17 @@ def get_season_str(date_recieved: str) -> str:
 
 # Scheduler
 # ------------------------------------------------
-def update_scores_job():
-    print(f"Updating Scores @ {str(datetime.now())}")
-    update_scores()
-    print("Scores Updated")
+# def update_scores_job():
+#     print(f"Updating Scores @ {str(datetime.now())}")
+#     update_scores()
+#     print("Scores Updated")
 
-# scheduler = BackgroundScheduler()
-# scheduler.add_job(update_scores_job, 'interval', seconds=60 * 5)
+def update_db_today() -> None:
+    update_today()
+    return
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(update_db_today, 'interval', seconds=60 * 5)
 # -----------------------------------------------------
 
 # Data Models for json Requests
@@ -116,17 +118,15 @@ app.add_middleware(
 
 # Startup and Shutdown
 # -------------------------------------------
-# @app.on_event("startup")
-# async def startup_event():
-#     #scheduler.start()
-#     #print("Started Scheduler**")
-#     ...
+@app.on_event("startup")
+async def startup_event():
+    scheduler.start()
+    print("Started Scheduler**")
 
-
-# @app.on_event("shutdown")
-# async def shutdown_event():
-#     scheduler.shutdown()
-#     print("Scheduler shutdown..")
+@app.on_event("shutdown")
+async def shutdown_event():
+    scheduler.shutdown()
+    print("Scheduler shutdown..")
 # ---------------------------------------------
 
 # POST Functions
@@ -163,7 +163,7 @@ async def get_games_on_date_controller(data: DateStr):
 async def get_play_by_play(data: PlayByPlayStr):
     #s = getPlayByPlayWithUrl(data.gameID)
     #print(data.gameID + '\n' + data.date)
-
+    start = perf_counter()
     new_date = fix_date_db(data.date)
     if isRetroDate(new_date):
         season_str = get_season_str(new_date)
@@ -172,6 +172,8 @@ async def get_play_by_play(data: PlayByPlayStr):
         split_date = new_date.split('-')
         plays = getPlayByPlayWithUrl(gameID=data.gameID, year=split_date[0], day=split_date[2], month=split_date[1], stat_type=data.statType)
     #print(plays['team_ids'])
+    end = perf_counter()
+    print(f"Execution time for PlayByPlay: {end-start:.6f}")
     return JSONResponse(content=plays)
 
 # deprecated ??
