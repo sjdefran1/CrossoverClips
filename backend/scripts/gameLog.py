@@ -23,6 +23,7 @@ headers = {
 def get_today_json() -> dict:
     season = '2022-23'
     today = str(datetime.date.today())
+    #today = '2023-03-09'
     print(today)
     url = f"https://stats.nba.com/stats/leaguegamelog?Counter=0&DateFrom={today}&DateTo={today}&Direction=ASC&LeagueID=00&PlayerOrTeam=T&Season={season}&SeasonType=Regular+Season&Sorter=DATE"
     response = requests.get(url, headers=headers)

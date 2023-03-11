@@ -14,6 +14,7 @@ from db.gamesController import get_games_on_date_db
 from db.get_database import get_db
 from retroPlayByPlay import getRetroPlayByPlay
 from db.createCollections import update_today
+from db.playByPlayController import check_playByPlay_exists, insert_playByPlay_db, get_playByPlay_db
 # Global Var
 # ---------------
 
@@ -151,6 +152,18 @@ async def get_games_on_date_controller(data: DateStr):
 async def get_play_by_play(data: PlayByPlayStr):
     start = perf_counter()
     new_date = fix_date_db(data.date)
+    
+    # If we already have this games playbyplay return that instead
+    # of requesting nba
+
+    if(check_playByPlay_exists(gameID=data.gameID, client=client)):
+        plays = get_playByPlay_db(client=client, gameID=data.gameID)
+        end = perf_counter()
+        print(f"Execution time for PlayByPlay (Database): {end-start:.6f}\n")
+        return JSONResponse(content=plays)
+
+    # Requesting NBA
+    # If its a retro date use retroPlayByPlay instead
     if isRetroDate(new_date):
         season_str = get_season_str(new_date)
         plays = getRetroPlayByPlay(gameID=data.gameID, season=season_str, stat_type=data.statType)
@@ -158,6 +171,9 @@ async def get_play_by_play(data: PlayByPlayStr):
         split_date = new_date.split('-')
         plays = getPlayByPlayWithUrl(gameID=data.gameID, year=split_date[0], day=split_date[2], month=split_date[1], stat_type=data.statType)
 
+    # Since we dont have the playbyplpay for this game in the db
+    # insert it for future
+    insert_playByPlay_db(client=client, game=plays.copy())
     end = perf_counter()
     print(f"Execution time for PlayByPlay: {end-start:.6f}\n")
     return JSONResponse(content=plays)

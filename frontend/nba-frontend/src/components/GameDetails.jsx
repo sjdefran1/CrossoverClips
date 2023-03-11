@@ -165,7 +165,7 @@ export default function GameDetails(props) {
           <Grid item xs={6}>
             <AppBar position='static' sx={{ borderRadius: 1 }}>
               <Toolbar sx={{ justifyContent: "right" }}>
-                <Stack direction='row' alignItems={"center"} sx={{ mr: 1.5 }}>
+                <Stack direction='row' alignItems={"center"} sx={{ mr: "12%" }}>
                   <IconButton onClick={() => handleQuarterChange(0)}>
                     <KeyboardArrowLeftIcon color='info' />
                   </IconButton>

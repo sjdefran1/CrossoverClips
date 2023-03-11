@@ -27,6 +27,7 @@ export default function NoHighlights(props) {
           </>
         ) : (
           <>
+            <br></br>
             <img src={jordanGif}></img>
             <Stack
               direction={"row"}
@@ -38,6 +39,7 @@ export default function NoHighlights(props) {
                 <InfoIcon color='warning' />
               </Tooltip>
             </Stack>
+            <br></br>
           </>
         )}
       </Paper>

@@ -82,6 +82,7 @@ def getRetroPlayByPlay(gameID: str, season: str, stat_type='FGM') -> dict:
   away_id = plays[-1]['vid']
   num_quarters = plays[-1]['p']
   ret_dict = {
+     "game_id": gameID,
      "players": [],
      "plays": plays_url_desc,
      "team_ids": [home_id, away_id],
