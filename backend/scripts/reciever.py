@@ -122,6 +122,7 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup_event():
     scheduler.start()
+    update_today()
     print("Started Scheduler**")
 
 @app.on_event("shutdown")

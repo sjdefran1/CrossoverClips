@@ -4,6 +4,57 @@ import { Avatar, Stack, Grid, Typography, Paper } from "@mui/material";
 
 //const project = projects[0];
 export default function GameDash(props) {
+  const [homeName, setHomeName] = React.useState("");
+  const [homeCity, setHomeCity] = React.useState("");
+
+  const [awayName, setAwayName] = React.useState("");
+  const [awayCity, setAwayCity] = React.useState("");
+
+  const handleNameLength = (isHome, name) => {
+    let split = name.split(" ");
+
+    //annoying blazers and their weird name!!
+    if (split[0] === "Portland") {
+      if (isHome) {
+        setHomeCity(split[0]);
+        setHomeName(split[1] + " " + split[2]);
+        return;
+      }
+      setAwayCity(split[0]);
+      setAwayName(split[1] + " " + split[2]);
+      return;
+    }
+
+    // Cities that are two words
+    if (split.length > 2 && isHome) {
+      setHomeCity(split[0] + " " + split[1]);
+      setHomeName(split[2]);
+      return;
+    }
+    if (split.length > 2 && !isHome) {
+      setAwayCity(split[0] + " " + split[1]);
+      setAwayName(split[2]);
+      return;
+    }
+
+    // One word Cities
+    if (isHome) {
+      setHomeCity(split[0]);
+      setHomeName(split[1]);
+      return;
+    }
+
+    setAwayCity(split[0]);
+    setAwayName(split[1]);
+    return;
+  };
+
+  React.useEffect(() => {
+    handleNameLength(true, props.game_link.home_info.TEAM_NAME);
+    handleNameLength(false, props.game_link.away_info.TEAM_NAME);
+    //setHomeName(props.game_link.away_info.TEAM_NAME.split(" ")[0]);
+    //setAwayName(props.game_link.away_info.TEAM_NAME.split(" ")[0]);
+  }, []);
   return (
     <>
       <Paper sx={{ borderRadius: 2 }}>
@@ -24,11 +75,9 @@ export default function GameDash(props) {
                 }
                 sx={{ width: 100, height: 100 }}
               />
-              <Typography variant='h6'>
-                {props.game_link.away_info.TEAM_NAME.split(" ")[0]}
-              </Typography>
+              <Typography variant='h6'>{awayCity}</Typography>
               <Typography variant='h7' color='text.secondary'>
-                {props.game_link.away_info.TEAM_NAME.split(" ")[1]}
+                {awayName}
               </Typography>
             </Stack>
           </Grid>
@@ -81,11 +130,9 @@ export default function GameDash(props) {
                 }
                 sx={{ width: 100, height: 100 }}
               />
-              <Typography variant='h6'>
-                {props.game_link.home_info.TEAM_NAME.split(" ")[0]}
-              </Typography>
+              <Typography variant='h6'>{homeCity}</Typography>
               <Typography variant='h7' color='text.secondary'>
-                {props.game_link.home_info.TEAM_NAME.split(" ")[1]}
+                {homeName}
               </Typography>
             </Stack>
           </Grid>

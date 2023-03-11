@@ -119,7 +119,7 @@ export default function GameDetails(props) {
     <>
       {/* GameInfo */}
       {/* ------------------------------------------------ */}
-      <Container maxWidth='lg'>
+      <Container maxWidth='xl'>
         <Grid container spacing={2} paddingTop>
           <Grid item xs={6}>
             {/* GAMEDASH AND PLAYER FILTER */}
@@ -128,27 +128,36 @@ export default function GameDetails(props) {
                 <GameDash game_link={state.game_link} />
               </div>
             </Fade>
+            <Grid container>
+              {playsIsLoading && (
+                <Grid item xs={8}>
+                  <Stack sx={{ justifyContent: "center" }}>
+                    <br></br>
+                    <CircularProgress sx={{ ml: "50%" }} />
+                  </Stack>
+                </Grid>
+              )}
+              {/* if players array is empty -> retro game -> don't load player filters */}
 
-            {playsIsLoading && (
-              <Stack sx={{ justifyContent: "center" }}>
-                <br></br>
-                <CircularProgress sx={{ ml: "50%" }} />
-              </Stack>
-            )}
-            {/* if players array is empty -> retro game -> don't load player filters */}
-            {!playsIsLoading && playByPlay.players.length > 0 && (
-              <>
-                {/* <GameStatsDash gameInfo={state.game_link} /> */}
-                <PlayerFilter
-                  players={playByPlay.players}
-                  teamIDs={playByPlay.team_ids}
-                  currentFilterPlayers={filteredPlayers}
-                  setPlayerFilter={getFilteredPlayers}
-                  getStatFilter={getStatFilter}
-                />
-              </>
-            )}
-            <StatFilter updateFilter={getStatFilter} />
+              {!playsIsLoading && playByPlay.players.length > 0 && (
+                <>
+                  <Grid item xs={8}>
+                    <PlayerFilter
+                      players={playByPlay.players}
+                      teamIDs={playByPlay.team_ids}
+                      currentFilterPlayers={filteredPlayers}
+                      setPlayerFilter={getFilteredPlayers}
+                      getStatFilter={getStatFilter}
+                    />
+                  </Grid>
+
+                  {/* <GameStatsDash gameInfo={state.game_link} /> */}
+                </>
+              )}
+              <Grid item xs={4}>
+                <StatFilter updateFilter={getStatFilter} />
+              </Grid>
+            </Grid>
           </Grid>
           {/* ------------------------------------------------ */}
           {/* PlayByPlay */}
@@ -189,7 +198,7 @@ export default function GameDetails(props) {
             </AppBar>
             <Stack
               sx={{
-                maxHeight: "75vh",
+                maxHeight: "78vh",
                 overflow: "auto",
               }}>
               {/* Loading */}
