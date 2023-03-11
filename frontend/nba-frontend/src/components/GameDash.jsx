@@ -10,51 +10,36 @@ export default function GameDash(props) {
   const [awayName, setAwayName] = React.useState("");
   const [awayCity, setAwayCity] = React.useState("");
 
-  const handleNameLength = (isHome, name) => {
+  const handleNameLength = (name) => {
     let split = name.split(" ");
-
     //annoying blazers and their weird name!!
     if (split[0] === "Portland") {
-      if (isHome) {
-        setHomeCity(split[0]);
-        setHomeName(split[1] + " " + split[2]);
-        return;
-      }
-      setAwayCity(split[0]);
-      setAwayName(split[1] + " " + split[2]);
-      return;
+      return [split[0], split[1] + " " + split[2]];
     }
-
     // Cities that are two words
-    if (split.length > 2 && isHome) {
-      setHomeCity(split[0] + " " + split[1]);
-      setHomeName(split[2]);
-      return;
+    if (split.length > 2) {
+      return [split[0] + " " + split[1], split[2]];
     }
-    if (split.length > 2 && !isHome) {
-      setAwayCity(split[0] + " " + split[1]);
-      setAwayName(split[2]);
-      return;
-    }
-
     // One word Cities
-    if (isHome) {
-      setHomeCity(split[0]);
-      setHomeName(split[1]);
-      return;
-    }
-
-    setAwayCity(split[0]);
-    setAwayName(split[1]);
-    return;
+    return [split[0], split[1]];
   };
 
   React.useEffect(() => {
-    handleNameLength(true, props.game_link.home_info.TEAM_NAME);
-    handleNameLength(false, props.game_link.away_info.TEAM_NAME);
+    // set home name and city
+    let result = handleNameLength(props.game_link.home_info.TEAM_NAME);
+    setHomeCity(result[0]);
+    setHomeName(result[1]);
+    //handleNameLength(true, props.game_link.home_info.TEAM_NAME);
+
+    // set away name and city
+    result = handleNameLength(props.game_link.away_info.TEAM_NAME);
+    setAwayCity(result[0]);
+    setAwayName(result[1]);
+    //handleNameLength(false, props.game_link.away_info.TEAM_NAME);
     //setHomeName(props.game_link.away_info.TEAM_NAME.split(" ")[0]);
     //setAwayName(props.game_link.away_info.TEAM_NAME.split(" ")[0]);
   }, []);
+
   return (
     <>
       <Paper sx={{ borderRadius: 2 }}>
