@@ -32,12 +32,12 @@ export default function NoHighlights(props) {
             <Stack
               direction={"row"}
               sx={{ alignItems: "center", justifyContent: "center" }}>
-              <Typography variant='h5' color={"text.secondary"} padding={1}>
-                No results found, try changing quarters!
-              </Typography>
               <Tooltip title='Based on your current filter, there are no plays during this quarter. Try changing quarters above, or changing up your filter'>
                 <InfoIcon color='warning' />
               </Tooltip>
+              <Typography variant='h5' color={"text.secondary"} padding={1}>
+                No results found, try changing quarters!
+              </Typography>
             </Stack>
             <br></br>
           </>

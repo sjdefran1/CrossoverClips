@@ -1,4 +1,5 @@
 import * as React from "react";
+import NoHighlights from "./NoHighlights";
 import SinglePlay from "./SinglePlay";
 
 //const project = projects[0];
@@ -18,6 +19,9 @@ export default function PlayList(props) {
   //   };
   return (
     <>
+      {props.playByPlay.plays
+        .filter((play) => play.quarter === props.currentQuarter)
+        .map((play) => play).length === 0 && <NoHighlights isPlay={true} />}
       {props.playByPlay.plays
         .filter((play) => play.quarter === props.currentQuarter)
         .map((play) => (

@@ -11,7 +11,7 @@ from time import perf_counter
 # my scripts
 from db.gamesController import get_games_on_date_db
 from db.get_database import get_db
-from playByPlay.retroPlayByPlay import getRetroPlayByPlay
+from playByPlay.retroPlayByPlay import getRetroPlayByPlay, get_all_playbyplay_stats_retro
 from db.createCollections import update_today
 from db.playByPlayController import check_playByPlay_exists, insert_playByPlay_db, get_playByPlay_db
 from playByPlay.playbyplayToUrls import getPlayByPlayWithUrl, get_all_playbyplay_stats_normal
@@ -84,6 +84,14 @@ def update_db_today() -> None:
 def get_other_stats_job(gameID: str, year, day, month):
     print(f"Getting other Stat Types for {gameID}")
     complete_playbyplay_dic = get_all_playbyplay_stats_normal(gameID=gameID, year=year, day=day, month=month)
+    insert_playByPlay_db(client=client, game=complete_playbyplay_dic.copy())
+    #print(complete_playbyplay_dic)
+    print("finsihed")
+
+
+def get_other_stats_job_retro(gameID: str, season: str):
+    print(f"Getting other Stat Types for {gameID}")
+    complete_playbyplay_dic = get_all_playbyplay_stats_retro(gameID=gameID, season=season)
     insert_playByPlay_db(client=client, game=complete_playbyplay_dic.copy())
     #print(complete_playbyplay_dic)
     print("finsihed")
@@ -163,11 +171,8 @@ async def get_games_on_date_controller(data: DateStr):
 async def get_play_by_play(data: PlayByPlayStr):
     start = perf_counter()
     new_date = fix_date_db(data.date)
-    # async def get_other_stats():
-    #     await get_other_stats_job()
-    # If we already have this games playbyplay return that instead
-    # of requesting nba
 
+    # Game exists in our database already retrieve it and return
     if(check_playByPlay_exists(gameID=data.gameID, client=client)):
         plays = get_playByPlay_db(client=client, gameID=data.gameID, statType = data.statType)
         end = perf_counter()
@@ -179,20 +184,19 @@ async def get_play_by_play(data: PlayByPlayStr):
     if isRetroDate(new_date):
         season_str = get_season_str(new_date)
         plays = getRetroPlayByPlay(gameID=data.gameID, season=season_str, stat_type=data.statType)
+        scheduler.add_job(get_other_stats_job_retro, args=[data.gameID, season_str])
     else:
         split_date = new_date.split('-')
+        # get json response for playbyplay
         response=getPlayByPlayJson(gameID=data.gameID)
+        # get fgm and return it for speed
         plays = getPlayByPlayWithUrl(gameID=data.gameID, year=split_date[0], day=split_date[2], month=split_date[1], stat_type=data.statType, response=response)
-        #get_all_playbyplay_stats_normal(gameID=data.gameID, year=split_date[0], day=split_date[2], month=split_date[1])
+        # add job to get other stat types and insert this game
+        # into database
+        scheduler.add_job(get_other_stats_job, args=[data.gameID, split_date[0], split_date[2], split_date[1]])
         
-    # Since we dont have the playbyplpay for this game in the db
-    # insert it for future
-    #insert_playByPlay_db(client=client, game=plays.copy())
     end = perf_counter()
     print(f"Execution time for PlayByPlay: {end-start:.6f}\n")
-
-    # get other stat types in bg after returning FGM
-    scheduler.add_job(get_other_stats_job, args=[data.gameID, split_date[0], split_date[2], split_date[1]])
     return JSONResponse(content=plays)
     
 
