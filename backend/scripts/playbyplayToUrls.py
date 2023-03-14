@@ -1,5 +1,7 @@
 import requests
 import json
+import asyncio
+from time import perf_counter
 
 # source C:/Users/sjdef/anaconda3/Scripts/activate base
 
@@ -75,9 +77,9 @@ def getActionNumberToURLs(gameID: str, stat_type='FGM') -> dict:
 def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str, stat_type='FGM') -> dict:
   url = f"https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_{gameID}.json"
   try:
-    print(f"Making request to PlaybyPlay Asset | {gameID} | stat-type: {stat_type} |...")
+    print(f"Making request to PlaybyPlay Asset | {gameID} | stat-type: {stat_type} | {perf_counter()} |...")
     response = requests.request("GET", url, headers=headers, timeout=15)
-    print("Request to PlaybyPlay Asset complete")
+    print(f"Request to PlaybyPlay Asset complete {stat_type}")
   except:
     print("request Timeout")
 
@@ -128,7 +130,7 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str, stat_type
     number_quarters = None
   
   ret_dict = {
-    "game_id": gameID,
+     "game_id": gameID,
      "players": list(set(players_list)), # remove dups
      "plays": desc_to_url,
      "team_ids": list(set(ids)),
@@ -233,14 +235,93 @@ def get_vid_url(base_video_url: str, act_num: str, action_hex: dict) -> str:
   vid_url = base_video_url + f'{act_num}/' + action_hex.get(f"{act_num}")
   return vid_url
 
-def main():
-  test = getPlayByPlayWithUrl(gameID='0022200908', year='2023', month='02', day='25', stat_type='PTS' )
-  print(json.dumps(test, indent=1))
+
+def get_all_playbyplay_stats_normal(gameID, month, day, year):
+  start = perf_counter()
+  plays_dic = {"FGM":0, "AST":0, "BLK":0}
+  players_dic = {"FGM":0, "AST":0, "BLK":0}
+
+  fgm = getPlayByPlayWithUrl(gameID=gameID, month=month, day=day, year=year, stat_type='FGM')
+  # store teamids and numquarters for ret_dic since they will be same in all requests
+  teamIDS = fgm['team_ids']
+  num_quarters = fgm['number_quarters']
+  # update our 0'd dictionaries to results
+  players_dic['FGM'] = fgm['players']
+  plays_dic['FGM'] = fgm['plays']
+  
+  ast = getPlayByPlayWithUrl(gameID=gameID, month=month, day=day, year=year, stat_type='AST')
+  players_dic['AST'] = ast['players']
+  plays_dic['AST'] = ast['plays']
+  
+  blk = getPlayByPlayWithUrl(gameID=gameID, month=month, day=day, year=year, stat_type='BLK')
+  players_dic['BLK'] = blk['players']
+  plays_dic['BLK'] = blk['plays']
+
+  ret_dict = {
+     "game_id": gameID,
+     "players": players_dic, 
+     "plays": players_dic,
+     "team_ids": teamIDS,
+     "number_quarters": num_quarters
+  }
+  end = perf_counter()
+  print(f"Execution time for PlayByPlay Normal: {end-start:.6f}\n")
+  return ret_dict
 
 
+
+
+
+async def get_all_playbyplay_stats(gameID, month, day, year):
+    # async def get_stat(stat_type):
+    #     return await getPlayByPlayWithUrl(gameID=gameID, month=month, day=day, year=year, stat_type=stat_type)
+    start = perf_counter()
+    coroutines = [
+        asyncio.create_task(getPlayByPlayWithUrl(gameID=gameID, month=month, day=day, year=year, stat_type='FGM')),
+        asyncio.create_task(getPlayByPlayWithUrl(gameID=gameID, month=month, day=day, year=year, stat_type='AST')),
+        asyncio.create_task(getPlayByPlayWithUrl(gameID=gameID, month=month, day=day, year=year, stat_type='BLK'))    
+    ]
+    results = await asyncio.gather(*coroutines)
+    fgm, ast, blk = results
+
+    players_dic = {
+        "FGM": fgm['players'],
+        "AST": ast['players'],
+        "BLK": blk['players']
+    }
+    plays_dic = {
+        "FGM": fgm['plays'],
+        "AST": ast['plays'],
+        "BLK": blk['plays']
+    }
+
+    ret_dict = {
+        "game_id": gameID,
+        "players": players_dic, 
+        "plays": plays_dic,
+        "team_ids": fgm['team_ids'],
+        "number_quarters": fgm['number_quarters']
+    }
+    end = perf_counter()
+    print(f"Execution time for PlayByPlay async: {end-start:.6f}\n")
+
+    return ret_dict
+
+
+
+async def main():
+  #test = getPlayByPlayWithUrl(gameID='0022200908', year='2023', month='02', day='25', stat_type='PTS' )
+  test = await get_all_playbyplay_stats(gameID='0022200908', year='2023', month='02', day='25')
+
+  #print(test)
+
+def main_norm():
+  get_all_playbyplay_stats_normal(gameID='0022200908', year='2023', month='02', day='25')
 
 if __name__ == "__main__":
-    main()
+    #asyncio.run(main())
+    main_norm()
+    #get_all_playbyplay_stats_normal(gameID='0022200908', year='2023', month='02', day='25')
 
 
 
