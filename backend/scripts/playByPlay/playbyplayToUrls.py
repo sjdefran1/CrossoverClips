@@ -1,5 +1,8 @@
 import requests
 import json
+from time import perf_counter
+from playByPlay.statHandlers import handle_BLK, handle_FGM_or_AST
+from playByPlay.playHelpers import getPlayByPlayJson
 
 # source C:/Users/sjdef/anaconda3/Scripts/activate base
 
@@ -19,6 +22,60 @@ headers = {
     'sec-ch-ua-platform': '"macOS"',
 }
 
+"""
+Main function of this file, gets all three stat types and prepares database
+play dictionary in format
+
+{
+  "game_id": gameid,
+  "players": {
+    "fgm": [(), (), ..],
+    "ast": [(), (), ..],
+    "blk": [(), (), ..],
+  }
+  "plays": {
+  "fgm": [{}, {}, ..],
+  "ast": [{}, {}, ..],
+  "blk": [{}, {}, ..],
+  } 
+  team_ids: [home, away]
+  number_quarters
+}
+"""
+def get_all_playbyplay_stats_normal(gameID, month, day, year):
+  start = perf_counter()
+  plays_dic = {"FGM":0, "AST":0, "BLK":0}
+  players_dic = {"FGM":0, "AST":0, "BLK":0}
+
+  playByPlay_response = getPlayByPlayJson(gameID=gameID)
+
+  fgm = getPlayByPlayWithUrl(response=playByPlay_response, gameID=gameID, month=month, day=day, year=year, stat_type='FGM')
+  # store teamids and numquarters for ret_dic since they will be same in all requests
+  teamIDS = fgm['team_ids']
+  num_quarters = fgm['number_quarters']
+  # update our 0'd dictionaries to results
+  players_dic['FGM'] = fgm['players']
+  plays_dic['FGM'] = fgm['plays']
+  
+  ast = getPlayByPlayWithUrl(response=playByPlay_response, gameID=gameID, month=month, day=day, year=year, stat_type='AST')
+  players_dic['AST'] = ast['players']
+  plays_dic['AST'] = ast['plays']
+  
+  blk = getPlayByPlayWithUrl(response=playByPlay_response, gameID=gameID, month=month, day=day, year=year, stat_type='BLK')
+  players_dic['BLK'] = blk['players']
+  plays_dic['BLK'] = blk['plays']
+
+  ret_dict = {
+     "game_id": gameID,
+     "players": players_dic, 
+     "plays": plays_dic,
+     "team_ids": teamIDS,
+     "number_quarters": num_quarters
+  }
+  end = perf_counter()
+  print(f"Execution time for PlayByPlay Normal: {end-start:.6f}\n")
+  return ret_dict
+
 # working cp3 clips suns
 #gameID = '0022200885'
 
@@ -26,7 +83,7 @@ headers = {
 # year = '2023'
 # month = '02'
 # day = '15'
-
+### -------PlayByPlay--------------------------------------------------------
 def getActionNumberToURLs(gameID: str, stat_type='FGM') -> dict:
   params = {
       'GameID': gameID, # not required,
@@ -43,7 +100,7 @@ def getActionNumberToURLs(gameID: str, stat_type='FGM') -> dict:
       'TeamID': '0', # required //
   }
   try:
-    print("Making request to VideoDetail Asset...")
+    print(f"Making request to VideoDetail Asset ({stat_type})...")
     response = requests.get('https://stats.nba.com/stats/videodetailsasset', params=params, headers=headers, timeout=15)
     print("Request to VideoDetail Asset complete")
 
@@ -71,15 +128,14 @@ def getActionNumberToURLs(gameID: str, stat_type='FGM') -> dict:
   #print(action_hex)
   return action_hex
 
-### -------PlayByPlay--------------------------------------------------------
-def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str, stat_type='FGM') -> dict:
-  url = f"https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_{gameID}.json"
-  try:
-    print(f"Making request to PlaybyPlay Asset | {gameID} | stat-type: {stat_type} |...")
-    response = requests.request("GET", url, headers=headers, timeout=15)
-    print("Request to PlaybyPlay Asset complete")
-  except:
-    print("request Timeout")
+def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str, response, stat_type='FGM') -> dict:
+  # url = f"https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_{gameID}.json"
+  # try:
+  #   print(f"Making request to PlaybyPlay Asset | {gameID} | stat-type: {stat_type} |...")
+  #   response = requests.request("GET", url, headers=headers, timeout=15)
+  #   print("Request to PlaybyPlay Asset complete")
+  # except:
+  #   print("request Timeout")
 
   json_response = response.json()
   # print(json_response)
@@ -136,117 +192,10 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str, stat_type
   }
   return ret_dict
 
-
-# get assists 0: no, 1: yes
-def handle_FGM_or_AST(action: dict, action_hex: dict, base_video_url: str, get_assits=0) -> tuple:
-  if(action['isFieldGoal']):
-      #print(json.dumps(action, indent=1))
-      if(action['shotResult'] == 'Made'):
-        act_num = action['actionNumber']
-        
-        #print(type(action_hex.get(f"{act_num}")))
-        # if no clip exists, rare occurence, continue loop
-        if action_hex.get(f"{act_num}") is None:
-           return
-        #print(act_num)
-        vid_url = base_video_url + f'{act_num}/' + action_hex.get(f"{act_num}")
-
-        time_str = get_time(action=action)
-        # Get information about action, player that made shot
-        update_val = {
-          "description": action['description'],
-          "url":  vid_url,
-          "quarter": action['period'],
-          "teamID": action['teamId'],
-          "scoreHome": action['scoreHome'],
-          "scoreAway": action['scoreAway'],
-          "time": time_str,
-          "playerID": action['personId'],  
-        }
-        player = (
-          action['teamId'],
-          action['playerNameI'], action['personId'])
-        
-        # if requesting assists
-        # try to get assister, if exists
-        if get_assits == 1:
-          try:
-            update_val = {
-              "description": action['description'],
-              "url":  vid_url,
-              "quarter": action['period'],
-              "teamID": action['teamId'],
-              "scoreHome": action['scoreHome'],
-              "scoreAway": action['scoreAway'],
-              "time": time_str,
-              "playerID": action['assistPersonId'],  
-            }
-            player = (
-              action['teamId'],
-              action['assistPlayerNameInitial'], action['assistPersonId']
-            )
-          except:
-             print('no assister')
-        
-        return (update_val, player)
-  
-  # not a fgm
-  return
-
-def handle_BLK(action: dict, action_hex: dict, base_video_url: str) -> tuple:
-  time_str = get_time(action=action)
-  vid_url = get_vid_url(base_video_url=base_video_url, act_num=action['actionNumber']-1, action_hex=action_hex)
-  update_val = {
-    "description": action['description'],
-    "url":  vid_url,
-    "quarter": action['period'],
-    "teamID": action['teamId'],
-    "scoreHome": action['scoreHome'],
-    "scoreAway": action['scoreAway'],
-    "time": time_str,
-    "playerID": action['personId'],  
-  }
-  player = (
-    action['teamId'],
-    action['playerName'], action['personId']
-  )
-  #print(update_val)
-  return (update_val, player)
-
-
-def get_time(action: dict) -> str:
-  # '11M57.00S'   
-  time_str = action['clock']
-  # '11'
-  time_min = time_str.split("PT")[1].split("M")[0]
-  # '52.23' || '41'
-  time_sec = time_str.split("PT")[1].split("M")[1]
-  # if ends in .00 get rid of it, else keep it
-  if time_sec.split(".")[1] == '00':
-    time_sec = time_str.split("PT")[1].split("M")[1].split(".")[0]
-
-  return f"{time_min}:{time_sec}"
-
-def get_vid_url(base_video_url: str, act_num: str, action_hex: dict) -> str:
-  if action_hex.get(f"{act_num}") is None:
-    return ""
-  vid_url = base_video_url + f'{act_num}/' + action_hex.get(f"{act_num}")
-  return vid_url
-
+# -----------------------------------------
 def main():
-  test = getPlayByPlayWithUrl(gameID='0022200908', year='2023', month='02', day='25', stat_type='PTS' )
-  print(json.dumps(test, indent=1))
-
-
-
+  #test = getPlayByPlayWithUrl(gameID='0022200908', year='2023', month='02', day='25', stat_type='PTS' )
+  test = get_all_playbyplay_stats_normal(gameID='0022200908', year='2023', month='02', day='25')
+  print(test)
 if __name__ == "__main__":
     main()
-
-
-
-# 
-# 
-# 
-# 
-# 
-# 

@@ -2,19 +2,21 @@ from fastapi import FastAPI, Body, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
-from get_schedule import get_games_on_date
-from playbyplayToUrls import getPlayByPlayWithUrl
-from game_info import get_game_info
-from nba_games_endpoint import update_scores
+
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 import json
 from time import perf_counter
+
+# my scripts
 from db.gamesController import get_games_on_date_db
 from db.get_database import get_db
-from retroPlayByPlay import getRetroPlayByPlay
+from playByPlay.retroPlayByPlay import getRetroPlayByPlay
 from db.createCollections import update_today
 from db.playByPlayController import check_playByPlay_exists, insert_playByPlay_db, get_playByPlay_db
+from playByPlay.playbyplayToUrls import getPlayByPlayWithUrl, get_all_playbyplay_stats_normal
+from schedule.game_info import get_game_info
+from playByPlay.playHelpers import getPlayByPlayJson
 # Global Var
 # ---------------
 
@@ -78,6 +80,14 @@ def update_db_today() -> None:
     update_today()
     print("job finished")
     return
+
+def get_other_stats_job(gameID: str, year, day, month):
+    print(f"Getting other Stat Types for {gameID}")
+    complete_playbyplay_dic = get_all_playbyplay_stats_normal(gameID=gameID, year=year, day=day, month=month)
+    insert_playByPlay_db(client=client, game=complete_playbyplay_dic.copy())
+    #print(complete_playbyplay_dic)
+    print("finsihed")
+
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(update_db_today, 'interval', seconds=60 * 5)
@@ -146,18 +156,20 @@ async def get_games_on_date_controller(data: DateStr):
         return "no games"
     else:
         return JSONResponse(content=games_db)
-   
+
+
 
 @app.post('/playByPlay')
 async def get_play_by_play(data: PlayByPlayStr):
     start = perf_counter()
     new_date = fix_date_db(data.date)
-    
+    # async def get_other_stats():
+    #     await get_other_stats_job()
     # If we already have this games playbyplay return that instead
     # of requesting nba
 
     if(check_playByPlay_exists(gameID=data.gameID, client=client)):
-        plays = get_playByPlay_db(client=client, gameID=data.gameID)
+        plays = get_playByPlay_db(client=client, gameID=data.gameID, statType = data.statType)
         end = perf_counter()
         print(f"Execution time for PlayByPlay (Database): {end-start:.6f}\n")
         return JSONResponse(content=plays)
@@ -169,14 +181,20 @@ async def get_play_by_play(data: PlayByPlayStr):
         plays = getRetroPlayByPlay(gameID=data.gameID, season=season_str, stat_type=data.statType)
     else:
         split_date = new_date.split('-')
-        plays = getPlayByPlayWithUrl(gameID=data.gameID, year=split_date[0], day=split_date[2], month=split_date[1], stat_type=data.statType)
-
+        response=getPlayByPlayJson(gameID=data.gameID)
+        plays = getPlayByPlayWithUrl(gameID=data.gameID, year=split_date[0], day=split_date[2], month=split_date[1], stat_type=data.statType, response=response)
+        #get_all_playbyplay_stats_normal(gameID=data.gameID, year=split_date[0], day=split_date[2], month=split_date[1])
+        
     # Since we dont have the playbyplpay for this game in the db
     # insert it for future
-    insert_playByPlay_db(client=client, game=plays.copy())
+    #insert_playByPlay_db(client=client, game=plays.copy())
     end = perf_counter()
     print(f"Execution time for PlayByPlay: {end-start:.6f}\n")
+
+    # get other stat types in bg after returning FGM
+    scheduler.add_job(get_other_stats_job, args=[data.gameID, split_date[0], split_date[2], split_date[1]])
     return JSONResponse(content=plays)
+    
 
 # deprecated ??
 @app.post('/gameInfo')

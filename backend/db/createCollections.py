@@ -1,4 +1,4 @@
-from scripts.gameLog import parse_season_json
+from scripts.schedule.gameLog import parse_season_json
 from db.get_database import get_db
 
 def update_all_seasons() -> None:
