@@ -45,6 +45,10 @@ def update_current_season() -> None:
             print(f"{game['home_info']['MATCHUP']} Notin database, inserting...")
             collection.insert_one(game)
             print("Inserted")
+        else:
+            print(f"Updating {game['home_info']['MATCHUP']} ")
+            collection.find_one_and_replace({"game_id": game['game_id']}, replacement=game)
+
 
     #collection.insert_many(games)
     print("Season Updated")
@@ -70,7 +74,7 @@ def update_today() -> None:
     return
 
 if __name__ == '__main__':
-    #update_current_season()
+    update_current_season()
     #update_all_seasons()
-    update_today()
+    #update_today()
     
