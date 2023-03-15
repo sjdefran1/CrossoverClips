@@ -15,6 +15,10 @@ import {
   FormControlLabel,
   Switch,
   Tooltip,
+  Box,
+  Tabs,
+  Tab,
+  Tabpanel,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -38,8 +42,13 @@ export default function GameDetails(props) {
   const [isFilteredPlayers, setIsFilteredPlayers] = React.useState(false);
   const [statFilterFrom, setStatFilterFrom] = React.useState("FGM");
   const [showHighlightPreview, setShowHighlightPreview] = React.useState(false);
+  const [tabValue, setTabValue] = React.useState(0);
+
   let { state } = useLocation();
   // const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleTabChange = (event, newVal) => {
+    setTabValue(newVal);
+  };
 
   const handleSwitchChange = (event) => {
     setShowHighlightPreview(!showHighlightPreview);
@@ -128,6 +137,19 @@ export default function GameDetails(props) {
                 <GameDash game_link={state.game_link} />
               </div>
             </Fade>
+            <Box sx={{ width: "100%" }}>
+              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <Tabs
+                  value={tabValue}
+                  onChange={handleTabChange}
+                  aria-label='Filters or Game Stats'>
+                  <Tab label='Filters' tabIndex={0} />
+                  <Tab label='Game Stats' tabIndex={1} />
+                </Tabs>
+              </Box>
+            </Box>
+            {tabValue == 1 && <GameStatsDash gameInfo={state.game_link} />}
+
             <Grid container>
               {playsIsLoading && (
                 <Grid item xs={8}>
@@ -138,25 +160,27 @@ export default function GameDetails(props) {
                 </Grid>
               )}
               {/* if players array is empty -> retro game -> don't load player filters */}
+              {!playsIsLoading &&
+                playByPlay.players.length > 0 &&
+                tabValue === 0 && (
+                  <>
+                    <Grid item xs={8}>
+                      <PlayerFilter
+                        players={playByPlay.players}
+                        teamIDs={playByPlay.team_ids}
+                        currentFilterPlayers={filteredPlayers}
+                        setPlayerFilter={getFilteredPlayers}
+                        getStatFilter={getStatFilter}
+                      />
+                    </Grid>
+                  </>
+                )}
 
-              {!playsIsLoading && playByPlay.players.length > 0 && (
-                <>
-                  <Grid item xs={8}>
-                    <PlayerFilter
-                      players={playByPlay.players}
-                      teamIDs={playByPlay.team_ids}
-                      currentFilterPlayers={filteredPlayers}
-                      setPlayerFilter={getFilteredPlayers}
-                      getStatFilter={getStatFilter}
-                    />
-                  </Grid>
-
-                  {/* <GameStatsDash gameInfo={state.game_link} /> */}
-                </>
+              {tabValue === 0 && (
+                <Grid item xs={4}>
+                  <StatFilter updateFilter={getStatFilter} />
+                </Grid>
               )}
-              <Grid item xs={4}>
-                <StatFilter updateFilter={getStatFilter} />
-              </Grid>
             </Grid>
           </Grid>
           {/* ------------------------------------------------ */}
@@ -222,7 +246,7 @@ export default function GameDetails(props) {
                   currentQuarter={currentQuarter}
                 />
               )}
-
+              {/* Player Filters have been applied */}
               {!playsIsLoading && isFilteredPlayers && (
                 <FilteredPlayList
                   playByPlay={playByPlay}
