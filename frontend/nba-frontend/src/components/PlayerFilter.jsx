@@ -63,8 +63,6 @@ export default function PlayerFilter(props) {
 
   return (
     <>
-      <br></br>
-
       <Paper>
         <Box sx={{ maxHeight: "50vh", overflow: "auto" }}>
           <AppBar position='static' sx={{ borderRadius: 1 }}>

@@ -25,10 +25,9 @@ export default function StatFilter(props) {
   };
   return (
     <>
-      <br></br>
       <Paper sx={{ mx: 1 }}>
         <Paper sx={{ textAlign: "center" }}>
-          <Typography variant='body1' padding>
+          <Typography variant='body1' color='text.secondary' padding>
             STATS
           </Typography>
         </Paper>

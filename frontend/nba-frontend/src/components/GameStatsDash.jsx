@@ -43,13 +43,9 @@ export default function GameStatsDash(props) {
   }, []);
   return (
     <>
-      <br></br>
       <Box sx={{ maxWidth: { lg: "100vh", sm: "35vh" } }}>
         <Paper>
           <Stack textAlign={"center"}>
-            <Typography variant='h6' padding={1}>
-              Game Stats
-            </Typography>
             <Divider sx={{ mx: 3 }} />
             <Stack direction={"row"} alignItems='center' justifyContent='right'>
               <Box sx={{ mr: { sm: 4, lg: 21 } }}>

@@ -138,8 +138,9 @@ export default function GameDetails(props) {
               </div>
             </Fade>
             <Box sx={{ width: "100%" }}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 0.5 }}>
                 <Tabs
+                  centered
                   value={tabValue}
                   onChange={handleTabChange}
                   aria-label='Filters or Game Stats'>
@@ -148,7 +149,15 @@ export default function GameDetails(props) {
                 </Tabs>
               </Box>
             </Box>
-            {tabValue == 1 && <GameStatsDash gameInfo={state.game_link} />}
+            {tabValue == 1 && (
+              <>
+                <Fade in={true} timeout={800}>
+                  <div>
+                    <GameStatsDash gameInfo={state.game_link} />
+                  </div>
+                </Fade>
+              </>
+            )}
 
             <Grid container>
               {playsIsLoading && (

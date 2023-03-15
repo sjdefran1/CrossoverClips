@@ -155,9 +155,6 @@ async def shutdown_event():
 @app.post("/date")
 async def get_games_on_date_controller(data: DateStr):
     print('Requested ' + data.value)
-    date = fix_date(data.value)
-    #games = get_games_on_date(date)
-    #print(json.dumps(games, indent=1))
     db_date = fix_date_db(data.value)
     games_db = get_games_on_date_db(date=db_date, client=client)
     if games_db == ():
