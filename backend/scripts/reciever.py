@@ -11,12 +11,14 @@ from time import perf_counter
 # my scripts
 from db.gamesController import get_games_on_date_db
 from db.get_database import get_db
-from playByPlay.retroPlayByPlay import getRetroPlayByPlay, get_all_playbyplay_stats_retro
+from db.teamsController import get_teams
+from scripts.playByPlay.retroPlayByPlay import getRetroPlayByPlay, get_all_playbyplay_stats_retro
 from db.createCollections import update_today
 from db.playByPlayController import check_playByPlay_exists, insert_playByPlay_db, get_playByPlay_db
 from playByPlay.playbyplayToUrls import getPlayByPlayWithUrl, get_all_playbyplay_stats_normal
 from schedule.game_info import get_game_info
 from playByPlay.playHelpers import getPlayByPlayJson
+
 # Global Var
 # ---------------
 
@@ -152,6 +154,11 @@ async def shutdown_event():
 
 # POST Functions
 # ---------------------------------------------
+@app.post("/teams")
+async def get_all_teams_controller():
+    return get_teams(client=client)
+
+
 @app.post("/date")
 async def get_games_on_date_controller(data: DateStr):
     print('Requested ' + data.value)

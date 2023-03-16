@@ -33,13 +33,14 @@ export default function StatFilter(props) {
         </Paper>
         <Stack
           direction={"column"}
+          padding
           sx={{
             //maxHeight: "25vh",
             //overflow: "auto",
 
             alignItems: "center",
           }}
-          padding>
+          >
           {statTypes.map((stat) => (
             <FormControlLabel
               key={stat}

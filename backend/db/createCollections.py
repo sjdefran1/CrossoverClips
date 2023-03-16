@@ -74,7 +74,7 @@ def update_today() -> None:
     return
 
 if __name__ == '__main__':
-    update_current_season()
-    #update_all_seasons()
+    #update_current_season()
+    update_all_seasons()
     #update_today()
     
