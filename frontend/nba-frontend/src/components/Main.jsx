@@ -144,7 +144,11 @@ class DateChosen extends React.Component {
                 {this.state.tabValue === 0 && (
                   <Grid container>
                     <Grid item xs={12}>
-                      <Box sx={{ maxHeight: "80vh", overflow: "auto" }}>
+                      <Box
+                        sx={{
+                          maxHeight: "80vh",
+                          overflow: "auto",
+                        }}>
                         <ChoicesDash />
                       </Box>
                     </Grid>

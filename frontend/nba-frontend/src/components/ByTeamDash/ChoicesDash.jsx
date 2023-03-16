@@ -120,7 +120,9 @@ export default function ChoicesDash(props) {
           <Divider sx={{ my: 1 }} />
           <Box ml={"25%"} mb={1}>
             <Stack direction={"row"} alignItems={"center"}>
-              <Typography>Seasons:</Typography>
+              <Typography variant='body2' color={"text.secondary"}>
+                Seasons:
+              </Typography>
               {seasonsSelected.length === 0 && (
                 <Chip label='Any' sx={{ mx: 1 }} />
               )}
@@ -136,8 +138,9 @@ export default function ChoicesDash(props) {
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography>Choose at least 1 team</Typography>
           </AccordionSummary>
-          <AccordionDetails>
-            <Alert severity='info' sx={{ mb: 1 }}>
+          <AccordionDetails
+            sx={{ maxHeight: "30vh", overflow: "auto", direction: "rtl" }}>
+            <Alert severity='info' sx={{ mb: 1, direction: "ltr" }}>
               Choosing a second team will fiter only games between the two
             </Alert>
             <TeamSearch setSelectedTeamsParent={getTeamsSelected} />

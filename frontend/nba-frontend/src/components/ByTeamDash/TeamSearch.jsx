@@ -9,7 +9,6 @@ import {
   Fade,
   Box,
   FormControlLabel,
-  Alert,
   Checkbox,
 } from "@mui/material";
 
@@ -64,7 +63,7 @@ export default function TeamSearch(props) {
 
   return (
     <>
-      <Grid container>
+      <Grid container sx={{ direction: "ltr" }}>
         <>
           {!isLoading &&
             teamList.map((team) => (
