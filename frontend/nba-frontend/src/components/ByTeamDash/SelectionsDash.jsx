@@ -117,11 +117,13 @@ export default function SelectionsDash(props) {
             {seasonsSelected?.length === 0 && (
               <Chip label='Any' sx={{ mx: 1 }} />
             )}
-            {seasonsSelected?.map((season) => (
-              <React.Fragment key={season}>
-                <Chip label={season} color='info' sx={{ mx: 1 }} />
-              </React.Fragment>
-            ))}
+            <Grid item xs={12}>
+              {seasonsSelected?.map((season) => (
+                <React.Fragment key={season}>
+                  <Chip label={season} color='info' sx={{ mx: 0.5, my: 0.5 }} />
+                </React.Fragment>
+              ))}
+            </Grid>
           </Stack>
         </Box>
       </Stack>

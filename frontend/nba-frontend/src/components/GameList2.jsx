@@ -66,7 +66,12 @@ export default function GameList2(props) {
               </Fade>
             ) : (
               <Link
-                to={"/games/" + props.date + "/" + game.game_id}
+                to={
+                  !props.showDate
+                    ? "/games/" + props.date + "/" + game.game_id
+                    : "/games/" + game.date + "/" + game.game_id
+                }
+                // to={"/games/" + props.date + "/" + game.game_id}
                 state={{ game_link: game }}
                 style={{ textDecoration: "none" }}>
                 <Fade in={true}>

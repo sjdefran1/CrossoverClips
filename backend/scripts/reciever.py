@@ -28,15 +28,23 @@ client = get_db()
 
 # Helpers
 # ---------------------------
-def fix_date(date: str) -> str:
-    date_format = "%a, %d %b %Y %H:%M:%S %Z"
-    parsed_date = datetime.strptime(date, date_format)
-    new_date = parsed_date.strftime("%m/%d/%Y")
-    return new_date
+# def fix_date(date: str) -> str:
+#     try:
+#         date_format = "%a, %d %b %Y %H:%M:%S %Z"
+#         parsed_date = datetime.strptime(date, date_format)
+#     except:
+#         date_format = "%Y-%m-%d"
+#         parsed_date = datetime.strptime(date, date_format)
+#     new_date = parsed_date.strftime("%m/%d/%Y")
+#     return new_date
 
 def fix_date_db(date: str) -> str:
-    date_format = "%a, %d %b %Y %H:%M:%S %Z"
-    parsed_date = datetime.strptime(date, date_format)
+    try:
+        date_format = "%a, %d %b %Y %H:%M:%S %Z"
+        parsed_date = datetime.strptime(date, date_format)
+    except:
+        date_format = "%Y-%m-%d"
+        parsed_date = datetime.strptime(date, date_format)
     new_date = parsed_date.strftime("%Y-%m-%d")
     return new_date
 

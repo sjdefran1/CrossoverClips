@@ -7,6 +7,7 @@ import {
   Stack,
   Fade,
   Box,
+  Button,
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
@@ -37,6 +38,13 @@ export default function SeasonsSelect(props) {
     }
   };
 
+  const handleAll = () => {
+    setSeasonsSelected(seasonsList);
+  };
+
+  const handleClear = () => {
+    setSeasonsSelected([]);
+  };
   React.useEffect(() => {
     props.updateSeasons(seasonsSelected);
   }, [seasonsSelected]);
@@ -46,10 +54,15 @@ export default function SeasonsSelect(props) {
       {seasonsList.map((season) => (
         <FormControlLabel
           key={season}
-          label={season}
+          label={
+            <Typography variant='body2' color={"text.secondary"}>
+              {season}
+            </Typography>
+          }
           control={
             <Checkbox
               key={season}
+              checked={seasonsSelected.includes(season)}
               icon={<CircleOutlined />}
               checkedIcon={<CircleIcon color='success' />}
               onChange={() => handleSeasonSelect(season)}
@@ -57,6 +70,12 @@ export default function SeasonsSelect(props) {
           }
         />
       ))}
+      <Button onClick={handleAll} color='success'>
+        All
+      </Button>
+      <Button color='warning' onClick={handleClear}>
+        Clear
+      </Button>
     </>
   );
 }
