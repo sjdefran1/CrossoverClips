@@ -15,12 +15,14 @@ import {
   Tabs,
   Tab,
   Stack,
+  Divider,
   Fade,
 } from "@mui/material";
 import GameList2 from "./GameList2";
 import Paper from "@mui/material/Paper";
 import TeamSearch from "./ByTeamDash/TeamSearch";
 import ChoicesDash from "./ByTeamDash/ChoicesDash";
+import SelectionsDash from "./ByTeamDash/SelectionsDash";
 
 class DateChosen extends React.Component {
   constructor(props) {
@@ -32,6 +34,8 @@ class DateChosen extends React.Component {
       shouldRender: false,
       gamesLoading: true,
       tabValue: 0,
+      selectedTeams: [{}, {}],
+      selectedSeasons: [],
       //renderToday: true,
     };
   }
@@ -68,9 +72,21 @@ class DateChosen extends React.Component {
       });
   };
 
+  setResponseData = (gameList) => {
+    this.setState({ responseData: gameList });
+  };
+
   componentDidMount() {
     this.getGamesAxios(this.state.value);
   }
+
+  getSelectedTeams = (teamsArr) => {
+    this.setState({ selectedTeams: teamsArr });
+  };
+
+  getSelectedSeasons = (seasonsArr) => {
+    this.setState({ selectedSeasons: seasonsArr });
+  };
 
   // disableYear(year) {
   //   console.log(year);
@@ -100,7 +116,9 @@ class DateChosen extends React.Component {
                 textAlign: "center",
                 padding: 1,
               }}>
-              <Typography variant='h4'>NBA Clip Finder</Typography>
+              <Typography variant='h4' color={"text.secondary"}>
+                NBA Clip Finder
+              </Typography>
             </Paper>
 
             <Grid container spacing={1} paddingTop>
@@ -142,21 +160,44 @@ class DateChosen extends React.Component {
                 )}
 
                 {this.state.tabValue === 0 && (
-                  <Grid container>
-                    <Grid item xs={12}>
-                      <Box
-                        sx={{
-                          maxHeight: "80vh",
-                          overflow: "auto",
-                        }}>
-                        <ChoicesDash />
-                      </Box>
-                    </Grid>
-                  </Grid>
+                  // <Grid container>
+                  // <Grid item xs={12}>
+                  <Box
+                    sx={{
+                      maxHeight: "80vh",
+                      overflow: "auto",
+                    }}>
+                    <ChoicesDash
+                      updateSelectedTeams={this.getSelectedTeams}
+                      updateSelectedSeasons={this.getSelectedSeasons}
+                      updateGameList={this.setResponseData}
+                    />
+                  </Box>
+                  // </Grid>
+                  // </Grid>
                 )}
               </Grid>
+
               <Grid item xs={6}>
+                {this.state.tabValue === 0 && (
+                  <SelectionsDash
+                    selectedTeamsParent={this.state.selectedTeams}
+                    selectedSeasonsParent={this.state.selectedSeasons}
+                  />
+                )}
                 <Grid container spacing={0.2}>
+                  {this.state.tabValue === 0 && (
+                    <>
+                      <Divider sx={{ my: 1, mx: 0 }} />
+
+                      <GameList2
+                        gameList={this.state.responseData}
+                        date={this.state.value}
+                        showDate={true}
+                      />
+                    </>
+                  )}
+
                   {/* Today */}
                   {/* {this.state.shouldRender && this.state.renderToday && (
                     <p>today</p>
@@ -174,6 +215,7 @@ class DateChosen extends React.Component {
                     <GameList2
                       gameList={this.state.responseData}
                       date={this.state.value}
+                      showDate={false}
                     />
                   )}
                 </Grid>

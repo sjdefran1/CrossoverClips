@@ -1,4 +1,5 @@
 import * as React from "react";
+import axios from "axios";
 
 import {
   Avatar,
@@ -13,15 +14,18 @@ import {
   AccordionSummary,
   AccordionDetails,
   Divider,
+  Button,
+  IconButton,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import TeamSearch from "./TeamSearch";
 import SeasonsSelect from "./SeasonsSelect";
 export default function ChoicesDash(props) {
   const [selectedTeams, setSelectedTeams] = React.useState([]);
   const [seasonsSelected, setSeasonsSelected] = React.useState([]);
-
+  const [gameList, setGameList] = React.useState([]);
   const [expanded, setExpanded] = React.useState("panel1");
 
   const handleChange = (panel) => (event, newExpanded) => {
@@ -38,100 +42,44 @@ export default function ChoicesDash(props) {
     //console.log(selectedTeams);
   };
 
+  const clearFilters = () => {
+    setSelectedTeams([]);
+    setSeasonsSelected([]);
+  };
+
+  const getGamesByTeamAxios = () => {
+    const data = {
+      teams: selectedTeams,
+      seasons: seasonsSelected,
+    };
+
+    axios
+      .post("http://localhost:8000/gamesByTeam", data)
+      .then((response) => {
+        setGameList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   React.useEffect(() => {
     if (selectedTeams[1]?.id) {
-      setExpanded(false);
+      //setExpanded(false);
     }
+    props.updateSelectedTeams(selectedTeams);
   }, [selectedTeams]);
+
+  React.useEffect(() => {
+    props.updateSelectedSeasons(seasonsSelected);
+  }, [seasonsSelected]);
+
+  React.useEffect(() => {
+    props.updateGameList(gameList);
+  }, [gameList]);
   return (
     <>
       <Paper>
-        <Stack direction={"column"}>
-          {!selectedTeams[0]?.id && (
-            <>
-              <Box ml={"15%"}>
-                <Stack
-                  direction={"row"}
-                  spacing={10}
-                  sx={{ alignItems: "center" }}>
-                  <Stack direction={"column"} sx={{ alignItems: "center" }}>
-                    <Avatar sx={{ width: 85, height: 85 }} />
-                    <Typography>Team 1</Typography>
-                  </Stack>
-                  <Typography>VS</Typography>
-                  <Stack direction={"column"} sx={{ alignItems: "center" }}>
-                    <Typography>Any Opponent</Typography>
-                  </Stack>
-                </Stack>
-              </Box>
-            </>
-          )}
-
-          {/*  1 Team has been selected */}
-          {selectedTeams[0]?.id && (
-            <>
-              <Box ml={"15%"}>
-                <Stack
-                  direction={"row"}
-                  spacing={10}
-                  sx={{ alignItems: "center" }}>
-                  <Stack direction={"column"} sx={{ alignItems: "center" }}>
-                    <Avatar
-                      sx={{ width: 100, height: 100 }}
-                      src={
-                        "https://cdn.nba.com/logos/nba/" +
-                        selectedTeams[0].id +
-                        "/primary/L/logo.svg"
-                      }
-                    />
-                    <Typography variant='h6'>
-                      {selectedTeams[0].city}
-                    </Typography>
-                    <Typography variant='body1' color={"text.secondary"}>
-                      {selectedTeams[0].nickname}
-                    </Typography>
-                  </Stack>
-                  <Typography>VS</Typography>
-                  {/* Both teams have been selected */}
-                  {selectedTeams[1]?.id ? (
-                    <Stack direction={"column"} sx={{ alignItems: "center" }}>
-                      <Avatar
-                        sx={{ width: 100, height: 100 }}
-                        src={
-                          "https://cdn.nba.com/logos/nba/" +
-                          selectedTeams[1].id +
-                          "/primary/L/logo.svg"
-                        }
-                      />
-                      <Typography variant='h6'>
-                        {selectedTeams[1].city}
-                      </Typography>
-                      <Typography variant='body1' color={"text.secondary"}>
-                        {selectedTeams[1].nickname}
-                      </Typography>
-                    </Stack>
-                  ) : (
-                    <Typography>Any Opponent</Typography>
-                  )}
-                </Stack>
-              </Box>
-            </>
-          )}
-          <Divider sx={{ my: 1 }} />
-          <Box ml={"25%"} mb={1}>
-            <Stack direction={"row"} alignItems={"center"}>
-              <Typography variant='body2' color={"text.secondary"}>
-                Seasons:
-              </Typography>
-              {seasonsSelected.length === 0 && (
-                <Chip label='Any' sx={{ mx: 1 }} />
-              )}
-              {seasonsSelected.map((season) => (
-                <Chip label={season} color='info' sx={{ mx: 1 }} />
-              ))}
-            </Stack>
-          </Box>
-        </Stack>
         <Accordion
           expanded={expanded === "panel1"}
           onChange={handleChange("panel1")}>
@@ -139,7 +87,7 @@ export default function ChoicesDash(props) {
             <Typography>Choose at least 1 team</Typography>
           </AccordionSummary>
           <AccordionDetails
-            sx={{ maxHeight: "30vh", overflow: "auto", direction: "rtl" }}>
+            sx={{ maxHeight: "45vh", overflow: "auto", direction: "rtl" }}>
             <Alert severity='info' sx={{ mb: 1, direction: "ltr" }}>
               Choosing a second team will fiter only games between the two
             </Alert>
@@ -154,6 +102,30 @@ export default function ChoicesDash(props) {
             <SeasonsSelect updateSeasons={getSeasonsSelected} />
           </AccordionDetails>
         </Accordion>
+
+        <Stack
+          direction={"row"}
+          spacing={1}
+          sx={{ justifyContent: "center", alignItems: "center" }}>
+          <Button
+            variant='outlined'
+            color='success'
+            disabled={!selectedTeams[0]?.id} // only avaialbe when a team has been clicked
+            onClick={() => getGamesByTeamAxios()}
+            sx={{ my: 1 }}>
+            Submit
+          </Button>
+          <IconButton disabled={!selectedTeams[0]?.id} onClick={clearFilters}>
+            <DeleteIcon />
+          </IconButton>
+          {/* <Button
+            variant='outlined'
+            color='success'
+            disabled={!selectedTeams[0]?.id} // only avaialbe when a team has been clicked
+            sx={{ my: 1, mx: "43%" }}>
+            Clear
+          </Button> */}
+        </Stack>
       </Paper>
     </>
   );

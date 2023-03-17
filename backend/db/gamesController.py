@@ -29,7 +29,7 @@ def get_games_on_date_db(date: str, client) -> list:
     print(f"Execution time for Query: {end - start:.6f} seconds\n")
     return game_list
 
-def get_games_by_team_db(team_id: str, season: str, client) -> list:
+def get_games_by_team_db(team_id: str, client, seasons=[]) -> list:
     start = perf_counter()
     print(f"Getting games by team | {team_id} |")
     collection = get_games_db(client=client)
@@ -41,18 +41,43 @@ def get_games_by_team_db(team_id: str, season: str, client) -> list:
 
     games = []
     for res in results:
-        if season == '':
+        if seasons == []:
             games.append(res)
-        elif res['season_str'] == season:
-            print(res['date'] + " " + res['home_info']['MATCHUP'])
+        elif res['season_str'] in seasons:
+            #print(res['date'] + " " + res['home_info']['MATCHUP'])
             games.append(res)
     end = perf_counter()
     print(f'Execution Time for Games by team: {end-start} | {team_id}')
     return games
 
+def get_games_by_matchup_db(team_ids: list, client, seasons=[]):
+    start = perf_counter()
+    collection = get_games_db(client=client)
+    # home id=teamid[0] & away id=teamid[1] 
+    # OR
+    # homeid=teamid[1] and awayid=teamid[0]
+    query = {
+    "$or": [
+        {"home_info.TEAM_ID": team_ids[0], "away_info.TEAM_ID": team_ids[1]},
+        {"home_info.TEAM_ID": team_ids[1], "away_info.TEAM_ID": team_ids[0]}
+        ]
+    }
+
+    results = collection.find(query, projection={"_id": False}).sort('date', -1)   
+    games=[]
+    for result in results:
+        if seasons == []:
+            games.append(result)
+        elif result['season_str'] in  seasons:
+            games.append(result)
+        #print(result['home_info']['MATCHUP'] + ' ' + result['date'])
+    return games
+
+
 if __name__ == '__main__':
     client = get_db()
-    get_games_by_team_db(client=client, team_id=1610612739, season='2021-22')
+    #get_games_by_team_db(client=client, team_id=1610612739, season='2021-22')
+    get_games_by_matchup_db(client=client, team_ids=[1610612739, 1610612738])
     #get_games_on_date_db(client=client, date='2023-03-14')
 
 

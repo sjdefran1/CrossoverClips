@@ -12,6 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { Link } from "react-router-dom";
 
 export default function GameList2(props) {
+  React.useEffect(() => {}, [props.gameList]);
   return (
     <>
       {/* <Stack direction='column' sx={{ maxHeight: "70vh", overflow: "auto" }}> */}
@@ -101,9 +102,16 @@ export default function GameList2(props) {
                         <Typography variant='body1'>
                           {game.away_info.MATCHUP}
                         </Typography>
+
                         <Typography variant='body2' color='text.secondary'>
                           {game.away_info.PTS} - {game.home_info.PTS}
                         </Typography>
+
+                        {props.showDate && (
+                          <Typography variant='body2' color={"text.secondary"}>
+                            {game.date}
+                          </Typography>
+                        )}
                       </Stack>
 
                       <Avatar

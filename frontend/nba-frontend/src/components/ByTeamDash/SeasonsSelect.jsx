@@ -51,7 +51,7 @@ export default function SeasonsSelect(props) {
             <Checkbox
               key={season}
               icon={<CircleOutlined />}
-              checkedIcon={<CircleIcon />}
+              checkedIcon={<CircleIcon color='success' />}
               onChange={() => handleSeasonSelect(season)}
             />
           }

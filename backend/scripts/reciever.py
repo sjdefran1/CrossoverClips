@@ -9,7 +9,7 @@ import json
 from time import perf_counter
 
 # my scripts
-from db.gamesController import get_games_on_date_db
+from db.gamesController import get_games_on_date_db, get_games_by_team_db, get_games_by_matchup_db
 from db.get_database import get_db
 from db.teamsController import get_teams
 from scripts.playByPlay.retroPlayByPlay import getRetroPlayByPlay, get_all_playbyplay_stats_retro
@@ -116,6 +116,10 @@ class GameInfo(BaseModel):
     date: str
     gameID: str
 
+class TeamSearch(BaseModel):
+    teams: list
+    seasons: list
+
 # -------------------------------------
 
 # FASTAPI
@@ -158,6 +162,14 @@ async def shutdown_event():
 async def get_all_teams_controller():
     return get_teams(client=client)
 
+@app.post("/gamesByTeam")
+async def get_all_games_by_team(data: TeamSearch):
+    if data.teams[1] is None:
+        games = get_games_by_team_db(team_id=data.teams[0]['id'], client=client, seasons=data.seasons)
+    else:
+        ids = [data.teams[0]['id'], data.teams[1]['id']]
+        games = get_games_by_matchup_db(team_ids=ids, client=client, seasons=data.seasons)
+    return JSONResponse(content=games)
 
 @app.post("/date")
 async def get_games_on_date_controller(data: DateStr):

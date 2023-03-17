@@ -79,7 +79,7 @@ export default function TeamSearch(props) {
                         <Checkbox
                           key={team.full_name}
                           icon={<CircleOutlined />}
-                          checkedIcon={<CircleIcon />}
+                          checkedIcon={<CircleIcon color='success' />}
                           disabled={
                             maxSelected && !teamsSelected.includes(team.id)
                           }
