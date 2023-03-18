@@ -20,8 +20,6 @@ import TeamLabel from "../TeamLabel";
 export default function TeamSearch(props) {
   const [teamList, setTeamList] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [maxSelected, setMaxSelected] = React.useState(false);
-  const [teamsSelected, setTeamsSelected] = React.useState([]);
 
   // calls on mount
   React.useEffect(() => {
@@ -31,21 +29,31 @@ export default function TeamSearch(props) {
 
   //every time team is selected update parent
   React.useEffect(() => {
-    let team1 = teamList.filter((team) => team.id === teamsSelected[0])[0];
-    let team2 = teamList.filter((team) => team.id === teamsSelected[1])[0];
+    let team1 = teamList.filter(
+      (team) => team.id === props.teamsSelectedIDS[0]
+    )[0];
+    let team2 = teamList.filter(
+      (team) => team.id === props.teamsSelectedIDS[1]
+    )[0];
     props.setSelectedTeamsParent([team1, team2]);
-  }, [teamsSelected]);
+  }, [props.teamsSelectedIDS]);
+
+  // React.useEffect(() => {
+  //   props.setTeamsSelectedIDS(props.getSelectedTeamsParent);
+  // }, [props.getSelectedTeamsParent]);
 
   const handleTeamSelect = (team) => {
-    if (teamsSelected.includes(team)) {
-      setTeamsSelected(teamsSelected.filter((id) => id !== team));
-      setMaxSelected(false); // enable all checkboxes if a team is unchecked
+    if (props.teamsSelectedIDS.includes(team)) {
+      props.setTeamsSelectedIDS(
+        props.teamsSelectedIDS.filter((id) => id !== team)
+      );
+      props.setMaxSelected(false); // enable all checkboxes if a team is unchecked
     } else {
       let arr = [team];
-      if (teamsSelected.length === 1) {
-        setMaxSelected(true);
+      if (props.teamsSelectedIDS.length === 1) {
+        props.setMaxSelected(true);
       }
-      setTeamsSelected(teamsSelected.concat(arr));
+      props.setTeamsSelectedIDS(props.teamsSelectedIDS.concat(arr));
     }
   };
 
@@ -78,10 +86,12 @@ export default function TeamSearch(props) {
                       control={
                         <Checkbox
                           key={team.full_name}
+                          checked={props.teamsSelectedIDS.includes(team.id)}
                           icon={<CircleOutlined />}
                           checkedIcon={<CircleIcon color='success' />}
                           disabled={
-                            maxSelected && !teamsSelected.includes(team.id)
+                            props.maxSelected &&
+                            !props.teamsSelectedIDS.includes(team.id)
                           }
                           onChange={() => handleTeamSelect(team.id)}
                         />

@@ -96,7 +96,7 @@ class DateChosen extends React.Component {
   // }
 
   getSelectedTeams = (teamsArr) => {
-    this.setState({ selectedTeams: teamsArr });
+    this.setState({ selectedTeams: teamsArr, responseData: [] });
   };
 
   getSelectedSeasons = (seasonsArr) => {

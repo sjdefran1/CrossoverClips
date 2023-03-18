@@ -27,6 +27,8 @@ export default function ChoicesDash(props) {
   const [seasonsSelected, setSeasonsSelected] = React.useState([]);
   const [gameList, setGameList] = React.useState([]);
   const [expanded, setExpanded] = React.useState("panel1");
+  const [maxSelected, setMaxSelected] = React.useState(false);
+  const [teamsSelectedIDS, setTeamsSelectedIDS] = React.useState([]);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -45,6 +47,8 @@ export default function ChoicesDash(props) {
   const clearFilters = () => {
     setSelectedTeams([]);
     setSeasonsSelected([]);
+    setTeamsSelectedIDS([]);
+    setMaxSelected(false);
   };
 
   const getGamesByTeamAxios = () => {
@@ -92,7 +96,14 @@ export default function ChoicesDash(props) {
             <Alert severity='info' sx={{ mb: 1, direction: "ltr" }}>
               Choosing a second team will fiter only games between the two
             </Alert>
-            <TeamSearch setSelectedTeamsParent={getTeamsSelected} />
+            <TeamSearch
+              getSelectedTeamsParent={selectedTeams}
+              maxSelected={maxSelected}
+              setMaxSelected={setMaxSelected}
+              setSelectedTeamsParent={getTeamsSelected}
+              setTeamsSelectedIDS={setTeamsSelectedIDS}
+              teamsSelectedIDS={teamsSelectedIDS}
+            />
           </AccordionDetails>
         </Accordion>
         <Accordion>

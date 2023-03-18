@@ -91,7 +91,12 @@ export default function TeamGameList(props) {
               </IconButton>
             </Stack>
 
-            <Tooltip title='Highlight previews generally load slower than just clicking the play! But feel free to try them.'>
+            <Tooltip
+              title={
+                "You are only seeing games from the " +
+                seasonsList[currentSeason] +
+                " season."
+              }>
               <InfoIcon color='success' />
             </Tooltip>
           </Toolbar>
