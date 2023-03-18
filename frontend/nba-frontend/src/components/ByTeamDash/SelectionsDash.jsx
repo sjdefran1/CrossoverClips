@@ -12,6 +12,7 @@ import {
   AccordionSummary,
   AccordionDetails,
   Divider,
+  Fade,
 } from "@mui/material";
 import jordanGif from "../../static/jordan.gif";
 
@@ -57,32 +58,12 @@ export default function SelectionsDash(props) {
         {/*  1 Team has been selected */}
         {selectedTeams[0]?.id && (
           <>
-            <Box ml={"15%"}>
-              <Stack
-                direction={"row"}
-                spacing={10}
-                sx={{ alignItems: "center" }}>
+            <Fade in={true}>
+              <Box ml={"15%"}>
                 <Stack
-                  direction={"column"}
-                  sx={{ alignItems: "center", textAlign: "center" }}>
-                  <Avatar
-                    sx={{ width: 100, height: 100 }}
-                    src={
-                      "https://cdn.nba.com/logos/nba/" +
-                      selectedTeams[0].id +
-                      "/primary/L/logo.svg"
-                    }
-                  />
-                  <Typography variant='body1'>
-                    {selectedTeams[0].city}
-                  </Typography>
-                  <Typography variant='body2' color={"text.secondary"}>
-                    {selectedTeams[0].nickname}
-                  </Typography>
-                </Stack>
-                <Typography>VS</Typography>
-                {/* Both teams have been selected */}
-                {selectedTeams[1]?.id ? (
+                  direction={"row"}
+                  spacing={10}
+                  sx={{ alignItems: "center" }}>
                   <Stack
                     direction={"column"}
                     sx={{ alignItems: "center", textAlign: "center" }}>
@@ -90,22 +71,46 @@ export default function SelectionsDash(props) {
                       sx={{ width: 100, height: 100 }}
                       src={
                         "https://cdn.nba.com/logos/nba/" +
-                        selectedTeams[1].id +
+                        selectedTeams[0].id +
                         "/primary/L/logo.svg"
                       }
                     />
                     <Typography variant='body1'>
-                      {selectedTeams[1].city}
+                      {selectedTeams[0].city}
                     </Typography>
                     <Typography variant='body2' color={"text.secondary"}>
-                      {selectedTeams[1].nickname}
+                      {selectedTeams[0].nickname}
                     </Typography>
                   </Stack>
-                ) : (
-                  <Typography textAlign={"center"}>Any Opponent</Typography>
-                )}
-              </Stack>
-            </Box>
+                  <Typography>VS</Typography>
+                  {/* Both teams have been selected */}
+                  {selectedTeams[1]?.id ? (
+                    <Fade in={true}>
+                      <Stack
+                        direction={"column"}
+                        sx={{ alignItems: "center", textAlign: "center" }}>
+                        <Avatar
+                          sx={{ width: 100, height: 100 }}
+                          src={
+                            "https://cdn.nba.com/logos/nba/" +
+                            selectedTeams[1].id +
+                            "/primary/L/logo.svg"
+                          }
+                        />
+                        <Typography variant='body1'>
+                          {selectedTeams[1].city}
+                        </Typography>
+                        <Typography variant='body2' color={"text.secondary"}>
+                          {selectedTeams[1].nickname}
+                        </Typography>
+                      </Stack>
+                    </Fade>
+                  ) : (
+                    <Typography textAlign={"center"}>Any Opponent</Typography>
+                  )}
+                </Stack>
+              </Box>
+            </Fade>
           </>
         )}
         <Divider sx={{ my: 1, mx: 4 }} />
@@ -115,7 +120,7 @@ export default function SelectionsDash(props) {
               Seasons:
             </Typography>
             {seasonsSelected?.length === 0 && (
-              <Chip label='Any' sx={{ mx: 1 }} />
+              <Chip label='Any' sx={{ mx: 0.5, my: 0.5 }} />
             )}
             <Grid item xs={12}>
               {seasonsSelected?.map((season) => (

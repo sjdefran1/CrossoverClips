@@ -23,6 +23,7 @@ import Paper from "@mui/material/Paper";
 import TeamSearch from "./ByTeamDash/TeamSearch";
 import ChoicesDash from "./ByTeamDash/ChoicesDash";
 import SelectionsDash from "./ByTeamDash/SelectionsDash";
+import TeamGameList from "./ByTeamDash/TeamGameList";
 
 class DateChosen extends React.Component {
   constructor(props) {
@@ -41,7 +42,7 @@ class DateChosen extends React.Component {
   }
 
   handleTabChange = (event, newVal) => {
-    this.setState({ tabValue: newVal });
+    this.setState({ tabValue: newVal, responseData: [] });
   };
 
   getGamesAxios = (e) => {
@@ -49,7 +50,7 @@ class DateChosen extends React.Component {
       //value: this.state.value.toString(),
       value: e.toString(),
     };
-    this.setState({ value: e.toString() });
+    this.setState({ value: e.toString(), shouldRender: false });
     axios
       .post("http://localhost:8000/date", data)
       .then((response) => {
@@ -76,9 +77,23 @@ class DateChosen extends React.Component {
     this.setState({ responseData: gameList });
   };
 
+  setGamesLoading = (val) => {
+    this.setState({ gamesLoading: val });
+  };
+
   componentDidMount() {
-    this.getGamesAxios(this.state.value);
+    //this.setState({ responseData: [] });
+    //this.getGamesAxios(this.state.value);
+    //window.history.replaceState({}, document.title);
   }
+
+  componentDidUpdate() {
+    //window.history.replaceState({}, document.title);
+  }
+
+  // componentWillUnmount() {
+  //   this.setState({ responseData: [] });
+  // }
 
   getSelectedTeams = (teamsArr) => {
     this.setState({ selectedTeams: teamsArr });
@@ -164,13 +179,14 @@ class DateChosen extends React.Component {
                   // <Grid item xs={12}>
                   <Box
                     sx={{
-                      maxHeight: "80vh",
+                      maxHeight: "70vh",
                       overflow: "auto",
                     }}>
                     <ChoicesDash
                       updateSelectedTeams={this.getSelectedTeams}
                       updateSelectedSeasons={this.getSelectedSeasons}
                       updateGameList={this.setResponseData}
+                      updateGamesLoading={this.setGamesLoading}
                     />
                   </Box>
                   // </Grid>
@@ -185,18 +201,28 @@ class DateChosen extends React.Component {
                     selectedSeasonsParent={this.state.selectedSeasons}
                   />
                 )}
-                <Grid container spacing={0.2}>
-                  {this.state.tabValue === 0 && (
-                    <>
-                      <Divider sx={{ my: 1, mx: 0 }} />
+                <Grid
+                  container
+                  spacing={0.2}
+                  sx={{ maxHeight: "60vh", overflow: "auto" }}>
+                  {/* Game List for Team Select */}
+                  {this.state.tabValue === 0 &&
+                    this.state.responseData?.length > 0 && (
+                      <>
+                        <Divider sx={{ my: 1, mx: 0 }} />
 
-                      <GameList2
-                        gameList={this.state.responseData}
-                        date={this.state.value}
-                        showDate={true}
-                      />
-                    </>
-                  )}
+                        <TeamGameList
+                          selectedSeasonsParent={this.state.selectedSeasons}
+                          gameList={this.state.responseData}
+                        />
+
+                        {/* <GameList2
+                          gameList={this.state.responseData}
+                          date={this.state.value}
+                          showDate={true}
+                        /> */}
+                      </>
+                    )}
 
                   {/* Today */}
                   {/* {this.state.shouldRender && this.state.renderToday && (
@@ -205,13 +231,22 @@ class DateChosen extends React.Component {
                   {/* Not Today */}
                   {/* {this.state.shouldRender && !this.state.renderToday && ( */}
                   {this.state.gamesLoading && this.state.tabValue === 1 && (
-                    <Grid item xs={6}>
-                      <br></br>
-                      <CircularProgress sx={{ ml: "50%" }} />
-                    </Grid>
+                    // <Grid item xs={6}>
+                    // <br></br>
+                    <CircularProgress sx={{ ml: "50%" }} />
+                    // </Grid>
                   )}
 
-                  {this.state.shouldRender && (
+                  {/* {this.state.gamesLoading &&
+                    this.state.tabValue === 0 &&
+                    this.state.shouldRender && (
+                      <Grid item xs={6}>
+                        <br></br>
+                        <CircularProgress sx={{ ml: "50%" }} />
+                      </Grid>
+                    )} */}
+
+                  {this.state.shouldRender && this.state.tabValue === 1 && (
                     <GameList2
                       gameList={this.state.responseData}
                       date={this.state.value}

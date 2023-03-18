@@ -52,11 +52,12 @@ export default function ChoicesDash(props) {
       teams: selectedTeams,
       seasons: seasonsSelected,
     };
-
+    props.updateGamesLoading(true);
     axios
       .post("http://localhost:8000/gamesByTeam", data)
       .then((response) => {
         setGameList(response.data);
+        props.updateGamesLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -65,7 +66,7 @@ export default function ChoicesDash(props) {
 
   React.useEffect(() => {
     if (selectedTeams[1]?.id) {
-      //setExpanded(false);
+      setExpanded(false);
     }
     props.updateSelectedTeams(selectedTeams);
   }, [selectedTeams]);

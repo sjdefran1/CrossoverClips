@@ -73,6 +73,7 @@ export default function GameDetails(props) {
       .then((response) => {
         //console.log(response.data);
         setPlayByPlay(response.data);
+
         //const data = JSON.parse(response.data);
       })
       .catch((error) => {
@@ -123,6 +124,10 @@ export default function GameDetails(props) {
     getPlaysAxios(id);
     // eslint-disable-next-line
   }, [statFilterFrom]);
+
+  // React.useEffect(() => {
+  //   setTabValue(playByPlay?.players?.length > 0 ? 0 : 1);
+  // }, [playByPlay]);
 
   return (
     <>
