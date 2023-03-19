@@ -13,6 +13,7 @@ import {
   AccordionDetails,
   Divider,
   Fade,
+  Grow,
 } from "@mui/material";
 import jordanGif from "../../static/jordan.gif";
 
@@ -33,15 +34,21 @@ export default function SelectionsDash(props) {
       <Stack direction={"column"}>
         {!selectedTeams[0]?.id && (
           <>
-            <Box ml={"15%"}>
+            <Box
+              sx={{
+                ml: { sm: "5%", md: "15%" },
+              }}>
               <Stack
                 direction={"row"}
-                spacing={10}
+                spacing={{ xs: 7, md: 10 }}
                 sx={{ alignItems: "center" }}>
                 <Stack
                   direction={"column"}
                   sx={{ alignItems: "center", textAlign: "center" }}>
-                  <Avatar src={jordanGif} sx={{ width: 100, height: 100 }} />
+                  <Avatar
+                    src={jordanGif}
+                    sx={{ width: 85, height: 85, mt: 1.2 }}
+                  />
                   <Typography>Choose 1 team!</Typography>
                 </Stack>
                 <Typography>VS</Typography>
@@ -59,10 +66,13 @@ export default function SelectionsDash(props) {
         {selectedTeams[0]?.id && (
           <>
             <Fade in={true}>
-              <Box ml={"15%"}>
+              <Box
+                sx={{
+                  ml: { sm: "5%", md: "15%" },
+                }}>
                 <Stack
                   direction={"row"}
-                  spacing={10}
+                  spacing={{ xs: 7, md: 10 }}
                   sx={{ alignItems: "center" }}>
                   <Stack
                     direction={"column"}
@@ -119,15 +129,22 @@ export default function SelectionsDash(props) {
             <Typography variant='body2' color={"text.secondary"}>
               Seasons:
             </Typography>
-            {seasonsSelected?.length === 0 && (
+            {seasonsSelected?.length === 8 && (
               <Chip label='Any' sx={{ mx: 0.5, my: 0.5 }} />
             )}
             <Grid item xs={12}>
-              {seasonsSelected?.map((season) => (
-                <React.Fragment key={season}>
-                  <Chip label={season} color='info' sx={{ mx: 0.5, my: 0.5 }} />
-                </React.Fragment>
-              ))}
+              {seasonsSelected.length !== 8 &&
+                seasonsSelected?.map((season) => (
+                  <React.Fragment key={season}>
+                    <Grow in timeout={600}>
+                      <Chip
+                        label={season}
+                        color='info'
+                        sx={{ mx: 0.5, my: 0.5 }}
+                      />
+                    </Grow>
+                  </React.Fragment>
+                ))}
             </Grid>
           </Stack>
         </Box>

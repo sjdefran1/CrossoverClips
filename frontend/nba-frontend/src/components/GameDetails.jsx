@@ -19,6 +19,10 @@ import {
   Tabs,
   Tab,
   Tabpanel,
+  Hidden,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -135,7 +139,7 @@ export default function GameDetails(props) {
       {/* ------------------------------------------------ */}
       <Container maxWidth='xl'>
         <Grid container spacing={2} paddingTop>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             {/* GAMEDASH AND PLAYER FILTER */}
             <Fade in={true} timeout={800}>
               <div>
@@ -166,41 +170,65 @@ export default function GameDetails(props) {
 
             <Grid container>
               {playsIsLoading && (
-                <Grid item xs={8}>
+                <Grid item xs={12} md={8}>
                   <Stack sx={{ justifyContent: "center" }}>
                     <br></br>
                     <CircularProgress sx={{ ml: "50%" }} />
                   </Stack>
                 </Grid>
               )}
-              {/* if players array is empty -> retro game -> don't load player filters */}
-              {!playsIsLoading &&
-                playByPlay.players.length > 0 &&
-                tabValue === 0 && (
-                  <>
-                    <Grid item xs={8}>
-                      <PlayerFilter
-                        players={playByPlay.players}
-                        teamIDs={playByPlay.team_ids}
-                        currentFilterPlayers={filteredPlayers}
-                        setPlayerFilter={getFilteredPlayers}
-                        getStatFilter={getStatFilter}
-                      />
-                    </Grid>
-                  </>
-                )}
+              <Hidden mdDown>
+                {/* if players array is empty -> retro game -> don't load player filters */}
+                {!playsIsLoading &&
+                  playByPlay.players.length > 0 &&
+                  tabValue === 0 && (
+                    <>
+                      <Grid item xs={12} md={8}>
+                        <PlayerFilter
+                          players={playByPlay.players}
+                          teamIDs={playByPlay.team_ids}
+                          currentFilterPlayers={filteredPlayers}
+                          setPlayerFilter={getFilteredPlayers}
+                          getStatFilter={getStatFilter}
+                        />
+                      </Grid>
+                    </>
+                  )}
 
-              {tabValue === 0 && (
-                <Grid item xs={4}>
-                  <StatFilter updateFilter={getStatFilter} />
-                </Grid>
-              )}
+                {tabValue === 0 && (
+                  <Grid item xs={12} md={4}>
+                    <StatFilter updateFilter={getStatFilter} />
+                  </Grid>
+                )}
+              </Hidden>
+
+              {/* Mobile filters view */}
+              <Hidden mdUp>
+                <Accordion disableGutters>
+                  <AccordionSummary>Player Filters</AccordionSummary>
+                  <AccordionDetails>
+                    <PlayerFilter
+                      players={playByPlay.players}
+                      teamIDs={playByPlay.team_ids}
+                      currentFilterPlayers={filteredPlayers}
+                      setPlayerFilter={getFilteredPlayers}
+                      getStatFilter={getStatFilter}
+                    />
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion sx={{ minWidth: "100%" }} disableGutters>
+                  <AccordionSummary>Stat Filters</AccordionSummary>
+                  <AccordionDetails>
+                    <StatFilter updateFilter={getStatFilter} />
+                  </AccordionDetails>
+                </Accordion>
+              </Hidden>
             </Grid>
           </Grid>
           {/* ------------------------------------------------ */}
           {/* PlayByPlay */}
           {/* ---------------------------------------------- */}
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <AppBar position='static' sx={{ borderRadius: 1 }}>
               <Toolbar sx={{ justifyContent: "right" }}>
                 <Stack direction='row' alignItems={"center"} sx={{ mr: "12%" }}>

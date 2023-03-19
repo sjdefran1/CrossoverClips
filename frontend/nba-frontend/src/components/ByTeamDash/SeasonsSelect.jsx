@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   Container,
   Grid,
+  Button,
   Typography,
   Alert,
   FormControlLabel,
@@ -52,31 +53,39 @@ export default function SeasonsSelect(props) {
         By default all seasons are returned, Only select if you want certain
         seasons, otherwise just submit
       </Alert>
-      {seasonsList.map((season) => (
-        <FormControlLabel
-          key={season}
-          label={
-            <Typography variant='body2' color={"text.secondary"}>
-              {season}
-            </Typography>
-          }
-          control={
-            <Checkbox
-              key={season}
-              checked={props.seasonsSelected.includes(season)}
-              icon={<CircleOutlined />}
-              checkedIcon={<CircleIcon color='success' />}
-              onChange={() => handleSeasonSelect(season)}
-            />
-          }
-        />
-      ))}
-      {/* <Button onClick={handleAll} color='success'>
-        All
-      </Button>
-      <Button color='warning' onClick={handleClear}>
-        Clear
-      </Button> */}
+      <Grid container>
+        {seasonsList.map((season) => (
+          <React.Fragment key={season}>
+            <Grid item xs={6} sm={3}>
+              <FormControlLabel
+                key={season}
+                label={
+                  <Typography variant='body2' color={"text.secondary"}>
+                    {season}
+                  </Typography>
+                }
+                control={
+                  <Checkbox
+                    key={season}
+                    checked={props.seasonsSelected.includes(season)}
+                    icon={<CircleOutlined />}
+                    checkedIcon={<CircleIcon color='success' />}
+                    onChange={() => handleSeasonSelect(season)}
+                  />
+                }
+              />
+            </Grid>
+          </React.Fragment>
+        ))}
+      </Grid>
+      <Grid container>
+        <Button onClick={handleAll} color='success'>
+          All
+        </Button>
+        <Button color='warning' onClick={handleClear}>
+          Clear
+        </Button>
+      </Grid>
     </>
   );
 }

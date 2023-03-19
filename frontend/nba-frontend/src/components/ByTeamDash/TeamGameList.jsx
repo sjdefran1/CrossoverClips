@@ -7,6 +7,7 @@ import {
   IconButton,
   Fade,
   Tooltip,
+  Alert,
 } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
@@ -78,7 +79,10 @@ export default function TeamGameList(props) {
       <Fade in={true}>
         <AppBar position='static' sx={{ borderRadius: 1 }}>
           <Toolbar sx={{ justifyContent: "right" }}>
-            <Stack direction='row' alignItems={"center"} sx={{ mr: "25%" }}>
+            <Stack
+              direction='row'
+              alignItems={"center"}
+              sx={{ mr: { xs: "7%", md: "25%" } }}>
               <IconButton onClick={() => handleSeasonChange(0)}>
                 <KeyboardArrowLeftIcon color='info' />
               </IconButton>
@@ -103,6 +107,7 @@ export default function TeamGameList(props) {
         </AppBar>
       </Fade>
       {/* <Box sx={{ maxHeight: "70vh", overflow: "auto" }}> */}
+
       <GameList2 gameList={currentSeasonGames} date={""} showDate={true} />
       {/* </Box> */}
     </>

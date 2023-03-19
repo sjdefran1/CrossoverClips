@@ -24,7 +24,18 @@ import TeamSearch from "./TeamSearch";
 import SeasonsSelect from "./SeasonsSelect";
 export default function ChoicesDash(props) {
   const [selectedTeams, setSelectedTeams] = React.useState([]);
-  const [seasonsSelected, setSeasonsSelected] = React.useState([]);
+  const [seasonsSelected, setSeasonsSelected] = React.useState(
+    [
+      "2014-15",
+      "2015-16",
+      "2016-17",
+      "2017-18",
+      "2018-19",
+      "2020-21",
+      "2021-22",
+      "2022-23",
+    ].reverse()
+  );
   const [gameList, setGameList] = React.useState([]);
   const [expanded, setExpanded] = React.useState("panel1");
   const [maxSelected, setMaxSelected] = React.useState(false);
@@ -33,6 +44,9 @@ export default function ChoicesDash(props) {
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
+    // if (panel == "panel1") {
+    //   setExpanded("panel2");
+    // }
   };
 
   const getTeamsSelected = (teamsArr) => {
@@ -47,10 +61,21 @@ export default function ChoicesDash(props) {
 
   const clearFilters = () => {
     setSelectedTeams([]);
-    setSeasonsSelected([]);
+    setSeasonsSelected(
+      [
+        "2014-15",
+        "2015-16",
+        "2016-17",
+        "2017-18",
+        "2018-19",
+        "2020-21",
+        "2021-22",
+        "2022-23",
+      ].reverse()
+    );
     setTeamsSelectedIDS([]);
     setMaxSelected(false);
-    //props.setResponseData([]);
+    props.setResponseData([]);
     // handleChange("panel1");
     setExpanded("panel1");
   };
@@ -74,7 +99,7 @@ export default function ChoicesDash(props) {
 
   React.useEffect(() => {
     if (selectedTeams[1]?.id) {
-      setExpanded(false);
+      setExpanded("panel2");
     }
     props.updateSelectedTeams(selectedTeams);
   }, [selectedTeams]);
@@ -94,7 +119,10 @@ export default function ChoicesDash(props) {
           expanded={expanded === "panel1"}
           onChange={handleChange("panel1")}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>Choose at least 1 team</Typography>
+            <Stack alignItems={"center"} direction='row' spacing={1}>
+              <Chip color='info' label='1' />
+              <Typography>Choose at least 1 team </Typography>
+            </Stack>
           </AccordionSummary>
           <AccordionDetails
             sx={{ maxHeight: "45vh", overflow: "auto", direction: "rtl" }}>
@@ -111,9 +139,14 @@ export default function ChoicesDash(props) {
             />
           </AccordionDetails>
         </Accordion>
-        <Accordion expanded={expanded !== "panel1"}>
+        <Accordion
+          expanded={expanded !== "panel1" && expanded == "panel2"}
+          onChange={handleChange("panel2")}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>Seasons</Typography>
+            <Stack alignItems={"center"} direction='row' spacing={1}>
+              <Chip color='info' label='2' />
+              <Typography>Choose at least 1 season</Typography>
+            </Stack>
           </AccordionSummary>
           <AccordionDetails>
             <SeasonsSelect
@@ -128,9 +161,9 @@ export default function ChoicesDash(props) {
           spacing={1}
           sx={{ justifyContent: "center", alignItems: "center" }}>
           <Button
-            variant='outlined'
+            variant='contained'
             color='success'
-            disabled={!selectedTeams[0]?.id} // only avaialbe when a team has been clicked
+            disabled={!selectedTeams[0]?.id || !seasonsSelected.length > 0} // only avaialbe when a team has been clicked
             onClick={() => getGamesByTeamAxios()}
             sx={{ my: 1 }}>
             Submit

@@ -17,7 +17,7 @@ export default function GameList2(props) {
     <>
       {/* <Stack direction='column' sx={{ maxHeight: "70vh", overflow: "auto" }}> */}
       {props.gameList.map((game) => (
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <Box sx={{}}>
             {/* Check if game is over */}
             {game.away_info.WL === null ? (

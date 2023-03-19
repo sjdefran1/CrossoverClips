@@ -64,7 +64,13 @@ export default function PlayerFilter(props) {
   return (
     <>
       <Paper>
-        <Box sx={{ maxHeight: "50vh", overflow: "auto" }}>
+        <Box
+          sx={{
+            maxHeight: "50vh",
+            overflowY: "auto",
+            overflowX: "clip",
+            maxWidth: "100%",
+          }}>
           <AppBar position='static' sx={{ borderRadius: 1 }}>
             <Toolbar sx={{ justifyContent: "center" }}>
               <Stack direction='row' spacing={20}>
@@ -104,14 +110,18 @@ export default function PlayerFilter(props) {
                       .map((player) => (
                         <React.Fragment key={player[2]}>
                           <Fade in={true}>
-                            <Stack direction='row'>
+                            <Stack direction='row' spacing={{ xs: 0, md: 1 }}>
                               <Avatar
                                 src={
                                   "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
                                   player[2] +
                                   ".png"
                                 }
-                                sx={{ width: 40, height: 40, ml: 1 }}
+                                sx={{
+                                  width: 40,
+                                  height: 40,
+                                  ml: { xs: 0, md: 1 },
+                                }}
                               />
                               <FormControlLabel
                                 key={player[2]}
@@ -149,14 +159,18 @@ export default function PlayerFilter(props) {
                       .map((player) => (
                         <React.Fragment key={player[2]}>
                           <Fade in={true}>
-                            <Stack direction='row'>
+                            <Stack direction='row' spacing={{ xs: 0, md: 1 }}>
                               <Avatar
                                 src={
                                   "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
                                   player[2] +
                                   ".png"
                                 }
-                                sx={{ width: 40, height: 40, ml: 1 }}
+                                sx={{
+                                  width: 40,
+                                  height: 40,
+                                  ml: { xs: 0.5, md: 1 },
+                                }}
                               />
                               <FormControlLabel
                                 key={player[2]}

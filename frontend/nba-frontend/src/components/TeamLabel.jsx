@@ -23,7 +23,10 @@ export default function TeamLabel(props) {
           "/primary/L/logo.svg"
         }
       />
-      <Typography variant='body2' color='text.secondary'>
+      <Typography
+        // variant={{ xs: "subtitle2", md: "body2" }}
+        variant='body2'
+        color='text.secondary'>
         {props.name}
       </Typography>
     </Stack>

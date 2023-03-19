@@ -76,7 +76,7 @@ export default function TeamSearch(props) {
           {!isLoading &&
             teamList.map((team) => (
               <React.Fragment key={team.id}>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <Fade in={true}>
                     <FormControlLabel
                       key={team.id}
