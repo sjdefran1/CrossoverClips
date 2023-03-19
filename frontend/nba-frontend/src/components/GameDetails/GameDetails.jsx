@@ -27,12 +27,13 @@ import {
 import InfoIcon from "@mui/icons-material/Info";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 import GameDash from "./GameDash";
 import PlayerFilter from "./PlayerFilter";
-import NoHighlights from "./PlaysList/NoHighlights";
-import PlayList from "./PlaysList/PlayList.jsx";
+import NoHighlights from "../PlaysList/NoHighlights";
+import PlayList from "../PlaysList/PlayList.jsx";
 import { useLocation } from "react-router-dom";
-import FilteredPlayList from "./PlaysList/FilteredPlayList";
+import FilteredPlayList from "../PlaysList/FilteredPlayList";
 import StatFilter from "./StatFilters";
 import GameStatsDash from "./GameStatsDash";
 
@@ -204,20 +205,30 @@ export default function GameDetails(props) {
 
               {/* Mobile filters view */}
               <Hidden mdUp>
-                <Accordion disableGutters>
-                  <AccordionSummary>Player Filters</AccordionSummary>
-                  <AccordionDetails>
-                    <PlayerFilter
-                      players={playByPlay.players}
-                      teamIDs={playByPlay.team_ids}
-                      currentFilterPlayers={filteredPlayers}
-                      setPlayerFilter={getFilteredPlayers}
-                      getStatFilter={getStatFilter}
-                    />
-                  </AccordionDetails>
-                </Accordion>
+                {!playsIsLoading &&
+                  playByPlay.players.length > 0 &&
+                  tabValue === 0 && (
+                    <>
+                      <Accordion sx={{ minWidth: "100%" }} disableGutters>
+                        <AccordionSummary expandIcon={<ExpandMore />}>
+                          Player Filters
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <PlayerFilter
+                            players={playByPlay.players}
+                            teamIDs={playByPlay.team_ids}
+                            currentFilterPlayers={filteredPlayers}
+                            setPlayerFilter={getFilteredPlayers}
+                            getStatFilter={getStatFilter}
+                          />
+                        </AccordionDetails>
+                      </Accordion>
+                    </>
+                  )}
                 <Accordion sx={{ minWidth: "100%" }} disableGutters>
-                  <AccordionSummary>Stat Filters</AccordionSummary>
+                  <AccordionSummary expandIcon={<ExpandMore />}>
+                    Stat Filters
+                  </AccordionSummary>
                   <AccordionDetails>
                     <StatFilter updateFilter={getStatFilter} />
                   </AccordionDetails>

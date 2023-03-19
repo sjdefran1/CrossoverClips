@@ -50,8 +50,7 @@ export default function SeasonsSelect(props) {
   return (
     <>
       <Alert severity='info'>
-        By default all seasons are returned, Only select if you want certain
-        seasons, otherwise just submit
+        All seasons returned by default, submit button below
       </Alert>
       <Grid container>
         {seasonsList.map((season) => (

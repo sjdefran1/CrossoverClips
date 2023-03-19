@@ -16,6 +16,7 @@ import {
   Divider,
   Button,
   IconButton,
+  Tooltip,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -168,9 +169,11 @@ export default function ChoicesDash(props) {
             sx={{ my: 1 }}>
             Submit
           </Button>
-          <IconButton disabled={!selectedTeams[0]?.id} onClick={clearFilters}>
-            <DeleteIcon />
-          </IconButton>
+          <Tooltip title='Clear Filters'>
+            <IconButton disabled={!selectedTeams[0]?.id} onClick={clearFilters}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
           {/* <Button
             variant='outlined'
             color='success'

@@ -2,7 +2,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import Main from "./components/Main.jsx";
-import GameDetails from "./components/GameDetails.jsx";
+import GameDetails from "./components/GameDetails/GameDetails.jsx";
 import TopBar from "./components/TopBar.jsx";
 
 const darkTheme = createTheme({

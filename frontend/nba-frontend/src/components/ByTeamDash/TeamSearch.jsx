@@ -15,7 +15,7 @@ import {
 import GameList2 from "../GameList2";
 import CircleOutlined from "@mui/icons-material/CircleOutlined";
 import CircleIcon from "@mui/icons-material/Circle";
-import TeamLabel from "../TeamLabel";
+import TeamLabel from "./TeamLabel";
 
 export default function TeamSearch(props) {
   const [teamList, setTeamList] = React.useState([]);

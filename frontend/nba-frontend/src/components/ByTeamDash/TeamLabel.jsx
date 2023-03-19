@@ -1,17 +1,6 @@
 import * as React from "react";
 
-import {
-  Container,
-  Grid,
-  Typography,
-  CircularProgress,
-  Stack,
-  Fade,
-  Box,
-  FormControlLabel,
-  Checkbox,
-  Avatar,
-} from "@mui/material";
+import { Typography, Stack, Avatar } from "@mui/material";
 
 export default function TeamLabel(props) {
   return (
