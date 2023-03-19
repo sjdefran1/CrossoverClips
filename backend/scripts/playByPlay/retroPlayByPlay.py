@@ -18,8 +18,8 @@ headers = {
 }
 
 def get_all_playbyplay_stats_retro(gameID: str, season: str):
-   plays_dic = {"FGM":0, "AST":0, "BLK":0}
-   players_dic = {"FGM": [], "AST": [], "BLK": []} # no player information in retro apis
+   plays_dic = {"FGM":0, "AST":0, "BLK":0, 'DUNK':0, "STL": 0}
+   players_dic = {"FGM": [], "AST": [], "BLK": [], "DUNK": [], "STL": []} # no player information in retro apis
    
    fgm = getRetroPlayByPlay(gameID=gameID, season=season, stat_type='FGM')
    teamIDS = fgm['team_ids']
@@ -33,6 +33,13 @@ def get_all_playbyplay_stats_retro(gameID: str, season: str):
    blk = getRetroPlayByPlay(gameID=gameID, season=season, stat_type='BLK')
    plays_dic['BLK'] = blk['plays']
 
+   dunk = getRetroPlayByPlay(gameID=gameID, season=season, stat_type='FGM', get_dunks=1)
+   plays_dic['DUNK'] = dunk['plays']
+
+   stl = getRetroPlayByPlay(gameID=gameID, season=season, stat_type='STL')
+   plays_dic['STL'] = stl['plays']
+
+
    ret_dict = {
     "game_id": gameID,
     "players": players_dic, 
@@ -42,7 +49,7 @@ def get_all_playbyplay_stats_retro(gameID: str, season: str):
    }
    return ret_dict
 
-def getRetroPlayByPlay(gameID: str, season: str, stat_type='FGM') -> dict:
+def getRetroPlayByPlay(gameID: str, season: str, stat_type='FGM', get_dunks=0) -> dict:
   params = {
       'GameID': gameID, # not required,
       'ContextMeasure': stat_type,
@@ -77,6 +84,12 @@ def getRetroPlayByPlay(gameID: str, season: str, stat_type='FGM') -> dict:
   
   plays_url_desc = []
   for play in plays:
+      # check description string for dunks
+      if get_dunks == 1:
+         if 'Dunk' not in play['dsc']:
+            continue
+      # create vid url, in try and except incase
+      # no url associated with play
       try:
         video_url = f"https://videos.nba.com/nba/pbp/media/{play['y']}/{play['m']}/{play['d']}/{play['gi']}/{play['ei']}/" + action_hex.get(f"{play['ei']}")
       except:

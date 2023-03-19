@@ -3,11 +3,7 @@ import {
   Container,
   Grid,
   Typography,
-  CircularProgress,
-  Stack,
-  Fade,
-  Box,
-  Button,
+  Alert,
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
@@ -27,30 +23,35 @@ export default function SeasonsSelect(props) {
       "2022-23",
     ].reverse()
   );
-  const [seasonsSelected, setSeasonsSelected] = React.useState([]);
 
   const handleSeasonSelect = (season) => {
-    if (seasonsSelected.includes(season)) {
-      setSeasonsSelected(seasonsSelected.filter((year) => year !== season));
+    if (props.seasonsSelected.includes(season)) {
+      props.setSeasonsSelected(
+        props.seasonsSelected.filter((year) => year !== season)
+      );
     } else {
       let arr = [season];
-      setSeasonsSelected(seasonsSelected.concat(arr));
+      props.setSeasonsSelected(props.seasonsSelected.concat(arr));
     }
   };
 
   const handleAll = () => {
-    setSeasonsSelected(seasonsList);
+    props.setSeasonsSelected(seasonsList);
   };
 
   const handleClear = () => {
-    setSeasonsSelected([]);
+    props.setSeasonsSelected([]);
   };
-  React.useEffect(() => {
-    props.updateSeasons(seasonsSelected);
-  }, [seasonsSelected]);
+  // React.useEffect(() => {
+  //   props.updateSeasons(props.seasonsSelected);
+  // }, [props.seasonsSelected]);
 
   return (
     <>
+      <Alert severity='info'>
+        By default all seasons are returned, Only select if you want certain
+        seasons, otherwise just submit
+      </Alert>
       {seasonsList.map((season) => (
         <FormControlLabel
           key={season}
@@ -62,7 +63,7 @@ export default function SeasonsSelect(props) {
           control={
             <Checkbox
               key={season}
-              checked={seasonsSelected.includes(season)}
+              checked={props.seasonsSelected.includes(season)}
               icon={<CircleOutlined />}
               checkedIcon={<CircleIcon color='success' />}
               onChange={() => handleSeasonSelect(season)}
@@ -70,12 +71,12 @@ export default function SeasonsSelect(props) {
           }
         />
       ))}
-      <Button onClick={handleAll} color='success'>
+      {/* <Button onClick={handleAll} color='success'>
         All
       </Button>
       <Button color='warning' onClick={handleClear}>
         Clear
-      </Button>
+      </Button> */}
     </>
   );
 }

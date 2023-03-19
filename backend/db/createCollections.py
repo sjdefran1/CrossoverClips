@@ -54,13 +54,13 @@ def update_current_season() -> None:
     print("Season Updated")
     return
 
-def update_today() -> None:
+def update_today(other_date_str='') -> None:
     print("Getting Databse")
     client = get_db()
     SeasonsV2 = client['SeasonsV2']
     collection = SeasonsV2['Games']
     print("Retrieved Database")
-    games = parse_season_json('2022-23', today=1)
+    games = parse_season_json('2022-23', get_today=1, date_str=other_date_str)
     for game in games:
         # If it doesn't exists insert it
         # Else find it and update it
@@ -75,6 +75,6 @@ def update_today() -> None:
 
 if __name__ == '__main__':
     #update_current_season()
-    update_all_seasons()
-    #update_today()
+    #update_all_seasons()
+    update_today('2023-03-18')
     

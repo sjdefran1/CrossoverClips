@@ -29,15 +29,11 @@ export default function GameDash(props) {
     let result = handleNameLength(props.game_link.home_info.TEAM_NAME);
     setHomeCity(result[0]);
     setHomeName(result[1]);
-    //handleNameLength(true, props.game_link.home_info.TEAM_NAME);
 
     // set away name and city
     result = handleNameLength(props.game_link.away_info.TEAM_NAME);
     setAwayCity(result[0]);
     setAwayName(result[1]);
-    //handleNameLength(false, props.game_link.away_info.TEAM_NAME);
-    //setHomeName(props.game_link.away_info.TEAM_NAME.split(" ")[0]);
-    //setAwayName(props.game_link.away_info.TEAM_NAME.split(" ")[0]);
   }, []);
 
   return (

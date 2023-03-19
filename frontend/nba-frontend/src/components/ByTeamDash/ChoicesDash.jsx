@@ -29,6 +29,7 @@ export default function ChoicesDash(props) {
   const [expanded, setExpanded] = React.useState("panel1");
   const [maxSelected, setMaxSelected] = React.useState(false);
   const [teamsSelectedIDS, setTeamsSelectedIDS] = React.useState([]);
+  // const [seasonsSelected, setSeasonsSelected] = React.useState([]);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -49,6 +50,9 @@ export default function ChoicesDash(props) {
     setSeasonsSelected([]);
     setTeamsSelectedIDS([]);
     setMaxSelected(false);
+    //props.setResponseData([]);
+    // handleChange("panel1");
+    setExpanded("panel1");
   };
 
   const getGamesByTeamAxios = () => {
@@ -77,11 +81,12 @@ export default function ChoicesDash(props) {
 
   React.useEffect(() => {
     props.updateSelectedSeasons(seasonsSelected);
-  }, [seasonsSelected]);
-
-  React.useEffect(() => {
     props.updateGameList(gameList);
-  }, [gameList]);
+  }, [seasonsSelected, gameList]);
+
+  // React.useEffect(() => {
+  //   props.updateGameList(gameList);
+  // }, [gameList]);
   return (
     <>
       <Paper>
@@ -106,12 +111,15 @@ export default function ChoicesDash(props) {
             />
           </AccordionDetails>
         </Accordion>
-        <Accordion>
+        <Accordion expanded={expanded !== "panel1"}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography>Seasons</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <SeasonsSelect updateSeasons={getSeasonsSelected} />
+            <SeasonsSelect
+              seasonsSelected={seasonsSelected}
+              setSeasonsSelected={setSeasonsSelected}
+            />
           </AccordionDetails>
         </Accordion>
 

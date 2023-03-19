@@ -17,6 +17,7 @@ import {
   Stack,
   Divider,
   Fade,
+  Alert,
 } from "@mui/material";
 import GameList2 from "./GameList2";
 import Paper from "@mui/material/Paper";
@@ -100,7 +101,7 @@ class DateChosen extends React.Component {
   };
 
   getSelectedSeasons = (seasonsArr) => {
-    this.setState({ selectedSeasons: seasonsArr });
+    this.setState({ selectedSeasons: seasonsArr, responseData: [] });
   };
 
   // disableYear(year) {
@@ -162,7 +163,7 @@ class DateChosen extends React.Component {
                           disableHighlightToday
                           onChange={(newValue) => {
                             this.setState({
-                              value: newValue,
+                              value: newValue.format("YYYY-MM-DD"),
                               gamesLoading: true,
                               shouldRender: false,
                             });
@@ -187,6 +188,7 @@ class DateChosen extends React.Component {
                       updateSelectedSeasons={this.getSelectedSeasons}
                       updateGameList={this.setResponseData}
                       updateGamesLoading={this.setGamesLoading}
+                      setResponseData={this.setResponseData}
                     />
                   </Box>
                   // </Grid>
@@ -247,11 +249,22 @@ class DateChosen extends React.Component {
                     )} */}
 
                   {this.state.shouldRender && this.state.tabValue === 1 && (
-                    <GameList2
-                      gameList={this.state.responseData}
-                      date={this.state.value}
-                      showDate={false}
-                    />
+                    <>
+                      {dayjs(this.state.value).format("YYYY-MM-DD") ===
+                        dayjs().format("YYYY-MM-DD").toString() && (
+                        <Alert severity='warning'>
+                          Games on today only show up once they are in
+                          progress/finished, Highlights become available ~20-30
+                          minutes after finish
+                        </Alert>
+                      )}
+
+                      <GameList2
+                        gameList={this.state.responseData}
+                        date={this.state.value}
+                        showDate={false}
+                      />
+                    </>
                   )}
                 </Grid>
               </Grid>

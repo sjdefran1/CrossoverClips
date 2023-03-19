@@ -46,9 +46,11 @@ def get_season_str(date_recieved: str) -> str:
     # Return None if no matching year was found
     return ""
 
-def get_today_json() -> dict:
+def get_today_json(today='') -> dict:
     season = '2022-23'
-    today = str(datetime.date.today())
+    if today == '':
+        today = str(datetime.date.today())
+    
     #today = '2023-03-14'
     #print(today)
     url = f"https://stats.nba.com/stats/leaguegamelog?Counter=0&DateFrom={today}&DateTo={today}&Direction=ASC&LeagueID=00&PlayerOrTeam=T&Season={season}&SeasonType=Regular+Season&Sorter=DATE"
@@ -68,11 +70,11 @@ def get_season_json(season: str) -> dict:
     return json_response
 
 # if today = 0 gets season, if 1 gets only today
-def parse_season_json(season: str, today=0) -> dict:
-    if today == 0:
+def parse_season_json(season: str, get_today=0, date_str='') -> dict:
+    if get_today == 0:
         season_json = get_season_json(season)
     else:
-        season_json = get_today_json()
+        season_json = get_today_json(today=date_str)
     stat_headers = season_json['resultSets'][0]['headers']
     game_list = season_json['resultSets'][0]['rowSet']
 
