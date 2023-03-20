@@ -11,7 +11,13 @@ import {
 import InfoIcon from "@mui/icons-material/Info";
 
 export default function StatFilter(props) {
-  const [statTypes, setStatTypes] = React.useState(["FGM", "AST", "BLK"]);
+  const [statTypes, setStatTypes] = React.useState([
+    "FGM",
+    "AST",
+    "BLK",
+    "DUNK",
+    "STL",
+  ]);
   const [choosenType, setChoosenType] = React.useState("FGM");
 
   const handleStatSelect = (stat) => {
@@ -25,7 +31,7 @@ export default function StatFilter(props) {
   };
   return (
     <>
-      <Paper sx={{ mx: 1 }}>
+      <Paper sx={{ mx: 2 }}>
         <Paper sx={{ textAlign: "center" }}>
           <Typography variant='body1' color='text.secondary' padding>
             STATS
@@ -33,13 +39,14 @@ export default function StatFilter(props) {
         </Paper>
         <Stack
           direction={"column"}
+          padding
           sx={{
             //maxHeight: "25vh",
             //overflow: "auto",
 
-            alignItems: "center",
-          }}
-          padding>
+            alignItems: "left",
+            ml: 1,
+          }}>
           {statTypes.map((stat) => (
             <FormControlLabel
               key={stat}

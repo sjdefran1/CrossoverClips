@@ -1,9 +1,10 @@
 import requests
 import json
 from time import perf_counter
-from playByPlay.statHandlers import handle_BLK, handle_FGM_or_AST
+from playByPlay.statHandlers import handle_BLK, handle_FGM_or_AST_or_DUNK, handle_STL
 from playByPlay.playHelpers import getPlayByPlayJson
-
+# from statHandlers import handle_BLK, handle_FGM_or_AST_or_DUNK
+# from playHelpers import getPlayByPlayJson
 # source C:/Users/sjdef/anaconda3/Scripts/activate base
 
 
@@ -44,18 +45,23 @@ play dictionary in format
 """
 def get_all_playbyplay_stats_normal(gameID, month, day, year):
   start = perf_counter()
-  plays_dic = {"FGM":0, "AST":0, "BLK":0}
-  players_dic = {"FGM":0, "AST":0, "BLK":0}
+  plays_dic = {"FGM":0, "AST":0, "BLK":0, "DUNK": 0, "STL": 0}
+  players_dic = {"FGM":0, "AST":0, "BLK":0, "DUNK":0, "STL": 0}
 
   playByPlay_response = getPlayByPlayJson(gameID=gameID)
 
   fgm = getPlayByPlayWithUrl(response=playByPlay_response, gameID=gameID, month=month, day=day, year=year, stat_type='FGM')
+  
   # store teamids and numquarters for ret_dic since they will be same in all requests
   teamIDS = fgm['team_ids']
   num_quarters = fgm['number_quarters']
   # update our 0'd dictionaries to results
   players_dic['FGM'] = fgm['players']
   plays_dic['FGM'] = fgm['plays']
+
+  dunk = getPlayByPlayWithUrl(response=playByPlay_response, gameID=gameID, month=month, day=day, year=year, stat_type='DUNK')
+  players_dic['DUNK'] = dunk['players']
+  plays_dic['DUNK'] = dunk['plays']
   
   ast = getPlayByPlayWithUrl(response=playByPlay_response, gameID=gameID, month=month, day=day, year=year, stat_type='AST')
   players_dic['AST'] = ast['players']
@@ -64,6 +70,10 @@ def get_all_playbyplay_stats_normal(gameID, month, day, year):
   blk = getPlayByPlayWithUrl(response=playByPlay_response, gameID=gameID, month=month, day=day, year=year, stat_type='BLK')
   players_dic['BLK'] = blk['players']
   plays_dic['BLK'] = blk['plays']
+
+  stl = getPlayByPlayWithUrl(response=playByPlay_response, gameID=gameID, month=month, day=day, year=year, stat_type='STL')
+  players_dic['STL'] = stl['players']
+  plays_dic['STL'] = stl['plays']
 
   ret_dict = {
      "game_id": gameID,
@@ -141,8 +151,14 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str, response,
   # print(json_response)
 
   # Gets only each play from the game, excludes meta and headers
+  # print(json_response)
+  # with open('actions_test.txt', 'w') as f:
+  #   f.write(json.dumps(json_response))
   actions = json_response['game']['actions']
-  action_hex = getActionNumberToURLs(gameID=gameID, stat_type=stat_type)
+  if stat_type == 'DUNK':
+    action_hex = getActionNumberToURLs(gameID=gameID, stat_type='FGM')
+  else:
+    action_hex = getActionNumberToURLs(gameID=gameID, stat_type=stat_type)
 
   desc_to_url = []
   players_list = []
@@ -155,7 +171,7 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str, response,
     # AST
     # ------------------------
     if stat_type == 'AST':
-      result = handle_FGM_or_AST(action=action, action_hex=action_hex, base_video_url=base_video_url, get_assits=1)
+      result = handle_FGM_or_AST_or_DUNK(action=action, action_hex=action_hex, base_video_url=base_video_url, get_assits=1)
       if result is not None:
         ids.append(action['teamId'])
         desc_to_url.append(result[0])
@@ -163,7 +179,14 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str, response,
         #print(result)
     elif stat_type == 'FGM':
     # FGM -----------------
-      result = handle_FGM_or_AST(action=action, action_hex=action_hex, base_video_url=base_video_url)
+      result = handle_FGM_or_AST_or_DUNK(action=action, action_hex=action_hex, base_video_url=base_video_url)
+      if result is not None:
+        ids.append(action['teamId'])
+        desc_to_url.append(result[0])
+        players_list.append(result[1])
+
+    elif stat_type == 'DUNK':
+      result = handle_FGM_or_AST_or_DUNK(action=action, action_hex=action_hex, base_video_url=base_video_url, get_dunks=1)
       if result is not None:
         ids.append(action['teamId'])
         desc_to_url.append(result[0])
@@ -173,6 +196,13 @@ def getPlayByPlayWithUrl(gameID: str, year: str, month: str, day: str, response,
     elif stat_type == 'BLK':
       if(action['actionType'] == 'block'):
         result = handle_BLK(action=action, action_hex=action_hex, base_video_url=base_video_url)
+        ids.append(action['teamId'])
+        desc_to_url.append(result[0])
+        players_list.append(result[1])
+        #print(result)
+    elif stat_type=='STL':
+      if(action['actionType'] == 'steal'):
+        result = handle_STL(action=action, action_hex=action_hex, base_video_url=base_video_url)
         ids.append(action['teamId'])
         desc_to_url.append(result[0])
         players_list.append(result[1])

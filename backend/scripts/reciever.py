@@ -9,14 +9,16 @@ import json
 from time import perf_counter
 
 # my scripts
-from db.gamesController import get_games_on_date_db
+from db.gamesController import get_games_on_date_db, get_games_by_team_db, get_games_by_matchup_db
 from db.get_database import get_db
-from playByPlay.retroPlayByPlay import getRetroPlayByPlay, get_all_playbyplay_stats_retro
+from db.teamsController import get_teams
+from scripts.playByPlay.retroPlayByPlay import getRetroPlayByPlay, get_all_playbyplay_stats_retro
 from db.createCollections import update_today
 from db.playByPlayController import check_playByPlay_exists, insert_playByPlay_db, get_playByPlay_db
 from playByPlay.playbyplayToUrls import getPlayByPlayWithUrl, get_all_playbyplay_stats_normal
 from schedule.game_info import get_game_info
 from playByPlay.playHelpers import getPlayByPlayJson
+
 # Global Var
 # ---------------
 
@@ -26,15 +28,23 @@ client = get_db()
 
 # Helpers
 # ---------------------------
-def fix_date(date: str) -> str:
-    date_format = "%a, %d %b %Y %H:%M:%S %Z"
-    parsed_date = datetime.strptime(date, date_format)
-    new_date = parsed_date.strftime("%m/%d/%Y")
-    return new_date
+# def fix_date(date: str) -> str:
+#     try:
+#         date_format = "%a, %d %b %Y %H:%M:%S %Z"
+#         parsed_date = datetime.strptime(date, date_format)
+#     except:
+#         date_format = "%Y-%m-%d"
+#         parsed_date = datetime.strptime(date, date_format)
+#     new_date = parsed_date.strftime("%m/%d/%Y")
+#     return new_date
 
 def fix_date_db(date: str) -> str:
-    date_format = "%a, %d %b %Y %H:%M:%S %Z"
-    parsed_date = datetime.strptime(date, date_format)
+    try:
+        date_format = "%a, %d %b %Y %H:%M:%S %Z"
+        parsed_date = datetime.strptime(date, date_format)
+    except:
+        date_format = "%Y-%m-%d"
+        parsed_date = datetime.strptime(date, date_format)
     new_date = parsed_date.strftime("%Y-%m-%d")
     return new_date
 
@@ -114,6 +124,10 @@ class GameInfo(BaseModel):
     date: str
     gameID: str
 
+class TeamSearch(BaseModel):
+    teams: list
+    seasons: list
+
 # -------------------------------------
 
 # FASTAPI
@@ -152,6 +166,19 @@ async def shutdown_event():
 
 # POST Functions
 # ---------------------------------------------
+@app.post("/teams")
+async def get_all_teams_controller():
+    return get_teams(client=client)
+
+@app.post("/gamesByTeam")
+async def get_all_games_by_team(data: TeamSearch):
+    if data.teams[1] is None:
+        games = get_games_by_team_db(team_id=data.teams[0]['id'], client=client, seasons=data.seasons)
+    else:
+        ids = [data.teams[0]['id'], data.teams[1]['id']]
+        games = get_games_by_matchup_db(team_ids=ids, client=client, seasons=data.seasons)
+    return JSONResponse(content=games)
+
 @app.post("/date")
 async def get_games_on_date_controller(data: DateStr):
     print('Requested ' + data.value)

@@ -1,4 +1,4 @@
-from playbyplayToUrls import getPlayByPlayWithUrl
+from playByPlay.playbyplayToUrls import getPlayByPlayWithUrl
 from moviepy.editor import VideoFileClip, concatenate_videoclips
 #from game_list_for_date import choose_game
 import requests

@@ -11,55 +11,89 @@ import {
   Grid,
   Typography,
   CircularProgress,
+  Box,
+  Tabs,
+  Tab,
   Stack,
+  Divider,
   Fade,
+  Alert,
+  Hidden,
 } from "@mui/material";
 import GameList2 from "./GameList2";
 import Paper from "@mui/material/Paper";
+import TeamSearch from "./ByTeamDash/TeamSearch";
+import ChoicesDash from "./ByTeamDash/ChoicesDash";
+import SelectionsDash from "./ByTeamDash/SelectionsDash";
+import TeamGameList from "./ByTeamDash/TeamGameList";
+import NoHighlights from "./PlaysList/NoHighlights.jsx";
 
 class DateChosen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       //value: dayjs("2023-02-04"),
-      value: dayjs().subtract(1, "day"),
+      value: dayjs().subtract(1, "day").toString(),
       responseData: [],
       shouldRender: false,
       gamesLoading: true,
+      tabValue: 0,
+      selectedTeams: [{}, {}],
+      selectedSeasons: [],
+      noGames: false,
       //renderToday: true,
     };
   }
+
+  handleTabChange = (event, newVal) => {
+    this.setState({ tabValue: newVal, responseData: [] });
+
+    if (newVal == 1) {
+      this.setState({ value: dayjs().subtract(1, "day").toString() });
+      this.getGamesAxios(this.state.value);
+    }
+  };
+
   getGamesAxios = (e) => {
     const data = {
       //value: this.state.value.toString(),
       value: e.toString(),
     };
-    this.setState({ value: e.toString() });
+    this.setState({ value: e.toString(), shouldRender: false });
     axios
       .post("http://localhost:8000/date", data)
       .then((response) => {
-        //console.log(response.data);
-        //const data = JSON.parse(response.data);
         if (response.data !== "no games") {
           this.setState({
             responseData: response.data,
             shouldRender: true,
             gamesLoading: false,
+            noGames: false,
           });
         } else {
-          this.setState({ shouldRender: false });
+          this.setState({ shouldRender: false, noGames: true });
         }
-        //console.log(this.responseData);
-        //console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  componentDidMount() {
-    this.getGamesAxios(this.state.value);
-  }
+  setResponseData = (gameList) => {
+    this.setState({ responseData: gameList });
+  };
+
+  setGamesLoading = (val) => {
+    this.setState({ gamesLoading: val });
+  };
+
+  getSelectedTeams = (teamsArr) => {
+    this.setState({ selectedTeams: teamsArr, responseData: [] });
+  };
+
+  getSelectedSeasons = (seasonsArr) => {
+    this.setState({ selectedSeasons: seasonsArr, responseData: [] });
+  };
 
   // disableYear(year) {
   //   console.log(year);
@@ -73,6 +107,14 @@ class DateChosen extends React.Component {
     return (
       <>
         <Container maxWidth='lg' sx={{ mt: 2 }}>
+          {/* <Grid container>
+            <Grid item xs={6}>
+              <Box sx={{ maxHeight: "50vh", overflow: "auto" }}>
+                <TeamSearch />
+              </Box>
+            </Grid>
+          </Grid> */}
+
           <Paper elevation={1} sx={{ padding: 2, borderRadius: 2 }}>
             <Paper
               elevation={2}
@@ -81,76 +123,155 @@ class DateChosen extends React.Component {
                 textAlign: "center",
                 padding: 1,
               }}>
-              <Typography variant='h4'>NBA Clip Finder</Typography>
+              <Typography variant='h4' color={"text.secondary"}>
+                NBA Clip Finder
+              </Typography>
             </Paper>
 
+            {/* Tabs */}
             <Grid container spacing={1} paddingTop>
-              <Grid item xs={6}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  {/* <StaticDatePicker
-                      orientation='landscape'
-                      openTo='day'
-                      value={this.state.value}
-                      onChange={(newValue) => {
-                        this.setState({ value: newValue });
-                        this.getGamesAxios(newValue);
-                      }}
-                      renderInput={(params) => <TextField {...params} />}
-                    /> */}
-                  <Fade in={true}>
-                    <Paper variant='outlined' sx={{ borderRadius: 4 }}>
-                      <CalendarPicker
-                        minDate={dayjs("2014-10-28")}
-                        maxDate={dayjs()}
-                        openTo='day'
-                        disableHighlightToday
-                        onChange={(newValue) => {
-                          this.setState({
-                            value: newValue,
-                            gamesLoading: true,
-                            shouldRender: false,
-                          });
-                          this.getGamesAxios(newValue);
-                        }}
-                      />
-                    </Paper>
-                  </Fade>
-                </LocalizationProvider>
+              <Grid item xs={12} md={6}>
+                <Box sx={{ width: "100%" }}>
+                  <Box
+                    sx={{ borderBottom: 1, borderColor: "divider", mb: 0.5 }}>
+                    <Tabs
+                      centered
+                      value={this.state.tabValue}
+                      onChange={this.handleTabChange}
+                      aria-label='Filters or Game Stats'>
+                      <Tab label='Choose By Team' tabIndex={0} />
+                      <Tab label='Choose By Date' tabIndex={1} />
+                    </Tabs>
+                  </Box>
+                </Box>
+                <Hidden smUp>
+                  {this.state.tabValue === 0 && (
+                    <SelectionsDash
+                      selectedTeamsParent={this.state.selectedTeams}
+                      selectedSeasonsParent={this.state.selectedSeasons}
+                    />
+                  )}
+                </Hidden>
+                {/* Calendar Picker */}
+                {this.state.tabValue === 1 && (
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <Fade in={true}>
+                      <Paper variant='outlined' sx={{ borderRadius: 4 }}>
+                        <CalendarPicker
+                          minDate={dayjs("2014-10-28")}
+                          maxDate={dayjs()}
+                          openTo='day'
+                          disableHighlightToday
+                          onChange={(newValue) => {
+                            this.setState({
+                              value: newValue.format("YYYY-MM-DD"),
+                              gamesLoading: true,
+                              shouldRender: false,
+                            });
+                            this.getGamesAxios(newValue);
+                          }}
+                        />
+                      </Paper>
+                    </Fade>
+                  </LocalizationProvider>
+                )}
+
+                {/* Search By team filters */}
+                {this.state.tabValue === 0 && (
+                  <Box
+                    sx={{
+                      maxHeight: "70vh",
+                      overflow: "auto",
+                    }}>
+                    <ChoicesDash
+                      updateSelectedTeams={this.getSelectedTeams}
+                      updateSelectedSeasons={this.getSelectedSeasons}
+                      updateGameList={this.setResponseData}
+                      updateGamesLoading={this.setGamesLoading}
+                      setResponseData={this.setResponseData}
+                    />
+                  </Box>
+                  // </Grid>
+                  // </Grid>
+                )}
               </Grid>
-              <Grid item xs={6}>
-                <Grid container spacing={0.2}>
-                  {/* Today */}
-                  {/* {this.state.shouldRender && this.state.renderToday && (
-                    <p>today</p>
-                  )} */}
-                  {/* Not Today */}
-                  {/* {this.state.shouldRender && !this.state.renderToday && ( */}
-                  {this.state.gamesLoading && (
-                    <Grid item xs={6}>
-                      <br></br>
-                      <CircularProgress sx={{ ml: "50%" }} />
-                    </Grid>
+
+              {/* Right hand side of main */}
+              <Grid item xs={12} md={6}>
+                {/* Selections dash Desktop*/}
+                <Hidden smDown>
+                  {this.state.tabValue === 0 && (
+                    <SelectionsDash
+                      selectedTeamsParent={this.state.selectedTeams}
+                      selectedSeasonsParent={this.state.selectedSeasons}
+                    />
+                  )}
+                </Hidden>
+                {/* Games on today w/ alert, no games available yet */}
+                {this.state.gamesLoading &&
+                  this.state.tabValue === 1 &&
+                  this.state.noGames == false && (
+                    <>
+                      {dayjs(this.state.value).format("YYYY-MM-DD") ===
+                        dayjs().format("YYYY-MM-DD").toString() && (
+                        <Alert severity='warning'>
+                          Games on today only show up once they are in
+                          progress/finished, Highlights become available ~20-30
+                          minutes after finish
+                        </Alert>
+                      )}
+                    </>
                   )}
 
-                  {this.state.shouldRender && (
-                    <GameList2
-                      gameList={this.state.responseData}
-                      date={this.state.value}
-                    />
+                {/* Game Lists */}
+                <Grid
+                  container
+                  spacing={0.2}
+                  sx={{ maxHeight: "60vh", overflow: "auto" }}>
+                  {/* Game List for Team Select */}
+                  {this.state.tabValue === 0 &&
+                    this.state.responseData?.length > 0 && (
+                      <>
+                        <Divider sx={{ my: 1, mx: 0 }} />
+
+                        <TeamGameList
+                          selectedSeasonsParent={this.state.selectedSeasons}
+                          gameList={this.state.responseData}
+                        />
+
+                        {/* <GameList2
+                          gameList={this.state.responseData}
+                          date={this.state.value}
+                          showDate={true}
+                        /> */}
+                      </>
+                    )}
+
+                  {/* No games found */}
+                  {this.state.noGames && <NoHighlights gamePicker={true} />}
+                  {/* Games on today, some have become available/all */}
+                  {this.state.shouldRender && this.state.tabValue === 1 && (
+                    <>
+                      {dayjs(this.state.value).format("YYYY-MM-DD") ===
+                        dayjs().format("YYYY-MM-DD").toString() && (
+                        <Alert severity='warning'>
+                          Games on today only show up once they are in
+                          progress/finished, Highlights become available ~20-30
+                          minutes after finish
+                        </Alert>
+                      )}
+
+                      <GameList2
+                        gameList={this.state.responseData}
+                        date={this.state.value}
+                        showDate={false}
+                      />
+                    </>
                   )}
                 </Grid>
               </Grid>
             </Grid>
           </Paper>
-
-          {/* <Grid container spacing={1}>
-            {this.state.shouldRender && (
-              <GameList2
-                gameList={this.state.responseData}
-                date={this.state.value}
-              />
-            )}
-          </Grid> */}
         </Container>
       </>
     );

@@ -1,4 +1,4 @@
-from get_schedule import get_games_on_date
+from schedule.get_schedule import get_games_on_date
 from createMakesVideo import create_video
 
 def choose_game(create_video_yn: str):

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Avatar, Stack, Grid, Typography, Paper } from "@mui/material";
+import { Avatar, Stack, Grid, Typography, Paper, Hidden } from "@mui/material";
 
 //const project = projects[0];
 export default function GameDash(props) {
@@ -29,15 +29,11 @@ export default function GameDash(props) {
     let result = handleNameLength(props.game_link.home_info.TEAM_NAME);
     setHomeCity(result[0]);
     setHomeName(result[1]);
-    //handleNameLength(true, props.game_link.home_info.TEAM_NAME);
 
     // set away name and city
     result = handleNameLength(props.game_link.away_info.TEAM_NAME);
     setAwayCity(result[0]);
     setAwayName(result[1]);
-    //handleNameLength(false, props.game_link.away_info.TEAM_NAME);
-    //setHomeName(props.game_link.away_info.TEAM_NAME.split(" ")[0]);
-    //setAwayName(props.game_link.away_info.TEAM_NAME.split(" ")[0]);
   }, []);
 
   return (
@@ -58,12 +54,21 @@ export default function GameDash(props) {
                   props.game_link.away_info.TEAM_ID +
                   "/primary/L/logo.svg"
                 }
-                sx={{ width: 100, height: 100 }}
+                sx={{ width: { xs: 70, md: 100 }, height: { xs: 70, md: 100 } }}
               />
-              <Typography variant='h6'>{awayCity}</Typography>
-              <Typography variant='h7' color='text.secondary'>
-                {awayName}
-              </Typography>
+              <Hidden mdDown>
+                <Typography variant='h6'>{awayCity}</Typography>
+                <Typography variant='h7' color='text.secondary'>
+                  {awayName}
+                </Typography>
+              </Hidden>
+
+              <Hidden mdUp>
+                <Typography variant='body1'>{awayCity}</Typography>
+                <Typography variant='body2' color='text.secondary'>
+                  {awayName}
+                </Typography>
+              </Hidden>
             </Stack>
           </Grid>
           <Grid
@@ -74,15 +79,27 @@ export default function GameDash(props) {
             <br></br>
             <Stack
               direction='row'
-              spacing={5}
+              spacing={{ xs: 1, md: 5 }}
               sx={{ alignItems: "center", justifyContent: "center" }}>
-              <Typography variant='h4' sx={{}}>
-                {props.game_link.away_info.PTS}
-              </Typography>
-              <Typography variant='h4'>-</Typography>
-              <Typography variant='h4' sx={{}}>
-                {props.game_link.home_info.PTS}
-              </Typography>
+              <Hidden mdDown>
+                <Typography variant='h4' sx={{}}>
+                  {props.game_link.away_info.PTS}
+                </Typography>
+                <Typography variant='h4'>-</Typography>
+                <Typography variant='h4' sx={{}}>
+                  {props.game_link.home_info.PTS}
+                </Typography>
+              </Hidden>
+
+              <Hidden mdUp>
+                <Typography variant='h5' sx={{}}>
+                  {props.game_link.away_info.PTS}
+                </Typography>
+                <Typography variant='h4'>-</Typography>
+                <Typography variant='h5' sx={{}}>
+                  {props.game_link.home_info.PTS}
+                </Typography>
+              </Hidden>
             </Stack>
             <Stack
               direction='column'
@@ -113,12 +130,21 @@ export default function GameDash(props) {
                   props.game_link.home_info.TEAM_ID +
                   "/primary/L/logo.svg"
                 }
-                sx={{ width: 100, height: 100 }}
+                sx={{ width: { xs: 70, md: 100 }, height: { xs: 70, md: 100 } }}
               />
-              <Typography variant='h6'>{homeCity}</Typography>
-              <Typography variant='h7' color='text.secondary'>
-                {homeName}
-              </Typography>
+              <Hidden mdDown>
+                <Typography variant='h6'>{homeCity}</Typography>
+                <Typography variant='h7' color='text.secondary'>
+                  {homeName}
+                </Typography>
+              </Hidden>
+
+              <Hidden mdUp>
+                <Typography variant='body1'>{homeCity}</Typography>
+                <Typography variant='body2' color='text.secondary'>
+                  {homeName}
+                </Typography>
+              </Hidden>
             </Stack>
           </Grid>
         </Grid>
