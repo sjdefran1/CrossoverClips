@@ -122,7 +122,7 @@ export default function ChoicesDash(props) {
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Stack alignItems={"center"} direction='row' spacing={1}>
               <Chip color='info' label='1' />
-              <Typography>Choose at least 1 team </Typography>
+              <Typography>Choose at least one team </Typography>
             </Stack>
           </AccordionSummary>
           <AccordionDetails
@@ -146,7 +146,7 @@ export default function ChoicesDash(props) {
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Stack alignItems={"center"} direction='row' spacing={1}>
               <Chip color='info' label='2' />
-              <Typography>Choose at least 1 season</Typography>
+              <Typography>Choose at least one season</Typography>
             </Stack>
           </AccordionSummary>
           <AccordionDetails>
