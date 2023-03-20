@@ -23,6 +23,8 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Chip,
+  Alert,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -242,19 +244,26 @@ export default function GameDetails(props) {
           <Grid item xs={12} md={6}>
             <AppBar position='static' sx={{ borderRadius: 1 }}>
               <Toolbar sx={{ justifyContent: "right" }}>
-                <Stack direction='row' alignItems={"center"} sx={{ mr: "12%" }}>
+                <Stack
+                  direction='row'
+                  alignItems={"center"}
+                  sx={{ mr: { xs: "20%", md: "36%" } }}>
                   <IconButton onClick={() => handleQuarterChange(0)}>
                     <KeyboardArrowLeftIcon color='info' />
                   </IconButton>
-                  <Typography variant='body1' color='text.secondary'>
-                    Quarter: {currentQuarter}
-                  </Typography>
-
+                  <Typography
+                    variant='body1'
+                    color='text.secondary'></Typography>
+                  <Chip
+                    variant='outlined'
+                    label={"Quarter: " + currentQuarter}
+                    color='info'
+                  />
                   <IconButton onClick={() => handleQuarterChange(1)}>
                     <KeyboardArrowRightIcon color='info' />
                   </IconButton>
                 </Stack>
-
+                {/* 
                 <FormGroup>
                   <FormControlLabel
                     sx={{ mr: 1 }}
@@ -268,23 +277,28 @@ export default function GameDetails(props) {
                     }
                   />
                 </FormGroup>
-                <Tooltip title='Highlight previews generally load slower than just clicking the play! But feel free to try them.'>
+                */}
+                <Tooltip title='Click anywhere on a play to be redirected!'>
                   <InfoIcon color='success' />
                 </Tooltip>
               </Toolbar>
             </AppBar>
+            {playsIsLoading && (
+              <Stack sx={{ justifyContent: "center" }}>
+                <Alert severity='info'>
+                  Please be patient for plays to load
+                </Alert>
+
+                <br></br>
+                <CircularProgress sx={{ ml: "50%" }} />
+              </Stack>
+            )}
             <Stack
               sx={{
                 maxHeight: "78vh",
                 overflow: "auto",
               }}>
               {/* Loading */}
-              {playsIsLoading && (
-                <Stack sx={{ justifyContent: "center" }}>
-                  <br></br>
-                  <CircularProgress sx={{ ml: "50%" }} />
-                </Stack>
-              )}
 
               {/* Finished Game No Highlights from VideoDetail Yet */}
               {!playsIsLoading && playByPlay.plays.length === 0 && (
