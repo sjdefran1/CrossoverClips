@@ -29,7 +29,8 @@ export default function PlayList(props) {
             <nav aria-label='playbyplay'>
               <SinglePlay
                 play={play}
-                team_ids={props.playByPlay.team_ids}
+                // team_ids={props.playByPlay.team_ids}
+                team_ids={[props.home_teamID, props.away_teamID]}
                 players_length={props.playByPlay.players.length}
               />
             </nav>

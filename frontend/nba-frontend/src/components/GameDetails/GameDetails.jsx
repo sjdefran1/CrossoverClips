@@ -311,6 +311,8 @@ export default function GameDetails(props) {
                 <PlayList
                   playByPlay={playByPlay}
                   currentQuarter={currentQuarter}
+                  home_teamID={state.game_link.home_info.TEAM_ID}
+                  away_teamID={state.game_link.away_info.TEAM_ID}
                 />
               )}
               {/* Player Filters have been applied */}
