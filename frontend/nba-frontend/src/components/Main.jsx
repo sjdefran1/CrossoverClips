@@ -29,6 +29,9 @@ import SelectionsDash from "./ByTeamDash/SelectionsDash";
 import TeamGameList from "./ByTeamDash/TeamGameList";
 import NoHighlights from "./PlaysList/NoHighlights.jsx";
 import trophyGif from "../static/trophy.gif";
+import DateChosenDash from "./DateChosenDash";
+
+import { useLocation } from "react-router-dom";
 
 class DateChosen extends React.Component {
   constructor(props) {
@@ -43,6 +46,7 @@ class DateChosen extends React.Component {
       selectedTeams: [{}, {}],
       selectedSeasons: [],
       noGames: false,
+      locationState: 0,
       //renderToday: true,
     };
   }
@@ -50,7 +54,7 @@ class DateChosen extends React.Component {
   handleTabChange = (event, newVal) => {
     this.setState({ tabValue: newVal, responseData: [] });
 
-    if (newVal == 1) {
+    if (newVal === 1) {
       this.setState({ value: dayjs().subtract(1, "day").toString() });
       this.getGamesAxios(this.state.value);
     }
@@ -97,6 +101,13 @@ class DateChosen extends React.Component {
     this.setState({ selectedSeasons: seasonsArr, responseData: [] });
   };
 
+  componentDidUpdate() {
+    // this.setState({ locationState: useLocation() });
+  }
+
+  componentDidMount() {
+    console.log(this.state.locationState);
+  }
   // disableYear(year) {
   //   console.log(year);
   //   if (year < 2014) {
@@ -108,7 +119,7 @@ class DateChosen extends React.Component {
   render() {
     return (
       <>
-        <Container maxWidth='xl' sx={{ mt: 2 }}>
+        <Container maxWidth='xl' sx={{ mt: 1 }}>
           <Paper elevation={2} sx={{ borderRadius: 2 }}>
             <Stack
               direction={"row"}
@@ -120,6 +131,7 @@ class DateChosen extends React.Component {
               <Typography variant='h4' color={"text.secondary"}>
                 NBA Clip Finder
               </Typography>
+
               <Hidden mdDown>
                 <Avatar src={trophyGif} sx={{ width: 100, height: 100 }} />
               </Hidden>
@@ -186,19 +198,19 @@ class DateChosen extends React.Component {
 
                   {/* Search By team filters */}
                   {this.state.tabValue === 0 && (
-                    <Box
-                      sx={{
-                        maxHeight: "70vh",
-                        overflow: "auto",
-                      }}>
-                      <ChoicesDash
-                        updateSelectedTeams={this.getSelectedTeams}
-                        updateSelectedSeasons={this.getSelectedSeasons}
-                        updateGameList={this.setResponseData}
-                        updateGamesLoading={this.setGamesLoading}
-                        setResponseData={this.setResponseData}
-                      />
-                    </Box>
+                    // <Box
+                    //   sx={{
+                    //     maxHeight: "70vh",
+                    //     overflow: "auto",
+                    //   }}>
+                    <ChoicesDash
+                      updateSelectedTeams={this.getSelectedTeams}
+                      updateSelectedSeasons={this.getSelectedSeasons}
+                      updateGameList={this.setResponseData}
+                      updateGamesLoading={this.setGamesLoading}
+                      setResponseData={this.setResponseData}
+                    />
+                    // </Box>
                     // </Grid>
                     // </Grid>
                   )}
@@ -218,7 +230,7 @@ class DateChosen extends React.Component {
                   {/* Games on today w/ alert, no games available yet */}
                   {this.state.gamesLoading &&
                     this.state.tabValue === 1 &&
-                    this.state.noGames == false && (
+                    this.state.noGames === false && (
                       <>
                         {dayjs(this.state.value).format("YYYY-MM-DD") ===
                           dayjs().format("YYYY-MM-DD").toString() && (
@@ -256,7 +268,19 @@ class DateChosen extends React.Component {
                       )}
 
                     {/* No games found */}
-                    {this.state.noGames && <NoHighlights gamePicker={true} />}
+                    {this.state.noGames && this.state.tabValue === 1 && (
+                      <>
+                        {dayjs(this.state.value).format("YYYY-MM-DD") ===
+                          dayjs().format("YYYY-MM-DD").toString() && (
+                          <Alert severity='warning'>
+                            Games on today only show up once they are in
+                            progress/finished, Highlights become available
+                            ~20-30 minutes after finish
+                          </Alert>
+                        )}
+                        <NoHighlights gamePicker={true} />
+                      </>
+                    )}
                     {/* Games on today, some have become available/all */}
                     {this.state.shouldRender && this.state.tabValue === 1 && (
                       <>
@@ -269,6 +293,13 @@ class DateChosen extends React.Component {
                           </Alert>
                         )}
 
+                        <DateChosenDash
+                          date={dayjs(this.state.value)
+                            .format("MM-DD-YYYY")
+                            .toString()}
+                          gamesFound={this.state.responseData.length}
+                          season={this.state.responseData[0].season_str}
+                        />
                         <GameList2
                           gameList={this.state.responseData}
                           date={this.state.value}

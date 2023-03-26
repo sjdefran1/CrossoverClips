@@ -53,7 +53,7 @@ export default function TeamGameList(props) {
         (game) => game.season_str === seasonsList[currentSeason]
       )
     );
-    console.log(currentSeasonGames);
+    //console.log(currentSeasonGames);
   }, [currentSeason, props.gameList]);
 
   const handleSeasonChange = React.useCallback(

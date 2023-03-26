@@ -4,6 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Hidden from "@mui/material/Hidden";
+import { Link } from "@mui/material";
 
 export default function TitleBar() {
   return (
@@ -16,25 +17,45 @@ export default function TitleBar() {
             <Button
               variant='text'
               sx={{ ml: 2, borderBottom: 2, borderColor: "secondary" }}>
-              Intro
+              <Link
+                target='_blank'
+                rel='noreferrer'
+                href='http://sjdefran.com/#intro'>
+                Intro
+              </Link>
             </Button>
 
             <Button
               variant='text'
               sx={{ ml: 2, borderBottom: 2, borderColor: "secondary" }}>
-              Work Experience
+              <Link
+                target='_blank'
+                rel='noreferrer'
+                href='http://sjdefran.com/#work'>
+                Work Experience
+              </Link>
             </Button>
 
             <Button
               variant='text'
               sx={{ ml: 2, borderBottom: 2, borderColor: "secondary" }}>
-              Projects
+              <Link
+                target='_blank'
+                rel='noreferrer'
+                href='http://sjdefran.com/#projects'>
+                Projects
+              </Link>
             </Button>
 
             <Button
               variant='text'
               sx={{ ml: 2, borderBottom: 2, borderColor: "secondary" }}>
-              Contact Me!
+              <Link
+                target='_blank'
+                rel='noreferrer'
+                href='http://sjdefran.com/#contact'>
+                Contact Me!
+              </Link>
             </Button>
           </Toolbar>
         </AppBar>

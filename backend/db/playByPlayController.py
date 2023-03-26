@@ -2,6 +2,9 @@
 def insert_playByPlay_db(client, game):
     db = client['PlayByPlay']
     collection = db['Games']
+    if game['number_quarters'] is None:
+        print(f"No Highlight information for |{game['game_id']}| yet, not inserting.")
+        return None
     print(f"Inserting Play By Play for {game['game_id']}")
     collection.insert_one(game)
     return None

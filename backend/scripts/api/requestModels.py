@@ -17,3 +17,6 @@ class GameInfo(BaseModel):
 class TeamSearch(BaseModel):
     teams: list
     seasons: list
+
+class ViewCount(BaseModel):
+    gameID: str

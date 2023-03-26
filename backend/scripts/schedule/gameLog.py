@@ -135,7 +135,8 @@ def organize_dict(season_games:dict) -> list:
             'season_str': season_str, 
             'date': game_info['home']['GAME_DATE'],
             'home_info': game_info['home'],
-            'away_info': game_info['away']
+            'away_info': game_info['away'],
+            'views': 0
         }
         game_list.append(complete_game_dict)
     return game_list

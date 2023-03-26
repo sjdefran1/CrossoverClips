@@ -20,11 +20,15 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Link, useLocation } from "react-router-dom";
 
 import TeamSearch from "./TeamSearch";
 import SeasonsSelect from "./SeasonsSelect";
 export default function ChoicesDash(props) {
-  const [selectedTeams, setSelectedTeams] = React.useState([]);
+  const [locationState, setLocationState] = React.useState(useLocation());
+  const [selectedTeams, setSelectedTeams] = React.useState(
+    !locationState.state ? [] : locationState.state.selectedTeamsLink
+  );
   const [seasonsSelected, setSeasonsSelected] = React.useState(
     [
       "2014-15",
@@ -39,10 +43,33 @@ export default function ChoicesDash(props) {
   );
   const [gameList, setGameList] = React.useState([]);
   const [expanded, setExpanded] = React.useState("panel1");
-  const [maxSelected, setMaxSelected] = React.useState(false);
-  const [teamsSelectedIDS, setTeamsSelectedIDS] = React.useState([]);
+  // const [maxSelected, setMaxSelected] = React.useState(false);
+
+  const [maxSelected, setMaxSelected] = React.useState(
+    !locationState.state ? false : locationState.state.maxSelectedLink
+  );
+
+  //console.log(selectedTeams);
   // const [seasonsSelected, setSeasonsSelected] = React.useState([]);
 
+  const handleTeamIds = () => {
+    // coming back from clicking on game
+    if (locationState.state) {
+      let arr = locationState.state.selectedTeamsLink;
+      // two teams were selected
+      if (arr[1]?.id) {
+        return [arr[0].id, arr[1].id];
+      }
+      // one team was selected
+      return [arr[0].id, undefined];
+    }
+    //fresh load, nothing selected before
+    return [];
+  };
+
+  const [teamsSelectedIDS, setTeamsSelectedIDS] = React.useState(
+    handleTeamIds()
+  );
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
     // if (panel == "panel1") {
@@ -52,7 +79,10 @@ export default function ChoicesDash(props) {
 
   const getTeamsSelected = (teamsArr) => {
     setSelectedTeams(teamsArr);
-    //console.log(selectedTeams);
+
+    //-----------------
+    // console.log("getTeamsSelected ChoicesDashh");
+    // console.log(teamsArr);
   };
 
   const getSeasonsSelected = (seasonsArr) => {
@@ -99,10 +129,22 @@ export default function ChoicesDash(props) {
   };
 
   React.useEffect(() => {
+    //---------------
+    //console.log("useEffect Pre ChoicesDash [selectedteams]");
+    // console.log(selectedTeams);
+    // console.log(teamsSelectedIDS);
+    //console.log("Choices Dash UseEffect fire");
+    //----------------
     if (selectedTeams[1]?.id) {
       setExpanded("panel2");
     }
     props.updateSelectedTeams(selectedTeams);
+    //---------------
+    //console.log("useEffect Post ChoicesDash [selectedteams]");
+    // console.log(selectedTeams);
+    // console.log(teamsSelectedIDS);
+    //----------------
+    //console.log([locationState, selectedTeams, teamsSelectedIDS]);
   }, [selectedTeams]);
 
   React.useEffect(() => {
@@ -113,6 +155,9 @@ export default function ChoicesDash(props) {
   // React.useEffect(() => {
   //   props.updateGameList(gameList);
   // }, [gameList]);
+  // console.log("ooga booga");
+  // console.log(selectedTeams);
+  // console.log(teamsSelectedIDS);
   return (
     <>
       <Paper>
@@ -161,19 +206,63 @@ export default function ChoicesDash(props) {
           direction={"row"}
           spacing={1}
           sx={{ justifyContent: "center", alignItems: "center" }}>
-          <Button
-            variant='contained'
-            color='success'
-            disabled={!selectedTeams[0]?.id || !seasonsSelected.length > 0} // only avaialbe when a team has been clicked
-            onClick={() => getGamesByTeamAxios()}
-            sx={{ my: 1 }}>
-            Submit
-          </Button>
-          <Tooltip title='Clear Filters'>
-            <IconButton disabled={!selectedTeams[0]?.id} onClick={clearFilters}>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
+          {!selectedTeams[0]?.id || !seasonsSelected.length > 0 ? (
+            <Button variant='contained' color='success' disabled sx={{ my: 1 }}>
+              Submit
+            </Button>
+          ) : (
+            <Link
+              to={
+                !selectedTeams[1]?.id
+                  ? "/byTeam/" + selectedTeams[0]?.id
+                  : "/byTeam/" +
+                    selectedTeams[0]?.id +
+                    "/" +
+                    selectedTeams[1].id
+              }
+              state={{
+                seasons: seasonsSelected,
+                selectedTeamsLink: selectedTeams,
+                maxSelectedLink: maxSelected,
+                tabValueLink: 0,
+                valueLink: "",
+              }}>
+              <Button
+                variant='contained'
+                color='success'
+                disabled={!selectedTeams[0]?.id || !seasonsSelected.length > 0} // only avaialbe when a team has been clicked
+                onClick={() => getGamesByTeamAxios()}
+                sx={{ my: 1 }}>
+                Submit
+              </Button>
+            </Link>
+          )}
+
+          {/* <Link
+            to={
+              !selectedTeams[1]?.id
+                ? "/byTeam/" + selectedTeams[0]?.id
+                : "/byTeam/" + selectedTeams[0]?.id + "/" + selectedTeams[1].id
+            }
+            state={{
+              seasons: seasonsSelected,
+              selectedTeamsLink: selectedTeams,
+              maxSelectedLink: maxSelected,
+            }}>
+            <Button
+              variant='contained'
+              color='success'
+              disabled={!selectedTeams[0]?.id || !seasonsSelected.length > 0} // only avaialbe when a team has been clicked
+              onClick={() => getGamesByTeamAxios()}
+              sx={{ my: 1 }}>
+              Submit
+            </Button>
+          </Link> */}
+          {/* <Tooltip title='Clear Filters' hidden={!selectedTeams[0]?.id}> */}
+          <IconButton disabled={!selectedTeams[0]?.id} onClick={clearFilters}>
+            <DeleteIcon />
+          </IconButton>
+          {/* </Tooltip> */}
           {/* <Button
             variant='outlined'
             color='success'

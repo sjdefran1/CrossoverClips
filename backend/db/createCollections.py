@@ -69,12 +69,20 @@ def update_today(other_date_str='') -> None:
             print(f"Inserting {game['home_info']['MATCHUP']}")
             collection.insert_one(game)
         else:
+            game['views'] = result['views']
             print(f"Updating {game['home_info']['MATCHUP']}")
             collection.find_one_and_replace({"game_id": game['game_id']}, replacement=game)
     return
 
+def add_view_field():
+    client=get_db()
+    SeasonsV2 = client['SeasonsV2']
+    collection = SeasonsV2['Games']
+    collection.update_many({}, {'$set': {'views': 0}})
+
 if __name__ == '__main__':
     #update_current_season()
     #update_all_seasons()
-    update_today('2023-03-18')
+    update_today('2023-03-22')
+    #add_view_field()
     

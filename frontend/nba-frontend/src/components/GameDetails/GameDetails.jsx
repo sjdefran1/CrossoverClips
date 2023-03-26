@@ -161,7 +161,7 @@ export default function GameDetails(props) {
                 </Tabs>
               </Box>
             </Box>
-            {tabValue == 1 && (
+            {tabValue === 1 && (
               <>
                 <Fade in={true} timeout={800}>
                   <div>

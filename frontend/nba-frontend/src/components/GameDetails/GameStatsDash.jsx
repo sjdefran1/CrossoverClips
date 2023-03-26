@@ -46,9 +46,8 @@ export default function GameStatsDash(props) {
       <Box sx={{ maxWidth: { lg: "100vh", sm: "35vh" } }}>
         <Paper>
           <Stack textAlign={"center"}>
-            <Divider sx={{ mx: 3 }} />
             <Stack direction={"row"} alignItems='center' justifyContent='right'>
-              <Box sx={{ mr: { sm: 4, lg: 21 } }}>
+              <Box sx={{ mr: { sm: 4, lg: 22.3 } }}>
                 <Avatar
                   src={
                     "https://cdn.nba.com/logos/nba/" +
@@ -84,11 +83,43 @@ export default function GameStatsDash(props) {
                   <TableCell component='th' scope='row'>
                     {row}
                   </TableCell>
-                  <TableCell align='center'>
-                    {props.gameInfo.away_info[row]}
+                  <TableCell
+                    align='center'
+                    sx={{
+                      color:
+                        props.gameInfo.away_info[row] >
+                        props.gameInfo.home_info[row]
+                          ? "#6fbf73"
+                          : "#ffa199",
+                    }}>
+                    {props.gameInfo.home_info[row] < 1
+                      ? (props.gameInfo.home_info[row] * 100).toLocaleString(
+                          "en-US",
+                          {
+                            minimumFractionDigits: 1,
+                            maximumFractionDigits: 2,
+                          }
+                        ) + "%"
+                      : props.gameInfo.home_info[row]}
                   </TableCell>
-                  <TableCell align='center'>
-                    {props.gameInfo.home_info[row]}
+                  <TableCell
+                    align='center'
+                    sx={{
+                      color:
+                        props.gameInfo.home_info[row] >
+                        props.gameInfo.away_info[row]
+                          ? "#6fbf73"
+                          : "#ffa199",
+                    }}>
+                    {props.gameInfo.home_info[row] < 1
+                      ? (props.gameInfo.home_info[row] * 100).toLocaleString(
+                          "en-US",
+                          {
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 2,
+                          }
+                        ) + "%"
+                      : props.gameInfo.home_info[row]}
                   </TableCell>
                 </TableRow>
               ))}

@@ -16,33 +16,49 @@ import GameList2 from "../GameList2";
 import CircleOutlined from "@mui/icons-material/CircleOutlined";
 import CircleIcon from "@mui/icons-material/Circle";
 import TeamLabel from "./TeamLabel";
+import { useLocation } from "react-router-dom";
 
 export default function TeamSearch(props) {
   const [teamList, setTeamList] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
+  //const [locationState, setLocationState] = React.useState(useLocation());
 
   // calls on mount
   React.useEffect(() => {
     getTeamsAxios();
+
     // eslint-disable-next-line
   }, []);
 
   //every time team is selected update parent
   React.useEffect(() => {
+    // //-----------------
+    // console.log("TeamSearch pre useeffect ids");
+    // console.log(props.getSelectedTeamsParent);
+    //----------------------
+    //console.log("TeamSearch UseEffect fire");
+
     let team1 = teamList.filter(
       (team) => team.id === props.teamsSelectedIDS[0]
     )[0];
+
     let team2 = teamList.filter(
       (team) => team.id === props.teamsSelectedIDS[1]
     )[0];
+
+    // console.log(props.teamsSelectedIDS);
     props.setSelectedTeamsParent([team1, team2]);
-  }, [props.teamsSelectedIDS]);
+
+    // console.log("TeamSearch post useeffect ids");
+    // console.log(props.getSelectedTeamsParent);
+  }, [props.teamsSelectedIDS, teamList]);
 
   // React.useEffect(() => {
   //   props.setTeamsSelectedIDS(props.getSelectedTeamsParent);
   // }, [props.getSelectedTeamsParent]);
 
   const handleTeamSelect = (team) => {
+    //console.log("fired");
     if (props.teamsSelectedIDS.includes(team)) {
       props.setTeamsSelectedIDS(
         props.teamsSelectedIDS.filter((id) => id !== team)
@@ -53,7 +69,15 @@ export default function TeamSearch(props) {
       if (props.teamsSelectedIDS.length === 1) {
         props.setMaxSelected(true);
       }
-      props.setTeamsSelectedIDS(props.teamsSelectedIDS.concat(arr));
+      // ['10101010', undefined]
+      if (props.teamsSelectedIDS.length === 2) {
+        let firstTeam = props.teamsSelectedIDS[0];
+        props.setTeamsSelectedIDS([firstTeam, team]);
+        console.log("Fired handleTeamSelect lenth==2");
+        console.log([firstTeam, team]);
+      } else {
+        props.setTeamsSelectedIDS(props.teamsSelectedIDS.concat(arr));
+      }
     }
   };
 
@@ -69,6 +93,10 @@ export default function TeamSearch(props) {
       });
   };
 
+  // console.log("FUCK U TEAMSEARCH");
+  // console.log(props.teamsSelectedIDS);
+  // console.log(props.getSelectedTeamsParent);
+  // console.log(teamList);
   return (
     <>
       <Grid container sx={{ direction: "ltr" }}>
@@ -77,27 +105,25 @@ export default function TeamSearch(props) {
             teamList.map((team) => (
               <React.Fragment key={team.id}>
                 <Grid item xs={12} sm={6}>
-                  <Fade in={true}>
-                    <FormControlLabel
-                      key={team.id}
-                      label={
-                        <TeamLabel team_id={team.id} name={team.full_name} />
-                      }
-                      control={
-                        <Checkbox
-                          key={team.full_name}
-                          checked={props.teamsSelectedIDS.includes(team.id)}
-                          icon={<CircleOutlined />}
-                          checkedIcon={<CircleIcon color='success' />}
-                          disabled={
-                            props.maxSelected &&
-                            !props.teamsSelectedIDS.includes(team.id)
-                          }
-                          onChange={() => handleTeamSelect(team.id)}
-                        />
-                      }
-                    />
-                  </Fade>
+                  <FormControlLabel
+                    key={team.id}
+                    label={
+                      <TeamLabel team_id={team.id} name={team.full_name} />
+                    }
+                    control={
+                      <Checkbox
+                        key={team.full_name}
+                        checked={props.teamsSelectedIDS.includes(team.id)}
+                        icon={<CircleOutlined />}
+                        checkedIcon={<CircleIcon color='success' />}
+                        disabled={
+                          props.maxSelected &&
+                          !props.teamsSelectedIDS.includes(team.id)
+                        }
+                        onChange={() => handleTeamSelect(team.id)}
+                      />
+                    }
+                  />
                 </Grid>
               </React.Fragment>
             ))}

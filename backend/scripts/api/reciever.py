@@ -1,19 +1,17 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-#from pydantic import BaseModel
 from apscheduler.schedulers.background import BackgroundScheduler
-#import json
 from time import perf_counter
 
 # my scripts
-from db.gamesController import get_games_on_date_db, get_games_by_team_db, get_games_by_matchup_db
+from db.gamesController import get_games_on_date_db, get_games_by_team_db, get_games_by_matchup_db, update_game_view_count_db
 from db.get_database import get_db
 from db.teamsController import get_teams
 from db.createCollections import update_today
 from db.playByPlayController import check_playByPlay_exists, insert_playByPlay_db, get_playByPlay_db
 from scripts.playByPlayV2.playByPlayV2Handler import playByPlayV2Urls, get_all_stats_V2, getPlayByPlayV2Json
-from requestModels import DateStr, PlayByPlayStr, GameInfo, TeamSearch
+from requestModels import DateStr, PlayByPlayStr, GameInfo, TeamSearch, ViewCount
 from api_helpers import fix_date_db, get_season_str
 
 
@@ -27,6 +25,7 @@ client = get_db()
 # ------------------------------------------------
 
 def update_db_today() -> None:
+    print("Starting to Update Today")
     update_today()
     print("job finished")
     return
@@ -68,6 +67,7 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup_event():
     scheduler.start()
+    print("Starting to Update Today")
     update_today()
     print("Started Scheduler**")
 
@@ -122,6 +122,9 @@ async def get_play_by_play(data: PlayByPlayStr):
     print(f"Execution time for PlayByPlay: {end-start:.6f}\n")
     return JSONResponse(content=plays)
 
+@app.post('/updateViewCount')
+async def update_view_count_of_game(data: ViewCount):
+    update_game_view_count_db(data.gameID, client=client)
 # --------------------------------------------------------
 
 if __name__ == "__main__":

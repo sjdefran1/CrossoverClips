@@ -73,6 +73,15 @@ def get_games_by_matchup_db(team_ids: list, client, seasons=[]):
         #print(result['home_info']['MATCHUP'] + ' ' + result['date'])
     return games
 
+def update_game_view_count_db(game_id: str, client):
+    collection = get_games_db(client=client)
+    document = collection.find_one({'game_id': game_id})
+    # Get the current view count and increment it by one
+    view_count = document.get('views', 0) + 1
+    # Update the document with the new view count
+    collection.update_one({'game_id': game_id}, {'$set': {'views': view_count}})
+    return
+
 
 if __name__ == '__main__':
     client = get_db()
