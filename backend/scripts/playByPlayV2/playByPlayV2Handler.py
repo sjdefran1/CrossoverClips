@@ -65,7 +65,7 @@ def getActionNumberToURLs(gameID: str, stat_type='FGM') -> dict:
 
 def getPlayByPlayV2Json(game_id: str):
   try:
-    url=f"https://www.stats.nba.com/stats/playbyplayv2?EndPeriod=100&GameID={game_id}&StartPeriod=1"
+    url=f"https://stats.nba.com/stats/playbyplayv2?EndPeriod=100&GameID={game_id}&StartPeriod=1"
     response = requests.get(url=url, headers=headers, timeout=15)
     response = response.json()
     print("request to playbyplay completed")
