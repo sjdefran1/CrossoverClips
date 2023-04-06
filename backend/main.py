@@ -37,8 +37,8 @@ def get_other_stats_jobV2(gameID: str, response, fgm, y, d, m):
     #print(complete_playbyplay_dic)
     print("finsihed")
 
-scheduler = BackgroundScheduler()
-scheduler.add_job(update_db_today, 'interval', seconds=60 * 5)
+# scheduler = BackgroundScheduler()
+# scheduler.add_job(update_db_today, 'interval', seconds=60 * 5)
 
 # -------------------------------------
 
@@ -129,7 +129,7 @@ async def get_play_by_play(data: PlayByPlayStr):
     split_date = new_date.split('-')
     response = getPlayByPlayV2Json(game_id=data.gameID)
     plays = playByPlayV2Urls(game_id=data.gameID, y=split_date[0], d=split_date[2], m=split_date[1], stat_type=data.statType, response=response)
-    scheduler.add_job(get_other_stats_jobV2, args=[data.gameID, response, plays, split_date[0], split_date[2], split_date[1]])    
+    #scheduler.add_job(get_other_stats_jobV2, args=[data.gameID, response, plays, split_date[0], split_date[2], split_date[1]])    
     end = perf_counter()
     print(f"Execution time for PlayByPlay: {end-start:.6f}\n")
     return JSONResponse(content=plays)
