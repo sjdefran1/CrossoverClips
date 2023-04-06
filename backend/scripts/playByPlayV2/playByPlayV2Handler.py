@@ -64,10 +64,13 @@ def getActionNumberToURLs(gameID: str, stat_type='FGM') -> dict:
   return action_hex
 
 def getPlayByPlayV2Json(game_id: str):
-  url=f"https://stats.nba.com/stats/playbyplayv2?EndPeriod=100&GameID={game_id}&StartPeriod=1"
-  response = requests.get(url=url, headers=headers)
-  response = response.json()
-  return response
+  try:
+    url=f"https://stats.nba.com/stats/playbyplayv2?EndPeriod=100&GameID={game_id}&StartPeriod=1"
+    response = requests.get(url=url, headers=headers, timeout=15)
+    response = response.json()
+    return response
+  except:
+     print('request timeout')
 
 # spurs mavs
 #url="https://stats.nba.com/stats/playbyplayv2?EndPeriod=100&GameID=0021400002&StartPeriod=1"
