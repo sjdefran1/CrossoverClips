@@ -3,4 +3,5 @@ requests
 pymongo
 APScheduler
 python-dotenv
+uvicorn
 # dotenv
