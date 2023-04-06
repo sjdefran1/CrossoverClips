@@ -1,6 +1,6 @@
 import requests
 import json
-from time import perf_counter
+from time import perf_counter, sleep
 #from scripts.playByPlay.playbyplayToUrls import getActionNumberToURLs
 
 headers = {
@@ -40,6 +40,7 @@ def getActionNumberToURLs(gameID: str, stat_type='FGM') -> dict:
 
   except:
     print("request Timeout")
+    return
   #print(response)
   # with open("videos1.txt", "w") as f:
   #   f.write(json.dumps(response.json(), indent=1))
@@ -82,18 +83,22 @@ def get_all_stats_V2(gameID, response, fgm, m, d, y):
   players_dic['FGM'] = fgm['players']
   plays_dic['FGM'] = fgm['plays']
 
+  sleep(.5)
   dunk = playByPlayV2Urls(response=response, game_id=gameID, m=m, d=d, y=y, stat_type='DUNK')
   players_dic['DUNK'] = dunk['players']
   plays_dic['DUNK'] = dunk['plays']
-
+  
+  sleep(.5)
   ast = playByPlayV2Urls(response=response, game_id=gameID, m=m, d=d, y=y, stat_type='AST')
   players_dic['AST'] = ast['players']
   plays_dic['AST'] = ast['plays']
 
+  sleep(.5)
   blk = playByPlayV2Urls(response=response, game_id=gameID, m=m, d=d, y=y, stat_type='BLK')
   players_dic['BLK'] = blk['players']
   plays_dic['BLK'] = blk['plays']
 
+  sleep(.5)
   stl = playByPlayV2Urls(response=response, game_id=gameID, m=m, d=d, y=y, stat_type='STL')
   players_dic['STL'] = stl['players']
   plays_dic['STL'] = stl['plays']
@@ -121,10 +126,23 @@ def playByPlayV2Urls(y, m, d, game_id, stat_type, response):
   # response = response.json()
 
   actions = response['resultSets'][0]['rowSet']
-  if stat_type=="DUNK":
-    actions_hex = getActionNumberToURLs(gameID=game_id, stat_type='FGM')
-  else:
-    actions_hex = getActionNumberToURLs(gameID=game_id, stat_type=stat_type)
+  actions_hex = None
+  while actions_hex is None:
+    if stat_type=="DUNK":
+      actions_hex = getActionNumberToURLs(gameID=game_id, stat_type='FGM')
+    else:
+      actions_hex = getActionNumberToURLs(gameID=game_id, stat_type=stat_type)
+    if actions_hex is None:
+       print("-" * 50)
+       print("[PlayByPlay Debug] ACTIONS HEX WAS NONE RETRYING")
+       print("-" * 50)
+  # # messed up response, try again
+  # if actions_hex is None:
+  #   sleep(1)
+  #   if stat_type=="DUNK":
+  #     actions_hex = getActionNumberToURLs(gameID=game_id, stat_type='FGM')
+  #   else:
+  #     actions_hex = getActionNumberToURLs(gameID=game_id, stat_type=stat_type)
 
   desc_to_url = []
   players_list = []
@@ -214,9 +232,13 @@ def handle_FGM_or_DUNK(action: dict, video_url: str, get_dunks=0) -> tuple:
     
     return (update_val, player)
 
+#  0021700211
 def handle_STL(action: dict, video_url: str):
     # get description about steal, not turnover
-    desc = action[7] if ('STEAL' in action[7]) else action[9] 
+    try:
+      desc = action[7] if ('STEAL' in action[7]) else action[9] 
+    except:
+       return
     # Get information about action, player that made shot
     # see playbyplayv2headers.txt in txt folder for index information
     update_val = {

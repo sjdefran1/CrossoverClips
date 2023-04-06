@@ -36,7 +36,7 @@ def update_current_season() -> None:
     print("Retrieved Database")
 
     print("Updating This Season")
-    games = parse_season_json('2022-23', today=0)
+    games = parse_season_json('2022-23', get_today=0)
     for game in games:
         #print(game)
         # see if already exists
@@ -81,8 +81,8 @@ def add_view_field():
     collection.update_many({}, {'$set': {'views': 0}})
 
 if __name__ == '__main__':
-    #update_current_season()
+    update_current_season()
     #update_all_seasons()
-    update_today('2023-03-22')
+    #update_today('2023-03-22')
     #add_view_field()
     

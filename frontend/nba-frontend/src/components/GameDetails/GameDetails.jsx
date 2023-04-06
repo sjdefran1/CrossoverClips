@@ -38,6 +38,7 @@ import { useLocation } from "react-router-dom";
 import FilteredPlayList from "../PlaysList/FilteredPlayList";
 import StatFilter from "./StatFilters";
 import GameStatsDash from "./GameStatsDash";
+import { reqString } from "../../App.js";
 
 export default function GameDetails(props) {
   const { id } = useParams();
@@ -76,7 +77,8 @@ export default function GameDetails(props) {
     };
     setPlaysIsLoading(true);
     axios
-      .post("http://localhost:8000/playByPlay", data)
+      // .post("http://localhost:8000/playByPlay", data)
+      .post(reqString + "playByPlay", data)
       .then((response) => {
         //console.log(response.data);
         setPlayByPlay(response.data);

@@ -30,6 +30,7 @@ import TeamGameList from "./ByTeamDash/TeamGameList";
 import NoHighlights from "./PlaysList/NoHighlights.jsx";
 import trophyGif from "../static/trophy.gif";
 import DateChosenDash from "./DateChosenDash";
+import { reqString } from "../App.js";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 export default function Main(props) {
@@ -37,7 +38,7 @@ export default function Main(props) {
   const [value, setValue] = React.useState(
     locationState.state && locationState.state.valueLink !== ""
       ? locationState.state.valueLink
-      : dayjs().subtract(1, "day").toString()
+      : dayjs().toString()
   );
   const navigate = useNavigate();
   const [responseData, setResponseData] = React.useState([]);
@@ -70,7 +71,7 @@ export default function Main(props) {
       //   state: { fromDashboard: true },
       // };
       navigate("/byDate", {
-        state: { tabValueLink: 1, selectedTeamsLink: [{}, {}] },
+        state: { tabValueLink: 1, selectedTeamsLink: [{}, {}], valueLink: "" },
       });
     }
   };
@@ -84,7 +85,8 @@ export default function Main(props) {
     setValue(e.toString());
     setShouldRender(false);
     axios
-      .post("http://localhost:8000/date", data)
+      // .post("http://localhost:8000/date", data)
+      .post(reqString + "date", data)
       .then((response) => {
         if (response.data !== "no games") {
           //   this.setState({
@@ -141,9 +143,9 @@ export default function Main(props) {
     //console.log(selectedTeams);
   }, [selectedTeams]);
   // console.log("Main ");
-  // console.log(selectedTeams);
-  console.log(locationState);
-  console.log(value);
+  // // console.log(selectedTeams);
+  // console.log(locationState);
+  // console.log(value);
   return (
     <>
       <Container maxWidth='xl' sx={{ mt: 1 }}>
@@ -209,7 +211,8 @@ export default function Main(props) {
                         <CalendarPicker
                           minDate={dayjs("2014-10-28")}
                           maxDate={dayjs()}
-                          openTo='day'
+                          //openTo='day'
+                          
                           disableHighlightToday
                           onChange={(newValue) => {
                             navigate(

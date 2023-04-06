@@ -17,6 +17,7 @@ import CircleOutlined from "@mui/icons-material/CircleOutlined";
 import CircleIcon from "@mui/icons-material/Circle";
 import TeamLabel from "./TeamLabel";
 import { useLocation } from "react-router-dom";
+import { reqString } from "../../App.js";
 
 export default function TeamSearch(props) {
   const [teamList, setTeamList] = React.useState([]);
@@ -81,9 +82,23 @@ export default function TeamSearch(props) {
     }
   };
 
+  // const getTeamsAxios = () => {
+  //   axios
+  //     // .post("http://localhost:8000/teams")
+  //     .post("https://nbaclipfinder4-1-u4961891.deta.app/teams")
+  //     .then((response) => {
+  //       setTeamList(response.data);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
   const getTeamsAxios = () => {
     axios
-      .post("http://localhost:8000/teams")
+      // .post("http://localhost:8000/teams")
+      .get(reqString + "teams")
       .then((response) => {
         setTeamList(response.data);
         setIsLoading(false);
@@ -92,7 +107,6 @@ export default function TeamSearch(props) {
         console.log(error);
       });
   };
-
   // console.log("FUCK U TEAMSEARCH");
   // console.log(props.teamsSelectedIDS);
   // console.log(props.getSelectedTeamsParent);

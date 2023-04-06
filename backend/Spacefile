@@ -1,0 +1,8 @@
+v: 0
+
+micros:
+  - name: "clip-backend"
+    src: ./
+    engine: python3.9
+    public: true
+    primary: true

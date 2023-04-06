@@ -2,11 +2,17 @@ from db.get_database import get_db
 from json import dumps
 from time import perf_counter
 
+
 def get_games_db(client):
     db = client['SeasonsV2']
     collection = db['Games']
     return collection
 
+
+def get_game_by_id(game_id: str, client):
+    db = client['SeasonsV2']
+    collection = db['Games']
+    return collection.find_one({'game_id': game_id}, projection={"_id": False})
 
 
 """
@@ -83,10 +89,23 @@ def update_game_view_count_db(game_id: str, client):
     return
 
 
+def get_games_by_season(season: str, client) -> list:
+    #client = get_db()
+    collection = get_games_db(client=client)
+    results = collection.find({"season_str": season}, projection={"_id": False}).sort('date', -1)
+    games = []
+    for result in results:
+        games.append(result)
+    return games
+
+
+
+        
+
 if __name__ == '__main__':
     client = get_db()
     #get_games_by_team_db(client=client, team_id=1610612739, season='2021-22')
-    get_games_by_matchup_db(client=client, team_ids=[1610612739, 1610612738])
+    #get_games_by_matchup_db(client=client, team_ids=[1610612739, 1610612738])
     #get_games_on_date_db(client=client, date='2023-03-14')
 
 

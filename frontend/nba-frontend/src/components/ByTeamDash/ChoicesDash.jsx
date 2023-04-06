@@ -21,6 +21,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link, useLocation } from "react-router-dom";
+import { reqString } from "../../App.js";
 
 import TeamSearch from "./TeamSearch";
 import SeasonsSelect from "./SeasonsSelect";
@@ -118,7 +119,7 @@ export default function ChoicesDash(props) {
     };
     props.updateGamesLoading(true);
     axios
-      .post("http://localhost:8000/gamesByTeam", data)
+      .post(reqString + "gamesByTeam", data)
       .then((response) => {
         setGameList(response.data);
         props.updateGamesLoading(false);

@@ -9,6 +9,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import Tooltip from "@mui/material/Tooltip";
 import axios from "axios";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { reqString } from "../App.js";
 
 //import Link from "@mui/material/Link";
 import { Link } from "react-router-dom";
@@ -23,7 +24,7 @@ export default function GameList2(props) {
     };
 
     axios
-      .post("http://localhost:8000/updateViewCount", data)
+      .post(reqString + "updateViewCount", data)
       .then((response) => {})
       .catch((error) => {
         console.log(error);

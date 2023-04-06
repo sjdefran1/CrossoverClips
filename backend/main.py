@@ -11,8 +11,8 @@ from db.teamsController import get_teams
 from db.createCollections import update_today
 from db.playByPlayController import check_playByPlay_exists, insert_playByPlay_db, get_playByPlay_db
 from scripts.playByPlayV2.playByPlayV2Handler import playByPlayV2Urls, get_all_stats_V2, getPlayByPlayV2Json
-from requestModels import DateStr, PlayByPlayStr, GameInfo, TeamSearch, ViewCount
-from api_helpers import fix_date_db, get_season_str
+from scripts.api.requestModels import DateStr, PlayByPlayStr, GameInfo, TeamSearch, ViewCount
+from scripts.api.api_helpers import fix_date_db, get_season_str
 
 
 # Global Var
@@ -57,7 +57,7 @@ app.add_middleware(
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
 # ------------------------------------------------------
 
@@ -79,9 +79,21 @@ async def shutdown_event():
 
 # POST Functions
 # ---------------------------------------------
-@app.post("/teams")
+
+@app.get('/detaTest')
+async def deta_test():
+    return "hello"
+
+
+# @app.post("/teams")
+# async def get_all_teams_controller():
+#     return get_teams(client=client)
+
+
+@app.get("/teams")
 async def get_all_teams_controller():
     return get_teams(client=client)
+
 
 @app.post("/gamesByTeam")
 async def get_all_games_by_team(data: TeamSearch):
