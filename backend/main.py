@@ -64,17 +64,17 @@ app.add_middleware(
 
 # Startup and Shutdown
 # -------------------------------------------
-@app.on_event("startup")
-async def startup_event():
-    scheduler.start()
-    print("Starting to Update Today")
-    update_today()
-    print("Started Scheduler**")
+# @app.on_event("startup")
+# async def startup_event():
+#     scheduler.start()
+#     print("Starting to Update Today")
+#     update_today()
+#     print("Started Scheduler**")
 
-@app.on_event("shutdown")
-async def shutdown_event():
-    scheduler.shutdown()
-    print("Scheduler shutdown..")
+# @app.on_event("shutdown")
+# async def shutdown_event():
+#     scheduler.shutdown()
+#     print("Scheduler shutdown..")
 # ---------------------------------------------
 
 # POST Functions
