@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from apscheduler.schedulers.background import BackgroundScheduler
 from time import perf_counter
 
@@ -84,7 +84,10 @@ app.add_middleware(
 async def deta_test():
     return "hello"
 
-
+@app.get('/redirectTest')
+async def redirect_test():
+    attachment_name = "6a2ba826-60a7-ddb3-f6cd-97130571d037_1280x720.mp4"
+    return RedirectResponse('https://videos.nba.com/nba/pbp/media/2015/12/17/0021500384/184/6a2ba826-60a7-ddb3-f6cd-97130571d037_1280x720.mp4', headers={"Content-Disposition":f"Attachment; filename={attachment_name}"})
 # @app.post("/teams")
 # async def get_all_teams_controller():
 #     return get_teams(client=client)
@@ -94,6 +97,9 @@ async def deta_test():
 async def get_all_teams_controller():
     return get_teams(client=client)
 
+# @app.get("/renderTest")
+# async def render_test():
+#     ...
 
 @app.post("/gamesByTeam")
 async def get_all_games_by_team(data: TeamSearch):

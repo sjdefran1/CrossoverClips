@@ -5,6 +5,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 // kimport { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
+import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
+
 import axios from "axios";
 import {
   Container,
@@ -20,6 +22,8 @@ import {
   Alert,
   Hidden,
   Avatar,
+  LinearProgress,
+  TextField,
 } from "@mui/material";
 import GameList2 from "./GameList2";
 import Paper from "@mui/material/Paper";
@@ -43,7 +47,7 @@ export default function Main(props) {
   const navigate = useNavigate();
   const [responseData, setResponseData] = React.useState([]);
   const [shouldRender, setShouldRender] = React.useState(false);
-  const [gamesLoading, setGamesLoading] = React.useState(true);
+  const [gamesLoading, setGamesLoading] = React.useState(false);
   const [tabValue, setTabValue] = React.useState(
     !locationState.state ? 0 : locationState.state.tabValueLink
   );
@@ -102,6 +106,7 @@ export default function Main(props) {
         } else {
           //this.setState({ shouldRender: false, noGames: true });
           setShouldRender(false);
+          setGamesLoading(false);
           setNoGames(true);
         }
       })
@@ -176,9 +181,11 @@ export default function Main(props) {
             </Grid>
           </Grid> */}
 
-          <Paper elevation={1} sx={{ padding: 2, borderRadius: 2 }}>
+          <Paper
+            elevation={1}
+            sx={{ padding: 2, borderRadius: 2, minHeight: "70vh" }}>
             {/* Tabs */}
-            <Grid container spacing={1} paddingTop>
+            <Grid container spacing={1} paddingTop={4}>
               <Grid item xs={12} md={6}>
                 <Box sx={{ width: "100%" }}>
                   <Box
@@ -204,16 +211,16 @@ export default function Main(props) {
                   )}
                 </Hidden>
                 {/* Calendar Picker */}
+
                 {tabValue === 1 && (
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <Fade in={true}>
                       <Paper variant='outlined' sx={{ borderRadius: 4 }}>
-                        <CalendarPicker
+                        {/* <CalendarPicker
                           minDate={dayjs("2014-10-28")}
                           maxDate={dayjs()}
                           //openTo='day'
-                          
-                          disableHighlightToday
+
                           onChange={(newValue) => {
                             navigate(
                               "/byDate/" + newValue.format("YYYY-MM-DD"),
@@ -236,6 +243,31 @@ export default function Main(props) {
                             setShouldRender(false);
                             getGamesAxios(newValue);
                           }}
+                        /> */}
+
+                        <StaticDatePicker
+                          orientation='landscape'
+                          openTo='day'
+                          value={value}
+                          showToolbar={false}
+                          // shouldDisableDate={isWeekend}
+                          onChange={(newValue) => {
+                            navigate(
+                              "/byDate/" + newValue.format("YYYY-MM-DD"),
+                              {
+                                state: {
+                                  tabValueLink: 1,
+                                  selectedTeamsLink: [{}, {}],
+                                  valueLink: newValue.format("YYYY-MM-DD"),
+                                },
+                              }
+                            );
+                            setValue(newValue.format("YYYY-MM-DD"));
+                            setGamesLoading(true);
+                            setShouldRender(false);
+                            getGamesAxios(newValue);
+                          }}
+                          renderInput={(params) => <TextField {...params} />}
                         />
                       </Paper>
                     </Fade>
@@ -301,10 +333,15 @@ export default function Main(props) {
                   spacing={0.2}
                   sx={{ maxHeight: "60vh", overflow: "auto" }}>
                   {/* Game List for Team Select */}
+
+                  {tabValue === 0 && gamesLoading && (
+                    <Box sx={{ width: "100%" }}>
+                      <LinearProgress color='success' />
+                    </Box>
+                  )}
                   {tabValue === 0 && responseData?.length > 0 && (
                     <>
                       <Divider sx={{ my: 1, mx: 0 }} />
-
                       <TeamGameList
                         selectedSeasonsParent={selectedSeasons}
                         gameList={responseData}
@@ -319,7 +356,7 @@ export default function Main(props) {
                   )}
 
                   {/* No games found */}
-                  {noGames && tabValue === 1 && (
+                  {noGames && tabValue === 1 && !gamesLoading && (
                     <>
                       {dayjs(value).format("YYYY-MM-DD") ===
                         dayjs().format("YYYY-MM-DD").toString() && (
@@ -333,6 +370,12 @@ export default function Main(props) {
                     </>
                   )}
                   {/* Games on today, some have become available/all */}
+                  {tabValue === 1 && gamesLoading && (
+                    <Box sx={{ width: "100%" }}>
+                      {/* <CircularProgress /> */}
+                      <LinearProgress color='success' />
+                    </Box>
+                  )}
                   {shouldRender && tabValue === 1 && (
                     <>
                       {dayjs(value).format("YYYY-MM-DD") ===

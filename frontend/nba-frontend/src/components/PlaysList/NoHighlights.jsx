@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Typography, Paper, Tooltip, Stack, Box } from "@mui/material";
+import { Typography, Paper, Tooltip, Stack, Box, Fade } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 
 import jordanGif from "../../static/jordan.gif";
@@ -13,7 +13,9 @@ export default function NoHighlights(props) {
             <Typography variant='h5' padding={1}>
               No highlight information available yet
             </Typography>
-            <img src={jordanGif}></img>
+            <Fade in={true}>
+              <img src={jordanGif}></img>
+            </Fade>
             <Stack
               direction={"row"}
               sx={{ alignItems: "center", justifyContent: "center" }}>

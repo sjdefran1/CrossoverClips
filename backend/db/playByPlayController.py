@@ -70,7 +70,8 @@ def createPlayByPlay_for_season(season: str):
         print(f"Finished | {game['game_id']} | {game['away_info']['MATCHUP']}\n")
         i+=1
 
-
+def find_and_update_playbyplay_new_games():
+    client = get_db()
 
 
 if __name__ == '__main__':

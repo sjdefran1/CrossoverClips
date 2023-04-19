@@ -115,6 +115,7 @@ export default function TeamSearch(props) {
     <>
       <Grid container sx={{ direction: "ltr" }}>
         <>
+          {isLoading && <CircularProgress sx={{ ml: "50%" }} />}
           {!isLoading &&
             teamList.map((team) => (
               <React.Fragment key={team.id}>
