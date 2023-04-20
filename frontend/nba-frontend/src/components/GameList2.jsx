@@ -10,13 +10,22 @@ import Tooltip from "@mui/material/Tooltip";
 import axios from "axios";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { reqString } from "../App.js";
+import { keyframes } from "@mui/material";
 
 //import Link from "@mui/material/Link";
 import { Link } from "react-router-dom";
 
 export default function GameList2(props) {
   React.useEffect(() => {}, [props.gameList]);
+  let gradientColors = [
+    "linear-gradient(60deg, hsla(45, 98%, 63%, 1) 6%, hsla(192, 17%, 94%, 1) 83%)",
+    "linear-gradient(90deg, hsla(228, 17%, 53%, 1) 0%, hsla(229, 28%, 88%, 1) 100%)",
+    "linear-gradient(to right, hsla(45, 100%, 64%, 1) 0%, hsla(52, 96%, 74%, 1) 50%, hsla(58, 100%, 73%, 1) 100%)",
+    "linear-gradient(90deg, hsla(186, 33%, 94%, 1) 0%, hsla(216, 41%, 79%, 1) 100%)",
+    "linear-gradient(90deg, hsla(186, 33%, 94%, 1) 0%, hsla(216, 100%, 80%, 1) 100%)",
+  ];
 
+  let delays = ["2s", "1s", "0.5s"];
   const updateViewCount = (e) => {
     const data = {
       //value: this.state.value.toString(),
@@ -30,7 +39,16 @@ export default function GameList2(props) {
         console.log(error);
       });
   };
-
+  const gradient = keyframes`
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 70%;
+    }`;
   return (
     <>
       {/* <Stack direction='column' sx={{ maxHeight: "70vh", overflow: "auto" }}> */}
@@ -107,6 +125,66 @@ export default function GameList2(props) {
                         borderRadius: 2,
                         padding: 0.5,
                       }}>
+                      {game?.playoff_flag === 1 ? (
+                        <>
+                          <Box
+                            sx={{
+                              // background: `linear-gradient(to right, hsla(45, 100%, 64%, 1) 0%, hsla(52, 96%, 74%, 1) 50%, hsla(58, 100%, 73%, 1) 100%)`,
+                              // background:
+                              //   "linear-gradient(90deg, hsla(228, 17%, 53%, 1) 0%, hsla(229, 28%, 88%, 1) 100%)",
+                              background:
+                                // gradientColors[
+                                //   Math.floor(
+                                //     Math.random() * gradientColors.length
+                                //   )
+                                // ],
+
+                                // "linear-gradient(60deg, hsla(45, 94%, 51%, 1) 6%, hsla(197, 14%, 57%, 1) 40%, hsla(192, 17%, 94%, 1) 83%)",
+                                // " linear-gradient(60deg, hsla(45, 98%, 63%, 1) 6%, hsla(192, 17%, 94%, 1) 83%)",
+                                "linear-gradient(90deg, hsla(213, 77%, 14%, 1) 0%, hsla(202, 27%, 45%, 1) 100%)",
+                              backgroundSize: "300% 300%",
+                              borderRadius: 2,
+                              backgroundPosition: "left",
+                              animation: `${gradient} 7s infinite running alternate`,
+                              animationDelay:
+                                delays[
+                                  Math.floor(Math.random() * delays.length)
+                                ],
+                              // backgroundPosition: "left",
+                              // transition: "background-position 1s",
+                              // "&:hover": {
+                              //   backgroundPosition: "right",
+                              // },
+                            }}>
+                            <Typography
+                              variant='subtitle2'
+                              color={"text.secondary"}
+                              sx={{
+                                textAlign: "center",
+                                // backgroundcolor: "primary",
+                                // backgroundImage: `linear-gradient(45deg, hsla(48, 100%, 51%, 1) 0%, hsla(55, 100%, 91%, 1) 50%)`,
+                                // backgroundSize: "100%",
+                                // backgroundRepeat: "repeat",
+                                // backgroundClip: "text",
+                                // WebkitBackgroundClip: "text",
+                                // WebkitTextFillColor: "transparent",
+                              }}>
+                              Playoff Game
+                            </Typography>
+                          </Box>
+                          <Divider sx={{ my: 0.5 }} />
+                        </>
+                      ) : (
+                        <>
+                          <Typography
+                            variant='subtitle2'
+                            color={"text.secondary"}
+                            sx={{ textAlign: "center", fontSize: ".8rem" }}>
+                            Regular Season
+                          </Typography>
+                          <Divider sx={{ my: 0.5 }} />
+                        </>
+                      )}
                       <Fade in={true} timeout={500}>
                         <Stack direction={"row"}>
                           <Stack

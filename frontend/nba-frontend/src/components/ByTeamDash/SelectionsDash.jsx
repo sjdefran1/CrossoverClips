@@ -83,7 +83,7 @@ export default function SelectionsDash(props) {
                 }}>
                 <Stack
                   direction={"row"}
-                  spacing={{ xs: 7, md: 10 }}
+                  spacing={{ xs: 5, md: 10 }}
                   sx={{ alignItems: "center" }}>
                   <Stack
                     direction={"column"}

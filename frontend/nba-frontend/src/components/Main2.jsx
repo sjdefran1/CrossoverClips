@@ -1,11 +1,13 @@
 import * as React from "react";
 import dayjs from "dayjs";
+
 // import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 // kimport { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
+import { keyframes } from "@mui/material";
 
 import axios from "axios";
 import {
@@ -33,7 +35,10 @@ import SelectionsDash from "./ByTeamDash/SelectionsDash";
 import TeamGameList from "./ByTeamDash/TeamGameList";
 import NoHighlights from "./PlaysList/NoHighlights.jsx";
 import trophyGif from "../static/trophy.gif";
+import headerBG from "../static/header.gif";
+import headerStatic from "../static/headerStatic.png";
 import DateChosenDash from "./DateChosenDash";
+import NbaHeader from "./NbaHeader";
 import { reqString } from "../App.js";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -56,6 +61,7 @@ export default function Main(props) {
   );
   const [selectedSeasons, setSelectedSeasons] = React.useState([]);
   const [noGames, setNoGames] = React.useState(false);
+  // const gifUrl = `url(${headerBG}) no-repeat`;
 
   const handleTabChange = (event, newVal) => {
     //this.setState({ tabValue: newVal, responseData: [] });
@@ -151,25 +157,23 @@ export default function Main(props) {
   // // console.log(selectedTeams);
   // console.log(locationState);
   // console.log(value);
+
+  const gradient = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 70%;
+  }`;
+
   return (
     <>
       <Container maxWidth='xl' sx={{ mt: 1 }}>
-        <Paper elevation={2} sx={{ borderRadius: 2 }}>
-          <Stack
-            direction={"row"}
-            sx={{
-              justifyContent: "center",
-              textAlign: "center",
-              alignItems: "center",
-            }}>
-            <Typography variant='h4' color={"text.secondary"}>
-              NBA Clip Finder
-            </Typography>
-
-            <Hidden mdDown>
-              <Avatar src={trophyGif} sx={{ width: 100, height: 100 }} />
-            </Hidden>
-          </Stack>
+        <Paper>
+          <NbaHeader />
         </Paper>
 
         <Container maxWidth='lg' sx={{ mt: 1 }}>
@@ -250,6 +254,8 @@ export default function Main(props) {
                           openTo='day'
                           value={value}
                           showToolbar={false}
+                          minDate={dayjs("2014-10-28")}
+                          maxDate={dayjs()}
                           // shouldDisableDate={isWeekend}
                           onChange={(newValue) => {
                             navigate(

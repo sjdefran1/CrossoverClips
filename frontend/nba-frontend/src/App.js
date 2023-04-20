@@ -64,8 +64,9 @@ const App = () => {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <>
-          <TopBar />
+          {/* <TopBar /> */}
           {/* <BrowserRouter> */}
+
           <HashRouter>
             <Routes>
               <Route exact path='/' element={<Main2 />} />
