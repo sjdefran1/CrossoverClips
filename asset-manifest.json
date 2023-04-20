@@ -1,12 +1,14 @@
 {
   "files": {
-    "main.js": "/highlight_maker/static/js/main.322f263d.js",
+    "main.js": "/highlight_maker/static/js/main.59a82e18.js",
     "static/media/trophy.gif": "/highlight_maker/static/media/trophy.608f90de16bc0dbff1a4.gif",
     "static/media/jordan.gif": "/highlight_maker/static/media/jordan.946e606babc6834a01c5.gif",
+    "static/media/header.gif": "/highlight_maker/static/media/header.a365567e4c1432c71fa4.gif",
+    "static/media/headerStatic.png": "/highlight_maker/static/media/headerStatic.ab8ac120c8b55da6bc99.png",
     "index.html": "/highlight_maker/index.html",
-    "main.322f263d.js.map": "/highlight_maker/static/js/main.322f263d.js.map"
+    "main.59a82e18.js.map": "/highlight_maker/static/js/main.59a82e18.js.map"
   },
   "entrypoints": [
-    "static/js/main.322f263d.js"
+    "static/js/main.59a82e18.js"
   ]
 }
