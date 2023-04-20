@@ -172,7 +172,15 @@ export default function Main(props) {
   return (
     <>
       <Container maxWidth='xl' sx={{ mt: 1 }}>
-        <Paper>
+        <Paper
+          sx={
+            {
+              // background:
+              //   "radial-gradient(circle, hsla(0, 0%, 22%, 1) 0%, hsla(0, 100%, 13%, 1) 25%, hsla(216, 53%, 12%, 1) 57%, hsla(0, 0%, 11%, 1) 84%)",
+              // backgroundSize: "110% 110%",
+              // animation: `${gradient} 4s infinite alternate`,
+            }
+          }>
           <NbaHeader />
         </Paper>
 
@@ -212,6 +220,14 @@ export default function Main(props) {
                       selectedTeamsParent={selectedTeams}
                       selectedSeasonsParent={selectedSeasons}
                     />
+                  )}
+                </Hidden>
+
+                <Hidden smUp>
+                  {tabValue === 0 && gamesLoading && (
+                    <Box sx={{ width: "100%" }}>
+                      <LinearProgress color='success' />
+                    </Box>
                   )}
                 </Hidden>
                 {/* Calendar Picker */}
@@ -319,6 +335,7 @@ export default function Main(props) {
                     // />
                   )}
                 </Hidden>
+
                 {/* Games on today w/ alert, no games available yet */}
                 {gamesLoading && tabValue === 1 && noGames === false && (
                   <>
@@ -340,11 +357,13 @@ export default function Main(props) {
                   sx={{ maxHeight: "60vh", overflow: "auto" }}>
                   {/* Game List for Team Select */}
 
-                  {tabValue === 0 && gamesLoading && (
-                    <Box sx={{ width: "100%" }}>
-                      <LinearProgress color='success' />
-                    </Box>
-                  )}
+                  <Hidden smDown>
+                    {tabValue === 0 && gamesLoading && (
+                      <Box sx={{ width: "100%" }}>
+                        <LinearProgress color='success' />
+                      </Box>
+                    )}
+                  </Hidden>
                   {tabValue === 0 && responseData?.length > 0 && (
                     <>
                       <Divider sx={{ my: 1, mx: 0 }} />

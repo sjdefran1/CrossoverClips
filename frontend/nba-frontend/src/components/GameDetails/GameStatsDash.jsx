@@ -47,7 +47,7 @@ export default function GameStatsDash(props) {
         <Paper>
           <Stack textAlign={"center"}>
             <Stack direction={"row"} alignItems='center' justifyContent='right'>
-              <Box sx={{ mr: { sm: 4, lg: 22.3 } }}>
+              <Box sx={{ mr: { xs: 8, lg: 22.3 } }}>
                 <Avatar
                   src={
                     "https://cdn.nba.com/logos/nba/" +
@@ -57,7 +57,7 @@ export default function GameStatsDash(props) {
                 />
               </Box>
 
-              <Box sx={{ mr: { sm: 5.5, lg: 12.5 } }}>
+              <Box sx={{ mr: { xs: 4, lg: 12.5 } }}>
                 <Avatar
                   src={
                     "https://cdn.nba.com/logos/nba/" +

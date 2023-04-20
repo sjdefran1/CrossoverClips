@@ -12,15 +12,16 @@ function Header(props) {
       sx={{
         borderRadius: 2,
 
-        height: "15vh",
+        height: props?.small ? "5vh" : "12vh",
         width: "100%",
         background:
           `url(${headerBG}?` +
           dayjs().format("mm:ss").toString() +
           ") no-repeat",
         // background: gifUrl,
-        backgroundSize: "600px 200px",
+        backgroundSize: props?.small ? "300px 100px" : "600px 200px",
         backgroundPosition: "center",
+        opacity: "70%",
 
         // background:
         //   "linear-gradient(45deg, hsla(212, 38%, 35%, 1) 19%, hsla(1, 67%, 29%, 1) 100%)",

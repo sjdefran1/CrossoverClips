@@ -23,6 +23,7 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Paper,
   Chip,
   Alert,
 } from "@mui/material";
@@ -39,6 +40,7 @@ import FilteredPlayList from "../PlaysList/FilteredPlayList";
 import StatFilter from "./StatFilters";
 import GameStatsDash from "./GameStatsDash";
 import { reqString } from "../../App.js";
+import NbaHeader from "../NbaHeader";
 
 export default function GameDetails(props) {
   const { id } = useParams();
@@ -142,7 +144,11 @@ export default function GameDetails(props) {
     <>
       {/* GameInfo */}
       {/* ------------------------------------------------ */}
-      <Container maxWidth='xl'>
+      <Container maxWidth='xl' sx={{ mt: 1 }}>
+        <Paper>
+          <NbaHeader small={true} />
+        </Paper>
+
         <Grid container spacing={2} paddingTop>
           <Grid item xs={12} md={6}>
             {/* GAMEDASH AND PLAYER FILTER */}
