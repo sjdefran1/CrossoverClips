@@ -240,7 +240,9 @@ export default function Main(props) {
                 {tabValue === 1 && (
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <Fade in={true}>
-                      <Paper variant='outlined' sx={{ borderRadius: 4 }}>
+                      <Paper
+                        variant='outlined'
+                        sx={{ borderRadius: 4, overflow: "auto" }}>
                         {/* <CalendarPicker
                           minDate={dayjs("2014-10-28")}
                           maxDate={dayjs()}

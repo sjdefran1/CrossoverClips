@@ -7,7 +7,7 @@ import jordanGif from "../../static/jordan.gif";
 export default function NoHighlights(props) {
   return (
     <>
-      <Paper sx={{ mt: 1, textAlign: "center" }}>
+      <Paper sx={{ mt: 1, textAlign: "center", overflow: "hidden" }}>
         {!props.isPlay ? (
           <>
             <Typography variant='h5' padding={1}>

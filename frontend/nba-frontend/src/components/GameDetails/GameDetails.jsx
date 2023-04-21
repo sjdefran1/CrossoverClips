@@ -194,7 +194,7 @@ export default function GameDetails(props) {
                   playByPlay.players.length > 0 &&
                   tabValue === 0 && (
                     <>
-                      <Grid item xs={12} md={8}>
+                      <Grid item xs={12} md={8} minHeight={"50vh"}>
                         <PlayerFilter
                           players={playByPlay.players}
                           teamIDs={playByPlay.team_ids}
@@ -223,7 +223,7 @@ export default function GameDetails(props) {
                         <AccordionSummary expandIcon={<ExpandMore />}>
                           Player Filters
                         </AccordionSummary>
-                        <AccordionDetails>
+                        <AccordionDetails sx={{ minWidth: "100%" }}>
                           <PlayerFilter
                             players={playByPlay.players}
                             teamIDs={playByPlay.team_ids}

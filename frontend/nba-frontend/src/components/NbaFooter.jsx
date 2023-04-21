@@ -18,6 +18,7 @@ import {
   IconButton,
   Link,
   Snackbar,
+  Hidden,
 } from "@mui/material";
 
 function Footer(props) {
@@ -43,99 +44,201 @@ function Footer(props) {
           DISCLAIMER - All clips property of the NBA. No copyright infringement
           is intended
         </Alert>
+        <Hidden smDown>
+          <Box>
+            <Stack
+              spacing={2}
+              direction={"row"}
+              padding={1}
+              sx={{ justifyContent: "center", alignItems: "center" }}>
+              <Link
+                href='https://sjdefran.com'
+                target='_blank'
+                rel='noreferrer'
+                sx={{
+                  textDecoration: "none",
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
+                }}>
+                <IconButton>
+                  <CloudIcon color='primary' />
+                </IconButton>
 
-        <Box>
-          <Stack
-            spacing={2}
-            direction={"row"}
-            padding={1}
-            sx={{ justifyContent: "center", alignItems: "center" }}>
-            <Link
-              href='https://sjdefran.com'
-              target='_blank'
-              rel='noreferrer'
-              sx={{
-                textDecoration: "none",
-                "&:hover": {
-                  textDecoration: "underline",
-                },
-              }}>
-              <IconButton>
-                <CloudIcon color='primary' />
-              </IconButton>
+                <Typography variant='body2' color={"text.secondary"}>
+                  sjdefran.com
+                </Typography>
+              </Link>
+              <Link
+                href='https://www.linkedin.com/in/sam-defrancisco-4373361b3/'
+                target='_blank'
+                rel='noreferrer'
+                sx={{
+                  textDecoration: "none",
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
+                }}>
+                <IconButton>
+                  <LinkedInIcon color='info' />
+                </IconButton>
 
-              <Typography variant='body2' color={"text.secondary"}>
-                sjdefran.com
-              </Typography>
-            </Link>
-            <Link
-              href='https://www.linkedin.com/in/sam-defrancisco-4373361b3/'
-              target='_blank'
-              rel='noreferrer'
-              sx={{
-                textDecoration: "none",
-                "&:hover": {
-                  textDecoration: "underline",
-                },
-              }}>
-              <IconButton>
-                <LinkedInIcon color='info' />
-              </IconButton>
+                <Typography variant='body2' color={"text.secondary"}>
+                  Sam DeFrancisco
+                </Typography>
+              </Link>
 
-              <Typography variant='body2' color={"text.secondary"}>
-                Sam DeFrancisco
-              </Typography>
-            </Link>
+              <Link
+                onClick={() => copyText()}
+                sx={{
+                  textDecoration: "none",
+                  "&:hover": {
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                  },
+                }}>
+                <IconButton>
+                  <EmailIcon color='success' />
+                </IconButton>
+                <Snackbar
+                  open={open}
+                  autoHideDuration={3000}
+                  onClose={handleClose}>
+                  <Alert
+                    //   onClose={handleClose}
+                    severity='success'
+                    variant='filled'
+                    sx={{ width: "100%" }}>
+                    Email copied to clipboard
+                  </Alert>
+                </Snackbar>
+                <Typography variant='body2' color={"text.secondary"}>
+                  Copy Email
+                </Typography>
+              </Link>
 
-            <Link
-              onClick={() => copyText()}
-              sx={{
-                textDecoration: "none",
-                "&:hover": {
-                  textDecoration: "underline",
-                  cursor: "pointer",
-                },
-              }}>
-              <IconButton>
-                <EmailIcon color='success' />
-              </IconButton>
-              <Snackbar
-                open={open}
-                autoHideDuration={3000}
-                onClose={handleClose}>
-                <Alert
-                  //   onClose={handleClose}
-                  severity='success'
-                  variant='filled'
-                  sx={{ width: "100%" }}>
-                  Email copied to clipboard
-                </Alert>
-              </Snackbar>
-              <Typography variant='body2' color={"text.secondary"}>
-                Copy Email
-              </Typography>
-            </Link>
+              <Link
+                href='https://instagram.com/sdefrancisco1?igshid=YmMyMTA2M2Y='
+                target='_blank'
+                rel='noreferrer'
+                sx={{
+                  textDecoration: "none",
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
+                }}>
+                <IconButton>
+                  <InstagramIcon />
+                </IconButton>
 
-            <Link
-              href='https://instagram.com/sdefrancisco1?igshid=YmMyMTA2M2Y='
-              target='_blank'
-              rel='noreferrer'
-              sx={{
-                textDecoration: "none",
-                "&:hover": {
-                  textDecoration: "underline",
-                },
-              }}>
-              <IconButton>
-                <InstagramIcon />
-              </IconButton>
+                <Typography variant='body2' color={"text.secondary"}>
+                  sdefrancisco1
+                </Typography>
+              </Link>
+            </Stack>
+          </Box>
+        </Hidden>
 
-              <Typography variant='body2' color={"text.secondary"}>
-                sdefrancisco1
-              </Typography>
-            </Link>
-          </Stack>
-        </Box>
+        <Hidden smUp>
+          <Box>
+            <Stack
+              spacing={2}
+              direction={"row"}
+              padding={1}
+              sx={{ justifyContent: "center", alignItems: "center" }}>
+              <Link
+                href='https://sjdefran.com'
+                target='_blank'
+                rel='noreferrer'
+                sx={{
+                  textDecoration: "none",
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
+                }}>
+                <IconButton>
+                  <CloudIcon color='primary' />
+                </IconButton>
+
+                <Typography variant='body2' color={"text.secondary"}>
+                  sjdefran.com
+                </Typography>
+              </Link>
+              <Link
+                href='https://www.linkedin.com/in/sam-defrancisco-4373361b3/'
+                target='_blank'
+                rel='noreferrer'
+                sx={{
+                  textDecoration: "none",
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
+                }}>
+                <IconButton>
+                  <LinkedInIcon color='info' />
+                </IconButton>
+
+                <Typography variant='body2' color={"text.secondary"}>
+                  Sam DeFrancisco
+                </Typography>
+              </Link>
+            </Stack>
+
+            <Stack
+              spacing={2}
+              direction={"row"}
+              padding={1}
+              sx={{ justifyContent: "center", alignItems: "center" }}>
+              <Link
+                onClick={() => copyText()}
+                sx={{
+                  textDecoration: "none",
+                  "&:hover": {
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                  },
+                }}>
+                <IconButton>
+                  <EmailIcon color='success' />
+                </IconButton>
+                <Snackbar
+                  open={open}
+                  autoHideDuration={3000}
+                  onClose={handleClose}>
+                  <Alert
+                    //   onClose={handleClose}
+                    severity='success'
+                    variant='filled'
+                    sx={{ width: "100%" }}>
+                    Email copied to clipboard
+                  </Alert>
+                </Snackbar>
+                <Typography variant='body2' color={"text.secondary"}>
+                  Copy Email
+                </Typography>
+              </Link>
+
+              <Link
+                href='https://instagram.com/sdefrancisco1?igshid=YmMyMTA2M2Y='
+                target='_blank'
+                rel='noreferrer'
+                sx={{
+                  textDecoration: "none",
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
+                }}>
+                <IconButton>
+                  <InstagramIcon />
+                </IconButton>
+
+                <Typography variant='body2' color={"text.secondary"}>
+                  sdefrancisco1
+                </Typography>
+              </Link>
+            </Stack>
+          </Box>
+        </Hidden>
       </Paper>
     </Container>
   );
