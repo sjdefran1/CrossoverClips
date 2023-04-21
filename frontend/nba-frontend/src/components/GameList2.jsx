@@ -268,14 +268,14 @@ export default function GameList2(props) {
                               variant='outlined'
                               color='info'
                               label={game.away_info.MATCHUP}
-                              sx={{ my: 1, mx: "auto" }}
+                              sx={{ my: 1, mx: "auto", cursor: "pointer" }}
                             />
                             <Chip
                               size='small'
                               variant='outlined'
                               color='info'
                               label={game.date}
-                              sx={{ my: 1 }}
+                              sx={{ my: 1, mx: "auto", cursor: "pointer" }}
                             />
                             <Chip
                               size='small'
@@ -283,7 +283,7 @@ export default function GameList2(props) {
                               color='info'
                               icon={<VisibilityIcon />}
                               label={game.views}
-                              sx={{ my: 1, mx: "auto" }}
+                              sx={{ my: 1, mx: "auto", cursor: "pointer" }}
                             />
                           </Stack>
                         </Stack>

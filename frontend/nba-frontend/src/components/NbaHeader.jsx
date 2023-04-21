@@ -21,7 +21,7 @@ function Header(props) {
         // background: gifUrl,
         backgroundSize: props?.small ? "300px 100px" : "600px 200px",
         backgroundPosition: "center",
-        opacity: "70%",
+        // opacity: "70%",
 
         // background:
         //   "linear-gradient(45deg, hsla(212, 38%, 35%, 1) 19%, hsla(1, 67%, 29%, 1) 100%)",

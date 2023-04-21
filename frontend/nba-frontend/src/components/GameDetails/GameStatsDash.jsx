@@ -92,15 +92,15 @@ export default function GameStatsDash(props) {
                           ? "#6fbf73"
                           : "#ffa199",
                     }}>
-                    {props.gameInfo.home_info[row] < 1
-                      ? (props.gameInfo.home_info[row] * 100).toLocaleString(
+                    {props.gameInfo.away_info[row] < 1
+                      ? (props.gameInfo.away_info[row] * 100).toLocaleString(
                           "en-US",
                           {
                             minimumFractionDigits: 1,
                             maximumFractionDigits: 2,
                           }
                         ) + "%"
-                      : props.gameInfo.home_info[row]}
+                      : props.gameInfo.away_info[row]}
                   </TableCell>
                   <TableCell
                     align='center'

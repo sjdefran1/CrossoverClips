@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 // kimport { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
-import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
+// import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { keyframes } from "@mui/material";
 
@@ -13,8 +13,8 @@ import axios from "axios";
 import {
   Container,
   Grid,
-  Typography,
-  CircularProgress,
+  // Typography,
+  // CircularProgress,
   Box,
   Tabs,
   Tab,
@@ -23,31 +23,32 @@ import {
   Fade,
   Alert,
   Hidden,
-  Avatar,
+  // Avatar,
   LinearProgress,
   TextField,
 } from "@mui/material";
 import GameList2 from "./GameList2";
 import Paper from "@mui/material/Paper";
-import TeamSearch from "./ByTeamDash/TeamSearch";
+// import TeamSearch from "./ByTeamDash/TeamSearch";
 import ChoicesDash from "./ByTeamDash/ChoicesDash";
 import SelectionsDash from "./ByTeamDash/SelectionsDash";
 import TeamGameList from "./ByTeamDash/TeamGameList";
 import NoHighlights from "./PlaysList/NoHighlights.jsx";
 import trophyGif from "../static/trophy.gif";
-import headerBG from "../static/header.gif";
-import headerStatic from "../static/headerStatic.png";
+// import headerBG from "../static/header.gif";
+// import headerStatic from "../static/headerStatic.png";
 import DateChosenDash from "./DateChosenDash";
 import NbaHeader from "./NbaHeader";
 import { reqString } from "../App.js";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import NbaFooter from "./NbaFooter";
 export default function Main(props) {
   const [locationState, setLocationState] = React.useState(useLocation());
   const [value, setValue] = React.useState(
     locationState.state && locationState.state.valueLink !== ""
       ? locationState.state.valueLink
-      : dayjs().toString()
+      : dayjs().format("YYYY-MM-DD").toString()
   );
   const navigate = useNavigate();
   const [responseData, setResponseData] = React.useState([]);
@@ -81,7 +82,11 @@ export default function Main(props) {
       //   state: { fromDashboard: true },
       // };
       navigate("/byDate", {
-        state: { tabValueLink: 1, selectedTeamsLink: [{}, {}], valueLink: "" },
+        state: {
+          tabValueLink: 1,
+          selectedTeamsLink: [{}, {}],
+          valueLink: dayjs().format("YYYY-MM-DD"),
+        },
       });
     }
   };
@@ -175,7 +180,7 @@ export default function Main(props) {
         <Paper
           sx={
             {
-              // background:
+              // background: "#1b1b1b",
               //   "radial-gradient(circle, hsla(0, 0%, 22%, 1) 0%, hsla(0, 100%, 13%, 1) 25%, hsla(216, 53%, 12%, 1) 57%, hsla(0, 0%, 11%, 1) 84%)",
               // backgroundSize: "110% 110%",
               // animation: `${gradient} 4s infinite alternate`,
@@ -184,7 +189,7 @@ export default function Main(props) {
           <NbaHeader />
         </Paper>
 
-        <Container maxWidth='lg' sx={{ mt: 1 }}>
+        <Container maxWidth='lg' sx={{ mt: 2 }}>
           {/* <Grid container>
             <Grid item xs={6}>
               <Box sx={{ maxHeight: "50vh", overflow: "auto" }}>
@@ -272,6 +277,7 @@ export default function Main(props) {
                           showToolbar={false}
                           minDate={dayjs("2014-10-28")}
                           maxDate={dayjs()}
+                          // className='calendar'
                           // shouldDisableDate={isWeekend}
                           onChange={(newValue) => {
                             navigate(
@@ -359,9 +365,25 @@ export default function Main(props) {
 
                   <Hidden smDown>
                     {tabValue === 0 && gamesLoading && (
-                      <Box sx={{ width: "100%" }}>
-                        <LinearProgress color='success' />
-                      </Box>
+                      // <Box sx={{ width: "100%" }} alignItems={"center"}>
+                      //   <LinearProgress color='success' />
+                      //   <img
+                      //     src={trophyGif}
+                      //     style={{ height: "100px", width: "100px" }}></img>
+                      // </Box>
+
+                      <Stack
+                        sx={{ width: "100%" }}
+                        alignItems={"center"}
+                        direction={"row"}>
+                        <Box sx={{ width: "100%" }}>
+                          <LinearProgress color='success' />
+                        </Box>
+
+                        <img
+                          src={trophyGif}
+                          style={{ height: "50px", width: "50px" }}></img>
+                      </Stack>
                     )}
                   </Hidden>
                   {tabValue === 0 && responseData?.length > 0 && (
@@ -411,12 +433,13 @@ export default function Main(props) {
                           minutes after finish
                         </Alert>
                       )}
-
-                      <DateChosenDash
-                        date={dayjs(value).format("MM-DD-YYYY").toString()}
-                        gamesFound={responseData.length}
-                        season={responseData[0].season_str}
-                      />
+                      <Box sx={{ width: "100%", mt: 2 }}>
+                        <DateChosenDash
+                          date={dayjs(value).format("MM-DD-YYYY").toString()}
+                          gamesFound={responseData.length}
+                          season={responseData[0].season_str}
+                        />
+                      </Box>
                       <GameList2
                         gameList={responseData}
                         date={value}
@@ -429,6 +452,7 @@ export default function Main(props) {
             </Grid>
           </Paper>
         </Container>
+        <NbaFooter />
       </Container>
     </>
   );

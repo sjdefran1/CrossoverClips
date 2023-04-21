@@ -63,7 +63,7 @@ export default function PlayerFilter(props) {
 
   return (
     <>
-      <Paper>
+      <Paper sx={{ width: "100%" }}>
         <Box
           sx={{
             maxHeight: "50vh",

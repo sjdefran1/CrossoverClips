@@ -41,6 +41,7 @@ import StatFilter from "./StatFilters";
 import GameStatsDash from "./GameStatsDash";
 import { reqString } from "../../App.js";
 import NbaHeader from "../NbaHeader";
+import NbaFooter from "../NbaFooter";
 
 export default function GameDetails(props) {
   const { id } = useParams();
@@ -189,7 +190,6 @@ export default function GameDetails(props) {
                 </Grid>
               )}
               <Hidden mdDown>
-                {/* if players array is empty -> retro game -> don't load player filters */}
                 {!playsIsLoading &&
                   playByPlay.players.length > 0 &&
                   tabValue === 0 && (
@@ -235,14 +235,16 @@ export default function GameDetails(props) {
                       </Accordion>
                     </>
                   )}
-                <Accordion sx={{ minWidth: "100%" }} disableGutters>
-                  <AccordionSummary expandIcon={<ExpandMore />}>
-                    Stat Filters
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <StatFilter updateFilter={getStatFilter} />
-                  </AccordionDetails>
-                </Accordion>
+                {tabValue === 0 && (
+                  <Accordion sx={{ minWidth: "100%" }} disableGutters>
+                    <AccordionSummary expandIcon={<ExpandMore />}>
+                      Stat Filters
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <StatFilter updateFilter={getStatFilter} />
+                    </AccordionDetails>
+                  </Accordion>
+                )}
               </Hidden>
             </Grid>
           </Grid>
@@ -330,12 +332,21 @@ export default function GameDetails(props) {
                   filteredPlayers={filteredPlayers}
                   currentQuarter={currentQuarter}
                   currentStatType={statFilterFrom}
+                  home_teamID={state.game_link.home_info.TEAM_ID}
+                  away_teamID={state.game_link.away_info.TEAM_ID}
                 />
               )}
             </Stack>
           </Grid>
           {/* ------------------------------------- */}
         </Grid>
+        <Hidden smUp>
+          <Alert severity='info'>
+            DISCLAIMER - All clips property of the NBA. No copyright
+            infringement is intended
+          </Alert>
+        </Hidden>
+        <Hidden smDown>{!playsIsLoading && <NbaFooter />}</Hidden>
       </Container>
     </>
   );
