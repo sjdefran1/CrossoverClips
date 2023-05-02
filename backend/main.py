@@ -5,7 +5,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from time import perf_counter
 
 # my scripts
-from db.gamesController import get_games_on_date_db, get_games_by_team_db, get_games_by_matchup_db, update_game_view_count_db
+from db.gamesController import get_games_on_date_db, get_games_by_team_db, get_games_by_matchup_db, update_game_view_count_db, get_game_by_id
 from db.get_database import get_db
 from db.teamsController import get_teams
 from db.createCollections import update_today
@@ -143,6 +143,11 @@ async def get_play_by_play(data: PlayByPlayStr):
 @app.post('/updateViewCount')
 async def update_view_count_of_game(data: ViewCount):
     update_game_view_count_db(data.gameID, client=client)
+
+@app.post('/getGameByID')
+async def get_game_byid(data: ViewCount):
+    game = get_game_by_id(data.gameID, client=client)
+    return JSONResponse(content=game)
 # --------------------------------------------------------
 
 if __name__ == "__main__":
