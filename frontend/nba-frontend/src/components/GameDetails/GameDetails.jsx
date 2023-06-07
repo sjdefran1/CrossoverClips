@@ -217,15 +217,13 @@ export default function GameDetails(props) {
                 <>
                   <Fade in={true} timeout={800}>
                     <div>
-                      {!replacementLoading && (
-                        <GameStatsDash
-                          gameInfo={
-                            state?.game_link
-                              ? state?.game_link
-                              : replacementGameLink
-                          }
-                        />
-                      )}
+                      <GameStatsDash
+                        gameInfo={
+                          state?.game_link
+                            ? state?.game_link
+                            : replacementGameLink
+                        }
+                      />
                     </div>
                   </Fade>
                 </>

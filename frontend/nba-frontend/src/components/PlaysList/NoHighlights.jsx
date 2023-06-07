@@ -11,7 +11,7 @@ export default function NoHighlights(props) {
         {!props.isPlay ? (
           <>
             <Typography variant='h5' padding={1}>
-              No highlight information available yet
+              No games on this date
             </Typography>
             <Fade in={true}>
               <img src={jordanGif}></img>

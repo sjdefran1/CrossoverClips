@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 
 import Paper from "@mui/material/Paper";
 
-import headerBG from "../static/header.gif";
+import headerBG from "../static/cc2.gif";
 import { Button, IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link, useNavigate, useParams } from "react-router-dom";
