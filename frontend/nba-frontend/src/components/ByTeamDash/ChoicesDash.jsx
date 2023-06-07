@@ -192,7 +192,7 @@ export default function ChoicesDash(props) {
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Stack alignItems={"center"} direction='row' spacing={1}>
               <Chip color='info' label='2' />
-              <Typography>Choose at least one season</Typography>
+              <Typography color={"text.secondary"}>Filter Seasons</Typography>
             </Stack>
           </AccordionSummary>
           <AccordionDetails>
@@ -208,9 +208,16 @@ export default function ChoicesDash(props) {
           spacing={1}
           sx={{ justifyContent: "center", alignItems: "center" }}>
           {!selectedTeams[0]?.id || !seasonsSelected.length > 0 ? (
-            <Button variant='contained' color='success' disabled sx={{ my: 1 }}>
-              Submit
-            </Button>
+            <>
+              <Chip label='3'></Chip>
+              <Button
+                variant='contained'
+                color='success'
+                disabled
+                sx={{ my: 1 }}>
+                Submit
+              </Button>
+            </>
           ) : (
             <Link
               to={
@@ -228,6 +235,7 @@ export default function ChoicesDash(props) {
                 tabValueLink: 0,
                 valueLink: "",
               }}>
+              <Chip color='info' label='3' sx={{ mr: 1.5 }}></Chip>
               <Button
                 variant='contained'
                 color='success'

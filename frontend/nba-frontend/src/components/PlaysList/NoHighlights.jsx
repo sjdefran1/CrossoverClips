@@ -23,7 +23,7 @@ export default function NoHighlights(props) {
                 <InfoIcon color='warning' />
               </Tooltip>
               <Typography variant='h6' color='text.secondary' padding={1}>
-                Please check back soon
+                Choose Another Day
               </Typography>
             </Stack>
           </>

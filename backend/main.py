@@ -120,24 +120,29 @@ async def get_games_on_date_controller(data: DateStr):
     else:
         return JSONResponse(content=games_db)
 
+# @app.post('/playByPlay')
+# async def get_play_by_play(data: PlayByPlayStr):
+#     start = perf_counter()
+#     new_date = fix_date_db(data.date)
+
+#     # Game exists in our database already retrieve it and return
+#     if(check_playByPlay_exists(gameID=data.gameID, client=client)):
+#         plays = get_playByPlay_db(client=client, gameID=data.gameID, statType = data.statType)
+#         end = perf_counter()
+#         print(f"Execution time for PlayByPlay (Database): {end-start:.6f}\n")
+#         return JSONResponse(content=plays)
+
+#     split_date = new_date.split('-')
+#     response = getPlayByPlayV2Json(game_id=data.gameID)
+#     plays = playByPlayV2Urls(game_id=data.gameID, y=split_date[0], d=split_date[2], m=split_date[1], stat_type=data.statType, response=response)
+#     #scheduler.add_job(get_other_stats_jobV2, args=[data.gameID, response, plays, split_date[0], split_date[2], split_date[1]])    
+#     end = perf_counter()
+#     print(f"Execution time for PlayByPlay: {end-start:.6f}\n")
+#     return JSONResponse(content=plays)
+
 @app.post('/playByPlay')
-async def get_play_by_play(data: PlayByPlayStr):
-    start = perf_counter()
-    new_date = fix_date_db(data.date)
-
-    # Game exists in our database already retrieve it and return
-    if(check_playByPlay_exists(gameID=data.gameID, client=client)):
-        plays = get_playByPlay_db(client=client, gameID=data.gameID, statType = data.statType)
-        end = perf_counter()
-        print(f"Execution time for PlayByPlay (Database): {end-start:.6f}\n")
-        return JSONResponse(content=plays)
-
-    split_date = new_date.split('-')
-    response = getPlayByPlayV2Json(game_id=data.gameID)
-    plays = playByPlayV2Urls(game_id=data.gameID, y=split_date[0], d=split_date[2], m=split_date[1], stat_type=data.statType, response=response)
-    #scheduler.add_job(get_other_stats_jobV2, args=[data.gameID, response, plays, split_date[0], split_date[2], split_date[1]])    
-    end = perf_counter()
-    print(f"Execution time for PlayByPlay: {end-start:.6f}\n")
+async def get_play_by_play_dictionary(data: PlayByPlayStr):
+    plays = get_playByPlay_db(client=client, gameID=data.gameID, statType=data.statType)
     return JSONResponse(content=plays)
 
 @app.post('/updateViewCount')

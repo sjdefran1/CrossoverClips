@@ -4,8 +4,16 @@ import dayjs from "dayjs";
 import Paper from "@mui/material/Paper";
 
 import headerBG from "../static/header.gif";
-
+import { Button, IconButton } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Link, useNavigate, useParams } from "react-router-dom";
 function Header(props) {
+  const { date } = useParams();
+  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
+  //console.log(date);
+
   return (
     <Paper
       elevation={2}
@@ -58,6 +66,25 @@ function Header(props) {
     </Hidden>
   </Stack> */}
       {/* </Paper> */}
+      {props.small && (
+        // <Link
+        //   to={"/byDate/" + date}
+        //   state={{
+        //     seasons: [],
+        //     selectedTeamsLink: [{}, {}],
+        //     maxSelectedLink: false,
+        //     tabValueLink: 1,
+        //     valueLink: date,
+        //   }}>
+        <IconButton onClick={() => navigate(-1)} sx={{ mt: 0.5 }}>
+          <ArrowBackIcon color='primary' />
+        </IconButton>
+        // </Link>
+      )}
+
+      {/* <Button sx={{ mx: "45%" }} size='large'>
+        {""}
+      </Button> */}
     </Paper>
   );
 }

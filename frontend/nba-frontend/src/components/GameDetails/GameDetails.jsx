@@ -54,8 +54,10 @@ export default function GameDetails(props) {
   const [statFilterFrom, setStatFilterFrom] = React.useState("FGM");
   const [showHighlightPreview, setShowHighlightPreview] = React.useState(false);
   const [tabValue, setTabValue] = React.useState(0);
-
+  const [replacementGameLink, setReplacementGameLink] = React.useState({});
+  const [replacementLoading, setReplacementLoading] = React.useState(true);
   let { state } = useLocation();
+
   // const [anchorEl, setAnchorEl] = React.useState(null);
   const handleTabChange = (event, newVal) => {
     setTabValue(newVal);
@@ -94,6 +96,17 @@ export default function GameDetails(props) {
       .finally(() => {
         setPlaysIsLoading(false); // Set isLoading back to false once the response is received
       });
+  };
+
+  const getGameAxios = (e) => {
+    const data = {
+      gameID: e.toString(),
+    };
+    setReplacementLoading(true);
+    axios.post(reqString + "getGameByID", data).then((response) => {
+      setReplacementGameLink(response.data);
+      setReplacementLoading(false);
+    });
   };
 
   const handleQuarterChange = React.useCallback(
@@ -137,93 +150,106 @@ export default function GameDetails(props) {
     // eslint-disable-next-line
   }, [statFilterFrom]);
 
+  React.useEffect(() => {
+    if (state === null) {
+      getGameAxios(id);
+      console.log("use effect");
+    } else {
+    }
+
+    // eslint-disable-next-line
+  }, [state]);
+
   // React.useEffect(() => {
   //   setTabValue(playByPlay?.players?.length > 0 ? 0 : 1);
   // }, [playByPlay]);
-
+  console.log(replacementGameLink);
   return (
     <>
-      {/* GameInfo */}
-      {/* ------------------------------------------------ */}
-      <Container maxWidth='xl' sx={{ mt: 1 }}>
-        <Paper>
-          <NbaHeader small={true} />
-        </Paper>
+      {/* We don't have a game_link (we didn't come from homepage)
+          Our call to replace that information hasn't finished
+          Once it does render component as normal    
+      */}
+      {!state?.game_link && replacementLoading ? (
+        <CircularProgress />
+      ) : (
+        // <p>loaded</p>
+        <Container maxWidth='xl' sx={{ mt: 1 }}>
+          <Paper>
+            <NbaHeader small={true} />
+          </Paper>
 
-        <Grid container spacing={2} paddingTop>
-          <Grid item xs={12} md={6}>
-            {/* GAMEDASH AND PLAYER FILTER */}
-            <Fade in={true} timeout={800}>
-              <div>
-                <GameDash game_link={state.game_link} />
-              </div>
-            </Fade>
-            <Box sx={{ width: "100%" }}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 0.5 }}>
-                <Tabs
-                  centered
-                  value={tabValue}
-                  onChange={handleTabChange}
-                  aria-label='Filters or Game Stats'>
-                  <Tab label='Filters' tabIndex={0} />
-                  <Tab label='Game Stats' tabIndex={1} />
-                </Tabs>
-              </Box>
-            </Box>
-            {tabValue === 1 && (
-              <>
-                <Fade in={true} timeout={800}>
-                  <div>
-                    <GameStatsDash gameInfo={state.game_link} />
-                  </div>
-                </Fade>
-              </>
-            )}
-
-            <Grid container>
-              {playsIsLoading && (
-                <Grid item xs={12} md={8}>
-                  <Stack sx={{ justifyContent: "center" }}>
-                    <br></br>
-                    <CircularProgress sx={{ ml: "50%" }} />
-                  </Stack>
-                </Grid>
-              )}
-              <Hidden mdDown>
-                {!playsIsLoading &&
-                  playByPlay.players.length > 0 &&
-                  tabValue === 0 && (
+          <Grid container spacing={2} paddingTop>
+            <Grid item xs={12} md={6}>
+              {/* GAMEDASH AND PLAYER FILTER */}
+              <Fade in={true} timeout={800}>
+                <div>
+                  {/* Came from game select, have a game_link dict */}
+                  {state?.game_link ? (
+                    <GameDash game_link={state?.game_link} />
+                  ) : (
                     <>
-                      <Grid item xs={12} md={8} minHeight={"50vh"}>
-                        <PlayerFilter
-                          players={playByPlay.players}
-                          teamIDs={playByPlay.team_ids}
-                          currentFilterPlayers={filteredPlayers}
-                          setPlayerFilter={getFilteredPlayers}
-                          getStatFilter={getStatFilter}
-                        />
-                      </Grid>
+                      {/* Needed replacement, pass that as game_link */}
+                      {!replacementLoading && (
+                        <GameDash game_link={replacementGameLink} />
+                      )}
                     </>
                   )}
+                </div>
+              </Fade>
 
-                {tabValue === 0 && (
-                  <Grid item xs={12} md={4}>
-                    <StatFilter updateFilter={getStatFilter} />
+              {/* Tab select between, Filters and Game Stats (team comparison) */}
+              <Box sx={{ width: "100%" }}>
+                <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 0.5 }}>
+                  <Tabs
+                    centered
+                    value={tabValue}
+                    onChange={handleTabChange}
+                    aria-label='Filters or Game Stats'>
+                    <Tab label='Filters' tabIndex={0} />
+                    <Tab label='Game Stats' tabIndex={1} />
+                  </Tabs>
+                </Box>
+              </Box>
+
+              {/* Game Stats Dashboard */}
+              {tabValue === 1 && (
+                <>
+                  <Fade in={true} timeout={800}>
+                    <div>
+                      {!replacementLoading && (
+                        <GameStatsDash
+                          gameInfo={
+                            state?.game_link
+                              ? state?.game_link
+                              : replacementGameLink
+                          }
+                        />
+                      )}
+                    </div>
+                  </Fade>
+                </>
+              )}
+
+              {/* Player Filter Dash*/}
+              <Grid container>
+                {/* Loading Icon */}
+                {playsIsLoading && (
+                  <Grid item xs={12} md={8}>
+                    <Stack sx={{ justifyContent: "center" }}>
+                      <br></br>
+                      <CircularProgress sx={{ ml: "50%" }} />
+                    </Stack>
                   </Grid>
                 )}
-              </Hidden>
-
-              {/* Mobile filters view */}
-              <Hidden mdUp>
-                {!playsIsLoading &&
-                  playByPlay.players.length > 0 &&
-                  tabValue === 0 && (
-                    <>
-                      <Accordion sx={{ minWidth: "100%" }} disableGutters>
-                        <AccordionSummary expandIcon={<ExpandMore />}>
-                          Player Filters
-                        </AccordionSummary>
-                        <AccordionDetails sx={{ minWidth: "100%" }}>
+                {/* Player Filter Web Version
+                Hidden on medium down because it is moved to a dropdown on mobile */}
+                <Hidden mdDown>
+                  {!playsIsLoading &&
+                    playByPlay.players.length > 0 &&
+                    tabValue === 0 && (
+                      <>
+                        <Grid item xs={12} md={8} minHeight={"50vh"}>
                           <PlayerFilter
                             players={playByPlay.players}
                             teamIDs={playByPlay.team_ids}
@@ -231,123 +257,162 @@ export default function GameDetails(props) {
                             setPlayerFilter={getFilteredPlayers}
                             getStatFilter={getStatFilter}
                           />
-                        </AccordionDetails>
-                      </Accordion>
-                    </>
-                  )}
-                {tabValue === 0 && (
-                  <Accordion sx={{ minWidth: "100%" }} disableGutters>
-                    <AccordionSummary expandIcon={<ExpandMore />}>
-                      Stat Filters
-                    </AccordionSummary>
-                    <AccordionDetails>
+                        </Grid>
+                      </>
+                    )}
+
+                  {/* Stat Filter, Choose FGM, BLK, etc */}
+                  {tabValue === 0 && (
+                    <Grid item xs={12} md={4}>
                       <StatFilter updateFilter={getStatFilter} />
-                    </AccordionDetails>
-                  </Accordion>
-                )}
-              </Hidden>
+                    </Grid>
+                  )}
+                </Hidden>
+
+                {/* Mobile filters view */}
+                <Hidden mdUp>
+                  {!playsIsLoading &&
+                    playByPlay.players.length > 0 &&
+                    tabValue === 0 && (
+                      <>
+                        {/* Accordion for Player and Stat filters */}
+                        <Accordion sx={{ minWidth: "100%" }} disableGutters>
+                          <AccordionSummary expandIcon={<ExpandMore />}>
+                            Player Filters
+                          </AccordionSummary>
+                          <AccordionDetails sx={{ minWidth: "100%" }}>
+                            <PlayerFilter
+                              players={playByPlay.players}
+                              teamIDs={playByPlay.team_ids}
+                              currentFilterPlayers={filteredPlayers}
+                              setPlayerFilter={getFilteredPlayers}
+                              getStatFilter={getStatFilter}
+                            />
+                          </AccordionDetails>
+                        </Accordion>
+                      </>
+                    )}
+                  {tabValue === 0 && (
+                    <Accordion sx={{ minWidth: "100%" }} disableGutters>
+                      <AccordionSummary expandIcon={<ExpandMore />}>
+                        Stat Filters
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <StatFilter updateFilter={getStatFilter} />
+                      </AccordionDetails>
+                    </Accordion>
+                  )}
+                </Hidden>
+              </Grid>
             </Grid>
-          </Grid>
-          {/* ------------------------------------------------ */}
-          {/* PlayByPlay */}
-          {/* ---------------------------------------------- */}
-          <Grid item xs={12} md={6}>
-            <AppBar position='static' sx={{ borderRadius: 1 }}>
-              <Toolbar sx={{ justifyContent: "right" }}>
-                <Stack
-                  direction='row'
-                  alignItems={"center"}
-                  sx={{ mr: { xs: "20%", md: "36%" } }}>
-                  <IconButton onClick={() => handleQuarterChange(0)}>
-                    <KeyboardArrowLeftIcon color='info' />
-                  </IconButton>
-                  <Typography
-                    variant='body1'
-                    color='text.secondary'></Typography>
-                  <Chip
-                    variant='outlined'
-                    label={"Quarter: " + currentQuarter}
-                    color='info'
-                  />
-                  <IconButton onClick={() => handleQuarterChange(1)}>
-                    <KeyboardArrowRightIcon color='info' />
-                  </IconButton>
+
+            {/* ------------------------------------------------ */}
+            {/* PlayByPlay */}
+            {/* ---------------------------------------------- */}
+            <Grid item xs={12} md={6}>
+              {/* Controls for playbyplay, switch quarters */}
+              <AppBar position='static' sx={{ borderRadius: 1 }}>
+                <Toolbar sx={{ justifyContent: "right" }}>
+                  <Stack
+                    direction='row'
+                    alignItems={"center"}
+                    sx={{ mr: { xs: "20%", md: "36%" } }}>
+                    <IconButton onClick={() => handleQuarterChange(0)}>
+                      <KeyboardArrowLeftIcon color='info' />
+                    </IconButton>
+                    <Typography
+                      variant='body1'
+                      color='text.secondary'></Typography>
+                    <Chip
+                      variant='outlined'
+                      label={"Quarter: " + currentQuarter}
+                      color='info'
+                    />
+                    <IconButton onClick={() => handleQuarterChange(1)}>
+                      <KeyboardArrowRightIcon color='info' />
+                    </IconButton>
+                  </Stack>
+                  <Tooltip title='Click anywhere on a play to be redirected!'>
+                    <InfoIcon color='success' />
+                  </Tooltip>
+                </Toolbar>
+              </AppBar>
+
+              {/* Plays are loading in, patience message */}
+              {playsIsLoading && (
+                <Stack sx={{ justifyContent: "center" }}>
+                  <Alert severity='info'>
+                    Please be patient for plays to load
+                  </Alert>
+                  <br></br>
+                  <CircularProgress sx={{ ml: "50%" }} />
                 </Stack>
-                {/* 
-                <FormGroup>
-                  <FormControlLabel
-                    sx={{ mr: 1 }}
-                    disabled
-                    control={<Switch size='small' />}
-                    onChange={handleSwitchChange}
-                    label={
-                      <Typography color={"text.secondary"} variant='subtitle2'>
-                        Highlight Previews
-                      </Typography>
+              )}
+
+              <Stack
+                sx={{
+                  maxHeight: "78vh",
+                  overflow: "auto",
+                }}>
+                {/* Loading */}
+                {/* Finished Game No Highlights from VideoDetail Yet */}
+                {!playsIsLoading && playByPlay.plays.length === 0 && (
+                  <NoHighlights isPlay={false} />
+                )}
+                {/* Request Recieved, Render PlayList Copmonent 
+                    We have recieved the play by play, and we are not filtering
+                    By players 
+                */}
+                {!playsIsLoading && !isFilteredPlayers && (
+                  <PlayList
+                    playByPlay={playByPlay}
+                    currentQuarter={currentQuarter}
+                    home_teamID={
+                      state?.game_link && replacementLoading
+                        ? state?.game_link.home_info.TEAM_ID
+                        : replacementGameLink?.home_info.TEAM_ID
+                    }
+                    away_teamID={
+                      state?.game_link && replacementLoading
+                        ? state?.game_link.away_info.TEAM_ID
+                        : replacementGameLink?.away_info.TEAM_ID
                     }
                   />
-                </FormGroup>
-                */}
-                <Tooltip title='Click anywhere on a play to be redirected!'>
-                  <InfoIcon color='success' />
-                </Tooltip>
-              </Toolbar>
-            </AppBar>
-            {playsIsLoading && (
-              <Stack sx={{ justifyContent: "center" }}>
-                <Alert severity='info'>
-                  Please be patient for plays to load
-                </Alert>
-
-                <br></br>
-                <CircularProgress sx={{ ml: "50%" }} />
+                )}
+                {/* Player Filters have been applied */}
+                {!playsIsLoading && isFilteredPlayers && (
+                  <FilteredPlayList
+                    playByPlay={playByPlay}
+                    filteredPlayers={filteredPlayers}
+                    currentQuarter={currentQuarter}
+                    currentStatType={statFilterFrom}
+                    home_teamID={
+                      state?.game_link && replacementLoading
+                        ? state?.game_link.home_info.TEAM_ID
+                        : replacementGameLink?.home_info.TEAM_ID
+                    }
+                    away_teamID={
+                      state?.game_link && replacementLoading
+                        ? state?.game_link.away_info.TEAM_ID
+                        : replacementGameLink?.away_info.TEAM_ID
+                    }
+                  />
+                )}
               </Stack>
-            )}
-            <Stack
-              sx={{
-                maxHeight: "78vh",
-                overflow: "auto",
-              }}>
-              {/* Loading */}
-
-              {/* Finished Game No Highlights from VideoDetail Yet */}
-              {!playsIsLoading && playByPlay.plays.length === 0 && (
-                <NoHighlights isPlay={false} />
-              )}
-
-              {/* Request Recieved, Render PlayList Copmonent */}
-
-              {!playsIsLoading && !isFilteredPlayers && (
-                <PlayList
-                  playByPlay={playByPlay}
-                  currentQuarter={currentQuarter}
-                  home_teamID={state.game_link.home_info.TEAM_ID}
-                  away_teamID={state.game_link.away_info.TEAM_ID}
-                />
-              )}
-              {/* Player Filters have been applied */}
-              {!playsIsLoading && isFilteredPlayers && (
-                <FilteredPlayList
-                  playByPlay={playByPlay}
-                  filteredPlayers={filteredPlayers}
-                  currentQuarter={currentQuarter}
-                  currentStatType={statFilterFrom}
-                  home_teamID={state.game_link.home_info.TEAM_ID}
-                  away_teamID={state.game_link.away_info.TEAM_ID}
-                />
-              )}
-            </Stack>
+            </Grid>
+            {/* ------------------------------------- */}
           </Grid>
-          {/* ------------------------------------- */}
-        </Grid>
-        <Hidden smUp>
-          <Alert severity='info'>
-            DISCLAIMER - All clips property of the NBA. No copyright
-            infringement is intended
-          </Alert>
-        </Hidden>
-        <Hidden smDown>{!playsIsLoading && <NbaFooter />}</Hidden>
-      </Container>
+          <Hidden smUp>
+            <Alert severity='info'>
+              DISCLAIMER - All clips property of the NBA. No copyright
+              infringement is intended
+            </Alert>
+          </Hidden>
+          <Hidden smDown>{!playsIsLoading && <NbaFooter />}</Hidden>
+        </Container>
+      )}
+      {/* GameInfo */}
+      {/* ------------------------------------------------ */}
     </>
   );
 }
