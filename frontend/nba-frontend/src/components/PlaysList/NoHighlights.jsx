@@ -3,27 +3,36 @@ import { Typography, Paper, Tooltip, Stack, Box, Fade } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 
 import jordanGif from "../../static/jordan.gif";
+import { useParams } from "react-router-dom";
+import dayjs from "dayjs";
+
 //const project = projects[0];
 export default function NoHighlights(props) {
+  const { date } = useParams();
   return (
     <>
       <Paper sx={{ mt: 1, textAlign: "center", overflow: "hidden" }}>
         {!props.isPlay ? (
           <>
-            <Typography variant='h5' padding={1}>
-              No games on this date
-            </Typography>
+            {date !== dayjs().format("YYYY-MM-DD").toString() && (
+              <>
+                <br></br>
+                <br></br>
+                <br></br>
+              </>
+            )}
             <Fade in={true}>
               <img src={jordanGif}></img>
             </Fade>
             <Stack
-              direction={"row"}
+              direction={"column"}
               sx={{ alignItems: "center", justifyContent: "center" }}>
-              <Tooltip title='Highlight information usually available around 20-30 minutes after game finishes'>
-                <InfoIcon color='warning' />
-              </Tooltip>
-              <Typography variant='h6' color='text.secondary' padding={1}>
-                Choose Another Day
+              <Typography variant='h5' padding={1}>
+                No games found
+              </Typography>
+
+              <Typography variant='body1' color={"text.secondary"} padding={1}>
+                {date}
               </Typography>
             </Stack>
           </>

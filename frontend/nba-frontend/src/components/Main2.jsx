@@ -81,7 +81,7 @@ export default function Main(props) {
       //   pathname: "/somewhere",
       //   state: { fromDashboard: true },
       // };
-      navigate("/byDate", {
+      navigate("/byDate/" + dayjs().format("YYYY-MM-DD").toString(), {
         state: {
           tabValueLink: 1,
           selectedTeamsLink: [{}, {}],
@@ -350,9 +350,9 @@ export default function Main(props) {
                     {dayjs(value).format("YYYY-MM-DD") ===
                       dayjs().format("YYYY-MM-DD").toString() && (
                       <Alert severity='warning'>
-                        Games on today only show up once they are in
-                        progress/finished, Highlights become available ~20-30
-                        minutes after finish
+                        Todays games only show up once they are in
+                        progress/finished. Highlights become available ~20-30
+                        minutes after the game finishes.
                       </Alert>
                     )}
                   </>
@@ -410,9 +410,9 @@ export default function Main(props) {
                       {dayjs(value).format("YYYY-MM-DD") ===
                         dayjs().format("YYYY-MM-DD").toString() && (
                         <Alert severity='warning'>
-                          Games on today only show up once they are in
-                          progress/finished, Highlights become available ~20-30
-                          minutes after finish
+                          Todays games only show up once they are in
+                          progress/finished. Highlights become available ~20-30
+                          minutes after the game finishes.
                         </Alert>
                       )}
                       <NoHighlights gamePicker={true} />
@@ -430,9 +430,9 @@ export default function Main(props) {
                       {dayjs(value).format("YYYY-MM-DD") ===
                         dayjs().format("YYYY-MM-DD").toString() && (
                         <Alert severity='warning'>
-                          Games on today only show up once they are in
-                          progress/finished, Highlights become available ~20-30
-                          minutes after finish
+                          Todays games only show up once they are in
+                          progress/finished. Highlights become available ~20-30
+                          minutes after the game finishes.
                         </Alert>
                       )}
                       <Box sx={{ width: "100%", mt: 2 }}>

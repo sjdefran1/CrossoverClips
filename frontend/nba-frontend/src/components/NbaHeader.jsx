@@ -20,7 +20,7 @@ function Header(props) {
       sx={{
         borderRadius: 2,
 
-        height: props?.small ? "5vh" : "12vh",
+        height: props?.small ? "6vh" : "12vh",
         width: "100%",
         background:
           `url(${headerBG}?` +
@@ -76,8 +76,8 @@ function Header(props) {
         //     tabValueLink: 1,
         //     valueLink: date,
         //   }}>
-        <IconButton onClick={() => navigate(-1)} sx={{ mt: 0.5 }}>
-          <ArrowBackIcon color='primary' />
+        <IconButton onClick={() => navigate(-1)}>
+          <ArrowBackIcon fontSize='large' color='info' />
         </IconButton>
         // </Link>
       )}
