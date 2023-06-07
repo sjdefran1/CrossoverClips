@@ -240,7 +240,9 @@ export default function ChoicesDash(props) {
                 variant='contained'
                 color='success'
                 disabled={!selectedTeams[0]?.id || !seasonsSelected.length > 0} // only avaialbe when a team has been clicked
-                onClick={() => getGamesByTeamAxios()}
+                onClick={() => {
+                  getGamesByTeamAxios();
+                }}
                 sx={{ my: 1 }}>
                 Submit
               </Button>

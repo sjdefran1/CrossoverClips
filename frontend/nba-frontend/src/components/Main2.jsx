@@ -104,18 +104,11 @@ export default function Main(props) {
       .post(reqString + "date", data)
       .then((response) => {
         if (response.data !== "no games") {
-          //   this.setState({
-          //     responseData: response.data,
-          //     shouldRender: true,
-          //     gamesLoading: false,
-          //     noGames: false,
-          //   });
           setResponseData(response.data);
           setShouldRender(true);
           setGamesLoading(false);
           setNoGames(false);
         } else {
-          //this.setState({ shouldRender: false, noGames: true });
           setShouldRender(false);
           setGamesLoading(false);
           setNoGames(true);
@@ -126,42 +119,23 @@ export default function Main(props) {
       });
   };
 
-  //   const setResponseData = (gameList) => {
-  //     this.setState({ responseData: gameList });
-  //   };
-
-  //   const setGamesLoading = (val) => {
-  //     this.setState({ gamesLoading: val });
-  //   };
-
   const getSelectedTeams = (teamsArr) => {
     setSelectedTeams(teamsArr);
     setResponseData([]);
-
-    //this.setState({ selectedTeams: teamsArr, responseData: [] });
   };
 
   const getSelectedSeasons = (seasonsArr) => {
     setSelectedSeasons(seasonsArr);
     setResponseData([]);
-    //this.setState({ selectedSeasons: seasonsArr, responseData: [] });
   };
 
   React.useEffect(() => {
-    //console.log([locationState.pathname, locationState.state, "ayo"]);
-    //console.log(selectedTeams);
     if (tabValue === 1) {
       getGamesAxios(value);
     }
   }, [locationState]);
 
-  React.useEffect(() => {
-    //console.log(selectedTeams);
-  }, [selectedTeams]);
-  // console.log("Main ");
-  // // console.log(selectedTeams);
-  // console.log(locationState);
-  // console.log(value);
+  React.useEffect(() => {}, [selectedTeams]);
 
   const gradient = keyframes`
   0% {

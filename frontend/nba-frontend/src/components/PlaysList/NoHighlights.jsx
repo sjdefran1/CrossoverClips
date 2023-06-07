@@ -10,8 +10,8 @@ export default function NoHighlights(props) {
       <Paper sx={{ mt: 1, textAlign: "center", overflow: "hidden" }}>
         {!props.isPlay ? (
           <>
-            <Typography variant='h5' padding={1}>
-              No highlight information available yet
+            <Typography variant='h5' padding={1} color={"text.secondary"}>
+              No games on this date
             </Typography>
             <Fade in={true}>
               <img src={jordanGif}></img>

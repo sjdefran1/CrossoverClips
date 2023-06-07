@@ -69,7 +69,7 @@ class DateChosen extends React.Component {
     axios
       .post("http://localhost:8000/date", data)
       .then((response) => {
-        if (response.data !== "no games") {
+        if (response.data !== {}) {
           this.setState({
             responseData: response.data,
             shouldRender: true,
