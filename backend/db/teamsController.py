@@ -1,4 +1,6 @@
-from db.get_database import get_db
+"""
+Queries Teams table in db
+"""
 
 def get_teams(client):
     db = client['TeamsDB']
@@ -8,7 +10,3 @@ def get_teams(client):
     for result in results:
         teams.append(result)
     return teams
-
-if __name__ == '__main__':
-    client = get_db()
-    print(get_teams(client=client))
