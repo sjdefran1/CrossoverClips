@@ -1,9 +1,0 @@
-{
-  "python.analysis.extraPaths": [
-    "./backend/scripts",
-    "./backend",
-    "./backend/scripts/expierements",
-    "./backend/scripts/playByPlay",
-    "./backend/scripts/api"
-  ]
-}
