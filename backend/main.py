@@ -72,13 +72,13 @@ async def get_games_on_date_controller(data: DateStr):
     Fix date format and query from db for that date
     Returns all games that day in dict
 
-    If none: returns empty dictionary
+    If none: returns "no games"
     """
     print('Requested ' + data.value)
     db_date = fix_date_db(data.value)
     games_db = get_games_on_date_db(date=db_date, client=client)
     if games_db == ():
-        return JSONResponse(content={})
+        return "no games"
     else:
         return JSONResponse(content=games_db)
 
