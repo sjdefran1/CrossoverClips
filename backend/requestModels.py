@@ -1,3 +1,7 @@
+"""
+Classes that define structure for incoming json requests from frontend
+Used by fastapi async methods in main.py
+"""
 
 from pydantic import BaseModel
 # -----------------------------------------------------

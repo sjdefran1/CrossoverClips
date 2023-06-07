@@ -2,9 +2,10 @@ import pymongo
 from dotenv import load_dotenv
 import os
 
-def get_db() -> pymongo.MongoClient:
+def get_db_client_connection() -> pymongo.MongoClient:
     load_dotenv()
-    MONGOPASS = os.getenv("MONGOPASS")
-    client = pymongo.MongoClient(f"mongodb+srv://sjdefran:{MONGOPASS}@nbaclips.h4kagx8.mongodb.net/?retryWrites=true&w=majority")
+    # MONGOPASS = os.getenv("MONGOPASS")
+    MONGOURL = os.getenv("MONGOURL")
+    client = pymongo.MongoClient(MONGOURL)
     return client
 
