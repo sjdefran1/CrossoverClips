@@ -77,7 +77,7 @@ export default function SeasonsSelect(props) {
           </React.Fragment>
         ))}
       </Grid>
-      <Grid container>
+      <Grid container justifyContent={"center"}>
         <Button onClick={handleAll} color='success'>
           All
         </Button>

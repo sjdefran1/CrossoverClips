@@ -1,7 +1,8 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import Main from "./components/Main.jsx";
+import Main2 from "./components/Main2.jsx";
 import GameDetails from "./components/GameDetails/GameDetails.jsx";
 import TopBar from "./components/TopBar.jsx";
 
@@ -56,23 +57,35 @@ const darkTheme = createTheme({
     },
   },
 });
+
 const App = () => {
   return (
     <>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <>
-          <TopBar />
-          <BrowserRouter>
+          {/* <TopBar /> */}
+          {/* <BrowserRouter> */}
+
+          <HashRouter>
             <Routes>
-              <Route exact path='/' element={<Main />} />
+              <Route exact path='/' element={<Main2 />} />
               <Route exact path='/games/:date/:id' element={<GameDetails />} />
+              <Route exact path='/byTeam/:id' element={<Main2 />} />
+              <Route exact path='/byTeam/:id1/:id2' element={<Main2 />} />
+              <Route exact path='/byDate/' element={<Main2 />} />
+              <Route exact path='/byDate/:date' element={<Main2 />} />
             </Routes>
-          </BrowserRouter>
+          </HashRouter>
+          {/* </BrowserRouter> */}
         </>
       </ThemeProvider>
     </>
   );
 };
+
+//export const reqString = "https://nbaclipfinder4-1-u4961891.deta.app/";
+
+export const reqString = "https://nbaclipsite.onrender.com/";
 
 export default App;

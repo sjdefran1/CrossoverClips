@@ -16,19 +16,30 @@ import {
   Grow,
 } from "@mui/material";
 import jordanGif from "../../static/jordan.gif";
-
+import { useLocation } from "react-router-dom";
 export default function SelectionsDash(props) {
-  const [selectedTeams, setSelectedTeams] = React.useState([]);
+  const [locationState, setLocationState] = React.useState(useLocation());
+  const [selectedTeams, setSelectedTeams] = React.useState(
+    !locationState.state ? [] : locationState.state.selectedTeamsLink
+  );
   const [seasonsSelected, setSeasonsSelected] = React.useState([]);
 
   React.useEffect(() => {
     setSelectedTeams(props.selectedTeamsParent);
+
+    // setSelectedTeams(
+    //   !locationState.state
+    //     ? props.selectedTeamsParent
+    //     : locationState.state.selectedTeamsLink
+    // );
+    //console.log(props.selectedTeamsParent);
   }, [props.selectedTeamsParent]);
 
   React.useEffect(() => {
     setSeasonsSelected(props.selectedSeasonsParent);
   }, [props.selectedSeasonsParent]);
-
+  // console.log("selections dash");
+  // console.log(selectedTeams);
   return (
     <>
       <Stack direction={"column"}>
@@ -72,7 +83,7 @@ export default function SelectionsDash(props) {
                 }}>
                 <Stack
                   direction={"row"}
-                  spacing={{ xs: 7, md: 10 }}
+                  spacing={{ xs: 5, md: 10 }}
                   sx={{ alignItems: "center" }}>
                   <Stack
                     direction={"column"}

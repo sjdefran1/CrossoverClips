@@ -24,7 +24,7 @@ export default function PlaySecondary(props) {
         />
 
         <Typography variant='subtitle1' component={"span"}>
-          {props.stuff[0]} - {props.stuff[1]}
+          {props.stuff[1]}
         </Typography>
         <Avatar
           component={"span"}

@@ -63,7 +63,7 @@ export default function PlayerFilter(props) {
 
   return (
     <>
-      <Paper>
+      <Paper sx={{ width: "100%" }}>
         <Box
           sx={{
             maxHeight: "50vh",
@@ -71,7 +71,7 @@ export default function PlayerFilter(props) {
             overflowX: "clip",
             maxWidth: "100%",
           }}>
-          <AppBar position='static' sx={{ borderRadius: 1 }}>
+          <AppBar position='static' sx={{ borderRadius: 1, minWidth: "100%" }}>
             <Toolbar sx={{ justifyContent: "center" }}>
               <Stack direction='row' spacing={20}>
                 <IconButton onClick={() => handleTeamSelect(teamIDs[0])}>
@@ -110,7 +110,7 @@ export default function PlayerFilter(props) {
                       .map((player) => (
                         <React.Fragment key={player[2]}>
                           <Fade in={true}>
-                            <Stack direction='row' spacing={{ xs: 0, md: 1 }}>
+                            <Stack direction='row' spacing={{ xs: -1, md: 1 }}>
                               <Avatar
                                 src={
                                   "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
@@ -152,6 +152,8 @@ export default function PlayerFilter(props) {
                   spacing={1}
                   sx={{
                     justifyContent: "center",
+                    overflowWrap: "anywhere",
+                    // textAlign: "",
                   }}>
                   {props.players &&
                     props.players
@@ -159,7 +161,10 @@ export default function PlayerFilter(props) {
                       .map((player) => (
                         <React.Fragment key={player[2]}>
                           <Fade in={true}>
-                            <Stack direction='row' spacing={{ xs: 0, md: 1 }}>
+                            <Stack
+                              direction='row'
+                              spacing={{ xs: 0, md: 1 }}
+                              sx={{}}>
                               <Avatar
                                 src={
                                   "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
@@ -169,7 +174,7 @@ export default function PlayerFilter(props) {
                                 sx={{
                                   width: 40,
                                   height: 40,
-                                  ml: { xs: 0.5, md: 1 },
+                                  ml: { xs: -0.75, md: 1 },
                                 }}
                               />
                               <FormControlLabel

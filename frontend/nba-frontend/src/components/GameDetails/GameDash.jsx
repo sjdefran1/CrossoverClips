@@ -1,6 +1,14 @@
 import * as React from "react";
 
-import { Avatar, Stack, Grid, Typography, Paper, Hidden } from "@mui/material";
+import {
+  Avatar,
+  Stack,
+  Grid,
+  Typography,
+  Paper,
+  Hidden,
+  Zoom,
+} from "@mui/material";
 
 //const project = projects[0];
 export default function GameDash(props) {
@@ -9,7 +17,7 @@ export default function GameDash(props) {
 
   const [awayName, setAwayName] = React.useState("");
   const [awayCity, setAwayCity] = React.useState("");
-
+  const containerRef = React.useRef(null);
   const handleNameLength = (name) => {
     let split = name.split(" ");
     //annoying blazers and their weird name!!
@@ -47,19 +55,33 @@ export default function GameDash(props) {
             <Stack
               direction='column'
               spacing={0.5}
-              sx={{ alignItems: "center", justifyContent: "center" }}>
-              <Avatar
-                src={
-                  "https://cdn.nba.com/logos/nba/" +
-                  props.game_link.away_info.TEAM_ID +
-                  "/primary/L/logo.svg"
-                }
-                sx={{ width: { xs: 70, md: 100 }, height: { xs: 70, md: 100 } }}
-              />
+              ref={containerRef}
+              sx={{
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+              }}>
+              <Zoom
+                in={true}
+                // direction='right'
+                // ref={containerRef.current}
+                timeout={500}>
+                <Avatar
+                  src={
+                    "https://cdn.nba.com/logos/nba/" +
+                    props.game_link.away_info.TEAM_ID +
+                    "/primary/L/logo.svg"
+                  }
+                  sx={{
+                    width: { xs: 70, md: 100 },
+                    height: { xs: 70, md: 100 },
+                  }}
+                />
+              </Zoom>
               <Hidden mdDown>
                 <Typography variant='h6'>{awayCity}</Typography>
                 <Typography variant='h7' color='text.secondary'>
-                  {awayName}
+                  {awayName}{" "}
                 </Typography>
               </Hidden>
 
@@ -123,15 +145,30 @@ export default function GameDash(props) {
             <Stack
               direction='column'
               spacing={0.5}
-              sx={{ alignItems: "center", justifyContent: "center" }}>
-              <Avatar
-                src={
-                  "https://cdn.nba.com/logos/nba/" +
-                  props.game_link.home_info.TEAM_ID +
-                  "/primary/L/logo.svg"
-                }
-                sx={{ width: { xs: 70, md: 100 }, height: { xs: 70, md: 100 } }}
-              />
+              ref={containerRef}
+              sx={{
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+              }}>
+              <Zoom
+                in={true}
+                // direction='left'
+                timeout={500}
+                // ref={containerRef.current}
+              >
+                <Avatar
+                  src={
+                    "https://cdn.nba.com/logos/nba/" +
+                    props.game_link.home_info.TEAM_ID +
+                    "/primary/L/logo.svg"
+                  }
+                  sx={{
+                    width: { xs: 70, md: 100 },
+                    height: { xs: 70, md: 100 },
+                  }}
+                />
+              </Zoom>
               <Hidden mdDown>
                 <Typography variant='h6'>{homeCity}</Typography>
                 <Typography variant='h7' color='text.secondary'>
