@@ -1,10 +1,11 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
-import Main from "./components/Main.jsx";
+// import Main from "./components/Main.jsx";
 import Main2 from "./components/Main2.jsx";
 import GameDetails from "./components/GameDetails/GameDetails.jsx";
-import TopBar from "./components/TopBar.jsx";
+// import TestMarkDown from "./components/TestMarkDown.jsx";
+// import TopBar from "./components/TopBar.jsx";
 
 const darkTheme = createTheme({
   palette: {
@@ -75,6 +76,7 @@ const App = () => {
               <Route exact path='/byTeam/:id1/:id2' element={<Main2 />} />
               <Route exact path='/byDate/' element={<Main2 />} />
               <Route exact path='/byDate/:date' element={<Main2 />} />
+              {/* <Route exact path='/howto' element={<TestMarkDown />} /> */}
             </Routes>
           </HashRouter>
           {/* </BrowserRouter> */}
@@ -87,5 +89,6 @@ const App = () => {
 //export const reqString = "https://nbaclipfinder4-1-u4961891.deta.app/";
 
 export const reqString = "https://nbaclipsite.onrender.com/";
+//export const reqString = "http://localhost:8000/";
 
 export default App;

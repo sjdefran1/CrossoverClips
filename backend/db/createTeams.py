@@ -2,7 +2,6 @@ from nba_api.stats.static.teams import get_teams
 import json
 from db.get_database import get_db
 
-
 def create_teams():
     client=get_db()
     db = client['TeamsDB']

@@ -25,6 +25,7 @@ import { reqString } from "../../App.js";
 
 import TeamSearch from "./TeamSearch";
 import SeasonsSelect from "./SeasonsSelect";
+import GameTypeSelect from "./GameTypeSelect.jsx";
 export default function ChoicesDash(props) {
   const [locationState, setLocationState] = React.useState(useLocation());
   const [selectedTeams, setSelectedTeams] = React.useState(
@@ -44,6 +45,7 @@ export default function ChoicesDash(props) {
   );
   const [gameList, setGameList] = React.useState([]);
   const [expanded, setExpanded] = React.useState("panel1");
+  const [gameType, setGameType] = React.useState("");
   // const [maxSelected, setMaxSelected] = React.useState(false);
 
   const [maxSelected, setMaxSelected] = React.useState(
@@ -86,6 +88,18 @@ export default function ChoicesDash(props) {
     // console.log(teamsArr);
   };
 
+  const getGameType = (gameTypeArr) => {
+    if (gameTypeArr[0] === true && gameTypeArr[1] === true) {
+      setGameType("");
+    }
+    if (gameTypeArr[0] === false) {
+      setGameType("playoffs");
+    }
+    if (gameTypeArr[1] === false) {
+      setGameType("regular season");
+    }
+  };
+
   const getSeasonsSelected = (seasonsArr) => {
     setSeasonsSelected(seasonsArr);
     //console.log(selectedTeams);
@@ -116,11 +130,19 @@ export default function ChoicesDash(props) {
     const data = {
       teams: selectedTeams,
       seasons: seasonsSelected,
+      game_type: gameType,
     };
     props.updateGamesLoading(true);
     axios
       .post(reqString + "gamesByTeam", data)
       .then((response) => {
+        if (response.data === "no games") {
+          props.updateGamesLoading(false);
+          props.updateNoGames(true);
+          props.updateShouldRender(true);
+          props.setResponseData([]);
+          return;
+        }
         setGameList(response.data);
         props.updateGamesLoading(false);
       })
@@ -137,7 +159,7 @@ export default function ChoicesDash(props) {
     //console.log("Choices Dash UseEffect fire");
     //----------------
     if (selectedTeams[1]?.id) {
-      setExpanded("panel2");
+      setExpanded("?");
     }
     props.updateSelectedTeams(selectedTeams);
     //---------------
@@ -202,6 +224,21 @@ export default function ChoicesDash(props) {
             />
           </AccordionDetails>
         </Accordion>
+        <Accordion
+          expanded={expanded === "panel3"}
+          onChange={handleChange("panel3")}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Stack alignItems={"center"} direction='row' spacing={1}>
+              <Chip color='info' label='3' />
+              <Typography color={"text.secondary"}>
+                Filter by Game Type
+              </Typography>
+            </Stack>
+          </AccordionSummary>
+          <AccordionDetails>
+            <GameTypeSelect setGameType={getGameType} />
+          </AccordionDetails>
+        </Accordion>
 
         <Stack
           direction={"row"}
@@ -209,7 +246,7 @@ export default function ChoicesDash(props) {
           sx={{ justifyContent: "center", alignItems: "center" }}>
           {!selectedTeams[0]?.id || !seasonsSelected.length > 0 ? (
             <>
-              <Chip label='3'></Chip>
+              <Chip label='4'></Chip>
               <Button
                 variant='contained'
                 color='success'
@@ -235,7 +272,7 @@ export default function ChoicesDash(props) {
                 tabValueLink: 0,
                 valueLink: "",
               }}>
-              <Chip color='info' label='3' sx={{ mr: 1.5 }}></Chip>
+              <Chip color='info' label='4' sx={{ mr: 1.5 }}></Chip>
               <Button
                 variant='contained'
                 color='success'
@@ -271,6 +308,7 @@ export default function ChoicesDash(props) {
           <IconButton disabled={!selectedTeams[0]?.id} onClick={clearFilters}>
             <DeleteIcon />
           </IconButton>
+
           {/* </Tooltip> */}
           {/* <Button
             variant='outlined'

@@ -1,9 +1,20 @@
 import * as React from "react";
-import { Typography, Paper, Tooltip, Stack, Box, Fade } from "@mui/material";
+import {
+  Typography,
+  Paper,
+  Tooltip,
+  Stack,
+  Box,
+  Fade,
+  AppBar,
+  Toolbar,
+} from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
+import DateChosenDash from "../DateChosenDash";
 
 import jordanGif from "../../static/jordan.gif";
 import { useParams } from "react-router-dom";
+
 import dayjs from "dayjs";
 
 //const project = projects[0];
@@ -11,29 +22,52 @@ export default function NoHighlights(props) {
   const { date } = useParams();
   return (
     <>
-      <Paper sx={{ mt: 1, textAlign: "center", overflow: "hidden" }}>
+      <Paper sx={{ mt: 2, textAlign: "center", overflow: "hidden" }}>
         {!props.isPlay ? (
           <>
-            {date !== dayjs().format("YYYY-MM-DD").toString() && (
-              <>
-                <br></br>
-                <br></br>
-                <br></br>
-              </>
-            )}
-            <Fade in={true}>
-              <img src={jordanGif}></img>
-            </Fade>
-            <Stack
-              direction={"column"}
-              sx={{ alignItems: "center", justifyContent: "center" }}>
+            {/* <AppBar position='static' sx={{ borderRadius: 1 }}>
+              <Toolbar sx={{ justifyContent: "center" }}>
+                {" "} */}
+            {/* <Paper elevation={5}>
               <Typography variant='h5' padding={1}>
                 No games found
-              </Typography>
+              </Typography> */}
 
-              <Typography variant='body1' color={"text.secondary"} padding={1}>
-                {date}
-              </Typography>
+            <Fade in={true} timeout={600}>
+              <div>
+                {!props.isGameSelect && (
+                  <DateChosenDash gamesFound={0} isDate={true} date={date} />
+                )}
+                <img src={jordanGif}></img>
+              </div>
+            </Fade>
+
+            {date !== dayjs().format("YYYY-MM-DD").toString() &&
+              !props.isGameSelect && (
+                <>
+                  {/* <br></br>
+                  <br></br> */}
+                </>
+              )}
+            {/* </Toolbar>
+            </AppBar> */}
+
+            <Stack
+              direction={"row"}
+              sx={{ alignItems: "center", justifyContent: "center" }}>
+              {props.isGameSelect && (
+                <>
+                  <Tooltip title=''>
+                    <InfoIcon color='warning' />
+                  </Tooltip>
+                  <Typography
+                    variant='body1'
+                    color={"text.secondary"}
+                    padding={1}>
+                    No results
+                  </Typography>
+                </>
+              )}
             </Stack>
           </>
         ) : (

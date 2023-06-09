@@ -8,6 +8,7 @@ import {
   Fade,
   Tooltip,
   Alert,
+  Box,
 } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
@@ -48,6 +49,14 @@ export default function TeamGameList(props) {
   }, [props.selectedSeasonsParent]);
 
   React.useEffect(() => {
+    if (
+      props.gameList.filter(
+        (game) => game.season_str === seasonsList[currentSeason]
+      ).length === 0
+    ) {
+      console.log("zero");
+    }
+
     setCurrentSeasonGames(
       props.gameList.filter(
         (game) => game.season_str === seasonsList[currentSeason]
@@ -76,7 +85,7 @@ export default function TeamGameList(props) {
   );
   return (
     <>
-      <Fade in={true}>
+      <Fade in={true} timeout={800}>
         <AppBar position='static' sx={{ borderRadius: 1 }}>
           <Toolbar sx={{ justifyContent: "right" }}>
             <Stack
@@ -107,7 +116,19 @@ export default function TeamGameList(props) {
         </AppBar>
       </Fade>
       {/* <Box sx={{ maxHeight: "70vh", overflow: "auto" }}> */}
-
+      {currentSeasonGames.length === 0 && (
+        <>
+          <Stack
+            direction='row'
+            spacing={1}
+            sx={{ alignItems: "center", padding: 1, ml: "30%" }}>
+            <Tooltip>
+              <InfoIcon />
+            </Tooltip>
+            <Typography>No results this season</Typography>
+          </Stack>
+        </>
+      )}
       <GameList2 gameList={currentSeasonGames} date={""} showDate={true} />
       {/* </Box> */}
     </>

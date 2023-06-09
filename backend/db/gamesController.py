@@ -1,6 +1,8 @@
 from json import dumps
 from time import perf_counter
 
+from db.get_database import get_db_client_connection
+
 def get_games_db(client):
     db = client['SeasonsV2']
     collection = db['Games']
@@ -11,12 +13,12 @@ def get_game_by_id_db(game_id: str, client):
     collection = db['Games']
     return collection.find_one({'game_id': game_id}, projection={"_id": False})
 
-"""
-Query Games Collection for given date
-Returns tuple of all games that day
-
-"""
 def get_games_on_date_db(date: str, client) -> list:
+    """
+    Query Games Collection for given date\n
+    Returns tuple of all games that day
+
+    """
     # Connect to Games Colelction
     start = perf_counter()
     #client = get_db()
@@ -31,7 +33,7 @@ def get_games_on_date_db(date: str, client) -> list:
     print(f"Execution time for Query: {end - start:.6f} seconds\n")
     return game_list
 
-def get_games_by_team_db(team_id: str, client, seasons=[]) -> list:
+def get_games_by_team_db(team_id: str, client, game_type: str, seasons=[]) -> list:
     start = perf_counter()
     print(f"Getting games by team | {team_id} |")
     collection = get_games_db(client=client)
@@ -40,17 +42,18 @@ def get_games_by_team_db(team_id: str, client, seasons=[]) -> list:
                      {'away_info.TEAM_ID': team_id}]}
     
     results = collection.find(query, projection={"_id": False}).hint(index_name).sort("date", -1)
-    games = []
-    for res in results:
-        if seasons == []:
-            games.append(res)
-        elif res['season_str'] in seasons:
-            games.append(res)
+    # games = []
+    # for res in results:
+    #     if seasons == []:
+    #         games.append(res)
+    #     elif res['season_str'] in seasons:
+    #         games.append(res)
+    games = get_games_by_options(results=results,game_type=game_type, seasons=seasons)
     end = perf_counter()
     print(f'Execution Time for Games by team: {end-start} | {team_id}')
     return games
 
-def get_games_by_matchup_db(team_ids: list, client, seasons=[]):
+def get_games_by_matchup_db(team_ids: list, client, game_type: str, seasons=[]):
     collection = get_games_db(client=client)
     # home id=teamid[0] & away id=teamid[1] 
     # OR
@@ -63,12 +66,77 @@ def get_games_by_matchup_db(team_ids: list, client, seasons=[]):
     }
 
     results = collection.find(query, projection={"_id": False}).sort('date', -1)   
-    games=[]
+    # games=[]
+    games = get_games_by_options(results=results, game_type=game_type, seasons=seasons)
+    return games
+    # for result in results:
+    #     # no specific season requested
+    #     if seasons == []:
+    #         # if game_type is playoffs
+    #         # return only games that have a playoff flag of 1
+    #         if game_type == 'playoffs' and result['playoff_flag'] == 1:
+    #             games.append(result)
+    #             continue
+    #         # if game type is regular season
+    #         # only return games that have a playoff flag of 0
+    #         if game_type == 'regular season' and result['playoff_flag'] == 0:
+    #             games.append(result)
+    #             continue
+    #         games.append(result)
+    #     # only return games from one of requested seasons
+    #     elif result['season_str'] in  seasons:
+    #         if game_type == 'playoffs' and result['playoff_flag'] == 1:
+    #             games.append(result)
+    #             continue
+    #         if game_type == 'regular season' and result['playoff_flag'] == 0:
+    #             games.append(result)
+    #             continue
+    #         games.append(result)
+    # return games
+ 
+
+def get_games_by_options(results: list, game_type: str, seasons: list) -> list:
+    """
+    Loops through results and filters them down by requirements\n
+
+    *Could remove this logic w/ better mongo queries but this works for now*
+    """
+    games = []
     for result in results:
+        # no specific season requested
         if seasons == []:
-            games.append(result)
+            # '' means all games, append and continue
+            if game_type == '':
+                games.append(result)
+                continue
+            # if game_type is playoffs
+            # return only games that have a playoff flag of 1
+            if game_type == 'playoffs' and result['playoff_flag'] == 1:
+                games.append(result)
+                continue
+            # if game type is regular season
+            # only return games that have a playoff flag of 0
+            elif game_type == 'regular season' and result['playoff_flag'] == 0:
+                games.append(result)
+                continue
+            # no requirements, append game
+            else:
+                games.append(result)
+
+        # only return games from one of requested seasons
         elif result['season_str'] in  seasons:
-            games.append(result)
+            # same logic as above
+            if game_type == '':
+                games.append(result)
+                continue
+            if game_type == 'playoffs' and result['playoff_flag'] == 1:
+                games.append(result)
+                print("I'm still here dog")
+                continue
+            elif game_type == 'regular season' and result['playoff_flag'] == 0:
+                games.append(result)
+                continue
+           
     return games
 
 def update_game_view_count_db(game_id: str, client):
@@ -89,8 +157,25 @@ def get_games_by_season(season: str, client) -> list:
         games.append(result)
     return games
 
-# if __name__ == '__main__':
-#     client = get_db()
+
+# one time function to add playoff_flags to regular season games set to 0
+def add_playoff_flag_to_non_playoff_games(client):
+    collection = get_games_db(client=client)
+    results = collection.find(projection={"_id": False})
+    for result in results:
+        id = result['game_id']
+        # throws error if it doesn't have playoff flag
+        try:
+            flag_test = result['playoff_flag']
+            print(result['away_info']['MATCHUP'])
+        except:
+            print(f"updating {id} playoff flag")
+            collection.update_one({'game_id': id}, {'$set': {'playoff_flag': 0}})
+
+
+if __name__ == '__main__':
+    client = get_db_client_connection()
+    add_playoff_flag_to_non_playoff_games(client=client)
 
 
 

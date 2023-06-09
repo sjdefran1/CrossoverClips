@@ -21,7 +21,11 @@ export default function DateChosenDash(props) {
             <Chip
               variant='outlined'
               color='info'
-              label={"Season: " + props.season}
+              label={
+                !props.isDate
+                  ? "Season: " + props.season
+                  : "Date: " + props.date
+              }
               sx={{ my: 1 }}
             />
           </Stack>

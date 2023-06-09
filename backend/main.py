@@ -51,6 +51,7 @@ async def get_all_teams_controller():
     """
     return get_teams(client=client)
 
+
 @app.post("/gamesByTeam")
 async def get_all_games_by_team(data: TeamSearch):
     """
@@ -59,11 +60,18 @@ async def get_all_games_by_team(data: TeamSearch):
     If two selected query all games where they play eachother
     """
     if data.teams[1] is None:
-        games = get_games_by_team_db(team_id=data.teams[0]['id'], client=client, seasons=data.seasons)
+        games = get_games_by_team_db(team_id=data.teams[0]['id'], client=client, seasons=data.seasons, game_type=data.game_type)
     else:
         ids = [data.teams[0]['id'], data.teams[1]['id']]
-        games = get_games_by_matchup_db(team_ids=ids, client=client, seasons=data.seasons)
-    return JSONResponse(content=games)
+        games = get_games_by_matchup_db(team_ids=ids, client=client, seasons=data.seasons, game_type=data.game_type)
+    
+    # if no games found
+    if games == []:
+        return "no games"
+    else:
+        return JSONResponse(content=games)
+    
+   # return JSONResponse(content=games)
 
 @app.post("/date")
 async def get_games_on_date_controller(data: DateStr):

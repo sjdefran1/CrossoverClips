@@ -7,7 +7,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 // kimport { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 // import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
-import { keyframes } from "@mui/material";
+import { Typography, keyframes } from "@mui/material";
 
 import axios from "axios";
 import {
@@ -271,7 +271,12 @@ export default function Main(props) {
                             getGamesAxios(newValue);
                           }}
                         /> */}
-
+                        {tabValue === 1 && gamesLoading && (
+                          <Box sx={{ width: "100%" }}>
+                            {/* <CircularProgress /> */}
+                            <LinearProgress color='success' />
+                          </Box>
+                        )}
                         <StaticDatePicker
                           orientation='landscape'
                           openTo='day'
@@ -315,6 +320,8 @@ export default function Main(props) {
                     updateSelectedTeams={getSelectedTeams}
                     updateSelectedSeasons={getSelectedSeasons}
                     updateGameList={setResponseData}
+                    updateNoGames={setNoGames}
+                    updateShouldRender={setShouldRender}
                     updateGamesLoading={setGamesLoading}
                     setResponseData={setResponseData}
                   />
@@ -419,12 +426,7 @@ export default function Main(props) {
                     </>
                   )}
                   {/* Games on today, some have become available/all */}
-                  {tabValue === 1 && gamesLoading && (
-                    <Box sx={{ width: "100%" }}>
-                      {/* <CircularProgress /> */}
-                      <LinearProgress color='success' />
-                    </Box>
-                  )}
+
                   {shouldRender && tabValue === 1 && (
                     <>
                       {dayjs(value).format("YYYY-MM-DD") ===
@@ -436,11 +438,17 @@ export default function Main(props) {
                         </Alert>
                       )}
                       <Box sx={{ width: "100%", mt: 2 }}>
-                        <DateChosenDash
-                          date={dayjs(value).format("MM-DD-YYYY").toString()}
-                          gamesFound={responseData.length}
-                          season={responseData[0].season_str}
-                        />
+                        <Fade in={true} timeout={600}>
+                          <div>
+                            <DateChosenDash
+                              date={dayjs(value)
+                                .format("MM-DD-YYYY")
+                                .toString()}
+                              gamesFound={responseData.length}
+                              season={responseData[0].season_str}
+                            />
+                          </div>
+                        </Fade>
                       </Box>
                       <GameList2
                         gameList={responseData}
@@ -449,11 +457,21 @@ export default function Main(props) {
                       />
                     </>
                   )}
+
+                  {noGames && tabValue === 0 && shouldRender && (
+                    <>
+                      <NoHighlights isPlay={false} isGameSelect={true} />
+                    </>
+                  )}
                 </Grid>
               </Grid>
             </Grid>
           </Paper>
         </Container>
+
+        {/* <a href='/howto'>
+          <Typography>Hello</Typography>
+        </a> */}
         <NbaFooter />
       </Container>
     </>
