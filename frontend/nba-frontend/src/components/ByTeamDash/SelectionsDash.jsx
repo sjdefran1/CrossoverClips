@@ -158,6 +158,42 @@ export default function SelectionsDash(props) {
                 ))}
             </Grid>
           </Stack>
+
+          {/* We have returned games, but not games in every season, display returned seasons */}
+          <Stack direction={"row"} alignItems={"center"}>
+            {props?.returnedSeasonsList?.length > 0 &&
+              props?.returnedSeasonsList?.length !==
+                seasonsSelected?.length && (
+                <Typography variant='body2' color={"text.secondary"}>
+                  Seasons Found:
+                </Typography>
+              )}
+
+            {props?.returnedSeasonsList?.length === 0 && (
+              <>
+                <Typography variant='body2' color={"text.secondary"}>
+                  Returned Seasons:
+                </Typography>
+                <Chip label='None' sx={{ mx: 0.5, my: 0.5 }} />
+              </>
+            )}
+
+            {props?.returnedSeasonsList?.length > 0 &&
+              props?.returnedSeasonsList?.length !== seasonsSelected?.length &&
+              props?.returnedSeasonsList?.map((season) => (
+                <>
+                  <React.Fragment key={season}>
+                    <Grow in timeout={600}>
+                      <Chip
+                        label={season}
+                        color='info'
+                        sx={{ mx: 0.5, my: 0.5 }}
+                      />
+                    </Grow>
+                  </React.Fragment>
+                </>
+              ))}
+          </Stack>
         </Box>
       </Stack>
     </>

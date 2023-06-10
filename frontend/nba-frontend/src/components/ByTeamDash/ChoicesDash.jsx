@@ -124,6 +124,8 @@ export default function ChoicesDash(props) {
     setMaxSelected(false);
     props.setResponseData([]);
     setHasClickedSubmit(false);
+    props.updateShouldRender(false);
+
     setGameList([]);
     // handleChange("panel1");
     setExpanded("panel1");

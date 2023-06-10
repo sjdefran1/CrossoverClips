@@ -346,6 +346,7 @@ export default function Main(props) {
                     <SelectionsDash
                       selectedTeamsParent={selectedTeams}
                       selectedSeasonsParent={selectedSeasons}
+                      returnedSeasonsList={responseData?.seasons_list}
                     />
                     // <SelectionsDash
                     //   selectedTeamsParent={

@@ -10,20 +10,41 @@ import {
   Divider,
   Link,
   ListItemText,
+  Typography,
+  Button,
 } from "@mui/material";
 import PlaySecondary from "./PlaySecondary";
+
+import axios from "axios";
+import fileDownload from "js-file-download";
+
+const handleDownload = (url, filename) => {
+  console.log("fired");
+  axios
+    .get(url, {
+      responseType: "blob",
+    })
+    .then((res) => {
+      fileDownload(res.data, filename);
+    });
+};
 
 //const project = projects[0];
 export default function SinglePlay(props) {
   return (
     <>
+      <Divider />
+
       <Fade in={true}>
         <Stack sx={{ justifyContent: "center" }}>
+          {/* {console.log(props.play.url.split("/")[11])} */}
           <Link
             target='_blank'
             rel='noreferrer'
             href={props.play.url}
-            sx={{ textDecoration: "none" }}>
+            sx={{
+              textDecoration: "none",
+            }}>
             <List>
               <ListItem disablePadding>
                 <ListItemButton>
@@ -64,6 +85,7 @@ export default function SinglePlay(props) {
                     }
                     sx={{ textAlign: "center" }}
                   />
+
                   {props.players_length > 0 && (
                     <ListItemIcon>
                       <Avatar
@@ -77,6 +99,7 @@ export default function SinglePlay(props) {
                     </ListItemIcon>
                   )}
                 </ListItemButton>
+
                 {/* {showHighlightPreview && (
                 <Menu
                   anchorEl={anchorEl}
@@ -103,7 +126,18 @@ export default function SinglePlay(props) {
             View Highlight Preview
           </Button>
         )} */}
-          <Divider />
+          {/* <Divider /> */}
+
+          {/* <Divider /> */}
+          <Button
+            color='info'
+            size='small'
+            sx={{ justifyContent: "center" }}
+            onClick={() => {
+              handleDownload(props.play.url, props.play.url.split("/")[11]);
+            }}>
+            Download
+          </Button>
         </Stack>
       </Fade>
     </>

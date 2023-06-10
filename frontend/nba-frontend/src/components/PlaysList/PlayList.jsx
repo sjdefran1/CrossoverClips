@@ -20,11 +20,10 @@ export default function PlayList(props) {
   //   };
   return (
     <>
-      <Hidden mdUp>
-        <Alert severity='info' sx={{ justifyContent: "center" }}>
-          On Desktop, you can download clips straight to your device
-        </Alert>
-      </Hidden>
+      <Alert severity='info' sx={{ justifyContent: "center" }}>
+        Click the blue download button to directly save to your device
+      </Alert>
+
       {props.playByPlay.plays
         .filter((play) => play.quarter === props.currentQuarter)
         .map((play) => play).length === 0 && <NoHighlights isPlay={true} />}
