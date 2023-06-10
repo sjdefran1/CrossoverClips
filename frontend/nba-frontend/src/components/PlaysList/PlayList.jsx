@@ -1,10 +1,18 @@
 import * as React from "react";
 import NoHighlights from "./NoHighlights";
 import SinglePlay from "./SinglePlay";
-import { Alert, Hidden } from "@mui/material";
+import { Alert, Hidden, Button } from "@mui/material";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 //const project = projects[0];
 export default function PlayList(props) {
+  const navigate = useNavigate();
+
+  const linkToNeedHelp = () => {
+    navigate("/downloadHelp");
+  };
+
   //   const [anchorEl, setAnchorEl] = React.useState(null);
   //   const [showHighlightPreview, setShowHighlightPreview] = React.useState(false);
 
@@ -21,7 +29,11 @@ export default function PlayList(props) {
   return (
     <>
       <Alert severity='info' sx={{ justifyContent: "center" }}>
-        Click the blue download button to directly save to your device
+        Click the blue download button to directly save to your device, having
+        issues?
+        <Button onClick={() => linkToNeedHelp()} size='small' color='success'>
+          Click here
+        </Button>
       </Alert>
 
       {props.playByPlay.plays

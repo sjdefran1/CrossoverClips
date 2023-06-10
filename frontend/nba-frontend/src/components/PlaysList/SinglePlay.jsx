@@ -14,18 +14,23 @@ import {
   Button,
 } from "@mui/material";
 import PlaySecondary from "./PlaySecondary";
+import { reqString } from "../../App";
 
 import axios from "axios";
 import fileDownload from "js-file-download";
 
-const handleDownload = (url, filename) => {
+const handleDownload = (givenUrl) => {
   console.log("fired");
+  let fileName = givenUrl.split("/")[11];
+  let data = {
+    url: givenUrl,
+  };
   axios
-    .get(url, {
+    .post(reqString + "downloadClip", data, {
       responseType: "blob",
     })
     .then((res) => {
-      fileDownload(res.data, filename);
+      fileDownload(res.data, fileName);
     });
 };
 

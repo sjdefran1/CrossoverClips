@@ -5,14 +5,15 @@ Backend server
 # fast api
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
+import requests
 
 # my scripts
 from db.gamesController import get_game_by_id_db, get_games_on_date_db, get_games_by_team_db, get_games_by_matchup_db, update_game_view_count_db
 from db.get_database import get_db_client_connection
 from db.teamsController import get_teams
 from db.playByPlayController import get_playByPlay_db
-from requestModels import DateStr, PlayByPlayStr, TeamSearch, ViewCount
+from requestModels import DateStr, PlayByPlayStr, TeamSearch, UrlStr, ViewCount
 from api_helpers import fix_date_db
 
 
@@ -113,7 +114,25 @@ async def get_game_by_id(data: ViewCount):
     """
     game = get_game_by_id_db(data.gameID, client=client)
     return JSONResponse(content=game)
+
+@app.post('/downloadClip')
+async def download_and_return_clip_from_url(data: UrlStr):
+
+    response = requests.get(data.url, stream=True)
+    response.raise_for_status()
+
+    # Set the response type to 'blob'
+    response.raw.decode_content = True
+
+    # Get the blob content
+    blob = response.content
+
+    # Create a FastAPI Response with the blob as content
+    return Response(content=blob, media_type="blob")
+    
+
 # --------------------------------------------------------
+
 
 if __name__ == "__main__":
     import uvicorn

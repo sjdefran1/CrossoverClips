@@ -28,3 +28,6 @@ class TeamSearch(BaseModel):
 
 class ViewCount(BaseModel):
     gameID: str # '0' should probably just be an interger (fix)
+
+class UrlStr(BaseModel):
+    url: str
