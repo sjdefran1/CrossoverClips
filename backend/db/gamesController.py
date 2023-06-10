@@ -64,35 +64,12 @@ def get_games_by_matchup_db(team_ids: list, client, game_type: str, seasons=[]):
         {"home_info.TEAM_ID": team_ids[1], "away_info.TEAM_ID": team_ids[0]}
         ]
     }
+    
 
     results = collection.find(query, projection={"_id": False}).sort('date', -1)   
     # games=[]
     games = get_games_by_options(results=results, game_type=game_type, seasons=seasons)
     return games
-    # for result in results:
-    #     # no specific season requested
-    #     if seasons == []:
-    #         # if game_type is playoffs
-    #         # return only games that have a playoff flag of 1
-    #         if game_type == 'playoffs' and result['playoff_flag'] == 1:
-    #             games.append(result)
-    #             continue
-    #         # if game type is regular season
-    #         # only return games that have a playoff flag of 0
-    #         if game_type == 'regular season' and result['playoff_flag'] == 0:
-    #             games.append(result)
-    #             continue
-    #         games.append(result)
-    #     # only return games from one of requested seasons
-    #     elif result['season_str'] in  seasons:
-    #         if game_type == 'playoffs' and result['playoff_flag'] == 1:
-    #             games.append(result)
-    #             continue
-    #         if game_type == 'regular season' and result['playoff_flag'] == 0:
-    #             games.append(result)
-    #             continue
-    #         games.append(result)
-    # return games
  
 
 def get_games_by_options(results: list, game_type: str, seasons: list) -> list:
@@ -101,43 +78,61 @@ def get_games_by_options(results: list, game_type: str, seasons: list) -> list:
 
     *Could remove this logic w/ better mongo queries but this works for now*
     """
+    seasons_dict = {}
+    for season in seasons:
+        seasons_dict[season] = []
+
     games = []
     for result in results:
-        # no specific season requested
-        if seasons == []:
-            # '' means all games, append and continue
-            if game_type == '':
-                games.append(result)
-                continue
-            # if game_type is playoffs
-            # return only games that have a playoff flag of 1
-            if game_type == 'playoffs' and result['playoff_flag'] == 1:
-                games.append(result)
-                continue
-            # if game type is regular season
-            # only return games that have a playoff flag of 0
-            elif game_type == 'regular season' and result['playoff_flag'] == 0:
-                games.append(result)
-                continue
-            # no requirements, append game
-            else:
-                games.append(result)
+        # # no specific season requested
+        # if seasons == []:
+        #     # '' means all games, append and continue
+        #     if game_type == '':
+        #         seasons_dict[result['season_str']]
+        #         #games.append(result)
+        #         continue
+        #     # if game_type is playoffs
+        #     # return only games that have a playoff flag of 1
+        #     if game_type == 'playoffs' and result['playoff_flag'] == 1:
+        #         games.append(result)
+        #         continue
+        #     # if game type is regular season
+        #     # only return games that have a playoff flag of 0
+        #     elif game_type == 'regular season' and result['playoff_flag'] == 0:
+        #         games.append(result)
+        #         continue
+        #     # no requirements, append game
+        #     else:
+        #         games.append(result)
 
         # only return games from one of requested seasons
-        elif result['season_str'] in  seasons:
-            # same logic as above
+        games_season_str = result['season_str']
+        if games_season_str in seasons:
+             # '' means all games, append and continue
             if game_type == '':
-                games.append(result)
+                seasons_dict[games_season_str].append(result)
                 continue
             if game_type == 'playoffs' and result['playoff_flag'] == 1:
-                games.append(result)
-                print("I'm still here dog")
+                seasons_dict[games_season_str].append(result)
                 continue
             elif game_type == 'regular season' and result['playoff_flag'] == 0:
-                games.append(result)
+                seasons_dict[games_season_str].append(result)
                 continue
-           
-    return games
+        
+        # append to dict at result['season']
+    # print(dumps(seasons_dict, indent=1))
+
+    # new dictionary to remove empty seasons
+    # this applies when the search is a matchup between 2 teams
+    # in the playoffs, this makes it so empty seasons are remove
+    final_seasons_returned_dict = {}
+    seasons_returned_list = []
+    for season in seasons:
+        if len(seasons_dict[season]) != 0:
+            seasons_returned_list.append(season)
+            final_seasons_returned_dict[season] = seasons_dict[season]
+    # print(dumps(final_seasons_returned_dict, indent=1))
+    return {'games_dict': final_seasons_returned_dict, 'seasons_list': seasons_returned_list}
 
 def update_game_view_count_db(game_id: str, client):
     collection = get_games_db(client=client)
@@ -173,9 +168,9 @@ def add_playoff_flag_to_non_playoff_games(client):
             collection.update_one({'game_id': id}, {'$set': {'playoff_flag': 0}})
 
 
-if __name__ == '__main__':
-    client = get_db_client_connection()
-    add_playoff_flag_to_non_playoff_games(client=client)
+# if __name__ == '__main__':
+#     client = get_db_client_connection()
+#     add_playoff_flag_to_non_playoff_games(client=client)
 
 
 

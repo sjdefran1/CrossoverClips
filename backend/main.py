@@ -66,7 +66,7 @@ async def get_all_games_by_team(data: TeamSearch):
         games = get_games_by_matchup_db(team_ids=ids, client=client, seasons=data.seasons, game_type=data.game_type)
     
     # if no games found
-    if games == []:
+    if games['seasons_list'] == []:
         return "no games"
     else:
         return JSONResponse(content=games)
