@@ -48,7 +48,7 @@ export default function GameList2(props) {
             {/* Check if game is over */}
             {game.away_info.WL === null ? (
               <React.Fragment key={game.game_id}>
-                <Fade in={true} timeout={800}>
+                <Fade in={true} timeout={600}>
                   <Paper
                     variant='outlined'
                     sx={{
@@ -99,7 +99,7 @@ export default function GameList2(props) {
                   onClick={() => updateViewCount(game.game_id)}
                   state={{ game_link: game }}
                   style={{ textDecoration: "none" }}>
-                  <Fade in={true} timeout={800}>
+                  <Fade in={true} timeout={600}>
                     <Paper
                       variant='outlined'
                       sx={{
@@ -146,7 +146,7 @@ export default function GameList2(props) {
                           <Divider sx={{ my: 0.5 }} />
                         </>
                       )}
-                      <Fade in={true} timeout={800}>
+                      <Fade in={true} timeout={600}>
                         <Stack direction={"row"}>
                           <Stack
                             direction='column'

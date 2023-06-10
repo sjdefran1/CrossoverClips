@@ -46,6 +46,7 @@ export default function ChoicesDash(props) {
   const [gameList, setGameList] = React.useState([]);
   const [expanded, setExpanded] = React.useState("panel1");
   const [gameType, setGameType] = React.useState("");
+  const [hasClickedSubmit, setHasClickedSubmit] = React.useState(false);
   // const [maxSelected, setMaxSelected] = React.useState(false);
 
   const [maxSelected, setMaxSelected] = React.useState(
@@ -122,6 +123,8 @@ export default function ChoicesDash(props) {
     setTeamsSelectedIDS([]);
     setMaxSelected(false);
     props.setResponseData([]);
+    setHasClickedSubmit(false);
+    setGameList([]);
     // handleChange("panel1");
     setExpanded("panel1");
   };
@@ -133,6 +136,7 @@ export default function ChoicesDash(props) {
       game_type: gameType,
     };
     props.updateGamesLoading(true);
+    setHasClickedSubmit(true);
     axios
       .post(reqString + "gamesByTeam", data)
       .then((response) => {
@@ -143,6 +147,7 @@ export default function ChoicesDash(props) {
           props.setResponseData([]);
           return;
         }
+        props.updateNoGames(false);
         setGameList(response.data);
         props.updateGamesLoading(false);
       })
@@ -219,6 +224,7 @@ export default function ChoicesDash(props) {
           </AccordionSummary>
           <AccordionDetails>
             <SeasonsSelect
+              shouldBeDisabled={hasClickedSubmit}
               seasonsSelected={seasonsSelected}
               setSeasonsSelected={setSeasonsSelected}
             />

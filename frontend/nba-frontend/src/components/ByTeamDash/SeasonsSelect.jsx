@@ -65,6 +65,7 @@ export default function SeasonsSelect(props) {
                 }
                 control={
                   <Checkbox
+                    // disabled={props.shouldBeDisabled}
                     key={season}
                     checked={props.seasonsSelected.includes(season)}
                     icon={<CircleOutlined />}

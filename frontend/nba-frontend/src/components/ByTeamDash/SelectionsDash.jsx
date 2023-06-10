@@ -144,7 +144,7 @@ export default function SelectionsDash(props) {
               <Chip label='Any' sx={{ mx: 0.5, my: 0.5 }} />
             )}
             <Grid item xs={12}>
-              {seasonsSelected.length !== 8 &&
+              {seasonsSelected?.length !== 8 &&
                 seasonsSelected?.map((season) => (
                   <React.Fragment key={season}>
                     <Grow in timeout={600}>

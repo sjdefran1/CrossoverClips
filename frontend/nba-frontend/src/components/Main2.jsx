@@ -33,6 +33,7 @@ import Paper from "@mui/material/Paper";
 import ChoicesDash from "./ByTeamDash/ChoicesDash";
 import SelectionsDash from "./ByTeamDash/SelectionsDash";
 import TeamGameList from "./ByTeamDash/TeamGameList";
+import TeamGameList2 from "./ByTeamDash/TeamGameList2";
 import NoHighlights from "./PlaysList/NoHighlights.jsx";
 import trophyGif from "../static/trophy.gif";
 // import headerBG from "../static/header.gif";
@@ -140,8 +141,14 @@ export default function Main(props) {
 
     //this.setState({ selectedTeams: teamsArr, responseData: [] });
   };
+  // const getSelectedSeasons = React.useCallback((seasonsArr) => {
 
+  // }, [responseData])
   const getSelectedSeasons = (seasonsArr) => {
+    // if (responseData?.seasons_list != seasonsArr) {
+    //   setSelectedSeasons(responseData?.seasons_list);
+    //   return;
+    // }
     setSelectedSeasons(seasonsArr);
     setResponseData([]);
     //this.setState({ selectedSeasons: seasonsArr, responseData: [] });
@@ -395,12 +402,16 @@ export default function Main(props) {
                       </Stack>
                     )}
                   </Hidden>
-                  {tabValue === 0 && responseData?.length > 0 && (
+                  {tabValue === 0 && responseData?.seasons_list?.length > 0 && (
                     <>
                       <Divider sx={{ my: 1, mx: 0 }} />
-                      <TeamGameList
+                      {/* <TeamGameList
                         selectedSeasonsParent={selectedSeasons}
                         gameList={responseData}
+                      /> */}
+                      <TeamGameList2
+                        seasonsList={responseData.seasons_list}
+                        gameList={responseData.games_dict}
                       />
 
                       {/* <GameList2
