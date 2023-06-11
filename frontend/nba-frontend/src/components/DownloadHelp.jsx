@@ -236,7 +236,7 @@ export default function DownloadHelp(props) {
                   sx={{ alignItems: "center", mx: 2, my: 1 }}>
                   <Chip label='3' size='small' />
                   <Typography variant='body2'>
-                    Click the three dots in lower right corner > Download
+                    {"Click the three dots in lower right corner > Download"}
                   </Typography>
                 </Stack>
 
