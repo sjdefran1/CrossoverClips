@@ -13,6 +13,8 @@ import {
   Paper,
   Checkbox,
   FormControlLabel,
+  Hidden,
+  Divider,
 } from "@mui/material";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import CircleIcon from "@mui/icons-material/Circle";
@@ -72,32 +74,50 @@ export default function PlayerFilter(props) {
             maxWidth: "100%",
           }}>
           <AppBar position='static' sx={{ borderRadius: 1, minWidth: "100%" }}>
-            <Toolbar sx={{ justifyContent: "center" }}>
-              <Stack direction='row' spacing={20}>
-                <IconButton onClick={() => handleTeamSelect(teamIDs[0])}>
-                  <Avatar
-                    src={
-                      "https://cdn.nba.com/logos/nba/" +
-                      teamIDs[0] +
-                      "/primary/L/logo.svg"
-                    }
-                  />
-                </IconButton>
-                <IconButton onClick={() => handleTeamSelect(teamIDs[1])}>
-                  <Avatar
-                    src={
-                      "https://cdn.nba.com/logos/nba/" +
-                      teamIDs[1] +
-                      "/primary/L/logo.svg"
-                    }
-                  />
-                </IconButton>
-              </Stack>
-            </Toolbar>
+            <Hidden smDown>
+              <Toolbar sx={{ justifyContent: "center" }}>
+                <Stack direction='row' spacing={20}>
+                  <IconButton onClick={() => handleTeamSelect(teamIDs[0])}>
+                    <Avatar
+                      src={
+                        "https://cdn.nba.com/logos/nba/" +
+                        teamIDs[0] +
+                        "/primary/L/logo.svg"
+                      }
+                    />
+                  </IconButton>
+                  <IconButton onClick={() => handleTeamSelect(teamIDs[1])}>
+                    <Avatar
+                      src={
+                        "https://cdn.nba.com/logos/nba/" +
+                        teamIDs[1] +
+                        "/primary/L/logo.svg"
+                      }
+                    />
+                  </IconButton>
+                </Stack>
+              </Toolbar>
+            </Hidden>
           </AppBar>
           <Container>
             <Grid container>
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
+                <Hidden smUp>
+                  <Divider sx={{}} />
+                  <Box mx={"35%"}>
+                    <IconButton onClick={() => handleTeamSelect(teamIDs[0])}>
+                      <Avatar
+                        src={
+                          "https://cdn.nba.com/logos/nba/" +
+                          teamIDs[0] +
+                          "/primary/L/logo.svg"
+                        }
+                      />
+                    </IconButton>
+                  </Box>
+
+                  <Divider sx={{ mb: 1 }} />
+                </Hidden>
                 <Stack
                   direction='column'
                   spacing={1}
@@ -146,7 +166,25 @@ export default function PlayerFilter(props) {
                       ))}
                 </Stack>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
+                <Hidden smUp>
+                  <Divider sx={{ mt: 1 }} />
+                  <Box mx={"35%"}>
+                    <IconButton
+                      onClick={() => handleTeamSelect(teamIDs[1])}
+                      sx={{ justifyContent: "center" }}>
+                      <Avatar
+                        src={
+                          "https://cdn.nba.com/logos/nba/" +
+                          teamIDs[1] +
+                          "/primary/L/logo.svg"
+                        }
+                      />
+                    </IconButton>
+                  </Box>
+
+                  <Divider sx={{ mb: 1 }} />
+                </Hidden>
                 <Stack
                   direction='column'
                   spacing={1}

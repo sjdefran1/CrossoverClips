@@ -1,7 +1,7 @@
 {
   "name": "nba-frontend",
   "version": "0.1.0",
-  "homepage": "https://sjdefran1.github.io/highlight_maker/",
+  "homepage": "https://crossoverclips.com",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.6",

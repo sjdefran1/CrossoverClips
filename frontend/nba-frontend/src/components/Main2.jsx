@@ -22,6 +22,7 @@ import {
   Divider,
   Fade,
   Alert,
+  Button,
   Hidden,
   // Avatar,
   LinearProgress,
@@ -89,6 +90,9 @@ export default function Main(props) {
           valueLink: dayjs().format("YYYY-MM-DD"),
         },
       });
+    }
+    if (newVal === 2) {
+      navigate("/downloadHelp");
     }
   };
 
@@ -218,10 +222,14 @@ export default function Main(props) {
                       centered
                       value={tabValue}
                       onChange={handleTabChange}
+                      // variant='scrollable'
+                      // scrollButtons='auto'
                       aria-label='Filters or Game Stats'>
                       <Tab label='Choose By Team' tabIndex={0} />
                       {/* <Link> */}
                       <Tab label='Choose By Date' tabIndex={1} />
+
+                      {/* <Tab label='Download Help' tabIndex={2} /> */}
                       {/* </Link> */}
                     </Tabs>
                   </Box>
@@ -479,6 +487,17 @@ export default function Main(props) {
               </Grid>
             </Grid>
           </Paper>
+          <Alert
+            severity='info'
+            sx={{ alignItems: "center", justifyContent: "center" }}>
+            Want help with downloading clips?
+            <Button
+              size='small'
+              color='success'
+              onClick={() => navigate("/downloadHelp")}>
+              Click here
+            </Button>
+          </Alert>
         </Container>
 
         {/* <a href='/howto'>

@@ -12,6 +12,7 @@ import {
   ListItemText,
   Typography,
   Button,
+  LinearProgress,
 } from "@mui/material";
 import PlaySecondary from "./PlaySecondary";
 import { reqString } from "../../App";
@@ -19,23 +20,25 @@ import { reqString } from "../../App";
 import axios from "axios";
 import fileDownload from "js-file-download";
 
-const handleDownload = (givenUrl) => {
-  console.log("fired");
-  let fileName = givenUrl.split("/")[11];
-  let data = {
-    url: givenUrl,
-  };
-  axios
-    .post(reqString + "downloadClip", data, {
-      responseType: "blob",
-    })
-    .then((res) => {
-      fileDownload(res.data, fileName);
-    });
-};
-
 //const project = projects[0];
 export default function SinglePlay(props) {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const handleDownload = (givenUrl) => {
+    console.log("fired");
+    let fileName = givenUrl.split("/")[11];
+    let data = {
+      url: givenUrl,
+    };
+    setIsLoading(true);
+    axios
+      .post(reqString + "downloadClip", data, {
+        responseType: "blob",
+      })
+      .then((res) => {
+        fileDownload(res.data, fileName);
+        setIsLoading(false);
+      });
+  };
   return (
     <>
       <Divider />
@@ -51,6 +54,12 @@ export default function SinglePlay(props) {
               textDecoration: "none",
             }}>
             <List>
+              {/* user clicked download button, run untill req returns */}
+              {isLoading && (
+                <LinearProgress variant='indeterminate' color='success' />
+              )}
+
+              {/* Single Play UI */}
               <ListItem disablePadding>
                 <ListItemButton>
                   {props.players_length > 0 && (

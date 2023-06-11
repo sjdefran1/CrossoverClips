@@ -53,9 +53,6 @@ export default function ChoicesDash(props) {
     !locationState.state ? false : locationState.state.maxSelectedLink
   );
 
-  //console.log(selectedTeams);
-  // const [seasonsSelected, setSeasonsSelected] = React.useState([]);
-
   const handleTeamIds = () => {
     // coming back from clicking on game
     if (locationState.state) {
