@@ -36,23 +36,25 @@ export default function PlayList(props) {
         </Button>
       </Alert>
 
-      {props.playByPlay.plays
-        .filter((play) => play.quarter === props.currentQuarter)
-        .map((play) => play).length === 0 && <NoHighlights isPlay={true} />}
-      {props.playByPlay.plays
-        .filter((play) => play.quarter === props.currentQuarter)
-        .map((play) => (
-          <React.Fragment key={play.url}>
-            <nav aria-label='playbyplay'>
-              <SinglePlay
-                play={play}
-                // team_ids={props.playByPlay.team_ids}
-                team_ids={[props.home_teamID, props.away_teamID]}
-                players_length={props.playByPlay.players.length}
-              />
-            </nav>
-          </React.Fragment>
-        ))}
+      {props?.playByPlay &&
+        props?.playByPlay?.plays
+          .filter((play) => play.quarter === props.currentQuarter)
+          .map((play) => play).length === 0 && <NoHighlights isPlay={true} />}
+      {props?.playByPlay &&
+        props?.playByPlay?.plays
+          .filter((play) => play.quarter === props.currentQuarter)
+          .map((play) => (
+            <React.Fragment key={play.url}>
+              <nav aria-label='playbyplay'>
+                <SinglePlay
+                  play={play}
+                  // team_ids={props.playByPlay.team_ids}
+                  team_ids={[props.home_teamID, props.away_teamID]}
+                  players_length={props.playByPlay.players.length}
+                />
+              </nav>
+            </React.Fragment>
+          ))}
     </>
   );
 }

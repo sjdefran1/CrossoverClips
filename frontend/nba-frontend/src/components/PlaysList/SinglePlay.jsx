@@ -35,7 +35,7 @@ export default function SinglePlay(props) {
         responseType: "blob",
       })
       .then((res) => {
-        fileDownload(res.data, fileName);
+        fileDownload(res.data, props.play.description + ".mp4");
         setIsLoading(false);
       });
   };

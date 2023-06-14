@@ -32,6 +32,8 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import GameDash from "./GameDash";
+import jordanGif from "../../static/jordan.gif";
+
 import PlayerFilter from "./PlayerFilter";
 import NoHighlights from "../PlaysList/NoHighlights";
 import PlayList from "../PlaysList/PlayList.jsx";
@@ -56,6 +58,7 @@ export default function GameDetails(props) {
   const [tabValue, setTabValue] = React.useState(0);
   const [replacementGameLink, setReplacementGameLink] = React.useState({});
   const [replacementLoading, setReplacementLoading] = React.useState(true);
+  const [errorOnReponse, setErrorOnReponse] = React.useState(false);
   let { state } = useLocation();
 
   // const [anchorEl, setAnchorEl] = React.useState(null);
@@ -85,6 +88,10 @@ export default function GameDetails(props) {
       // .post("http://localhost:8000/playByPlay", data)
       .post(reqString + "playByPlay", data)
       .then((response) => {
+        if (response.data === null) {
+          setErrorOnReponse(true);
+          console.log("fired");
+        }
         //console.log(response.data);
         setPlayByPlay(response.data);
 
@@ -114,7 +121,7 @@ export default function GameDetails(props) {
       if (currentQuarter === 1 && val === 0) {
         return;
       }
-      if (currentQuarter === playByPlay.number_quarters && val === 1) {
+      if (currentQuarter === playByPlay?.number_quarters && val === 1) {
         return;
       }
 
@@ -125,13 +132,13 @@ export default function GameDetails(props) {
         setCurrentQuarter(currentQuarter - 1);
       }
     },
-    [currentQuarter, playByPlay.number_quarters]
+    [currentQuarter, playByPlay?.number_quarters]
   );
 
   const getFilteredPlayers = (players) => {
     setFilteredPlayers(players);
     setIsFilteredPlayers(true);
-    if (players.length === 0) {
+    if (players?.length === 0) {
       setIsFilteredPlayers(false);
     }
   };
@@ -163,15 +170,36 @@ export default function GameDetails(props) {
   // React.useEffect(() => {
   //   setTabValue(playByPlay?.players?.length > 0 ? 0 : 1);
   // }, [playByPlay]);
-  console.log(replacementGameLink);
+  // console.log(replacementGameLink);
   return (
     <>
       {/* We don't have a game_link (we didn't come from homepage)
           Our call to replace that information hasn't finished
           Once it does render component as normal    
       */}
-      {!state?.game_link && replacementLoading ? (
-        <CircularProgress />
+      {errorOnReponse && (
+        <>
+          <Paper>
+            <NbaHeader />
+          </Paper>
+          <Container maxWidth='lg'>
+            <Paper sx={{ height: "50vh", textAlign: "center" }}>
+              <Typography variant='h5' sx={{ mt: 3 }}>
+                If your seeing this screen your probably a little early, check
+                back soon, sorry!
+              </Typography>
+              <br></br>
+              <img src={jordanGif}></img>
+              <Stack direction={"row"} justifyContent={"center"} spacing={1}>
+                <InfoIcon color='error' />
+                <Typography color={"text.secondary"}>Try Refreshing</Typography>
+              </Stack>
+            </Paper>
+          </Container>
+        </>
+      )}
+      {(!state?.game_link && replacementLoading) || errorOnReponse ? (
+        <CircularProgress sx={{ ml: "50%" }} />
       ) : (
         // <p>loaded</p>
         <Container maxWidth='xl' sx={{ mt: 1 }}>
@@ -244,13 +272,13 @@ export default function GameDetails(props) {
                 Hidden on medium down because it is moved to a dropdown on mobile */}
                 <Hidden mdDown>
                   {!playsIsLoading &&
-                    playByPlay.players.length > 0 &&
+                    playByPlay?.players.length > 0 &&
                     tabValue === 0 && (
                       <>
                         <Grid item xs={12} md={8} minHeight={"50vh"}>
                           <PlayerFilter
-                            players={playByPlay.players}
-                            teamIDs={playByPlay.team_ids}
+                            players={playByPlay?.players}
+                            teamIDs={playByPlay?.team_ids}
                             currentFilterPlayers={filteredPlayers}
                             setPlayerFilter={getFilteredPlayers}
                             getStatFilter={getStatFilter}
@@ -270,7 +298,7 @@ export default function GameDetails(props) {
                 {/* Mobile filters view */}
                 <Hidden mdUp>
                   {!playsIsLoading &&
-                    playByPlay.players.length > 0 &&
+                    playByPlay?.players.length > 0 &&
                     tabValue === 0 && (
                       <>
                         {/* Accordion for Player and Stat filters */}
@@ -280,8 +308,8 @@ export default function GameDetails(props) {
                           </AccordionSummary>
                           <AccordionDetails sx={{ minWidth: "100%" }}>
                             <PlayerFilter
-                              players={playByPlay.players}
-                              teamIDs={playByPlay.team_ids}
+                              players={playByPlay?.players}
+                              teamIDs={playByPlay?.team_ids}
                               currentFilterPlayers={filteredPlayers}
                               setPlayerFilter={getFilteredPlayers}
                               getStatFilter={getStatFilter}
@@ -354,7 +382,7 @@ export default function GameDetails(props) {
                 }}>
                 {/* Loading */}
                 {/* Finished Game No Highlights from VideoDetail Yet */}
-                {!playsIsLoading && playByPlay.plays.length === 0 && (
+                {!playsIsLoading && playByPlay?.plays.length === 0 && (
                   <NoHighlights isPlay={false} />
                 )}
                 {/* Request Recieved, Render PlayList Copmonent 
