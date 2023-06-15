@@ -1,0 +1,1732 @@
+{
+ "game_id": "0022201113",
+ "players": {
+  "FGM": [
+   [
+    1610612766,
+    "Dennis Smith Jr.",
+    1628372
+   ],
+   [
+    1610612766,
+    "Bryce McGowens",
+    1631121
+   ],
+   [
+    1610612766,
+    "Theo Maledon",
+    1630177
+   ],
+   [
+    1610612766,
+    "Svi Mykhailiuk",
+    1629004
+   ],
+   [
+    1610612742,
+    "Tim Hardaway Jr.",
+    203501
+   ],
+   [
+    1610612766,
+    "P.J. Washington",
+    1629023
+   ],
+   [
+    1610612742,
+    "Jaden Hardy",
+    1630702
+   ],
+   [
+    1610612766,
+    "JT Thor",
+    1630550
+   ],
+   [
+    1610612742,
+    "Josh Green",
+    1630182
+   ],
+   [
+    1610612742,
+    "Reggie Bullock",
+    203493
+   ],
+   [
+    1610612742,
+    "Kyrie Irving",
+    202681
+   ],
+   [
+    1610612742,
+    "Luka Doncic",
+    1629029
+   ],
+   [
+    1610612742,
+    "Maxi Kleber",
+    1628467
+   ],
+   [
+    1610612766,
+    "Mark Williams",
+    1631109
+   ],
+   [
+    1610612766,
+    "Kai Jones",
+    1630539
+   ],
+   [
+    1610612766,
+    "James Bouknight",
+    1630547
+   ],
+   [
+    1610612742,
+    "Christian Wood",
+    1626174
+   ],
+   [
+    1610612766,
+    "Gordon Hayward",
+    202330
+   ]
+  ],
+  "AST": [
+   [
+    1610612766,
+    "Bryce McGowens",
+    1631121
+   ],
+   [
+    1610612766,
+    "Dennis Smith Jr.",
+    1628372
+   ],
+   [
+    1610612766,
+    "Theo Maledon",
+    1630177
+   ],
+   [
+    1610612742,
+    "Tim Hardaway Jr.",
+    203501
+   ],
+   [
+    1610612766,
+    "Svi Mykhailiuk",
+    1629004
+   ],
+   [
+    1610612766,
+    "P.J. Washington",
+    1629023
+   ],
+   [
+    1610612742,
+    "Justin Holiday",
+    203200
+   ],
+   [
+    1610612742,
+    "Jaden Hardy",
+    1630702
+   ],
+   [
+    1610612742,
+    "Kyrie Irving",
+    202681
+   ],
+   [
+    1610612742,
+    "Luka Doncic",
+    1629029
+   ],
+   [
+    1610612742,
+    "Maxi Kleber",
+    1628467
+   ],
+   [
+    1610612766,
+    "Mark Williams",
+    1631109
+   ],
+   [
+    1610612742,
+    "Christian Wood",
+    1626174
+   ],
+   [
+    1610612766,
+    "Gordon Hayward",
+    202330
+   ]
+  ],
+  "BLK": [
+   [
+    1610612742,
+    "Tim Hardaway Jr.",
+    203501
+   ],
+   [
+    1610612766,
+    "P.J. Washington",
+    1629023
+   ],
+   [
+    1610612742,
+    "Kyrie Irving",
+    202681
+   ],
+   [
+    1610612742,
+    "Luka Doncic",
+    1629029
+   ],
+   [
+    1610612742,
+    "Maxi Kleber",
+    1628467
+   ],
+   [
+    1610612766,
+    "James Bouknight",
+    1630547
+   ],
+   [
+    1610612742,
+    "Christian Wood",
+    1626174
+   ]
+  ],
+  "DUNK": [
+   [
+    1610612766,
+    "Dennis Smith Jr.",
+    1628372
+   ],
+   [
+    1610612766,
+    "Mark Williams",
+    1631109
+   ],
+   [
+    1610612766,
+    "Kai Jones",
+    1630539
+   ],
+   [
+    1610612766,
+    "P.J. Washington",
+    1629023
+   ]
+  ],
+  "STL": [
+   [
+    1610612766,
+    "Dennis Smith Jr.",
+    1628372
+   ],
+   [
+    1610612766,
+    "Theo Maledon",
+    1630177
+   ],
+   [
+    1610612766,
+    "Svi Mykhailiuk",
+    1629004
+   ],
+   [
+    1610612742,
+    "Tim Hardaway Jr.",
+    203501
+   ],
+   [
+    1610612766,
+    "P.J. Washington",
+    1629023
+   ],
+   [
+    1610612742,
+    "Jaden Hardy",
+    1630702
+   ],
+   [
+    1610612742,
+    "Josh Green",
+    1630182
+   ],
+   [
+    1610612742,
+    "Kyrie Irving",
+    202681
+   ],
+   [
+    1610612742,
+    "Luka Doncic",
+    1629029
+   ],
+   [
+    1610612742,
+    "Maxi Kleber",
+    1628467
+   ],
+   [
+    1610612766,
+    "James Bouknight",
+    1630547
+   ]
+  ]
+ },
+ "plays": {
+  "FGM": [
+   {
+    "description": "Washington 3PT Jump Shot (3 PTS) (Smith Jr. 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/8/1ab92fa6-2841-94eb-359c-999a44bd1274_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "0 - 3",
+    "scoreAway": "0 - 3",
+    "time": "11:37",
+    "playerID": 1629023
+   },
+   {
+    "description": "Hayward 13' Pullup Jump Shot (2 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/15/6a20b162-144c-2c8d-4d9d-c41146276780_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "0 - 5",
+    "scoreAway": "0 - 5",
+    "time": "10:51",
+    "playerID": 202330
+   },
+   {
+    "description": "Irving 1' Driving Layup (2 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/17/a3a33ab4-d073-6551-a7fc-6af795dafb47_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612742,
+    "scoreHome": "2 - 5",
+    "scoreAway": "2 - 5",
+    "time": "10:40",
+    "playerID": 202681
+   },
+   {
+    "description": "Hayward Putback Layup (4 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/25/d8451a68-3b32-a177-268a-e367ef949084_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "2 - 7",
+    "scoreAway": "2 - 7",
+    "time": "9:51",
+    "playerID": 202330
+   },
+   {
+    "description": "Smith Jr. 1' Driving Layup (2 PTS) (Washington 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/37/8118f31a-9b17-4442-7396-0e7d6b348106_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "3 - 9",
+    "scoreAway": "3 - 9",
+    "time": "9:13",
+    "playerID": 1628372
+   },
+   {
+    "description": "Williams 1' Cutting Layup Shot (2 PTS) (Smith Jr. 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/45/f642dd65-dc62-cb59-0f14-2a032a6147eb_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "3 - 11",
+    "scoreAway": "3 - 11",
+    "time": "8:16",
+    "playerID": 1631109
+   },
+   {
+    "description": "Hayward 13' Turnaround Fadeaway (6 PTS) (Smith Jr. 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/54/aa50a385-fcfe-4e15-cb52-5a90dbbed3ed_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "3 - 13",
+    "scoreAway": "3 - 13",
+    "time": "7:39",
+    "playerID": 202330
+   },
+   {
+    "description": "Irving 1' Cutting Layup Shot (4 PTS) (Doncic 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/63/4ba18452-74b1-3d96-c058-d8c12d9f2037_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612742,
+    "scoreHome": "5 - 14",
+    "scoreAway": "5 - 14",
+    "time": "6:49",
+    "playerID": 202681
+   },
+   {
+    "description": "Hayward 10' Floating Jump Shot (9 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/65/bd8b57b3-032b-bdbf-7edb-5d88531f4cef_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "5 - 16",
+    "scoreAway": "5 - 16",
+    "time": "6:28",
+    "playerID": 202330
+   },
+   {
+    "description": "Williams Tip Layup Shot (4 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/70/26760e81-e5ce-59a9-4084-3693af8f0c56_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "5 - 18",
+    "scoreAway": "5 - 18",
+    "time": "6:06",
+    "playerID": 1631109
+   },
+   {
+    "description": "Kleber 26' 3PT Jump Shot (3 PTS) (Doncic 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/75/96693444-9c65-7bbe-4387-510208adcad9_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612742,
+    "scoreHome": "8 - 18",
+    "scoreAway": "8 - 18",
+    "time": "5:25",
+    "playerID": 1628467
+   },
+   {
+    "description": "Williams 2' Hook Shot (6 PTS) (McGowens 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/94/21347858-cc78-dfa5-cee5-86a4b2d06f50_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "10 - 20",
+    "scoreAway": "10 - 20",
+    "time": "4:43",
+    "playerID": 1631109
+   },
+   {
+    "description": "Mykhailiuk 26' 3PT Step Back Jump Shot (3 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/132/f8d7653b-c744-947e-e1ed-ac6d4579f3cb_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "12 - 25",
+    "scoreAway": "12 - 25",
+    "time": "2:26",
+    "playerID": 1629004
+   },
+   {
+    "description": "Thor 3PT Jump Shot (3 PTS) (McGowens 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/142/a0d5deb9-296b-ad7b-f7b6-1630ade1aa7c_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "12 - 30",
+    "scoreAway": "12 - 30",
+    "time": "1:37",
+    "playerID": 1630550
+   },
+   {
+    "description": "Hardaway Jr. 26' 3PT Jump Shot (3 PTS) (Irving 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/165/0f40acab-8309-a2f5-5ae0-15fb8b04b79a_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "19 - 30",
+    "scoreAway": "19 - 30",
+    "time": "11:46",
+    "playerID": 203501
+   },
+   {
+    "description": "Washington 10' Turnaround Hook Shot (5 PTS) (Smith Jr. 4 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/180/3e48fa23-98a8-f927-f33f-a7c259dc2b75_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "19 - 32",
+    "scoreAway": "19 - 32",
+    "time": "10:15",
+    "playerID": 1629023
+   },
+   {
+    "description": "Wood 2' Layup (4 PTS) (Holiday 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/191/6af8df98-457f-fa7a-74ea-d03c98a96160_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "21 - 32",
+    "scoreAway": "21 - 32",
+    "time": "9:34",
+    "playerID": 1626174
+   },
+   {
+    "description": "Hardaway Jr. 1' Driving Layup (5 PTS) (Wood 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/195/8964e98a-1bd9-ad9e-4d70-df08613db224_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "23 - 32",
+    "scoreAway": "23 - 32",
+    "time": "9:09",
+    "playerID": 203501
+   },
+   {
+    "description": "Washington 1' Putback Dunk (7 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/223/eb2e98de-14f0-f21a-a4f2-050012c3381d_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "27 - 35",
+    "scoreAway": "27 - 35",
+    "time": "7:34",
+    "playerID": 1629023
+   },
+   {
+    "description": "Washington 7' Hook Shot (9 PTS) (Smith Jr. 5 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/226/ddbd0658-45a0-0a15-01f5-1a89a64b752a_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "27 - 37",
+    "scoreAway": "27 - 37",
+    "time": "7:07",
+    "playerID": 1629023
+   },
+   {
+    "description": "Bouknight 28' 3PT Jump Shot (3 PTS) (Maledon 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/253/37fa727b-00e3-9c45-9c95-278db64b2aa1_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "27 - 42",
+    "scoreAway": "27 - 42",
+    "time": "5:48",
+    "playerID": 1630547
+   },
+   {
+    "description": "Bouknight 1' Running Layup (5 PTS) (Hayward 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/261/a3a4f05b-1a3f-9381-bfee-fef10c61c0b8_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "27 - 44",
+    "scoreAway": "27 - 44",
+    "time": "5:18",
+    "playerID": 1630547
+   },
+   {
+    "description": "Doncic 1' Driving Layup (7 PTS) (Hardy 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/272/582fd98e-f41b-684f-08cc-38881e83d6f7_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "29 - 44",
+    "scoreAway": "29 - 44",
+    "time": "5:08",
+    "playerID": 1629029
+   },
+   {
+    "description": "Maledon 8' Fadeaway Jumper (2 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/280/939de68b-8518-7ae3-798e-2c3394b7021b_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "29 - 46",
+    "scoreAway": "29 - 46",
+    "time": "4:30",
+    "playerID": 1630177
+   },
+   {
+    "description": "Williams Cutting Dunk Shot (8 PTS) (Maledon 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/283/ec956a84-c913-1774-b96d-b62ba7b03338_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "29 - 48",
+    "scoreAway": "29 - 48",
+    "time": "4:04",
+    "playerID": 1631109
+   },
+   {
+    "description": "Hardaway Jr. 1' Driving Finger Roll Layup (7 PTS) (Kleber 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/285/18e77c32-d8c9-408c-918b-aff3fd1ff058_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "31 - 48",
+    "scoreAway": "31 - 48",
+    "time": "3:47",
+    "playerID": 203501
+   },
+   {
+    "description": "Doncic 2' Driving Layup (9 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/289/69b2bf11-634b-42df-5964-ea39198b5500_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "33 - 48",
+    "scoreAway": "33 - 48",
+    "time": "3:21",
+    "playerID": 1629029
+   },
+   {
+    "description": "Doncic 25' 3PT Step Back Jump Shot (12 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/292/4259d81a-229a-83d6-d649-09753ad9a88a_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "36 - 48",
+    "scoreAway": "36 - 48",
+    "time": "3:00",
+    "playerID": 1629029
+   },
+   {
+    "description": "Hardy 3PT Jump Shot (3 PTS) (Doncic 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/298/aecda825-702b-262d-891f-a2d72601d6b1_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "39 - 48",
+    "scoreAway": "39 - 48",
+    "time": "2:34",
+    "playerID": 1630702
+   },
+   {
+    "description": "Doncic 26' 3PT Step Back Jump Shot (15 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/305/c4922a7f-d933-d3a9-7d39-2747c87e585c_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "42 - 48",
+    "scoreAway": "42 - 48",
+    "time": "2:05",
+    "playerID": 1629029
+   },
+   {
+    "description": "Washington 26' 3PT Jump Shot (12 PTS) (Maledon 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/306/aa6b8941-7836-5ac8-ae8d-4a4c319078dc_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "42 - 51",
+    "scoreAway": "42 - 51",
+    "time": "1:53",
+    "playerID": 1629023
+   },
+   {
+    "description": "Doncic 25' 3PT Jump Shot (18 PTS) (Hardy 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/308/5d095467-2e07-ea4c-054d-4f94196c5030_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "45 - 51",
+    "scoreAway": "45 - 51",
+    "time": "1:39",
+    "playerID": 1629029
+   },
+   {
+    "description": "Hayward 1' Running Layup (13 PTS) (Washington 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/315/9b35c20a-d006-a45e-7ee2-7d92a7d901be_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "45 - 53",
+    "scoreAway": "45 - 53",
+    "time": "1:09",
+    "playerID": 202330
+   },
+   {
+    "description": "Doncic 25' 3PT Jump Shot (21 PTS) (Irving 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/325/ebdd78c6-5c05-2011-e506-584c1d5deb8e_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "48 - 53",
+    "scoreAway": "48 - 53",
+    "time": "0:39",
+    "playerID": 1629029
+   },
+   {
+    "description": "Washington 1' Layup (14 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/366/52f889ec-dbb1-16e3-43ba-e71b04a7a9ae_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": "50 - 57",
+    "scoreAway": "50 - 57",
+    "time": "10:37",
+    "playerID": 1629023
+   },
+   {
+    "description": "Smith Jr. 1' Driving Layup (7 PTS) (Hayward 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/375/46fb4d5d-84da-b923-93db-be363cf41ce6_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": "50 - 59",
+    "scoreAway": "50 - 59",
+    "time": "9:39",
+    "playerID": 1628372
+   },
+   {
+    "description": "Doncic 6' Floating Jump Shot (23 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/382/5a7ab96e-41dd-af8e-9c35-aceec88fa6c2_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": "52 - 59",
+    "scoreAway": "52 - 59",
+    "time": "9:00",
+    "playerID": 1629029
+   },
+   {
+    "description": "Kleber 25' 3PT Jump Shot (8 PTS) (Doncic 4 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/426/2ad783a7-15e6-20d4-da14-e8e95bd9f7c0_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": "55 - 60",
+    "scoreAway": "55 - 60",
+    "time": "6:43",
+    "playerID": 1628467
+   },
+   {
+    "description": "Doncic 27' 3PT Step Back Jump Shot (26 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/430/9e02f90e-80bd-3acb-f629-d2d458fc79a7_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": "58 - 60",
+    "scoreAway": "58 - 60",
+    "time": "6:07",
+    "playerID": 1629029
+   },
+   {
+    "description": "Smith Jr. 1' Driving Layup (9 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/431/eccf857b-fb2f-0653-eb15-5f6c8bc6d854_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": "58 - 62",
+    "scoreAway": "58 - 62",
+    "time": "5:41",
+    "playerID": 1628372
+   },
+   {
+    "description": "Bullock 3PT Jump Shot (3 PTS) (Hardaway Jr. 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/432/0ec04634-90f0-2014-5429-845c8e09a44c_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": "61 - 62",
+    "scoreAway": "61 - 62",
+    "time": "5:25",
+    "playerID": 203493
+   },
+   {
+    "description": "McGowens 27' 3PT Jump Shot (3 PTS) (Hayward 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/434/ee1e80f3-8b70-286d-21d6-6cc845bec738_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": "61 - 65",
+    "scoreAway": "61 - 65",
+    "time": "5:02",
+    "playerID": 1631121
+   },
+   {
+    "description": "McGowens 25' 3PT Jump Shot (6 PTS) (Smith Jr. 6 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/438/2dcb1a8a-4705-3fd2-00f3-c0455a9fbd17_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": "61 - 68",
+    "scoreAway": "61 - 68",
+    "time": "4:26",
+    "playerID": 1631121
+   },
+   {
+    "description": "Hardaway Jr. 25' 3PT Pullup Jump Shot (10 PTS) (Irving 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/440/9d623bb8-74e0-df5e-8df0-14a320e75099_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": "64 - 68",
+    "scoreAway": "64 - 68",
+    "time": "4:06",
+    "playerID": 203501
+   },
+   {
+    "description": "Thor 24' 3PT Jump Shot (6 PTS) (Williams 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/458/7bcd0d3b-bfe5-64f8-1786-68607be1f19d_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": "66 - 71",
+    "scoreAway": "66 - 71",
+    "time": "3:23",
+    "playerID": 1630550
+   },
+   {
+    "description": "Thor 3PT Jump Shot (9 PTS) (Maledon 4 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/466/3e8dae34-a019-32c2-53f0-86eb9431f084_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": "68 - 74",
+    "scoreAway": "68 - 74",
+    "time": "2:54",
+    "playerID": 1630550
+   },
+   {
+    "description": "Doncic 1' Driving Reverse Layup (30 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/474/051c309f-8ce5-24ce-88d6-20ff1d4f1443_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": "70 - 74",
+    "scoreAway": "70 - 74",
+    "time": "1:59",
+    "playerID": 1629029
+   },
+   {
+    "description": "McGowens Tip Layup Shot (9 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/497/ae90e341-5a40-3bc2-007b-048a9fe5c9f0_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": "70 - 77",
+    "scoreAway": "70 - 77",
+    "time": "0:46",
+    "playerID": 1631121
+   },
+   {
+    "description": "Green 9' Fadeaway Jumper (2 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/498/b98df382-2fe8-3ad2-1b26-29265222ea61_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": "72 - 77",
+    "scoreAway": "72 - 77",
+    "time": "0:38",
+    "playerID": 1630182
+   },
+   {
+    "description": "Maledon 6' Floating Jump Shot (4 PTS) (McGowens 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/499/11abefe1-a9ea-d3ab-1938-d9e9f0eff6e0_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": "72 - 79",
+    "scoreAway": "72 - 79",
+    "time": "0:24",
+    "playerID": 1630177
+   },
+   {
+    "description": "Irving 1' Driving Layup (12 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/518/bf785574-af3d-bfa7-a5e8-1565c7553ddf_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "74 - 81",
+    "scoreAway": "74 - 81",
+    "time": "11:36",
+    "playerID": 202681
+   },
+   {
+    "description": "Washington 6' Driving Hook Shot (16 PTS) (Mykhailiuk 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/519/f4a73429-486b-c696-fd5e-afedfdc3920a_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "74 - 83",
+    "scoreAway": "74 - 83",
+    "time": "11:14",
+    "playerID": 1629023
+   },
+   {
+    "description": "Wood 1' Layup (6 PTS) (Hardy 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/521/1a1fa21a-7f0c-603c-9cab-ec7a62b2abca_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "76 - 83",
+    "scoreAway": "76 - 83",
+    "time": "10:55",
+    "playerID": 1626174
+   },
+   {
+    "description": "Jones 1' Cutting Dunk Shot (2 PTS) (McGowens 4 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/523/26b96a09-369b-51e6-dfdc-abca0aa4eadb_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "76 - 85",
+    "scoreAway": "76 - 85",
+    "time": "10:33",
+    "playerID": 1630539
+   },
+   {
+    "description": "Wood 26' 3PT Jump Shot (9 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/525/0c3339c9-8bca-ac80-831e-f91206d94c47_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "79 - 85",
+    "scoreAway": "79 - 85",
+    "time": "10:18",
+    "playerID": 1626174
+   },
+   {
+    "description": "Washington Layup (18 PTS) (Maledon 5 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/535/398515b2-f8cb-de7c-cd4c-6f7b021b561c_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "79 - 87",
+    "scoreAway": "79 - 87",
+    "time": "9:20",
+    "playerID": 1629023
+   },
+   {
+    "description": "Doncic 2' Driving Reverse Layup (32 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/551/007d04f0-4051-e920-98fc-93122219f985_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "81 - 87",
+    "scoreAway": "81 - 87",
+    "time": "8:16",
+    "playerID": 1629029
+   },
+   {
+    "description": "Smith Jr. 26' 3PT Jump Shot (12 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/563/2b51ed7b-78a8-3dda-b72a-927a33f6f8ca_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "83 - 90",
+    "scoreAway": "83 - 90",
+    "time": "7:27",
+    "playerID": 1628372
+   },
+   {
+    "description": "Hardaway Jr. 3PT Jump Shot (15 PTS) (Doncic 5 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/564/660bc02a-24d3-de53-60ad-7eb5fba18920_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "86 - 90",
+    "scoreAway": "86 - 90",
+    "time": "7:11",
+    "playerID": 203501
+   },
+   {
+    "description": "Irving 28' 3PT Pullup Jump Shot (15 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/568/59e430dc-08ea-87bf-2839-a6d60f8dd9f0_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "89 - 90",
+    "scoreAway": "89 - 90",
+    "time": "6:40",
+    "playerID": 202681
+   },
+   {
+    "description": "Doncic 26' 3PT Step Back Jump Shot (37 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/582/e549da1a-a446-5690-120b-715441236f4e_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "92 - 90",
+    "scoreAway": "92 - 90",
+    "time": "5:44",
+    "playerID": 1629029
+   },
+   {
+    "description": "Hayward 16' Pullup Jump Shot (16 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/583/1fcb51bb-e441-83a6-ad53-2f0a72805ec4_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "92 - 92",
+    "scoreAway": "92 - 92",
+    "time": "5:29",
+    "playerID": 202330
+   },
+   {
+    "description": "Hayward 25' 3PT Jump Shot (20 PTS) (Washington 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/593/a0ea0600-4b32-017b-eae0-89a502dc5bf0_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "92 - 96",
+    "scoreAway": "92 - 96",
+    "time": "5:07",
+    "playerID": 202330
+   },
+   {
+    "description": "Kleber 27' 3PT Jump Shot (11 PTS) (Doncic 6 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/596/3cc663f5-71e9-a253-1a86-bbb67bf23611_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "95 - 96",
+    "scoreAway": "95 - 96",
+    "time": "4:48",
+    "playerID": 1628467
+   },
+   {
+    "description": "Irving 27' 3PT Jump Shot (18 PTS) (Doncic 7 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/603/58822e64-0846-531b-39ea-3f38d4d5cee7_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "98 - 97",
+    "scoreAway": "98 - 97",
+    "time": "4:16",
+    "playerID": 202681
+   },
+   {
+    "description": "Washington 3PT Jump Shot (21 PTS) (Mykhailiuk 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/615/8c3adf78-b696-0859-c31b-a155d0427a0e_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "98 - 100",
+    "scoreAway": "98 - 100",
+    "time": "3:17",
+    "playerID": 1629023
+   },
+   {
+    "description": "Hayward 7' Fadeaway Jumper (22 PTS) (Mykhailiuk 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/619/ae1fd30d-c10b-5a53-adda-7bffa093fe7f_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "98 - 102",
+    "scoreAway": "98 - 102",
+    "time": "2:35",
+    "playerID": 202330
+   },
+   {
+    "description": "Doncic 26' 3PT Pullup Jump Shot (40 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/631/f841c73e-1c49-755a-9cef-0535abab62ce_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "101 - 104",
+    "scoreAway": "101 - 104",
+    "time": "1:18",
+    "playerID": 1629029
+   },
+   {
+    "description": "Smith Jr. 2' Alley Oop Dunk (14 PTS) (Washington 4 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/632/663a6404-dd1b-4ee8-ced5-a4a316bb44f6_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "101 - 106",
+    "scoreAway": "101 - 106",
+    "time": "1:05",
+    "playerID": 1628372
+   },
+   {
+    "description": "Kleber 27' 3PT Jump Shot (14 PTS) (Doncic 8 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/635/f7d42f16-a8f1-b029-7ca1-49e43e3b2442_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "104 - 106",
+    "scoreAway": "104 - 106",
+    "time": "0:56",
+    "playerID": 1628467
+   },
+   {
+    "description": "Williams 2' Reverse Layup (15 PTS) (Hayward 4 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/637/cdc00bc3-3c9f-a764-5d2c-47ab752d25ff_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "104 - 108",
+    "scoreAway": "104 - 108",
+    "time": "0:34",
+    "playerID": 1631109
+   }
+  ],
+  "AST": [
+   {
+    "description": "Washington 3PT Jump Shot (3 PTS) (Smith Jr. 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/8/1ab92fa6-2841-94eb-359c-999a44bd1274_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "0 - 3",
+    "scoreAway": "0 - 3",
+    "time": "11:37",
+    "playerID": 1628372
+   },
+   {
+    "description": "Smith Jr. 1' Driving Layup (2 PTS) (Washington 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/37/8118f31a-9b17-4442-7396-0e7d6b348106_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "3 - 9",
+    "scoreAway": "3 - 9",
+    "time": "9:13",
+    "playerID": 1629023
+   },
+   {
+    "description": "Williams 1' Cutting Layup Shot (2 PTS) (Smith Jr. 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/45/f642dd65-dc62-cb59-0f14-2a032a6147eb_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "3 - 11",
+    "scoreAway": "3 - 11",
+    "time": "8:16",
+    "playerID": 1628372
+   },
+   {
+    "description": "Hayward 13' Turnaround Fadeaway (6 PTS) (Smith Jr. 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/54/aa50a385-fcfe-4e15-cb52-5a90dbbed3ed_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "3 - 13",
+    "scoreAway": "3 - 13",
+    "time": "7:39",
+    "playerID": 1628372
+   },
+   {
+    "description": "Irving 1' Cutting Layup Shot (4 PTS) (Doncic 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/63/4ba18452-74b1-3d96-c058-d8c12d9f2037_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612742,
+    "scoreHome": "5 - 14",
+    "scoreAway": "5 - 14",
+    "time": "6:49",
+    "playerID": 1629029
+   },
+   {
+    "description": "Kleber 26' 3PT Jump Shot (3 PTS) (Doncic 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/75/96693444-9c65-7bbe-4387-510208adcad9_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612742,
+    "scoreHome": "8 - 18",
+    "scoreAway": "8 - 18",
+    "time": "5:25",
+    "playerID": 1629029
+   },
+   {
+    "description": "Williams 2' Hook Shot (6 PTS) (McGowens 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/94/21347858-cc78-dfa5-cee5-86a4b2d06f50_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "10 - 20",
+    "scoreAway": "10 - 20",
+    "time": "4:43",
+    "playerID": 1631121
+   },
+   {
+    "description": "Thor 3PT Jump Shot (3 PTS) (McGowens 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/142/a0d5deb9-296b-ad7b-f7b6-1630ade1aa7c_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612766,
+    "scoreHome": "12 - 30",
+    "scoreAway": "12 - 30",
+    "time": "1:37",
+    "playerID": 1631121
+   },
+   {
+    "description": "Hardaway Jr. 26' 3PT Jump Shot (3 PTS) (Irving 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/165/0f40acab-8309-a2f5-5ae0-15fb8b04b79a_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "19 - 30",
+    "scoreAway": "19 - 30",
+    "time": "11:46",
+    "playerID": 202681
+   },
+   {
+    "description": "Washington 10' Turnaround Hook Shot (5 PTS) (Smith Jr. 4 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/180/3e48fa23-98a8-f927-f33f-a7c259dc2b75_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "19 - 32",
+    "scoreAway": "19 - 32",
+    "time": "10:15",
+    "playerID": 1628372
+   },
+   {
+    "description": "Wood 2' Layup (4 PTS) (Holiday 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/191/6af8df98-457f-fa7a-74ea-d03c98a96160_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "21 - 32",
+    "scoreAway": "21 - 32",
+    "time": "9:34",
+    "playerID": 203200
+   },
+   {
+    "description": "Hardaway Jr. 1' Driving Layup (5 PTS) (Wood 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/195/8964e98a-1bd9-ad9e-4d70-df08613db224_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "23 - 32",
+    "scoreAway": "23 - 32",
+    "time": "9:09",
+    "playerID": 1626174
+   },
+   {
+    "description": "Washington 7' Hook Shot (9 PTS) (Smith Jr. 5 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/226/ddbd0658-45a0-0a15-01f5-1a89a64b752a_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "27 - 37",
+    "scoreAway": "27 - 37",
+    "time": "7:07",
+    "playerID": 1628372
+   },
+   {
+    "description": "Bouknight 28' 3PT Jump Shot (3 PTS) (Maledon 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/253/37fa727b-00e3-9c45-9c95-278db64b2aa1_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "27 - 42",
+    "scoreAway": "27 - 42",
+    "time": "5:48",
+    "playerID": 1630177
+   },
+   {
+    "description": "Bouknight 1' Running Layup (5 PTS) (Hayward 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/261/a3a4f05b-1a3f-9381-bfee-fef10c61c0b8_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "27 - 44",
+    "scoreAway": "27 - 44",
+    "time": "5:18",
+    "playerID": 202330
+   },
+   {
+    "description": "Doncic 1' Driving Layup (7 PTS) (Hardy 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/272/582fd98e-f41b-684f-08cc-38881e83d6f7_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "29 - 44",
+    "scoreAway": "29 - 44",
+    "time": "5:08",
+    "playerID": 1630702
+   },
+   {
+    "description": "Williams Cutting Dunk Shot (8 PTS) (Maledon 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/283/ec956a84-c913-1774-b96d-b62ba7b03338_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "29 - 48",
+    "scoreAway": "29 - 48",
+    "time": "4:04",
+    "playerID": 1630177
+   },
+   {
+    "description": "Hardaway Jr. 1' Driving Finger Roll Layup (7 PTS) (Kleber 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/285/18e77c32-d8c9-408c-918b-aff3fd1ff058_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "31 - 48",
+    "scoreAway": "31 - 48",
+    "time": "3:47",
+    "playerID": 1628467
+   },
+   {
+    "description": "Hardy 3PT Jump Shot (3 PTS) (Doncic 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/298/aecda825-702b-262d-891f-a2d72601d6b1_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "39 - 48",
+    "scoreAway": "39 - 48",
+    "time": "2:34",
+    "playerID": 1629029
+   },
+   {
+    "description": "Washington 26' 3PT Jump Shot (12 PTS) (Maledon 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/306/aa6b8941-7836-5ac8-ae8d-4a4c319078dc_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "42 - 51",
+    "scoreAway": "42 - 51",
+    "time": "1:53",
+    "playerID": 1630177
+   },
+   {
+    "description": "Doncic 25' 3PT Jump Shot (18 PTS) (Hardy 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/308/5d095467-2e07-ea4c-054d-4f94196c5030_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "45 - 51",
+    "scoreAway": "45 - 51",
+    "time": "1:39",
+    "playerID": 1630702
+   },
+   {
+    "description": "Hayward 1' Running Layup (13 PTS) (Washington 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/315/9b35c20a-d006-a45e-7ee2-7d92a7d901be_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "45 - 53",
+    "scoreAway": "45 - 53",
+    "time": "1:09",
+    "playerID": 1629023
+   },
+   {
+    "description": "Doncic 25' 3PT Jump Shot (21 PTS) (Irving 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/325/ebdd78c6-5c05-2011-e506-584c1d5deb8e_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": "48 - 53",
+    "scoreAway": "48 - 53",
+    "time": "0:39",
+    "playerID": 202681
+   },
+   {
+    "description": "Smith Jr. 1' Driving Layup (7 PTS) (Hayward 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/375/46fb4d5d-84da-b923-93db-be363cf41ce6_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": "50 - 59",
+    "scoreAway": "50 - 59",
+    "time": "9:39",
+    "playerID": 202330
+   },
+   {
+    "description": "Kleber 25' 3PT Jump Shot (8 PTS) (Doncic 4 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/426/2ad783a7-15e6-20d4-da14-e8e95bd9f7c0_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": "55 - 60",
+    "scoreAway": "55 - 60",
+    "time": "6:43",
+    "playerID": 1629029
+   },
+   {
+    "description": "Bullock 3PT Jump Shot (3 PTS) (Hardaway Jr. 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/432/0ec04634-90f0-2014-5429-845c8e09a44c_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": "61 - 62",
+    "scoreAway": "61 - 62",
+    "time": "5:25",
+    "playerID": 203501
+   },
+   {
+    "description": "McGowens 27' 3PT Jump Shot (3 PTS) (Hayward 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/434/ee1e80f3-8b70-286d-21d6-6cc845bec738_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": "61 - 65",
+    "scoreAway": "61 - 65",
+    "time": "5:02",
+    "playerID": 202330
+   },
+   {
+    "description": "McGowens 25' 3PT Jump Shot (6 PTS) (Smith Jr. 6 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/438/2dcb1a8a-4705-3fd2-00f3-c0455a9fbd17_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": "61 - 68",
+    "scoreAway": "61 - 68",
+    "time": "4:26",
+    "playerID": 1628372
+   },
+   {
+    "description": "Hardaway Jr. 25' 3PT Pullup Jump Shot (10 PTS) (Irving 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/440/9d623bb8-74e0-df5e-8df0-14a320e75099_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": "64 - 68",
+    "scoreAway": "64 - 68",
+    "time": "4:06",
+    "playerID": 202681
+   },
+   {
+    "description": "Thor 24' 3PT Jump Shot (6 PTS) (Williams 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/458/7bcd0d3b-bfe5-64f8-1786-68607be1f19d_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": "66 - 71",
+    "scoreAway": "66 - 71",
+    "time": "3:23",
+    "playerID": 1631109
+   },
+   {
+    "description": "Thor 3PT Jump Shot (9 PTS) (Maledon 4 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/466/3e8dae34-a019-32c2-53f0-86eb9431f084_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": "68 - 74",
+    "scoreAway": "68 - 74",
+    "time": "2:54",
+    "playerID": 1630177
+   },
+   {
+    "description": "Maledon 6' Floating Jump Shot (4 PTS) (McGowens 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/499/11abefe1-a9ea-d3ab-1938-d9e9f0eff6e0_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": "72 - 79",
+    "scoreAway": "72 - 79",
+    "time": "0:24",
+    "playerID": 1631121
+   },
+   {
+    "description": "Washington 6' Driving Hook Shot (16 PTS) (Mykhailiuk 1 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/519/f4a73429-486b-c696-fd5e-afedfdc3920a_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "74 - 83",
+    "scoreAway": "74 - 83",
+    "time": "11:14",
+    "playerID": 1629004
+   },
+   {
+    "description": "Wood 1' Layup (6 PTS) (Hardy 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/521/1a1fa21a-7f0c-603c-9cab-ec7a62b2abca_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "76 - 83",
+    "scoreAway": "76 - 83",
+    "time": "10:55",
+    "playerID": 1630702
+   },
+   {
+    "description": "Jones 1' Cutting Dunk Shot (2 PTS) (McGowens 4 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/523/26b96a09-369b-51e6-dfdc-abca0aa4eadb_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "76 - 85",
+    "scoreAway": "76 - 85",
+    "time": "10:33",
+    "playerID": 1631121
+   },
+   {
+    "description": "Washington Layup (18 PTS) (Maledon 5 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/535/398515b2-f8cb-de7c-cd4c-6f7b021b561c_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "79 - 87",
+    "scoreAway": "79 - 87",
+    "time": "9:20",
+    "playerID": 1630177
+   },
+   {
+    "description": "Hardaway Jr. 3PT Jump Shot (15 PTS) (Doncic 5 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/564/660bc02a-24d3-de53-60ad-7eb5fba18920_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "86 - 90",
+    "scoreAway": "86 - 90",
+    "time": "7:11",
+    "playerID": 1629029
+   },
+   {
+    "description": "Hayward 25' 3PT Jump Shot (20 PTS) (Washington 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/593/a0ea0600-4b32-017b-eae0-89a502dc5bf0_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "92 - 96",
+    "scoreAway": "92 - 96",
+    "time": "5:07",
+    "playerID": 1629023
+   },
+   {
+    "description": "Kleber 27' 3PT Jump Shot (11 PTS) (Doncic 6 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/596/3cc663f5-71e9-a253-1a86-bbb67bf23611_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "95 - 96",
+    "scoreAway": "95 - 96",
+    "time": "4:48",
+    "playerID": 1629029
+   },
+   {
+    "description": "Irving 27' 3PT Jump Shot (18 PTS) (Doncic 7 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/603/58822e64-0846-531b-39ea-3f38d4d5cee7_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "98 - 97",
+    "scoreAway": "98 - 97",
+    "time": "4:16",
+    "playerID": 1629029
+   },
+   {
+    "description": "Washington 3PT Jump Shot (21 PTS) (Mykhailiuk 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/615/8c3adf78-b696-0859-c31b-a155d0427a0e_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "98 - 100",
+    "scoreAway": "98 - 100",
+    "time": "3:17",
+    "playerID": 1629004
+   },
+   {
+    "description": "Hayward 7' Fadeaway Jumper (22 PTS) (Mykhailiuk 3 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/619/ae1fd30d-c10b-5a53-adda-7bffa093fe7f_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "98 - 102",
+    "scoreAway": "98 - 102",
+    "time": "2:35",
+    "playerID": 1629004
+   },
+   {
+    "description": "Smith Jr. 2' Alley Oop Dunk (14 PTS) (Washington 4 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/632/663a6404-dd1b-4ee8-ced5-a4a316bb44f6_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "101 - 106",
+    "scoreAway": "101 - 106",
+    "time": "1:05",
+    "playerID": 1629023
+   },
+   {
+    "description": "Kleber 27' 3PT Jump Shot (14 PTS) (Doncic 8 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/635/f7d42f16-a8f1-b029-7ca1-49e43e3b2442_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": "104 - 106",
+    "scoreAway": "104 - 106",
+    "time": "0:56",
+    "playerID": 1629029
+   },
+   {
+    "description": "Williams 2' Reverse Layup (15 PTS) (Hayward 4 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/637/cdc00bc3-3c9f-a764-5d2c-47ab752d25ff_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "104 - 108",
+    "scoreAway": "104 - 108",
+    "time": "0:34",
+    "playerID": 202330
+   }
+  ],
+  "BLK": [
+   {
+    "description": "Bouknight BLOCK (1 BLK)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/255/7f28ae7e-0de6-86e7-49a5-2996d6062d70_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "5:31",
+    "playerID": 1630547
+   },
+   {
+    "description": "Washington BLOCK (1 BLK)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/312/1c854667-6481-4814-0718-e70d0ad43188_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "1:17",
+    "playerID": 1629023
+   },
+   {
+    "description": "Hardaway Jr. BLOCK (1 BLK)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/335/1f5bc290-1d2b-7155-6bec-39a1e411e184_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "0:49",
+    "playerID": 203501
+   },
+   {
+    "description": "Kleber BLOCK (1 BLK)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/352/12782253-e0a3-01fe-c094-5b8e6aebe112_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "11:21",
+    "playerID": 1628467
+   },
+   {
+    "description": "Kleber BLOCK (2 BLK)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/355/309844d7-27de-b969-e29d-d72a5cde867e_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "11:18",
+    "playerID": 1628467
+   },
+   {
+    "description": "Doncic BLOCK (1 BLK)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/363/1ac9e6d7-81a0-04f9-c47d-918cf1ddfbc4_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "10:41",
+    "playerID": 1629029
+   },
+   {
+    "description": "Doncic BLOCK (2 BLK)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/394/29662774-3552-dacd-2c21-a7d165644984_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "8:20",
+    "playerID": 1629029
+   },
+   {
+    "description": "Wood BLOCK (1 BLK)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/530/a43a7dcf-a52a-728f-d163-d1bea2b2df9a_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "9:41",
+    "playerID": 1626174
+   },
+   {
+    "description": "Irving BLOCK (1 BLK)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/566/4a45a7eb-650b-2c87-7f7c-5369d8c418bb_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612742,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "6:48",
+    "playerID": 202681
+   }
+  ],
+  "DUNK": [
+   {
+    "description": "Washington 1' Putback Dunk (7 PTS)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/223/eb2e98de-14f0-f21a-a4f2-050012c3381d_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "27 - 35",
+    "scoreAway": "27 - 35",
+    "time": "7:34",
+    "playerID": 1629023
+   },
+   {
+    "description": "Williams Cutting Dunk Shot (8 PTS) (Maledon 2 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/283/ec956a84-c913-1774-b96d-b62ba7b03338_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": "29 - 48",
+    "scoreAway": "29 - 48",
+    "time": "4:04",
+    "playerID": 1631109
+   },
+   {
+    "description": "Jones 1' Cutting Dunk Shot (2 PTS) (McGowens 4 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/523/26b96a09-369b-51e6-dfdc-abca0aa4eadb_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "76 - 85",
+    "scoreAway": "76 - 85",
+    "time": "10:33",
+    "playerID": 1630539
+   },
+   {
+    "description": "Smith Jr. 2' Alley Oop Dunk (14 PTS) (Washington 4 AST)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/632/663a6404-dd1b-4ee8-ced5-a4a316bb44f6_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": "101 - 106",
+    "scoreAway": "101 - 106",
+    "time": "1:05",
+    "playerID": 1628372
+   }
+  ],
+  "STL": [
+   {
+    "description": "Irving STEAL (1 STL)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/18/81de6e62-ed50-d1ba-5aa3-a42b281706ec_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612742,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "10:24",
+    "playerID": 202681
+   },
+   {
+    "description": "Green STEAL (1 STL)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/33/e85232a7-ae32-8b84-b44f-2db958b726ec_1280x720.mp4",
+    "quarter": 1,
+    "teamID": 1610612742,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "9:28",
+    "playerID": 1630182
+   },
+   {
+    "description": "Hardy STEAL (1 STL)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/274/96237749-7347-ac3b-4094-331b5b09921a_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612742,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "4:54",
+    "playerID": 1630702
+   },
+   {
+    "description": "Bouknight STEAL (1 STL)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/276/42db6584-5db4-fe52-37dd-2a2a81e139f8_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "4:49",
+    "playerID": 1630547
+   },
+   {
+    "description": "Maledon STEAL (1 STL)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/317/99aaf0d4-e3fd-d6c3-fb01-4882fed365b2_1280x720.mp4",
+    "quarter": 2,
+    "teamID": 1610612766,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "0:53",
+    "playerID": 1630177
+   },
+   {
+    "description": "Mykhailiuk STEAL (1 STL)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/361/f27cf980-c990-fad2-bd21-486237c5642b_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "10:45",
+    "playerID": 1629004
+   },
+   {
+    "description": "Hardaway Jr. STEAL (1 STL)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/371/40d2ccd4-219b-6967-bb98-069e2cc89a76_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "10:03",
+    "playerID": 203501
+   },
+   {
+    "description": "Irving STEAL (2 STL)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/386/b8be293a-c2ce-0093-6096-c376995df084_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "8:37",
+    "playerID": 202681
+   },
+   {
+    "description": "Doncic STEAL (1 STL)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/398/74949d67-dfc5-47af-3c93-0142e811a7d2_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "8:18",
+    "playerID": 1629029
+   },
+   {
+    "description": "Smith Jr. STEAL (1 STL)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/400/39ee5f83-a7b5-e589-e644-0340a2c759de_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "8:15",
+    "playerID": 1628372
+   },
+   {
+    "description": "Doncic STEAL (2 STL)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/408/b549508c-e1b6-9be5-98b6-6a2e905768f4_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "7:43",
+    "playerID": 1629029
+   },
+   {
+    "description": "Kleber STEAL (1 STL)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/472/ac7c3069-19a9-b236-01b5-fd70f289a22f_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612742,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "2:08",
+    "playerID": 1628467
+   },
+   {
+    "description": "Washington STEAL (1 STL)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/493/8f300a04-5c34-95cd-5cbf-a2fca574ca59_1280x720.mp4",
+    "quarter": 3,
+    "teamID": 1610612766,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "0:53",
+    "playerID": 1629023
+   },
+   {
+    "description": "Mykhailiuk STEAL (2 STL)",
+    "url": "https://videos.nba.com/nba/pbp/media/2023/03/26/0022201113/547/3ed39ffe-bd7b-c39b-aa2c-80ef705e2abf_1280x720.mp4",
+    "quarter": 4,
+    "teamID": 1610612766,
+    "scoreHome": null,
+    "scoreAway": null,
+    "time": "8:35",
+    "playerID": 1629004
+   }
+  ]
+ },
+ "team_ids": [
+  1610612766,
+  1610612742
+ ],
+ "number_quarters": 4
+}
