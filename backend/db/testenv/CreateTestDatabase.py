@@ -50,8 +50,7 @@ def clone_and_insert_collection_into_test(db_name:str, collection_name:str) -> N
 Iterate through each table in production and clone it into test-env
 """
 if __name__ == "__main__":
-    print('gi')
-    # databases = [('SeasonsV2', 'Games'), ('PlayByPlay', 'Games'), ('TeamsDB', 'Teams')]
-    # for db in databases:
-    #     clone_and_insert_collection_into_test(db_name=db[0], collection_name=db[1])
+    databases = [('SeasonsV2', 'Games'), ('PlayByPlay', 'Games'), ('TeamsDB', 'Teams')]
+    for db in databases:
+        clone_and_insert_collection_into_test(db_name=db[0], collection_name=db[1])
     
