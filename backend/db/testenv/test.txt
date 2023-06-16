@@ -1,0 +1,1762 @@
+{
+ "FGM": {
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/7/85b0ac2b-68d1-3564-8854-a2e9d39effe0_1280x720.mp4": {
+   "description": "Tillman 6' Turnaround Hook Shot (2 PTS) (Jones 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/7/85b0ac2b-68d1-3564-8854-a2e9d39effe0_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "0 - 2",
+   "scoreAway": "0 - 2",
+   "time": "11:39",
+   "playerID": 1630214
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/12/dc7e1cb0-2d9c-df7f-e0a3-b4b18f25634b_1280x720.mp4": {
+   "description": "Fultz 14' Pullup Jump Shot (2 PTS) (Harris 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/12/dc7e1cb0-2d9c-df7f-e0a3-b4b18f25634b_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612753,
+   "scoreHome": "2 - 2",
+   "scoreAway": "2 - 2",
+   "time": "11:04",
+   "playerID": 1628365
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/15/8d80239c-d526-1e20-162f-c3114ebdf220_1280x720.mp4": {
+   "description": "Banchero 2' Driving Floating Bank Jump Shot (2 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/15/8d80239c-d526-1e20-162f-c3114ebdf220_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612753,
+   "scoreHome": "4 - 2",
+   "scoreAway": "4 - 2",
+   "time": "10:37",
+   "playerID": 1631094
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/16/8f609eba-8c88-3f65-3cd2-c16f7e3ccf96_1280x720.mp4": {
+   "description": "Tillman 8' Floating Jump Shot (4 PTS) (Brooks 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/16/8f609eba-8c88-3f65-3cd2-c16f7e3ccf96_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "4 - 4",
+   "scoreAway": "4 - 4",
+   "time": "10:19",
+   "playerID": 1630214
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/22/89ea71a2-d728-b7ca-4cfb-aa2af580cbbe_1280x720.mp4": {
+   "description": "Brooks Cutting Dunk Shot (2 PTS) (Jones 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/22/89ea71a2-d728-b7ca-4cfb-aa2af580cbbe_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "4 - 6",
+   "scoreAway": "4 - 6",
+   "time": "9:45",
+   "playerID": 1628415
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/30/dc09cdb8-05f1-249f-cddd-ada9600b3141_1280x720.mp4": {
+   "description": "Banchero 26' 3PT Jump Shot (5 PTS) (Carter Jr. 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/30/dc09cdb8-05f1-249f-cddd-ada9600b3141_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612753,
+   "scoreHome": "7 - 6",
+   "scoreAway": "7 - 6",
+   "time": "9:08",
+   "playerID": 1631094
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/42/406272e0-794f-b03a-764b-72ef19bb652b_1280x720.mp4": {
+   "description": "F. Wagner 26' 3PT Jump Shot (3 PTS) (Banchero 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/42/406272e0-794f-b03a-764b-72ef19bb652b_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612753,
+   "scoreHome": "10 - 7",
+   "scoreAway": "10 - 7",
+   "time": "8:15",
+   "playerID": 1630532
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/49/bbd12bb6-a857-33cd-b659-6b37df7dc40f_1280x720.mp4": {
+   "description": "Bane 2' Running Finger Roll Layup (2 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/49/bbd12bb6-a857-33cd-b659-6b37df7dc40f_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "10 - 9",
+   "scoreAway": "10 - 9",
+   "time": "7:42",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/52/9a5aee2b-b33c-9023-b647-f9bc76a7c100_1280x720.mp4": {
+   "description": "Jackson Jr. 10' Turnaround Hook Shot (2 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/52/9a5aee2b-b33c-9023-b647-f9bc76a7c100_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "10 - 11",
+   "scoreAway": "10 - 11",
+   "time": "7:20",
+   "playerID": 1628991
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/59/42c7093c-2820-17e2-1cce-84cd1c0f90bc_1280x720.mp4": {
+   "description": "Bane Running Finger Roll Layup (4 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/59/42c7093c-2820-17e2-1cce-84cd1c0f90bc_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "10 - 13",
+   "scoreAway": "10 - 13",
+   "time": "6:34",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/62/f4eae873-4013-d568-f23d-554a03e3a984_1280x720.mp4": {
+   "description": "Jackson Jr. 26' 3PT Jump Shot (5 PTS) (Jones 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/62/f4eae873-4013-d568-f23d-554a03e3a984_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "10 - 16",
+   "scoreAway": "10 - 16",
+   "time": "6:09",
+   "playerID": 1628991
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/72/83629414-4d1d-8a7a-c41c-9045c2458a0f_1280x720.mp4": {
+   "description": "Fultz 21' Pullup Jump Shot (4 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/72/83629414-4d1d-8a7a-c41c-9045c2458a0f_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612753,
+   "scoreHome": "12 - 16",
+   "scoreAway": "12 - 16",
+   "time": "5:45",
+   "playerID": 1628365
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/78/b4fd88c0-f74f-7080-3c50-28a814b85b6e_1280x720.mp4": {
+   "description": "Kennard 13' Pullup Jump Shot (2 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/78/b4fd88c0-f74f-7080-3c50-28a814b85b6e_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "12 - 18",
+   "scoreAway": "12 - 18",
+   "time": "4:56",
+   "playerID": 1628379
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/93/a9c72ded-90bc-3e09-efa3-4ce1d0b52511_1280x720.mp4": {
+   "description": "Jackson Jr. 5' Driving Floating Jump Shot (7 PTS) (Jones 4 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/93/a9c72ded-90bc-3e09-efa3-4ce1d0b52511_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "13 - 20",
+   "scoreAway": "13 - 20",
+   "time": "3:27",
+   "playerID": 1628991
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/101/ca72ca9d-8814-9364-03bb-df34668c91e8_1280x720.mp4": {
+   "description": "Jackson Jr. 1' Cutting Dunk Shot (9 PTS) (Jones 5 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/101/ca72ca9d-8814-9364-03bb-df34668c91e8_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "13 - 22",
+   "scoreAway": "13 - 22",
+   "time": "2:38",
+   "playerID": 1628991
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/103/214a932f-8f5d-0b0c-d621-e70948218929_1280x720.mp4": {
+   "description": "Carter Jr. 1' Alley Oop Dunk (2 PTS) (Fultz 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/103/214a932f-8f5d-0b0c-d621-e70948218929_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612753,
+   "scoreHome": "15 - 22",
+   "scoreAway": "15 - 22",
+   "time": "2:20",
+   "playerID": 1628976
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/118/67bd13df-ad7a-fe0a-5053-daf50e2f86fd_1280x720.mp4": {
+   "description": "Kennard 25' 3PT Jump Shot (5 PTS) (Bane 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/118/67bd13df-ad7a-fe0a-5053-daf50e2f86fd_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "15 - 25",
+   "scoreAway": "15 - 25",
+   "time": "2:00",
+   "playerID": 1628379
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/138/1378aab2-a4cc-d2c3-f761-d7f578d3a530_1280x720.mp4": {
+   "description": "Bane 1' Running Reverse Layup (6 PTS) (Konchar 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/138/1378aab2-a4cc-d2c3-f761-d7f578d3a530_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "15 - 29",
+   "scoreAway": "15 - 29",
+   "time": "0:43",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/141/44e1788f-97c4-2e26-ae46-531aca7383b4_1280x720.mp4": {
+   "description": "Kennard 24' 3PT Jump Shot (8 PTS) (Bane 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/141/44e1788f-97c4-2e26-ae46-531aca7383b4_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "15 - 32",
+   "scoreAway": "15 - 32",
+   "time": "0:11",
+   "playerID": 1628379
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/151/a4c13daa-bd4c-70c7-df66-3ffc55592c5a_1280x720.mp4": {
+   "description": "Tillman 2' Layup (6 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/151/a4c13daa-bd4c-70c7-df66-3ffc55592c5a_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "15 - 34",
+   "scoreAway": "15 - 34",
+   "time": "11:23",
+   "playerID": 1630214
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/161/136db643-e06b-4d1d-fa41-17417c488838_1280x720.mp4": {
+   "description": "Anthony 13' Pullup Jump Shot (2 PTS) (F. Wagner 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/161/136db643-e06b-4d1d-fa41-17417c488838_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "17 - 34",
+   "scoreAway": "17 - 34",
+   "time": "10:35",
+   "playerID": 1630175
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/169/0ec4ca30-647e-8d44-b288-4b0e3035bcf0_1280x720.mp4": {
+   "description": "Bane 1' Running Layup (8 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/169/0ec4ca30-647e-8d44-b288-4b0e3035bcf0_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "17 - 36",
+   "scoreAway": "17 - 36",
+   "time": "10:05",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/177/f104a938-f8c5-5669-6cfc-cf0f8ff2e0e2_1280x720.mp4": {
+   "description": "Tillman 1' Layup (8 PTS) (Kennard 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/177/f104a938-f8c5-5669-6cfc-cf0f8ff2e0e2_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "17 - 38",
+   "scoreAway": "17 - 38",
+   "time": "9:41",
+   "playerID": 1630214
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/217/e9d9dedb-2369-5651-932d-a5b828be23c5_1280x720.mp4": {
+   "description": "Schofield 26' 3PT Jump Shot (3 PTS) (Anthony 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/217/e9d9dedb-2369-5651-932d-a5b828be23c5_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "20 - 39",
+   "scoreAway": "20 - 39",
+   "time": "7:18",
+   "playerID": 1629678
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/221/a9fd3dfc-8a60-1f95-7373-65f6ced6c2a1_1280x720.mp4": {
+   "description": "Schofield 26' 3PT Jump Shot (6 PTS) (Anthony 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/221/a9fd3dfc-8a60-1f95-7373-65f6ced6c2a1_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "23 - 39",
+   "scoreAway": "23 - 39",
+   "time": "6:52",
+   "playerID": 1629678
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/227/ba004f36-8d82-01c8-e9a3-dd75faedfb34_1280x720.mp4": {
+   "description": "Aldama 24' 3PT Jump Shot (5 PTS) (Roddy 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/227/ba004f36-8d82-01c8-e9a3-dd75faedfb34_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "23 - 42",
+   "scoreAway": "23 - 42",
+   "time": "6:03",
+   "playerID": 1630583
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/229/abfef999-14af-005e-62fa-ae99849a40b5_1280x720.mp4": {
+   "description": "Carter Jr. 12' Step Back Jump Shot (4 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/229/abfef999-14af-005e-62fa-ae99849a40b5_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "25 - 42",
+   "scoreAway": "25 - 42",
+   "time": "5:42",
+   "playerID": 1628976
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/249/5077659d-2109-be36-0b4b-948686107d1e_1280x720.mp4": {
+   "description": "Harris 25' 3PT Step Back Jump Shot (3 PTS) (Carter Jr. 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/249/5077659d-2109-be36-0b4b-948686107d1e_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "28 - 42",
+   "scoreAway": "28 - 42",
+   "time": "5:11",
+   "playerID": 203914
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/256/66b0e9e8-d97c-e3d1-88cf-c71891546cc8_1280x720.mp4": {
+   "description": "Aldama Tip Dunk Shot (7 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/256/66b0e9e8-d97c-e3d1-88cf-c71891546cc8_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "28 - 44",
+   "scoreAway": "28 - 44",
+   "time": "4:24",
+   "playerID": 1630583
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/261/8e4e3f6b-73e8-833e-8adb-c3cd10156a25_1280x720.mp4": {
+   "description": "Brooks 22' Step Back Jump Shot (5 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/261/8e4e3f6b-73e8-833e-8adb-c3cd10156a25_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "28 - 46",
+   "scoreAway": "28 - 46",
+   "time": "3:50",
+   "playerID": 1628415
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/262/446e7933-1850-a9ee-fa4a-a46ac0c45754_1280x720.mp4": {
+   "description": "Carter Jr. 26' 3PT Jump Shot (7 PTS) (Banchero 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/262/446e7933-1850-a9ee-fa4a-a46ac0c45754_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "31 - 46",
+   "scoreAway": "31 - 46",
+   "time": "3:39",
+   "playerID": 1628976
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/264/5127296c-9231-d403-08c5-b2d830e3fdd5_1280x720.mp4": {
+   "description": "Jones 9' Driving Floating Jump Shot (2 PTS) (Kennard 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/264/5127296c-9231-d403-08c5-b2d830e3fdd5_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "31 - 48",
+   "scoreAway": "31 - 48",
+   "time": "3:23",
+   "playerID": 1626145
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/268/e5464827-c0c4-fca1-fc1c-095b1f1d96a9_1280x720.mp4": {
+   "description": "Kennard 26' 3PT Pullup Jump Shot (11 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/268/e5464827-c0c4-fca1-fc1c-095b1f1d96a9_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "31 - 51",
+   "scoreAway": "31 - 51",
+   "time": "3:01",
+   "playerID": 1628379
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/273/704722f4-16d8-9a64-0ece-cc7d9da4d1c8_1280x720.mp4": {
+   "description": "Banchero 27' 3PT Jump Shot (9 PTS) (Harris 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/273/704722f4-16d8-9a64-0ece-cc7d9da4d1c8_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "34 - 51",
+   "scoreAway": "34 - 51",
+   "time": "2:33",
+   "playerID": 1631094
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/290/2f381251-f205-4fac-7f73-5fdc3174639b_1280x720.mp4": {
+   "description": "Jackson Jr. 24' 3PT Jump Shot (12 PTS) (Jones 6 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/290/2f381251-f205-4fac-7f73-5fdc3174639b_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "36 - 54",
+   "scoreAway": "36 - 54",
+   "time": "1:51",
+   "playerID": 1628991
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/292/20a8f6a1-9577-3539-df5e-913b505b56e3_1280x720.mp4": {
+   "description": "F. Wagner 25' 3PT Jump Shot (7 PTS) (Fultz 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/292/20a8f6a1-9577-3539-df5e-913b505b56e3_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "39 - 54",
+   "scoreAway": "39 - 54",
+   "time": "1:44",
+   "playerID": 1630532
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/294/137be89f-c976-3b88-6317-1a72553c88e3_1280x720.mp4": {
+   "description": "Jackson Jr. 1' Cutting Layup Shot (14 PTS) (Kennard 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/294/137be89f-c976-3b88-6317-1a72553c88e3_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "39 - 56",
+   "scoreAway": "39 - 56",
+   "time": "1:29",
+   "playerID": 1628991
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/301/90d88336-562d-42fd-080b-edc3b49ca4b6_1280x720.mp4": {
+   "description": "Kennard 3PT Jump Shot (14 PTS) (Jones 7 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/301/90d88336-562d-42fd-080b-edc3b49ca4b6_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "40 - 59",
+   "scoreAway": "40 - 59",
+   "time": "1:04",
+   "playerID": 1628379
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/313/83c49a0c-4074-2810-3302-de4b516b582c_1280x720.mp4": {
+   "description": "Fultz 3' Driving Finger Roll Layup (6 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/313/83c49a0c-4074-2810-3302-de4b516b582c_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "44 - 59",
+   "scoreAway": "44 - 59",
+   "time": "0:15",
+   "playerID": 1628365
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/326/2258ba46-39ca-450c-4150-cce67ad13f00_1280x720.mp4": {
+   "description": "Banchero 17' Jump Shot (13 PTS) (Fultz 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/326/2258ba46-39ca-450c-4150-cce67ad13f00_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "46 - 59",
+   "scoreAway": "46 - 59",
+   "time": "11:20",
+   "playerID": 1631094
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/328/01943438-6028-99a5-8f45-b0fe4f547c8f_1280x720.mp4": {
+   "description": "Jones 13' Pullup Jump Shot (4 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/328/01943438-6028-99a5-8f45-b0fe4f547c8f_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "46 - 61",
+   "scoreAway": "46 - 61",
+   "time": "11:06",
+   "playerID": 1626145
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/335/6d1ab653-93d6-c411-95e8-4d2ea6c49a80_1280x720.mp4": {
+   "description": "Tillman 10' Floating Jump Shot (10 PTS) (Bane 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/335/6d1ab653-93d6-c411-95e8-4d2ea6c49a80_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "46 - 63",
+   "scoreAway": "46 - 63",
+   "time": "10:31",
+   "playerID": 1630214
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/337/4e9eea3d-7bac-29c4-c113-f69b4d25f831_1280x720.mp4": {
+   "description": "F. Wagner 8' Driving Floating Jump Shot (9 PTS) (Banchero 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/337/4e9eea3d-7bac-29c4-c113-f69b4d25f831_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "48 - 63",
+   "scoreAway": "48 - 63",
+   "time": "10:14",
+   "playerID": 1630532
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/338/affd3e09-f041-b51b-147c-23f587bea3de_1280x720.mp4": {
+   "description": "Jones 12' Driving Floating Jump Shot (6 PTS) (Brooks 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/338/affd3e09-f041-b51b-147c-23f587bea3de_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "48 - 65",
+   "scoreAway": "48 - 65",
+   "time": "10:02",
+   "playerID": 1626145
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/345/b99d3aaf-7544-7697-aaee-85337f751e00_1280x720.mp4": {
+   "description": "Carter Jr. 1' Putback Layup (11 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/345/b99d3aaf-7544-7697-aaee-85337f751e00_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "50 - 65",
+   "scoreAway": "50 - 65",
+   "time": "9:06",
+   "playerID": 1628976
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/350/67872af7-d3e6-e504-52b1-0ca4164c616b_1280x720.mp4": {
+   "description": "Banchero 16' Pullup Jump Shot (15 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/350/67872af7-d3e6-e504-52b1-0ca4164c616b_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "52 - 65",
+   "scoreAway": "52 - 65",
+   "time": "8:47",
+   "playerID": 1631094
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/351/86ee85d6-351d-bf96-8662-e8a3529ee4f0_1280x720.mp4": {
+   "description": "Jackson Jr. 2' Driving Floating Bank Jump Shot (16 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/351/86ee85d6-351d-bf96-8662-e8a3529ee4f0_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "52 - 67",
+   "scoreAway": "52 - 67",
+   "time": "8:28",
+   "playerID": 1628991
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/362/88a65752-1f78-b4fd-6718-52b1f8df0ac9_1280x720.mp4": {
+   "description": "Bane Running Finger Roll Layup (10 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/362/88a65752-1f78-b4fd-6718-52b1f8df0ac9_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "52 - 69",
+   "scoreAway": "52 - 69",
+   "time": "7:48",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/365/ad15b072-1714-a83b-03fd-a3a7c9c9c742_1280x720.mp4": {
+   "description": "Tillman 1' Running Finger Roll Layup (12 PTS) (Brooks 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/365/ad15b072-1714-a83b-03fd-a3a7c9c9c742_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "52 - 71",
+   "scoreAway": "52 - 71",
+   "time": "7:24",
+   "playerID": 1630214
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/372/a5258f99-c090-5743-9c8c-35f89de49412_1280x720.mp4": {
+   "description": "Bane 27' 3PT Running Pull-Up Jump Shot (13 PTS) (Jones 8 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/372/a5258f99-c090-5743-9c8c-35f89de49412_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "52 - 74",
+   "scoreAway": "52 - 74",
+   "time": "7:03",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/377/1f0f10d1-ca38-da9f-3999-dccb9afc1c8a_1280x720.mp4": {
+   "description": "Carter Jr. 3PT Jump Shot (14 PTS) (F. Wagner 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/377/1f0f10d1-ca38-da9f-3999-dccb9afc1c8a_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "55 - 74",
+   "scoreAway": "55 - 74",
+   "time": "6:32",
+   "playerID": 1628976
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/383/8b8b71bd-758c-8ae0-8bab-45303b0a4cc7_1280x720.mp4": {
+   "description": "Brooks 26' 3PT Jump Shot (8 PTS) (Kennard 4 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/383/8b8b71bd-758c-8ae0-8bab-45303b0a4cc7_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "55 - 77",
+   "scoreAway": "55 - 77",
+   "time": "5:46",
+   "playerID": 1628415
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/385/9998d07d-3503-2a42-f796-046a73c31704_1280x720.mp4": {
+   "description": "Fultz 1' Driving Reverse Layup (8 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/385/9998d07d-3503-2a42-f796-046a73c31704_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "57 - 77",
+   "scoreAway": "57 - 77",
+   "time": "5:37",
+   "playerID": 1628365
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/393/bfb45910-81fc-30db-2106-4b2478f259c6_1280x720.mp4": {
+   "description": "Tillman 7' Turnaround Hook Shot (14 PTS) (Kennard 5 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/393/bfb45910-81fc-30db-2106-4b2478f259c6_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "58 - 79",
+   "scoreAway": "58 - 79",
+   "time": "5:14",
+   "playerID": 1630214
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/397/68a9d8c7-1c41-64cc-3552-2c9f8f11e46f_1280x720.mp4": {
+   "description": "Tillman Cutting Dunk Shot (16 PTS) (Aldama 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/397/68a9d8c7-1c41-64cc-3552-2c9f8f11e46f_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "58 - 81",
+   "scoreAway": "58 - 81",
+   "time": "4:58",
+   "playerID": 1630214
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/411/9ed77833-7836-1ea6-aed3-beac6dc6eb6b_1280x720.mp4": {
+   "description": "Bitadze 1' Layup (2 PTS) (Suggs 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/411/9ed77833-7836-1ea6-aed3-beac6dc6eb6b_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "60 - 81",
+   "scoreAway": "60 - 81",
+   "time": "4:33",
+   "playerID": 1629048
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/415/9e973da0-a9be-1193-dcf5-a0f20e152e62_1280x720.mp4": {
+   "description": "Bitadze 25' 3PT Jump Shot (5 PTS) (Fultz 4 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/415/9e973da0-a9be-1193-dcf5-a0f20e152e62_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "63 - 81",
+   "scoreAway": "63 - 81",
+   "time": "4:05",
+   "playerID": 1629048
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/423/b1adc43c-2f18-a839-6aa7-fe4d97546361_1280x720.mp4": {
+   "description": "Bitadze 1' Putback Layup (7 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/423/b1adc43c-2f18-a839-6aa7-fe4d97546361_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "65 - 81",
+   "scoreAway": "65 - 81",
+   "time": "3:37",
+   "playerID": 1629048
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/445/f112acfc-9b6f-5c2d-eb46-1c874a28a25d_1280x720.mp4": {
+   "description": "Bane 25' 3PT Jump Shot (16 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/445/f112acfc-9b6f-5c2d-eb46-1c874a28a25d_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "67 - 84",
+   "scoreAway": "67 - 84",
+   "time": "1:43",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/446/77aa4b27-c534-b3ba-fbf8-652d1ea55b01_1280x720.mp4": {
+   "description": "Bitadze Alley Oop Dunk (11 PTS) (F. Wagner 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/446/77aa4b27-c534-b3ba-fbf8-652d1ea55b01_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "69 - 84",
+   "scoreAway": "69 - 84",
+   "time": "1:28",
+   "playerID": 1629048
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/448/4e1eb012-a5a1-65b8-362f-f4c69ef90ac3_1280x720.mp4": {
+   "description": "Aldama Cutting Dunk Shot (9 PTS) (Bane 4 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/448/4e1eb012-a5a1-65b8-362f-f4c69ef90ac3_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "69 - 86",
+   "scoreAway": "69 - 86",
+   "time": "1:16",
+   "playerID": 1630583
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/450/cc68e396-ee7d-ac42-82e4-fa23fee21e6d_1280x720.mp4": {
+   "description": "Anthony 15' Pullup Jump Shot (4 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/450/cc68e396-ee7d-ac42-82e4-fa23fee21e6d_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "71 - 86",
+   "scoreAway": "71 - 86",
+   "time": "1:04",
+   "playerID": 1630175
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/455/89b2fc61-33bd-b269-5aba-9a549222a129_1280x720.mp4": {
+   "description": "Anthony 18' Pullup Jump Shot (6 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/455/89b2fc61-33bd-b269-5aba-9a549222a129_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "73 - 86",
+   "scoreAway": "73 - 86",
+   "time": "0:33",
+   "playerID": 1630175
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/487/fbf4b3c5-3071-082e-0791-30e1864c4f77_1280x720.mp4": {
+   "description": "Suggs Running Finger Roll Layup (2 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/487/fbf4b3c5-3071-082e-0791-30e1864c4f77_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "75 - 87",
+   "scoreAway": "75 - 87",
+   "time": "11:15",
+   "playerID": 1630591
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/499/9d244c9c-4254-1f55-8638-027e1954ceb3_1280x720.mp4": {
+   "description": "Anthony 17' Step Back Jump Shot (8 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/499/9d244c9c-4254-1f55-8638-027e1954ceb3_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "77 - 87",
+   "scoreAway": "77 - 87",
+   "time": "10:08",
+   "playerID": 1630175
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/506/0e34b73e-4517-cb46-728e-535804e615fd_1280x720.mp4": {
+   "description": "F. Wagner Driving Reverse Layup (11 PTS) (Anthony 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/506/0e34b73e-4517-cb46-728e-535804e615fd_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "79 - 87",
+   "scoreAway": "79 - 87",
+   "time": "9:32",
+   "playerID": 1630532
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/515/9872594c-dc43-e0ca-ba15-9a78ecf1e0c7_1280x720.mp4": {
+   "description": "F. Wagner 25' 3PT Jump Shot (14 PTS) (Anthony 4 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/515/9872594c-dc43-e0ca-ba15-9a78ecf1e0c7_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "82 - 89",
+   "scoreAway": "82 - 89",
+   "time": "9:00",
+   "playerID": 1630532
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/527/9307610a-f8c5-8bbc-f85c-3ffe815fc75a_1280x720.mp4": {
+   "description": "Kennard 21' Pullup Jump Shot (16 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/527/9307610a-f8c5-8bbc-f85c-3ffe815fc75a_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612763,
+   "scoreHome": "82 - 93",
+   "scoreAway": "82 - 93",
+   "time": "8:03",
+   "playerID": 1628379
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/528/12de78c3-7ab2-c84b-f344-37d84f828708_1280x720.mp4": {
+   "description": "Anthony 11' Jump Shot (10 PTS) (Bitadze 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/528/12de78c3-7ab2-c84b-f344-37d84f828708_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "84 - 93",
+   "scoreAway": "84 - 93",
+   "time": "7:43",
+   "playerID": 1630175
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/535/4c125726-8514-9f61-713f-b8d591863971_1280x720.mp4": {
+   "description": "Bane 24' 3PT Running Jump Shot (23 PTS) (Konchar 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/535/4c125726-8514-9f61-713f-b8d591863971_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612763,
+   "scoreHome": "84 - 96",
+   "scoreAway": "84 - 96",
+   "time": "7:10",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/539/32e2112d-961f-59d0-456e-14d90d84605a_1280x720.mp4": {
+   "description": "Tillman 1' Driving Finger Roll Layup (18 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/539/32e2112d-961f-59d0-456e-14d90d84605a_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612763,
+   "scoreHome": "84 - 98",
+   "scoreAway": "84 - 98",
+   "time": "6:33",
+   "playerID": 1630214
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/553/2058336d-e61f-ebc6-0b42-b99792e09734_1280x720.mp4": {
+   "description": "Banchero 1' Driving Finger Roll Layup (17 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/553/2058336d-e61f-ebc6-0b42-b99792e09734_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "86 - 98",
+   "scoreAway": "86 - 98",
+   "time": "6:21",
+   "playerID": 1631094
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/564/90b7b160-ebdc-39f3-b960-a6dbbb62d3ae_1280x720.mp4": {
+   "description": "Bitadze 1' Cutting Dunk Shot (13 PTS) (Banchero 4 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/564/90b7b160-ebdc-39f3-b960-a6dbbb62d3ae_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "88 - 98",
+   "scoreAway": "88 - 98",
+   "time": "5:41",
+   "playerID": 1629048
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/575/3520460a-1834-ad88-c66d-7ec95c71ea2e_1280x720.mp4": {
+   "description": "Tillman 2' Layup (20 PTS) (Bane 5 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/575/3520460a-1834-ad88-c66d-7ec95c71ea2e_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612763,
+   "scoreHome": "88 - 100",
+   "scoreAway": "88 - 100",
+   "time": "4:40",
+   "playerID": 1630214
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/577/01d18008-9f15-fcf2-b8ab-f044c7ba5601_1280x720.mp4": {
+   "description": "Banchero 1' Driving Finger Roll Layup (19 PTS) (Anthony 5 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/577/01d18008-9f15-fcf2-b8ab-f044c7ba5601_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "90 - 100",
+   "scoreAway": "90 - 100",
+   "time": "4:24",
+   "playerID": 1631094
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/579/91e33f36-505d-1cab-e488-5bf4de4f317c_1280x720.mp4": {
+   "description": "Brooks 25' 3PT Jump Shot (11 PTS) (Tillman 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/579/91e33f36-505d-1cab-e488-5bf4de4f317c_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612763,
+   "scoreHome": "90 - 103",
+   "scoreAway": "90 - 103",
+   "time": "3:58",
+   "playerID": 1628415
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/593/37132dc2-d372-2fa7-a205-ce51e87f63e7_1280x720.mp4": {
+   "description": "Banchero 26' 3PT Step Back Jump Shot (22 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/593/37132dc2-d372-2fa7-a205-ce51e87f63e7_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "93 - 103",
+   "scoreAway": "93 - 103",
+   "time": "3:31",
+   "playerID": 1631094
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/614/2a05496a-1654-fa99-a3fe-4f517e3cc03f_1280x720.mp4": {
+   "description": "Brooks 12' Fadeaway Jumper (13 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/614/2a05496a-1654-fa99-a3fe-4f517e3cc03f_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612763,
+   "scoreHome": "93 - 105",
+   "scoreAway": "93 - 105",
+   "time": "1:11",
+   "playerID": 1628415
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/620/207acafd-cb2f-312a-014e-2372fa92614f_1280x720.mp4": {
+   "description": "F. Wagner 1' Driving Dunk (16 PTS) (Fultz 5 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/620/207acafd-cb2f-312a-014e-2372fa92614f_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "95 - 105",
+   "scoreAway": "95 - 105",
+   "time": "1:10",
+   "playerID": 1630532
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/638/8fc7f7c6-8efe-22a0-8a54-6e9de169a76b_1280x720.mp4": {
+   "description": "Fultz 1' Driving Finger Roll Layup (11 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/638/8fc7f7c6-8efe-22a0-8a54-6e9de169a76b_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "100 - 105",
+   "scoreAway": "100 - 105",
+   "time": "0:38",
+   "playerID": 1628365
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/650/d02d3b93-eb88-facc-322f-af1f86384022_1280x720.mp4": {
+   "description": "F. Wagner 25' 3PT Jump Shot (22 PTS) (Banchero 5 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/650/d02d3b93-eb88-facc-322f-af1f86384022_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "103 - 106",
+   "scoreAway": "103 - 106",
+   "time": "0:22",
+   "playerID": 1630532
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/662/f0c4bc80-2edb-f055-449d-b4935dfedf77_1280x720.mp4": {
+   "description": "F. Wagner 28' 3PT Pullup Jump Shot (25 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/662/f0c4bc80-2edb-f055-449d-b4935dfedf77_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "106 - 109",
+   "scoreAway": "106 - 109",
+   "time": "0:06",
+   "playerID": 1630532
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/670/039d643a-db53-4b98-38e6-5337dcb04c7d_1280x720.mp4": {
+   "description": "Banchero Putback Layup (24 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/670/039d643a-db53-4b98-38e6-5337dcb04c7d_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "108 - 111",
+   "scoreAway": "108 - 111",
+   "time": "0:02",
+   "playerID": 1631094
+  }
+ },
+ "AST": {
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/7/85b0ac2b-68d1-3564-8854-a2e9d39effe0_1280x720.mp4": {
+   "description": "Tillman 6' Turnaround Hook Shot (2 PTS) (Jones 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/7/85b0ac2b-68d1-3564-8854-a2e9d39effe0_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "0 - 2",
+   "scoreAway": "0 - 2",
+   "time": "11:39",
+   "playerID": 1626145
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/12/dc7e1cb0-2d9c-df7f-e0a3-b4b18f25634b_1280x720.mp4": {
+   "description": "Fultz 14' Pullup Jump Shot (2 PTS) (Harris 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/12/dc7e1cb0-2d9c-df7f-e0a3-b4b18f25634b_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612753,
+   "scoreHome": "2 - 2",
+   "scoreAway": "2 - 2",
+   "time": "11:04",
+   "playerID": 203914
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/16/8f609eba-8c88-3f65-3cd2-c16f7e3ccf96_1280x720.mp4": {
+   "description": "Tillman 8' Floating Jump Shot (4 PTS) (Brooks 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/16/8f609eba-8c88-3f65-3cd2-c16f7e3ccf96_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "4 - 4",
+   "scoreAway": "4 - 4",
+   "time": "10:19",
+   "playerID": 1628415
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/22/89ea71a2-d728-b7ca-4cfb-aa2af580cbbe_1280x720.mp4": {
+   "description": "Brooks Cutting Dunk Shot (2 PTS) (Jones 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/22/89ea71a2-d728-b7ca-4cfb-aa2af580cbbe_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "4 - 6",
+   "scoreAway": "4 - 6",
+   "time": "9:45",
+   "playerID": 1626145
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/30/dc09cdb8-05f1-249f-cddd-ada9600b3141_1280x720.mp4": {
+   "description": "Banchero 26' 3PT Jump Shot (5 PTS) (Carter Jr. 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/30/dc09cdb8-05f1-249f-cddd-ada9600b3141_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612753,
+   "scoreHome": "7 - 6",
+   "scoreAway": "7 - 6",
+   "time": "9:08",
+   "playerID": 1628976
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/42/406272e0-794f-b03a-764b-72ef19bb652b_1280x720.mp4": {
+   "description": "F. Wagner 26' 3PT Jump Shot (3 PTS) (Banchero 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/42/406272e0-794f-b03a-764b-72ef19bb652b_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612753,
+   "scoreHome": "10 - 7",
+   "scoreAway": "10 - 7",
+   "time": "8:15",
+   "playerID": 1631094
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/62/f4eae873-4013-d568-f23d-554a03e3a984_1280x720.mp4": {
+   "description": "Jackson Jr. 26' 3PT Jump Shot (5 PTS) (Jones 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/62/f4eae873-4013-d568-f23d-554a03e3a984_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "10 - 16",
+   "scoreAway": "10 - 16",
+   "time": "6:09",
+   "playerID": 1626145
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/93/a9c72ded-90bc-3e09-efa3-4ce1d0b52511_1280x720.mp4": {
+   "description": "Jackson Jr. 5' Driving Floating Jump Shot (7 PTS) (Jones 4 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/93/a9c72ded-90bc-3e09-efa3-4ce1d0b52511_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "13 - 20",
+   "scoreAway": "13 - 20",
+   "time": "3:27",
+   "playerID": 1626145
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/101/ca72ca9d-8814-9364-03bb-df34668c91e8_1280x720.mp4": {
+   "description": "Jackson Jr. 1' Cutting Dunk Shot (9 PTS) (Jones 5 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/101/ca72ca9d-8814-9364-03bb-df34668c91e8_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "13 - 22",
+   "scoreAway": "13 - 22",
+   "time": "2:38",
+   "playerID": 1626145
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/103/214a932f-8f5d-0b0c-d621-e70948218929_1280x720.mp4": {
+   "description": "Carter Jr. 1' Alley Oop Dunk (2 PTS) (Fultz 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/103/214a932f-8f5d-0b0c-d621-e70948218929_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612753,
+   "scoreHome": "15 - 22",
+   "scoreAway": "15 - 22",
+   "time": "2:20",
+   "playerID": 1628365
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/118/67bd13df-ad7a-fe0a-5053-daf50e2f86fd_1280x720.mp4": {
+   "description": "Kennard 25' 3PT Jump Shot (5 PTS) (Bane 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/118/67bd13df-ad7a-fe0a-5053-daf50e2f86fd_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "15 - 25",
+   "scoreAway": "15 - 25",
+   "time": "2:00",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/138/1378aab2-a4cc-d2c3-f761-d7f578d3a530_1280x720.mp4": {
+   "description": "Bane 1' Running Reverse Layup (6 PTS) (Konchar 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/138/1378aab2-a4cc-d2c3-f761-d7f578d3a530_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "15 - 29",
+   "scoreAway": "15 - 29",
+   "time": "0:43",
+   "playerID": 1629723
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/141/44e1788f-97c4-2e26-ae46-531aca7383b4_1280x720.mp4": {
+   "description": "Kennard 24' 3PT Jump Shot (8 PTS) (Bane 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/141/44e1788f-97c4-2e26-ae46-531aca7383b4_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "15 - 32",
+   "scoreAway": "15 - 32",
+   "time": "0:11",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/161/136db643-e06b-4d1d-fa41-17417c488838_1280x720.mp4": {
+   "description": "Anthony 13' Pullup Jump Shot (2 PTS) (F. Wagner 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/161/136db643-e06b-4d1d-fa41-17417c488838_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "17 - 34",
+   "scoreAway": "17 - 34",
+   "time": "10:35",
+   "playerID": 1630532
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/177/f104a938-f8c5-5669-6cfc-cf0f8ff2e0e2_1280x720.mp4": {
+   "description": "Tillman 1' Layup (8 PTS) (Kennard 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/177/f104a938-f8c5-5669-6cfc-cf0f8ff2e0e2_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "17 - 38",
+   "scoreAway": "17 - 38",
+   "time": "9:41",
+   "playerID": 1628379
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/217/e9d9dedb-2369-5651-932d-a5b828be23c5_1280x720.mp4": {
+   "description": "Schofield 26' 3PT Jump Shot (3 PTS) (Anthony 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/217/e9d9dedb-2369-5651-932d-a5b828be23c5_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "20 - 39",
+   "scoreAway": "20 - 39",
+   "time": "7:18",
+   "playerID": 1630175
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/221/a9fd3dfc-8a60-1f95-7373-65f6ced6c2a1_1280x720.mp4": {
+   "description": "Schofield 26' 3PT Jump Shot (6 PTS) (Anthony 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/221/a9fd3dfc-8a60-1f95-7373-65f6ced6c2a1_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "23 - 39",
+   "scoreAway": "23 - 39",
+   "time": "6:52",
+   "playerID": 1630175
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/227/ba004f36-8d82-01c8-e9a3-dd75faedfb34_1280x720.mp4": {
+   "description": "Aldama 24' 3PT Jump Shot (5 PTS) (Roddy 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/227/ba004f36-8d82-01c8-e9a3-dd75faedfb34_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "23 - 42",
+   "scoreAway": "23 - 42",
+   "time": "6:03",
+   "playerID": 1631223
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/249/5077659d-2109-be36-0b4b-948686107d1e_1280x720.mp4": {
+   "description": "Harris 25' 3PT Step Back Jump Shot (3 PTS) (Carter Jr. 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/249/5077659d-2109-be36-0b4b-948686107d1e_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "28 - 42",
+   "scoreAway": "28 - 42",
+   "time": "5:11",
+   "playerID": 1628976
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/262/446e7933-1850-a9ee-fa4a-a46ac0c45754_1280x720.mp4": {
+   "description": "Carter Jr. 26' 3PT Jump Shot (7 PTS) (Banchero 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/262/446e7933-1850-a9ee-fa4a-a46ac0c45754_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "31 - 46",
+   "scoreAway": "31 - 46",
+   "time": "3:39",
+   "playerID": 1631094
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/264/5127296c-9231-d403-08c5-b2d830e3fdd5_1280x720.mp4": {
+   "description": "Jones 9' Driving Floating Jump Shot (2 PTS) (Kennard 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/264/5127296c-9231-d403-08c5-b2d830e3fdd5_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "31 - 48",
+   "scoreAway": "31 - 48",
+   "time": "3:23",
+   "playerID": 1628379
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/273/704722f4-16d8-9a64-0ece-cc7d9da4d1c8_1280x720.mp4": {
+   "description": "Banchero 27' 3PT Jump Shot (9 PTS) (Harris 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/273/704722f4-16d8-9a64-0ece-cc7d9da4d1c8_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "34 - 51",
+   "scoreAway": "34 - 51",
+   "time": "2:33",
+   "playerID": 203914
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/290/2f381251-f205-4fac-7f73-5fdc3174639b_1280x720.mp4": {
+   "description": "Jackson Jr. 24' 3PT Jump Shot (12 PTS) (Jones 6 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/290/2f381251-f205-4fac-7f73-5fdc3174639b_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "36 - 54",
+   "scoreAway": "36 - 54",
+   "time": "1:51",
+   "playerID": 1626145
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/292/20a8f6a1-9577-3539-df5e-913b505b56e3_1280x720.mp4": {
+   "description": "F. Wagner 25' 3PT Jump Shot (7 PTS) (Fultz 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/292/20a8f6a1-9577-3539-df5e-913b505b56e3_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": "39 - 54",
+   "scoreAway": "39 - 54",
+   "time": "1:44",
+   "playerID": 1628365
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/294/137be89f-c976-3b88-6317-1a72553c88e3_1280x720.mp4": {
+   "description": "Jackson Jr. 1' Cutting Layup Shot (14 PTS) (Kennard 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/294/137be89f-c976-3b88-6317-1a72553c88e3_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "39 - 56",
+   "scoreAway": "39 - 56",
+   "time": "1:29",
+   "playerID": 1628379
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/301/90d88336-562d-42fd-080b-edc3b49ca4b6_1280x720.mp4": {
+   "description": "Kennard 3PT Jump Shot (14 PTS) (Jones 7 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/301/90d88336-562d-42fd-080b-edc3b49ca4b6_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "40 - 59",
+   "scoreAway": "40 - 59",
+   "time": "1:04",
+   "playerID": 1626145
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/326/2258ba46-39ca-450c-4150-cce67ad13f00_1280x720.mp4": {
+   "description": "Banchero 17' Jump Shot (13 PTS) (Fultz 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/326/2258ba46-39ca-450c-4150-cce67ad13f00_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "46 - 59",
+   "scoreAway": "46 - 59",
+   "time": "11:20",
+   "playerID": 1628365
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/335/6d1ab653-93d6-c411-95e8-4d2ea6c49a80_1280x720.mp4": {
+   "description": "Tillman 10' Floating Jump Shot (10 PTS) (Bane 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/335/6d1ab653-93d6-c411-95e8-4d2ea6c49a80_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "46 - 63",
+   "scoreAway": "46 - 63",
+   "time": "10:31",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/337/4e9eea3d-7bac-29c4-c113-f69b4d25f831_1280x720.mp4": {
+   "description": "F. Wagner 8' Driving Floating Jump Shot (9 PTS) (Banchero 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/337/4e9eea3d-7bac-29c4-c113-f69b4d25f831_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "48 - 63",
+   "scoreAway": "48 - 63",
+   "time": "10:14",
+   "playerID": 1631094
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/338/affd3e09-f041-b51b-147c-23f587bea3de_1280x720.mp4": {
+   "description": "Jones 12' Driving Floating Jump Shot (6 PTS) (Brooks 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/338/affd3e09-f041-b51b-147c-23f587bea3de_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "48 - 65",
+   "scoreAway": "48 - 65",
+   "time": "10:02",
+   "playerID": 1628415
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/365/ad15b072-1714-a83b-03fd-a3a7c9c9c742_1280x720.mp4": {
+   "description": "Tillman 1' Running Finger Roll Layup (12 PTS) (Brooks 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/365/ad15b072-1714-a83b-03fd-a3a7c9c9c742_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "52 - 71",
+   "scoreAway": "52 - 71",
+   "time": "7:24",
+   "playerID": 1628415
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/372/a5258f99-c090-5743-9c8c-35f89de49412_1280x720.mp4": {
+   "description": "Bane 27' 3PT Running Pull-Up Jump Shot (13 PTS) (Jones 8 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/372/a5258f99-c090-5743-9c8c-35f89de49412_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "52 - 74",
+   "scoreAway": "52 - 74",
+   "time": "7:03",
+   "playerID": 1626145
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/377/1f0f10d1-ca38-da9f-3999-dccb9afc1c8a_1280x720.mp4": {
+   "description": "Carter Jr. 3PT Jump Shot (14 PTS) (F. Wagner 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/377/1f0f10d1-ca38-da9f-3999-dccb9afc1c8a_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "55 - 74",
+   "scoreAway": "55 - 74",
+   "time": "6:32",
+   "playerID": 1630532
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/383/8b8b71bd-758c-8ae0-8bab-45303b0a4cc7_1280x720.mp4": {
+   "description": "Brooks 26' 3PT Jump Shot (8 PTS) (Kennard 4 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/383/8b8b71bd-758c-8ae0-8bab-45303b0a4cc7_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "55 - 77",
+   "scoreAway": "55 - 77",
+   "time": "5:46",
+   "playerID": 1628379
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/393/bfb45910-81fc-30db-2106-4b2478f259c6_1280x720.mp4": {
+   "description": "Tillman 7' Turnaround Hook Shot (14 PTS) (Kennard 5 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/393/bfb45910-81fc-30db-2106-4b2478f259c6_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "58 - 79",
+   "scoreAway": "58 - 79",
+   "time": "5:14",
+   "playerID": 1628379
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/397/68a9d8c7-1c41-64cc-3552-2c9f8f11e46f_1280x720.mp4": {
+   "description": "Tillman Cutting Dunk Shot (16 PTS) (Aldama 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/397/68a9d8c7-1c41-64cc-3552-2c9f8f11e46f_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "58 - 81",
+   "scoreAway": "58 - 81",
+   "time": "4:58",
+   "playerID": 1630583
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/411/9ed77833-7836-1ea6-aed3-beac6dc6eb6b_1280x720.mp4": {
+   "description": "Bitadze 1' Layup (2 PTS) (Suggs 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/411/9ed77833-7836-1ea6-aed3-beac6dc6eb6b_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "60 - 81",
+   "scoreAway": "60 - 81",
+   "time": "4:33",
+   "playerID": 1630591
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/415/9e973da0-a9be-1193-dcf5-a0f20e152e62_1280x720.mp4": {
+   "description": "Bitadze 25' 3PT Jump Shot (5 PTS) (Fultz 4 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/415/9e973da0-a9be-1193-dcf5-a0f20e152e62_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "63 - 81",
+   "scoreAway": "63 - 81",
+   "time": "4:05",
+   "playerID": 1628365
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/446/77aa4b27-c534-b3ba-fbf8-652d1ea55b01_1280x720.mp4": {
+   "description": "Bitadze Alley Oop Dunk (11 PTS) (F. Wagner 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/446/77aa4b27-c534-b3ba-fbf8-652d1ea55b01_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "69 - 84",
+   "scoreAway": "69 - 84",
+   "time": "1:28",
+   "playerID": 1630532
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/448/4e1eb012-a5a1-65b8-362f-f4c69ef90ac3_1280x720.mp4": {
+   "description": "Aldama Cutting Dunk Shot (9 PTS) (Bane 4 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/448/4e1eb012-a5a1-65b8-362f-f4c69ef90ac3_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "69 - 86",
+   "scoreAway": "69 - 86",
+   "time": "1:16",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/506/0e34b73e-4517-cb46-728e-535804e615fd_1280x720.mp4": {
+   "description": "F. Wagner Driving Reverse Layup (11 PTS) (Anthony 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/506/0e34b73e-4517-cb46-728e-535804e615fd_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "79 - 87",
+   "scoreAway": "79 - 87",
+   "time": "9:32",
+   "playerID": 1630175
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/515/9872594c-dc43-e0ca-ba15-9a78ecf1e0c7_1280x720.mp4": {
+   "description": "F. Wagner 25' 3PT Jump Shot (14 PTS) (Anthony 4 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/515/9872594c-dc43-e0ca-ba15-9a78ecf1e0c7_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "82 - 89",
+   "scoreAway": "82 - 89",
+   "time": "9:00",
+   "playerID": 1630175
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/528/12de78c3-7ab2-c84b-f344-37d84f828708_1280x720.mp4": {
+   "description": "Anthony 11' Jump Shot (10 PTS) (Bitadze 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/528/12de78c3-7ab2-c84b-f344-37d84f828708_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "84 - 93",
+   "scoreAway": "84 - 93",
+   "time": "7:43",
+   "playerID": 1629048
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/535/4c125726-8514-9f61-713f-b8d591863971_1280x720.mp4": {
+   "description": "Bane 24' 3PT Running Jump Shot (23 PTS) (Konchar 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/535/4c125726-8514-9f61-713f-b8d591863971_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612763,
+   "scoreHome": "84 - 96",
+   "scoreAway": "84 - 96",
+   "time": "7:10",
+   "playerID": 1629723
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/564/90b7b160-ebdc-39f3-b960-a6dbbb62d3ae_1280x720.mp4": {
+   "description": "Bitadze 1' Cutting Dunk Shot (13 PTS) (Banchero 4 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/564/90b7b160-ebdc-39f3-b960-a6dbbb62d3ae_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "88 - 98",
+   "scoreAway": "88 - 98",
+   "time": "5:41",
+   "playerID": 1631094
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/575/3520460a-1834-ad88-c66d-7ec95c71ea2e_1280x720.mp4": {
+   "description": "Tillman 2' Layup (20 PTS) (Bane 5 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/575/3520460a-1834-ad88-c66d-7ec95c71ea2e_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612763,
+   "scoreHome": "88 - 100",
+   "scoreAway": "88 - 100",
+   "time": "4:40",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/577/01d18008-9f15-fcf2-b8ab-f044c7ba5601_1280x720.mp4": {
+   "description": "Banchero 1' Driving Finger Roll Layup (19 PTS) (Anthony 5 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/577/01d18008-9f15-fcf2-b8ab-f044c7ba5601_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "90 - 100",
+   "scoreAway": "90 - 100",
+   "time": "4:24",
+   "playerID": 1630175
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/579/91e33f36-505d-1cab-e488-5bf4de4f317c_1280x720.mp4": {
+   "description": "Brooks 25' 3PT Jump Shot (11 PTS) (Tillman 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/579/91e33f36-505d-1cab-e488-5bf4de4f317c_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612763,
+   "scoreHome": "90 - 103",
+   "scoreAway": "90 - 103",
+   "time": "3:58",
+   "playerID": 1630214
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/620/207acafd-cb2f-312a-014e-2372fa92614f_1280x720.mp4": {
+   "description": "F. Wagner 1' Driving Dunk (16 PTS) (Fultz 5 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/620/207acafd-cb2f-312a-014e-2372fa92614f_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "95 - 105",
+   "scoreAway": "95 - 105",
+   "time": "1:10",
+   "playerID": 1628365
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/650/d02d3b93-eb88-facc-322f-af1f86384022_1280x720.mp4": {
+   "description": "F. Wagner 25' 3PT Jump Shot (22 PTS) (Banchero 5 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/650/d02d3b93-eb88-facc-322f-af1f86384022_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "103 - 106",
+   "scoreAway": "103 - 106",
+   "time": "0:22",
+   "playerID": 1631094
+  }
+ },
+ "BLK": {
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/34/e133400c-9034-3374-2690-ad0059be7d7c_1280x720.mp4": {
+   "description": "Jackson Jr. BLOCK (1 BLK)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/34/e133400c-9034-3374-2690-ad0059be7d7c_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "8:36",
+   "playerID": 1628991
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/46/bbbc0333-54cf-6bc1-27d6-688e50eae4af_1280x720.mp4": {
+   "description": "Jackson Jr. BLOCK (2 BLK)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/46/bbbc0333-54cf-6bc1-27d6-688e50eae4af_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "7:49",
+   "playerID": 1628991
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/73/d14dd78b-cae0-9e8f-4660-59f9785b64ef_1280x720.mp4": {
+   "description": "Carter Jr. BLOCK (1 BLK)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/73/d14dd78b-cae0-9e8f-4660-59f9785b64ef_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "5:24",
+   "playerID": 1628976
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/194/cf9a2ef2-d4cc-6b40-b467-15e199477cf8_1280x720.mp4": {
+   "description": "M. Wagner BLOCK (1 BLK)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/194/cf9a2ef2-d4cc-6b40-b467-15e199477cf8_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "8:49",
+   "playerID": 1629021
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/202/7c4a28d0-605a-2326-74b7-51bbd0d4ec72_1280x720.mp4": {
+   "description": "Carter Jr. BLOCK (2 BLK)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/202/7c4a28d0-605a-2326-74b7-51bbd0d4ec72_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "8:36",
+   "playerID": 1628976
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/275/43b58019-6da7-91d5-f437-04e1434e0905_1280x720.mp4": {
+   "description": "F. Wagner BLOCK (1 BLK)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/275/43b58019-6da7-91d5-f437-04e1434e0905_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "2:14",
+   "playerID": 1630532
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/400/0e963779-791a-3532-afef-2b84ac57bc4a_1280x720.mp4": {
+   "description": "Jackson Jr. BLOCK (3 BLK)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/400/0e963779-791a-3532-afef-2b84ac57bc4a_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "11:24",
+   "playerID": 1628991
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/331/3724aad9-2d16-69d1-06a8-18cbd6adde9b_1280x720.mp4": {
+   "description": "Banchero BLOCK (1 BLK)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/331/3724aad9-2d16-69d1-06a8-18cbd6adde9b_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "10:38",
+   "playerID": 1631094
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/475/d0fd6d33-c765-c5f9-e3e0-c7d835873e22_1280x720.mp4": {
+   "description": "Bitadze BLOCK (1 BLK)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/475/d0fd6d33-c765-c5f9-e3e0-c7d835873e22_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "11:44",
+   "playerID": 1629048
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/478/c99fe796-93a1-d4ca-5b5c-995089355a5b_1280x720.mp4": {
+   "description": "Konchar BLOCK (1 BLK)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/478/c99fe796-93a1-d4ca-5b5c-995089355a5b_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "11:39",
+   "playerID": 1629723
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/532/b9228de8-2d50-3c96-5d41-fdbd298498b7_1280x720.mp4": {
+   "description": "Konchar BLOCK (2 BLK)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/532/b9228de8-2d50-3c96-5d41-fdbd298498b7_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "7:17",
+   "playerID": 1629723
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/554/0e31cee8-f7aa-fc7b-3542-63018adef3f8_1280x720.mp4": {
+   "description": "Bitadze BLOCK (2 BLK)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/554/0e31cee8-f7aa-fc7b-3542-63018adef3f8_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "6:06",
+   "playerID": 1629048
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/566/b79baf63-f7ec-fd23-36d0-90790343a569_1280x720.mp4": {
+   "description": "Bitadze BLOCK (3 BLK)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/566/b79baf63-f7ec-fd23-36d0-90790343a569_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "5:17",
+   "playerID": 1629048
+  }
+ },
+ "DUNK": {
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/22/89ea71a2-d728-b7ca-4cfb-aa2af580cbbe_1280x720.mp4": {
+   "description": "Brooks Cutting Dunk Shot (2 PTS) (Jones 2 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/22/89ea71a2-d728-b7ca-4cfb-aa2af580cbbe_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "4 - 6",
+   "scoreAway": "4 - 6",
+   "time": "9:45",
+   "playerID": 1628415
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/101/ca72ca9d-8814-9364-03bb-df34668c91e8_1280x720.mp4": {
+   "description": "Jackson Jr. 1' Cutting Dunk Shot (9 PTS) (Jones 5 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/101/ca72ca9d-8814-9364-03bb-df34668c91e8_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": "13 - 22",
+   "scoreAway": "13 - 22",
+   "time": "2:38",
+   "playerID": 1628991
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/103/214a932f-8f5d-0b0c-d621-e70948218929_1280x720.mp4": {
+   "description": "Carter Jr. 1' Alley Oop Dunk (2 PTS) (Fultz 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/103/214a932f-8f5d-0b0c-d621-e70948218929_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612753,
+   "scoreHome": "15 - 22",
+   "scoreAway": "15 - 22",
+   "time": "2:20",
+   "playerID": 1628976
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/256/66b0e9e8-d97c-e3d1-88cf-c71891546cc8_1280x720.mp4": {
+   "description": "Aldama Tip Dunk Shot (7 PTS)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/256/66b0e9e8-d97c-e3d1-88cf-c71891546cc8_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": "28 - 44",
+   "scoreAway": "28 - 44",
+   "time": "4:24",
+   "playerID": 1630583
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/397/68a9d8c7-1c41-64cc-3552-2c9f8f11e46f_1280x720.mp4": {
+   "description": "Tillman Cutting Dunk Shot (16 PTS) (Aldama 1 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/397/68a9d8c7-1c41-64cc-3552-2c9f8f11e46f_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "58 - 81",
+   "scoreAway": "58 - 81",
+   "time": "4:58",
+   "playerID": 1630214
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/446/77aa4b27-c534-b3ba-fbf8-652d1ea55b01_1280x720.mp4": {
+   "description": "Bitadze Alley Oop Dunk (11 PTS) (F. Wagner 3 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/446/77aa4b27-c534-b3ba-fbf8-652d1ea55b01_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": "69 - 84",
+   "scoreAway": "69 - 84",
+   "time": "1:28",
+   "playerID": 1629048
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/448/4e1eb012-a5a1-65b8-362f-f4c69ef90ac3_1280x720.mp4": {
+   "description": "Aldama Cutting Dunk Shot (9 PTS) (Bane 4 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/448/4e1eb012-a5a1-65b8-362f-f4c69ef90ac3_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": "69 - 86",
+   "scoreAway": "69 - 86",
+   "time": "1:16",
+   "playerID": 1630583
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/564/90b7b160-ebdc-39f3-b960-a6dbbb62d3ae_1280x720.mp4": {
+   "description": "Bitadze 1' Cutting Dunk Shot (13 PTS) (Banchero 4 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/564/90b7b160-ebdc-39f3-b960-a6dbbb62d3ae_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "88 - 98",
+   "scoreAway": "88 - 98",
+   "time": "5:41",
+   "playerID": 1629048
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/620/207acafd-cb2f-312a-014e-2372fa92614f_1280x720.mp4": {
+   "description": "F. Wagner 1' Driving Dunk (16 PTS) (Fultz 5 AST)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/620/207acafd-cb2f-312a-014e-2372fa92614f_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": "95 - 105",
+   "scoreAway": "95 - 105",
+   "time": "1:10",
+   "playerID": 1630532
+  }
+ },
+ "STL": {
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/8/d2b01726-a4f4-8f6c-9daa-52a201587f91_1280x720.mp4": {
+   "description": "Bane STEAL (1 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/8/d2b01726-a4f4-8f6c-9daa-52a201587f91_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "11:25",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/26/1208cb16-2e9b-6e7f-6e22-a294a2ae8f17_1280x720.mp4": {
+   "description": "Brooks STEAL (1 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/26/1208cb16-2e9b-6e7f-6e22-a294a2ae8f17_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "9:21",
+   "playerID": 1628415
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/95/5c7e3df6-a3f5-0e69-58b1-80fd31c68425_1280x720.mp4": {
+   "description": "Aldama STEAL (1 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/95/5c7e3df6-a3f5-0e69-58b1-80fd31c68425_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "3:12",
+   "playerID": 1630583
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/126/9c669bbb-43e7-8f3e-69b1-39c0cae993ed_1280x720.mp4": {
+   "description": "Aldama STEAL (2 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/126/9c669bbb-43e7-8f3e-69b1-39c0cae993ed_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "1:07",
+   "playerID": 1630583
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/136/14224a0e-bacc-e4af-6065-6ddb383a1f8e_1280x720.mp4": {
+   "description": "Tillman STEAL (1 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/136/14224a0e-bacc-e4af-6065-6ddb383a1f8e_1280x720.mp4",
+   "quarter": 1,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "0:47",
+   "playerID": 1630214
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/167/6e5e426a-0ebb-ba8c-f811-961611f9e954_1280x720.mp4": {
+   "description": "Bane STEAL (2 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/167/6e5e426a-0ebb-ba8c-f811-961611f9e954_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "10:10",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/179/3aa483b7-72e5-ed84-8e5a-5ccd799c7257_1280x720.mp4": {
+   "description": "Konchar STEAL (1 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/179/3aa483b7-72e5-ed84-8e5a-5ccd799c7257_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "9:22",
+   "playerID": 1629723
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/205/8e6c2934-a4e6-28b1-a88c-bc9f7be19f34_1280x720.mp4": {
+   "description": "Bane STEAL (3 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/205/8e6c2934-a4e6-28b1-a88c-bc9f7be19f34_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "8:29",
+   "playerID": 1630217
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/219/4176a87c-63f7-83c2-2f41-237a488ff828_1280x720.mp4": {
+   "description": "Anthony STEAL (1 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/219/4176a87c-63f7-83c2-2f41-237a488ff828_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "7:03",
+   "playerID": 1630175
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/266/4fed789d-82a6-8be4-d6c3-eaa3526d0032_1280x720.mp4": {
+   "description": "Kennard STEAL (1 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/266/4fed789d-82a6-8be4-d6c3-eaa3526d0032_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "3:08",
+   "playerID": 1628379
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/271/b706308d-d95f-622b-4602-1104dfb3d602_1280x720.mp4": {
+   "description": "Carter Jr. STEAL (1 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/271/b706308d-d95f-622b-4602-1104dfb3d602_1280x720.mp4",
+   "quarter": 2,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "2:37",
+   "playerID": 1628976
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/323/349963aa-8596-7849-7396-e652cc9f0ad7_1280x720.mp4": {
+   "description": "F. Wagner STEAL (1 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/323/349963aa-8596-7849-7396-e652cc9f0ad7_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "11:32",
+   "playerID": 1630532
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/346/103541b4-4cf6-3a1c-08c2-cfff37851e07_1280x720.mp4": {
+   "description": "F. Wagner STEAL (2 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/346/103541b4-4cf6-3a1c-08c2-cfff37851e07_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "8:59",
+   "playerID": 1630532
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/363/1c9d8495-b80d-b61c-6b3d-7763a3eae26c_1280x720.mp4": {
+   "description": "Jones STEAL (1 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/363/1c9d8495-b80d-b61c-6b3d-7763a3eae26c_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "7:29",
+   "playerID": 1626145
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/424/43f7d4b6-817d-e191-b6f6-2b4d4e478746_1280x720.mp4": {
+   "description": "Anthony STEAL (2 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/424/43f7d4b6-817d-e191-b6f6-2b4d4e478746_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "3:24",
+   "playerID": 1630175
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/453/8d2c2091-ceb4-a2fd-e3dc-b66bd7140d98_1280x720.mp4": {
+   "description": "Bitadze STEAL (1 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/453/8d2c2091-ceb4-a2fd-e3dc-b66bd7140d98_1280x720.mp4",
+   "quarter": 3,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "0:50",
+   "playerID": 1629048
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/485/0f50f41c-5083-98c8-304b-637ec7779944_1280x720.mp4": {
+   "description": "Suggs STEAL (1 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/485/0f50f41c-5083-98c8-304b-637ec7779944_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "11:18",
+   "playerID": 1630591
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/573/224874de-d3c8-321d-e16e-c806d413d7bc_1280x720.mp4": {
+   "description": "Jones STEAL (2 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/573/224874de-d3c8-321d-e16e-c806d413d7bc_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612763,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "4:49",
+   "playerID": 1626145
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/594/a9090aba-75e1-bebf-0236-22ace81fe4d9_1280x720.mp4": {
+   "description": "Fultz STEAL (1 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/594/a9090aba-75e1-bebf-0236-22ace81fe4d9_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "3:10",
+   "playerID": 1628365
+  },
+  "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/636/14977a16-d388-a866-f13c-cca81043f775_1280x720.mp4": {
+   "description": "Fultz STEAL (2 STL)",
+   "url": "https://videos.nba.com/nba/pbp/media/2023/03/28/0022201133/636/14977a16-d388-a866-f13c-cca81043f775_1280x720.mp4",
+   "quarter": 4,
+   "teamID": 1610612753,
+   "scoreHome": null,
+   "scoreAway": null,
+   "time": "0:39",
+   "playerID": 1628365
+  }
+ }
+}
