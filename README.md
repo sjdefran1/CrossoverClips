@@ -5,7 +5,7 @@
     <img src="frontend/nba-frontend/src/static/cc2static.png" alt="Logo" >
   </a>
 
-# Crossover Clips
+# Crossover Clips // [crossoverclips.com](https://crossoverclips.com)
 
 CC's allows you to find and download your favorite NBA highlights dating back to the 2014-15 NBA season.
 
