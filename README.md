@@ -9,7 +9,7 @@
 
 CC's allows you to find and download your favorite NBA highlights dating back to the 2014-15 NBA season.
 
-Twitter - @crossover_clips | @cclipsmuse
+Twitter - [@Crossover_clips](https://twitter.com/crossover_clips) | [@cclipsmuse Random highlight bot](https://twitter.com/cclipsmuse)
 
 ## Find your Matchup
 
