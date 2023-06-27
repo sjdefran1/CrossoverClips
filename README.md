@@ -1,7 +1,7 @@
 
 <a name="readme-top"></a>
 
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://crossoverclips.com">
     <img src="frontend/nba-frontend/src/static/cc2static.png" alt="Logo" >
   </a>
 
