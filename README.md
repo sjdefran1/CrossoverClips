@@ -51,6 +51,8 @@ Once you've found your game, CC makes it easy to find your clip.
 - Filter by team
 - Filter by quarter
 
+---
+
 ## Download your Highlight
 ![d1](https://github.com/sjdefran1/highlight_maker/assets/72476187/d6db69f2-a9b2-4192-b469-2b90dce42f3b)
 
@@ -60,7 +62,13 @@ Once you've found your game, CC makes it easy to find your clip.
 
 CC allows you to download the clip directly to your device. Works on Desktop and Mobile!
 
-
+---
+# Roadmap
+- [ ] Highlight Views (how many times has highlight been viewed/clicked)
+- [ ] Player Dashboards (most viewed plays, plays against matchups, etc)
+- [ ] Possible migration mongodb -> postgres (NeonDB)
+- [ ] Fix UI bugs
+---
 
 # Built With
 
@@ -80,7 +88,9 @@ CC allows you to download the clip directly to your device. Works on Desktop and
 
 - [MongoDB](https://www.mongodb.com/docs/)
 
-## Contact me
+---
+
+# Contact me
 
 - [LinkedIn](https://www.linkedin.com/in/sam-defrancisco-4373361b3/)
 - [Me](https://sjdefran.com)
