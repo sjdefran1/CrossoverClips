@@ -27,7 +27,7 @@ import d1 from "../static/d1.gif";
 import d2 from "../static/d2.gif";
 
 export default function DownloadHelp(props) {
-  const [expanded, setExpanded] = React.useState("safari");
+  const [expanded, setExpanded] = React.useState("");
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);

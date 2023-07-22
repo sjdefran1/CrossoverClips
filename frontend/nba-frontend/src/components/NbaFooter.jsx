@@ -9,6 +9,8 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 import CloudIcon from "@mui/icons-material/Cloud";
+import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
+
 import {
   Container,
   Alert,
@@ -69,6 +71,7 @@ function Footer(props) {
                   sjdefran.com
                 </Typography>
               </Link>
+
               <Link
                 href='https://www.linkedin.com/in/sam-defrancisco-4373361b3/'
                 target='_blank'
@@ -85,6 +88,28 @@ function Footer(props) {
 
                 <Typography variant='body2' color={"text.secondary"}>
                   Sam DeFrancisco
+                </Typography>
+              </Link>
+
+              <Link
+                href='https://www.buymeacoffee.com/sjdefran'
+                target='_blank'
+                rel='noreferrer'
+                sx={{
+                  textDecoration: "none",
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
+                }}>
+                <IconButton>
+                  <FreeBreakfastIcon color='warning' fontSize='large' />
+                </IconButton>
+
+                <Typography variant='body2' color={"text.secondary"}>
+                  {"Support"}
+                </Typography>
+                <Typography variant='body2' color={"text.secondary"}>
+                  {"Me"}
                 </Typography>
               </Link>
 
@@ -141,6 +166,27 @@ function Footer(props) {
 
         <Hidden smUp>
           <Box>
+            <Link
+              href='https://www.buymeacoffee.com/sjdefran'
+              target='_blank'
+              rel='noreferrer'
+              sx={{
+                textDecoration: "none",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}>
+              <IconButton>
+                <FreeBreakfastIcon color='warning' fontSize='large' />
+              </IconButton>
+
+              <Typography variant='body2' color={"text.secondary"}>
+                {"Support"}
+              </Typography>
+              <Typography variant='body2' color={"text.secondary"}>
+                {"Me"}
+              </Typography>
+            </Link>
             <Stack
               spacing={2}
               direction={"row"}
@@ -240,6 +286,7 @@ function Footer(props) {
           </Box>
         </Hidden>
       </Paper>
+      <br></br>
     </Container>
   );
 }
