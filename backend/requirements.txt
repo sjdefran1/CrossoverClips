@@ -4,4 +4,7 @@ pymongo
 APScheduler
 python-dotenv
 uvicorn
+psycopg==3.1.9
+psycopg2-binary==2.9.6
+pandas
 # dotenv
