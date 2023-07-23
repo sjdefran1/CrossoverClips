@@ -13,3 +13,7 @@ class PlayOptions(BaseModel):
     gtype: Optional[int]
     season: Optional[str]
     home_away: Optional[str]
+
+class Update(BaseModel):
+    url: str
+    ptype: str

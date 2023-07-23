@@ -393,6 +393,7 @@ export default function GameDetails(props) {
                   <PlayList
                     playByPlay={playByPlay}
                     currentQuarter={currentQuarter}
+                    currentStatType={statFilterFrom}
                     home_teamID={
                       state?.game_link && replacementLoading
                         ? state?.game_link.home_info.TEAM_ID

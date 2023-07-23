@@ -25,7 +25,7 @@ export default function SinglePlay(props) {
   const [isLoading, setIsLoading] = React.useState(false);
   const handleDownload = (givenUrl) => {
     console.log("fired");
-    let fileName = givenUrl.split("/")[11];
+    // let fileName = givenUrl.split("/")[11];
     let data = {
       url: givenUrl,
     };
@@ -38,7 +38,23 @@ export default function SinglePlay(props) {
         fileDownload(res.data, props.play.description + ".mp4");
         setIsLoading(false);
       });
+
+    let update = {
+      url: props.play.url,
+      ptype: props.currentStatType,
+    };
+    axios.post(reqString + "players/updatePlayDownloadCount", update);
+    axios.post(reqString + "players/updatePlayViewCount", update);
   };
+
+  const handleView = () => {
+    let update = {
+      url: props.play.url,
+      ptype: props.currentStatType,
+    };
+    axios.post(reqString + "players/updatePlayViewCount", update);
+  };
+
   return (
     <>
       <Divider />
@@ -50,6 +66,7 @@ export default function SinglePlay(props) {
             target='_blank'
             rel='noreferrer'
             href={props.play.url}
+            onClick={() => handleView()}
             sx={{
               textDecoration: "none",
             }}>

@@ -10,15 +10,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from playersUtil.playsQueryBuilder import build_plays_query
+from playersUtil.playsQueryBuilder import build_plays_search_query
 from playersUtil.playSql import PLAYS_QUERY_COLUMNS_NAMES, CREATE_VIEW, DROP_VIEW
 from playersUtil.table_schemas import *
-from playersUtil.RequestModels import PlayOptions
+from playersUtil.RequestModels import PlayOptions, Update
 
 players_router = APIRouter(prefix="/players")
 
 
-def generate_unique_view_name():
+def generate_unique_view_name() -> str:
     """Creates unique temp view name for query"""
     # temp_table_539c35fb19024e7880738152f7743f89
     # removes - per postgres standars
@@ -65,7 +65,7 @@ def plays_query_executor(query: str) -> dict:
     return results_dict
 
 
-def create_connections():
+def create_connections() -> None:
     """Makes connection w/ postgres db, declares psy_cursor and psyconn globally"""
     global psy_cursor
     global psyconn
@@ -79,24 +79,25 @@ def create_connections():
     )
     psy_cursor = psyconn.cursor()
     print("\tFINISHED")
+    return
 
-
-def ping_db():
+def ping_db() -> None:
     """Checks if connection to db has closed, resets connection if it has"""
     try:
         psy_cursor.execute("SELECT 1")
     except psycopg2.OperationalError:
         print("Connection was closed")
         create_connections()  # reset connection
-
+    return
 
 @players_router.on_event("startup")
-async def startup():
+async def startup() -> None:
     create_connections()
+    return
 
 
 @players_router.get("/teams")
-async def get_all_teams_controller():
+async def get_all_teams_controller() -> JSONResponse:
     psy_cursor.execute("SELECT * FROM teams")
     ret_list = []
     for res in psy_cursor.fetchall():
@@ -106,9 +107,9 @@ async def get_all_teams_controller():
 
 
 @players_router.get("/plays")
-async def get_players_plays(opts: PlayOptions, request: Request):
+async def get_players_plays(opts: PlayOptions, request: Request) -> JSONResponse:
     
-    query = build_plays_query(opts=opts)
+    query = build_plays_search_query(opts=opts)
     result_dict = plays_query_executor(query=query)
     df = pd.DataFrame(data=result_dict["results"], columns=PLAYS_QUERY_COLUMNS_NAMES)
     return_dict = {
@@ -117,13 +118,41 @@ async def get_players_plays(opts: PlayOptions, request: Request):
     }
     return JSONResponse(content=return_dict, status_code=200)
 
+@players_router.post("/updatePlayViewCount")
+async def update_play_view_count(update: Update):
+    """Temp view tracker until playbyplay setup"""
+    psy_cursor.execute(f"select views from plays where url='{update.url}'")
+    res = psy_cursor.fetchone()
+    # add 1 to views and update it
+    update_query = \
+        f"UPDATE plays SET views = {res[0]+1} WHERE url = '{update.url}'"
+
+    psy_cursor.execute(update_query)
+    psyconn.commit()
+
+    return JSONResponse(content={'new_val': res[0]+1})    
+
+@players_router.post("/updatePlayDownloadCount")
+async def update_play_download_count(update: Update):
+    """Temp download tracker until playbyplay setup"""
+    psy_cursor.execute(f"select downloads from plays where url='{update.url}' and ptype='{update.ptype}'")
+    res = psy_cursor.fetchone()
+    # add 1 to views and update it
+    update_query = \
+        f"UPDATE plays SET downloads = {res[0]+1} WHERE url = '{update.url}' and ptype='{update.ptype}'"
+
+    psy_cursor.execute(update_query)
+    psyconn.commit()
+    return JSONResponse(content={'new_val': res[0]+1})    
+
 
 @players_router.on_event("shutdown")
-async def shutdown():
-    print("\tCLOSING CURSOR")
+async def shutdown() -> None:
+    print("\tCLOSING CURSOR & CONNECTION")
     psy_cursor.close()
     psyconn.close()
     print("\tCLOSED")
+    return
 
 
 if __name__ == "__main__":

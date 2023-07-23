@@ -2,7 +2,7 @@ from playersUtil.playSql import *  # sql queries
 from playersUtil.RequestModels import PlayOptions
 
 
-def build_plays_query(opts: PlayOptions) -> str:
+def build_plays_search_query(opts: PlayOptions) -> str:
     """
     Builds sql query string for given options
     """

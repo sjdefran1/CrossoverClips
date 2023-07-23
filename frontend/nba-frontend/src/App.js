@@ -91,7 +91,7 @@ const App = () => {
 
 //export const reqString = "https://nbaclipfinder4-1-u4961891.deta.app/";
 
-export const reqString = "https://nbaclipsite.onrender.com/";
+export const reqString = "https:///nbaclipsite.onrender.com/";
 // export const reqString = "http://localhost:8000/";
 
 export default App;
