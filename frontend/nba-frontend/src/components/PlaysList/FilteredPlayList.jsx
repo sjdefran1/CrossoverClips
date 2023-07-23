@@ -26,6 +26,7 @@ export default function FilteredPlayList(props) {
           <React.Fragment key={play.url}>
             <nav aria-label='playbyplay'>
               <SinglePlay
+                currentStatType={props.currentStatType}
                 play={play}
                 team_ids={[props.home_teamID, props.away_teamID]}
                 players_length={props.playByPlay.players.length}
