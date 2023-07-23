@@ -5,6 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Main2 from "./components/Main2.jsx";
 import GameDetails from "./components/GameDetails/GameDetails.jsx";
 import DownloadHelp from "./components/DownloadHelp.jsx";
+import Landing from "./components/Landing.jsx";
 // import TestMarkDown from "./components/TestMarkDown.jsx";
 // import TopBar from "./components/TopBar.jsx";
 
@@ -71,14 +72,14 @@ const App = () => {
 
           <HashRouter>
             <Routes>
-              <Route exact path='/' element={<Main2 />} />
+              <Route exact path='/' element={<Landing />} />
+              <Route exact path='/home' element={<Main2 />} />
               <Route exact path='/games/:date/:id' element={<GameDetails />} />
               <Route exact path='/byTeam/:id' element={<Main2 />} />
               <Route exact path='/byTeam/:id1/:id2' element={<Main2 />} />
               <Route exact path='/byDate/' element={<Main2 />} />
               <Route exact path='/byDate/:date' element={<Main2 />} />
               <Route exact path='/downloadHelp' element={<DownloadHelp />} />
-
               {/* <Route exact path='/howto' element={<TestMarkDown />} /> */}
             </Routes>
           </HashRouter>

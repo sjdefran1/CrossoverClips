@@ -1,5 +1,18 @@
 -- Restore script
 
+-- adding viewer table
+
+-- !!!!!!! MAKE BACKUP ???
+DROP TABLE viewers IF EXISTS;
+
+CREATE TABLE viewers (
+    vid SERIAL PRIMARY KEY,
+    ip VARCHAR(45) NOT NULL,
+    visit_count int,
+    last_visited_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    first_visited_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
  --HOUSEKEEPING FOR BAD DATA --------
 
   -- broken game
@@ -29,6 +42,10 @@ CREATE INDEX players_tid on players(tid);
   --matchups
 DROP INDEX IF EXISTS matchups_gid;
 CREATE INDEX matchups_gid on matchups(gid);
+
+  --viewers
+DROP INDEX IF EXISTS ip_idx;
+CREATE INDEX ip_idx on viewers(ip);
 -------------------------------------------------------------
 
 -- Primary Keys

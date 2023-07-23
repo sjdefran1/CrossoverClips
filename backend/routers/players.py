@@ -1,6 +1,7 @@
 import os
 import uuid
 from json import loads
+from datetime import datetime
 
 from fastapi import Request, APIRouter
 from fastapi.responses import JSONResponse
@@ -147,6 +148,43 @@ async def update_play_download_count(update: Update):
     psyconn.commit()
     return JSONResponse(content={'new_val': res[0]+1})    
 
+@players_router.post("/registerOrUpdateViewer")
+async def register_or_update_viewer(req: Request) -> JSONResponse:
+    ping_db()
+    query = f"SELECT COUNT(*) FROM viewers WHERE ip = '{req.client.host}';"
+    psy_cursor.execute(query)
+    # Check if the count of rows returned is greater than 0
+    ip_exists = psy_cursor.fetchone()[0] > 0
+    
+    if ip_exists:
+        print(f"Returning user! {req.client.host}")
+        # user has visited before
+        # get current time as str and then convert back into timestamp
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+        current_time = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S.%f")
+        # increment visit count + 1
+        # update last visited time
+        query = f"""
+        UPDATE viewers
+        SET 
+            visit_count = visit_count + 1,
+            last_visited_time = '{current_time}'
+        WHERE ip = '{req.client.host}';
+        """    
+        psy_cursor.execute(query)    
+    else:
+        # new user
+        # insert ip and set visit count to 1
+        print(f"New user! {req.client.host}")
+
+        query = f"""
+        INSERT INTO viewers (ip, visit_count) VALUES ('{req.client.host}', 1);    
+        """
+        psy_cursor.execute(query)
+    
+    psyconn.commit()
+    return JSONResponse(content='success')
+
 
 @players_router.on_event("shutdown")
 async def shutdown() -> None:
@@ -155,6 +193,7 @@ async def shutdown() -> None:
     psyconn.close()
     print("\tCLOSED")
     return
+
 
 
 if __name__ == "__main__":

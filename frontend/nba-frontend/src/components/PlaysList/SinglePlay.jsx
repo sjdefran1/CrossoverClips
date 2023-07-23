@@ -24,7 +24,6 @@ import fileDownload from "js-file-download";
 export default function SinglePlay(props) {
   const [isLoading, setIsLoading] = React.useState(false);
   const handleDownload = (givenUrl) => {
-    console.log("fired");
     // let fileName = givenUrl.split("/")[11];
     let data = {
       url: givenUrl,

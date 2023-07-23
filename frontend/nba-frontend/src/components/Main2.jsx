@@ -68,28 +68,46 @@ export default function Main(props) {
 
   const handleTabChange = (event, newVal) => {
     //this.setState({ tabValue: newVal, responseData: [] });
+    console.log(newVal);
     setTabValue(newVal);
     setResponseData([]);
 
     if (newVal === 0) {
-      navigate("/");
+      navigate("/home");
     }
     if (newVal === 1) {
       //this.setState({ value: dayjs().subtract(1, "day").toString() });
       //this.getGamesAxios(this.state.value);
-      setValue(dayjs().subtract(1, "day").toString());
-      getGamesAxios(value);
+
       // const location = {
       //   pathname: "/somewhere",
       //   state: { fromDashboard: true },
       // };
-      navigate("/byDate/" + dayjs().format("YYYY-MM-DD").toString(), {
-        state: {
-          tabValueLink: 1,
-          selectedTeamsLink: [{}, {}],
-          valueLink: dayjs().format("YYYY-MM-DD"),
-        },
-      });
+
+      //OLD CORRECT LOGIC
+      // setValue(dayjs().subtract(1, "day").toString());
+      // getGamesAxios(value);
+
+      //TODO TEMP IF NEED TO REMOVE
+      if (dayjs("2023-06-12").isBefore(dayjs(value))) {
+        setValue(dayjs("2023-06-12").toString());
+        let str = "/byDate/2023-06-12";
+        navigate(str);
+        getGamesAxios("2023-06-12");
+      } else {
+        getGamesAxios(value);
+        let str = "/byDate/" + dayjs(value).format("YYYY-MM-DD").toString();
+        console.log(str);
+        navigate(str);
+      }
+
+      // navigate("/byDate/" + value.format("YYYY-MM-DD"), {
+      //   state: {
+      //     tabValueLink: 1,
+      //     selectedTeamsLink: [{}, {}],
+      //     valueLink: value.format("YYYY-MM-DD"),
+      //   },
+      // });
     }
     if (newVal === 2) {
       navigate("/downloadHelp");
@@ -169,6 +187,7 @@ export default function Main(props) {
   React.useEffect(() => {
     //console.log(selectedTeams);
   }, [selectedTeams]);
+
   // console.log("Main ");
   // // console.log(selectedTeams);
   // console.log(locationState);
@@ -298,7 +317,7 @@ export default function Main(props) {
                           value={value}
                           showToolbar={false}
                           minDate={dayjs("2014-10-28")}
-                          maxDate={dayjs()}
+                          maxDate={dayjs("2023-06-12")} //TODO fix
                           // className='calendar'
                           // shouldDisableDate={isWeekend}
                           onChange={(newValue) => {
