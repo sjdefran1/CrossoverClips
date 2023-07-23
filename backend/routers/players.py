@@ -121,6 +121,7 @@ async def get_players_plays(opts: PlayOptions, request: Request) -> JSONResponse
 @players_router.post("/updatePlayViewCount")
 async def update_play_view_count(update: Update):
     """Temp view tracker until playbyplay setup"""
+    ping_db()
     psy_cursor.execute(f"select views from plays where url='{update.url}'")
     res = psy_cursor.fetchone()
     # add 1 to views and update it
@@ -135,6 +136,7 @@ async def update_play_view_count(update: Update):
 @players_router.post("/updatePlayDownloadCount")
 async def update_play_download_count(update: Update):
     """Temp download tracker until playbyplay setup"""
+    ping_db()
     psy_cursor.execute(f"select downloads from plays where url='{update.url}' and ptype='{update.ptype}'")
     res = psy_cursor.fetchone()
     # add 1 to views and update it
