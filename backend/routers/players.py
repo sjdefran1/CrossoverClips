@@ -131,7 +131,7 @@ if __name__ == "__main__":
 
     load_dotenv()
     PG_URL = os.getenv("POSTGRESNEON")
-    uvicorn.run(app, host="localhost", port=8000)
+    uvicorn.run(players_router, host="localhost", port=8000)
 
 
 """
