@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { reqString } from "../../App.js";
 
 import TeamSearch from "./TeamSearch";
@@ -48,7 +48,7 @@ export default function ChoicesDash(props) {
   const [gameType, setGameType] = React.useState("");
   const [hasClickedSubmit, setHasClickedSubmit] = React.useState(false);
   // const [maxSelected, setMaxSelected] = React.useState(false);
-
+  const navigate = useNavigate();
   const [maxSelected, setMaxSelected] = React.useState(
     !locationState.state ? false : locationState.state.maxSelectedLink
   );
@@ -126,6 +126,7 @@ export default function ChoicesDash(props) {
     setGameList([]);
     // handleChange("panel1");
     setExpanded("panel1");
+    navigate("/home");
   };
 
   const getGamesByTeamAxios = () => {
@@ -213,7 +214,7 @@ export default function ChoicesDash(props) {
           </AccordionDetails>
         </Accordion>
         <Accordion
-          expanded={expanded !== "panel1" && expanded == "panel2"}
+          expanded={expanded !== "panel1" && expanded === "panel2"}
           onChange={handleChange("panel2")}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Stack alignItems={"center"} direction='row' spacing={1}>
