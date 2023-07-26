@@ -10,6 +10,7 @@ def get_teams(client):
     teams = []
     for result in results:
         teams.append(result)
+    # orders by conf (east, west)
+    # sorts by city alph
     sorted_list = sorted(teams, key=lambda x: (x['conf'], x['city']))
-    print(sorted_list)
     return sorted_list

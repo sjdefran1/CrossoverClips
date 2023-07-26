@@ -181,7 +181,7 @@ export default function TeamSearch(props) {
                 renderInput={(params) => (
                   <Stack direction={"row"} alignItems={"center"} spacing={1}>
                     <SearchIcon />
-                    <TextField {...params} label='Start typing team name' />
+                    <TextField {...params} label='Type team name' />
                   </Stack>
                 )}
               />
