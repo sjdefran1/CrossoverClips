@@ -21,6 +21,8 @@ PLAYS_QUERY_COLUMNS_NAMES = [
     "row_number",
     "wl",
     "mid",
+    "views",
+    "downloads"
 ]
 
 # Create view tags
