@@ -89,6 +89,9 @@ def ping_db() -> None:
     except psycopg2.OperationalError:
         print("Connection was closed")
         create_connections()  # reset connection
+    except psycopg2.InterfaceError:
+        print("Cursor was closed")
+        create_connections()
     return
 
 @players_router.on_event("startup")
