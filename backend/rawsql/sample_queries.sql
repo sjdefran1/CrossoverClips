@@ -48,7 +48,13 @@ where p1.pid=1630596
 AND p1.quarter=4; -- opt
 
 -----------------------------------------------
+        -- all plays from game, J. Embiid abr
+select concat(SUBSTRING(p2.fname, 1, 1), '. ', p2.lname) as pname, p1.* from plays p1 join players p2 on p1.pid=p2.pid  where gid='0022101034';
 
+        -- viewers by date
+SELECT DATE(first_visited_time) AS date_part, COUNT(*) AS count
+FROM viewers
+GROUP BY date_part;
 
 -- Query Ideas
 
