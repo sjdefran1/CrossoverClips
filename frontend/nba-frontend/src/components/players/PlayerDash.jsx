@@ -17,12 +17,15 @@ import {
   Checkbox,
   Autocomplete,
   Divider,
+  IconButton,
 } from "@mui/material";
+
 import SearchIcon from "@mui/icons-material/Search";
 import CircleOutlined from "@mui/icons-material/CircleOutlined";
 import CircleIcon from "@mui/icons-material/Circle";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 
 import NbaHeader from "../NbaHeader.jsx";
 import NbaFooter from "../NbaFooter";
@@ -35,9 +38,14 @@ import GameTypeSelect from "../ByTeamDash/GameTypeSelect.jsx";
 
 import TeamLabel from "../ByTeamDash/TeamLabel.jsx";
 import SeasonsSelect from "../ByTeamDash/SeasonsSelect.jsx";
+import StatFilter from "../GameDetails/StatFilters.jsx";
+import QuarterFilter from "./QuarterFilter2.jsx";
+
 export default function PlayerDash(props) {
   const [seasonsSelected, setSeasonsSelected] = React.useState([]);
   const [gameType, setGameType] = React.useState([]);
+
+  const [videoPlayerIndex, setVideoPlayerIndex] = React.useState(0);
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
       backgroundColor: "#44b700",
@@ -74,6 +82,8 @@ export default function PlayerDash(props) {
     return (
       <Chip
         label={props.label}
+        onDelete={() => null}
+        variant='outlined'
         sx={{ mr: 0.5, my: 0.1 }}
         avatar={
           <Avatar
@@ -254,7 +264,7 @@ export default function PlayerDash(props) {
                     <SearchIcon />
                     <TextField
                       {...params}
-                      label='Find Plays when player was on this team'
+                      label='Find Plays When Player Was On These Teams'
                     />
                   </Stack>
                 )}
@@ -274,7 +284,7 @@ export default function PlayerDash(props) {
                 />
               </Paper>
               <Alert severity='info' sx={{ justifyContent: "center" }}>
-                All seasons returned by default, submit button below
+                All seasons returned by default
               </Alert>
 
               <Box padding={1} textAlign={"center"}>
@@ -332,7 +342,65 @@ export default function PlayerDash(props) {
                 <GameTypeSelect setGameType={setGameTypeFunc} />
               </Stack>
             </Paper>
+
+            <Box my={1} textAlign={"center"}>
+              <Divider />
+              <Chip
+                label='In Game Options'
+                variant='outlined'
+                sx={{ my: 1 }}
+                color='info'
+              />
+              <Divider />
+            </Box>
+
+            <Grid container xs={12} mt={1}>
+              <Grid item xs={6}>
+                <StatFilter />
+              </Grid>
+              <Grid item xs={5.8}>
+                {/* <QuarterFilter /> */}
+                <Paper>
+                  <Paper
+                    variant='outlined'
+                    sx={{ textAlign: "center", bgcolor: "#333" }}>
+                    <Chip label='Quarter' variant='outlined' sx={{ my: 0.5 }} />
+                  </Paper>
+
+                  <Stack
+                    direction={"row"}
+                    justifyContent={"center"}
+                    spacing={1}
+                    padding={1}
+                    my={1}>
+                    <Chip
+                      label={1}
+                      sx={{ height: 45, width: 45, borderRadius: "50%" }}
+                    />
+                    <Chip
+                      label={2}
+                      sx={{ height: 45, width: 45, borderRadius: "50%" }}
+                    />
+                    <Chip
+                      label={3}
+                      sx={{ height: 45, width: 45, borderRadius: "50%" }}
+                    />
+                    <Chip
+                      label={4}
+                      color='success'
+                      sx={{ height: 45, width: 45, borderRadius: "50%" }}
+                    />
+                    <Chip
+                      label={"OT"}
+                      color='success'
+                      sx={{ height: 45, width: 45, borderRadius: "50%" }}
+                    />
+                  </Stack>
+                </Paper>
+              </Grid>
+            </Grid>
           </Grid>
+
           {/* spacer between two grid items */}
           {/* <Grid item xs={1}></Grid> */}
 
@@ -346,21 +414,36 @@ export default function PlayerDash(props) {
               spacing={2}
               ml={1}
               my={1}>
-              <KeyboardArrowLeftIcon color='info' />
+              <IconButton
+                onClick={() => {
+                  if (videoPlayerIndex > 0)
+                    setVideoPlayerIndex(videoPlayerIndex - 1);
+                }}>
+                <KeyboardArrowLeftIcon fontSize='large' color='info' />
+              </IconButton>
+
               <iframe
                 width='640'
                 height='360'
-                src='https://videos.nba.com/nba/pbp/media/2023/05/22/0042200314/571/dd778c45-f5ff-73e5-5d52-4664e7b2a26f_1280x720.mp4'
+                src={plays.plays[videoPlayerIndex].url}
                 frameborder='0'
-                allowfullscreen></iframe>
-              <KeyboardArrowRightIcon color='info' />
+                allowFullScreen></iframe>
+              <IconButton
+                onClick={() => {
+                  if (videoPlayerIndex < plays.plays.length - 1)
+                    setVideoPlayerIndex(videoPlayerIndex + 1);
+                  //   plays.plays.push(temp);
+                }}>
+                <KeyboardArrowRightIcon fontSize='large' color='info' />
+              </IconButton>
             </Stack>
             {/* </Box> */}
 
             <PlayersPlayList
               playByPlay={plays}
-              home_teamID={1610612747}
-              away_teamID={1610612743}
+              playInVideoPlayer={plays.plays[videoPlayerIndex].playid}
+              home_teamID={1610612738}
+              away_teamID={1610612739}
             />
           </Grid>
 
@@ -368,18 +451,6 @@ export default function PlayerDash(props) {
         </Grid>
       </Container>
 
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
       <NbaFooter />
     </>
   );

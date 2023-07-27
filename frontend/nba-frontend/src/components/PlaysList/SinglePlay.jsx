@@ -8,18 +8,22 @@ import {
   ListItemIcon,
   Avatar,
   Divider,
+  Chip,
   Link,
   ListItemText,
   Typography,
   Button,
   LinearProgress,
+  Alert,
+  Grow,
 } from "@mui/material";
 import PlaySecondary from "./PlaySecondary";
 import { reqString } from "../../App";
 
 import axios from "axios";
 import fileDownload from "js-file-download";
-
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 //const project = projects[0];
 export default function SinglePlay(props) {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -53,6 +57,7 @@ export default function SinglePlay(props) {
     };
     axios.post(reqString + "players/updatePlayViewCount", update);
   };
+  console.log(props.playInVideoPlayer);
 
   return (
     <>
@@ -60,6 +65,16 @@ export default function SinglePlay(props) {
 
       <Fade in={true}>
         <Stack sx={{ justifyContent: "center" }}>
+          {props?.playInVideoPlayer === props.play.playid && (
+            <Grow in={true}>
+              <Alert
+                severity='info'
+                variant='outlined'
+                sx={{ justifyContent: "center" }}>
+                Currently Viewing
+              </Alert>
+            </Grow>
+          )}
           {/* {console.log(props.play.url.split("/")[11])} */}
           <Link
             target='_blank'
@@ -80,14 +95,39 @@ export default function SinglePlay(props) {
                 <ListItemButton>
                   {props.players_length > 0 && (
                     <ListItemIcon>
-                      <Avatar
-                        src={
-                          "https://cdn.nba.com/logos/nba/" +
-                          props.play.teamID +
-                          "/primary/L/logo.svg"
-                        }
-                        sx={{ width: 56, height: 56 }}
-                      />
+                      <Stack direction={"column"} alignItems={"center"}>
+                        <Avatar
+                          src={
+                            "https://cdn.nba.com/logos/nba/" +
+                            props.play.teamID +
+                            "/primary/L/logo.svg"
+                          }
+                          sx={{ width: 56, height: 56 }}
+                        />
+                        <Stack
+                          direction={"column"}
+                          spacing={0.5}
+                          // mt={1}
+                          sx={{
+                            alignItems: "center",
+                          }}>
+                          <Chip
+                            size='small'
+                            variant='outlined'
+                            icon={<FileDownloadIcon color='info' />}
+                            label='2'
+                          />
+                          <Chip
+                            size='small'
+                            color='info'
+                            variant='outlined'
+                            icon={<VisibilityIcon color='info' />}
+                            label='4'
+                          />
+
+                          {/* {props.playInVideoPlayer} */}
+                        </Stack>
+                      </Stack>
                     </ListItemIcon>
                   )}
                   <ListItemText
@@ -159,6 +199,7 @@ export default function SinglePlay(props) {
           {/* <Divider /> */}
 
           {/* <Divider /> */}
+
           <Button
             color='info'
             size='small'

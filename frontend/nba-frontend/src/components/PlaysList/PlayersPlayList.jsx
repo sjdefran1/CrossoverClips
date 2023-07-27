@@ -44,7 +44,9 @@ export default function PlayList(props) {
         props?.playByPlay?.plays.map((play) => (
           <React.Fragment key={play.url}>
             <nav aria-label='playbyplay'>
+              {/* {props.playInVideoPlayer} */}
               <SinglePlay
+                playInVideoPlayer={props.playInVideoPlayer}
                 play={play}
                 currentStatType={props.currentStatType}
                 // team_ids={props.playByPlay.team_ids}

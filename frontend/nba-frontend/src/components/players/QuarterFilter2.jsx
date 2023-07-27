@@ -7,17 +7,12 @@ import {
   Tooltip,
   Paper,
   Typography,
+  Chip,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 
-export default function StatFilter(props) {
-  const [statTypes, setStatTypes] = React.useState([
-    "FGM",
-    "AST",
-    "BLK",
-    "DUNK",
-    "STL",
-  ]);
+export default function QuarterFilter2(props) {
+  const [statTypes, setStatTypes] = React.useState(["1", "2", "3", "4", "OT"]);
   const [choosenType, setChoosenType] = React.useState("FGM");
 
   const handleStatSelect = (stat) => {
@@ -33,25 +28,23 @@ export default function StatFilter(props) {
     <>
       <Paper sx={{ mx: 2 }}>
         <Paper variant='outlined' sx={{ textAlign: "center", bgcolor: "#333" }}>
-          <Typography variant='body1' color='text.secondary' padding>
-            STATS
-          </Typography>
+          <Chip label='Quarter' variant='outlined' sx={{ my: 0.5 }} />
         </Paper>
         <Stack
-          direction={"column"}
+          direction={"row"}
           padding
           sx={{
             //maxHeight: "25vh",
             //overflow: "auto",
 
             alignItems: "left",
-            ml: 1,
+            // ml: 1,
           }}>
           {statTypes.map((stat) => (
             <FormControlLabel
               key={stat}
               label={stat}
-              sx={{ ml: 1 }}
+              sx={{}}
               control={
                 <Checkbox
                   color='success'
@@ -70,7 +63,7 @@ export default function StatFilter(props) {
               variant='outlined'
               onClick={handleSave}
               color='success'>
-              Save Stat Filter
+              Save Quarters
             </Button>
           </Stack>
         </Stack>
