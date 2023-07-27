@@ -49,9 +49,14 @@ export default function SeasonsSelect(props) {
 
   return (
     <>
-      <Alert severity='info'>
-        All seasons returned by default, submit button below
-      </Alert>
+      {/* if showalert is passed in it doesn't show ! so prop can be false */}
+      {!props?.showAlert ? (
+        <></>
+      ) : (
+        <Alert severity='info'>
+          All seasons returned by default, submit button below
+        </Alert>
+      )}
       <Grid container>
         {seasonsList.map((season) => (
           <React.Fragment key={season}>

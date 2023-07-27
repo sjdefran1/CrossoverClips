@@ -2,17 +2,20 @@
 Base logic of query
 
 """
+# not same as postgres to reduce refactor on frontend
+# many components index the play objects, this takes
+# away need to go back and change them all
 PLAYS_QUERY_COLUMNS_NAMES = [
     "playid",
-    "pid",
+    "playerID",
     "gid",
     "description",
     "ptype",
     "url",
-    "tid",
-    "hscore",
-    "ascore",
-    "ptime",
+    "teamID",
+    "scoreHome",
+    "scoreAway",
+    "time",
     "quarter",
     "matchupstr",
     "gtype",

@@ -38,7 +38,7 @@ export default function SeasonsSelect(props) {
   return (
     <>
       <Grid container>
-        <Stack direction={"row"} sx={{ mx: 3 }}>
+        <Stack direction={"row"} sx={{ mx: 1 }}>
           <FormControlLabel
             control={
               <Checkbox
