@@ -34,6 +34,8 @@ import GoatAvatar from "../../static/goat.png";
 import { styled } from "@mui/material/styles";
 
 import { plays, teams } from "./plays.jsx";
+import { reqString } from "../../App";
+
 import PlayersPlayList from "../PlaysList/PlayersPlayList.jsx";
 import GameTypeSelect from "../ByTeamDash/GameTypeSelect.jsx";
 
@@ -41,6 +43,7 @@ import TeamLabel from "../ByTeamDash/TeamLabel.jsx";
 import SeasonsSelect from "../ByTeamDash/SeasonsSelect.jsx";
 import StatFilter from "../GameDetails/StatFilters.jsx";
 import QuarterFilter from "./QuarterFilter2.jsx";
+import axios from "axios";
 
 export default function PlayerDash(props) {
   const [seasonsSelected, setSeasonsSelected] = React.useState([]);
@@ -49,6 +52,8 @@ export default function PlayerDash(props) {
   const [videoPlayerIndex, setVideoPlayerIndex] = React.useState(0);
   const [showProgressBar, setShowProgressBar] = React.useState(null);
   const [currentUrl, setCurrentUrl] = React.useState(playArr.plays[0].url);
+
+  // used for little active/inactive dot on player headshot
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
       backgroundColor: "#44b700",
@@ -81,6 +86,7 @@ export default function PlayerDash(props) {
     },
   }));
 
+  // Styled chip for autocomplete tags
   const MyChip = (props) => {
     return (
       <Chip
@@ -101,32 +107,65 @@ export default function PlayerDash(props) {
     );
   };
 
-  React.useEffect(() => {
-    // Whenever playArr changes, update the iframe URL
-    // Make sure to handle any necessary checks and asynchronous operations here
-    const iframe = document.getElementById("videoIframe");
-    // if (iframe) {
-    //   iframe.src = playArr.plays[0].url;
-    // }
-  }, [playArr]);
-
-  const handleLeftArrowClick = () => {
+  /**
+   * IFrame utils
+   * ---------------------------------------------------------
+   */
+  const handleLeftArrowClick = async () => {
+    setShowProgressBar(true);
     let playArrCopy = [...playArr.plays];
+    // user going backwards
+    // get last arr element and move it the front
     let play = playArrCopy.pop();
     playArrCopy.unshift(play);
+
+    // update views of next play about to be loaded
+    playArrCopy[0].views = await handleView(playArrCopy[0]);
     setPlayArr({ plays: playArrCopy });
+
+    // set new url for iframe, and show progress bar to indicate loading
     setCurrentUrl(playArrCopy[0].url);
-    setShowProgressBar(true);
+    handleView(playArrCopy[0]);
   };
 
-  const handleRightArrowClick = () => {
+  const handleRightArrowClick = async () => {
+    setShowProgressBar(true);
     let playArrCopy = [...playArr.plays];
+    // move 1st element to end of arr
+    // allows for current viewing play to move to top
     let play = playArrCopy.shift();
     playArrCopy.push(play);
+
+    // update views of next play about to be loaded
+    playArrCopy[0].views = await handleView(playArrCopy[0]);
     setPlayArr({ plays: playArrCopy });
+
+    // set new url for iframe, and show progress bar to indicate loading
     setCurrentUrl(playArrCopy[0].url);
-    setShowProgressBar(true);
   };
+
+  const handleView = async (play) => {
+    let update = {
+      url: play.url,
+      ptype: play.ptype,
+    };
+    let newViewsVal = play.views; // start as currentval
+    await axios
+      .post(reqString + "players/updatePlayViewCount", update)
+      .then((response) => {
+        // return new view count
+        console.log(response.data.new_val);
+        newViewsVal = response.data.new_val;
+        // return response.data;
+      })
+      .catch(() => {
+        // return play.views;
+      });
+
+    return newViewsVal;
+  };
+
+  // -----------------------------------------------------
 
   const setGameTypeFunc = (gameTypeArr) => {
     if (gameTypeArr[0] === true && gameTypeArr[1] === true) {
@@ -223,7 +262,7 @@ export default function PlayerDash(props) {
                 id='combo-box-demo'
                 options={teams}
                 getOptionLabel={(option) => option?.full_name}
-                sx={{ width: "90%", padding: 1 }}
+                sx={{ width: "95%", padding: 1 }}
                 size='small'
                 renderTags={(tagValue, getTagProps) => {
                   return tagValue.map((option) => (
@@ -385,7 +424,7 @@ export default function PlayerDash(props) {
               <Divider />
             </Box>
 
-            <Grid container xs={12} mt={1}>
+            <Grid container mt={1}>
               <Grid item xs={6}>
                 <StatFilter />
               </Grid>
@@ -437,7 +476,7 @@ export default function PlayerDash(props) {
 
           {/* Video preview
               Plays List */}
-          <Grid item xs={6} ml={1}>
+          <Grid item xs={6} ml={1} mt={1}>
             {/* <Box padding={1} mx={5} minHeight={"40vh"}> */}
             <Paper
               variant='outlined'
@@ -487,7 +526,7 @@ export default function PlayerDash(props) {
                 // onLoad={() => setShowProgressBar(false)}
                 onLoad={() => setShowProgressBar(false)}
                 src={currentUrl}
-                frameborder='0'
+                frameBorder='0'
                 allowFullScreen></iframe>
 
               {showProgressBar && (
@@ -502,7 +541,7 @@ export default function PlayerDash(props) {
             <PlayersPlayList
               playByPlay={playArr}
               playInVideoPlayer={playArr.plays[0]}
-              home_teamID={1610612738}
+              home_teamID={1610612761}
               away_teamID={1610612739}
             />
           </Grid>

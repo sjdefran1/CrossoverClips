@@ -58,7 +58,6 @@ export default function SinglePlay(props) {
     };
     axios.post(reqString + "players/updatePlayViewCount", update);
   };
-  console.log(props.playInVideoPlayer.playid + " " + props.play.playid);
   return (
     <>
       <Divider />
