@@ -1,14 +1,14 @@
 import * as React from "react";
 import NoHighlights from "./NoHighlights";
 import SinglePlay from "./SinglePlay";
-import { Alert, Hidden, Button } from "@mui/material";
+import { Alert, Hidden, Button, Grow, Collapse } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 //const project = projects[0];
 export default function PlayList(props) {
   const navigate = useNavigate();
-
+  const [alertShowing, setAlertShowing] = React.useState(true);
   const linkToNeedHelp = () => {
     navigate("/downloadHelp");
   };
@@ -28,14 +28,27 @@ export default function PlayList(props) {
   //   };
   return (
     <>
-      <Alert severity='info' sx={{ justifyContent: "center" }}>
-        Click the blue download button to directly save to your device, having
-        issues?
-        <Button onClick={() => linkToNeedHelp()} size='small' color='success'>
-          Click here
-        </Button>
-      </Alert>
+      <Collapse in={alertShowing}>
+        <Alert
+          severity='info'
+          onClose={() => setAlertShowing(false)}
+          sx={{ justifyContent: "center" }}>
+          Click the blue download button to directly save to your device, having
+          issues?
+          <Button onClick={() => linkToNeedHelp()} size='small' color='success'>
+            Get Help
+          </Button>
+        </Alert>
+      </Collapse>
 
+      <Grow in={true}>
+        <Alert
+          severity='info'
+          variant='outlined'
+          sx={{ justifyContent: "center" }}>
+          Currently Viewing
+        </Alert>
+      </Grow>
       {props?.playByPlay &&
         props?.playByPlay?.plays.map((play) => play).length === 0 && (
           <NoHighlights isPlay={true} />

@@ -16,6 +16,7 @@ import {
   FormControlLabel,
   Checkbox,
   Autocomplete,
+  LinearProgress,
   Divider,
   IconButton,
 } from "@mui/material";
@@ -44,8 +45,10 @@ import QuarterFilter from "./QuarterFilter2.jsx";
 export default function PlayerDash(props) {
   const [seasonsSelected, setSeasonsSelected] = React.useState([]);
   const [gameType, setGameType] = React.useState([]);
-
+  const [playArr, setPlayArr] = React.useState(plays);
   const [videoPlayerIndex, setVideoPlayerIndex] = React.useState(0);
+  const [showProgressBar, setShowProgressBar] = React.useState(null);
+  const [currentUrl, setCurrentUrl] = React.useState(playArr.plays[0].url);
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
       backgroundColor: "#44b700",
@@ -98,6 +101,33 @@ export default function PlayerDash(props) {
     );
   };
 
+  React.useEffect(() => {
+    // Whenever playArr changes, update the iframe URL
+    // Make sure to handle any necessary checks and asynchronous operations here
+    const iframe = document.getElementById("videoIframe");
+    // if (iframe) {
+    //   iframe.src = playArr.plays[0].url;
+    // }
+  }, [playArr]);
+
+  const handleLeftArrowClick = () => {
+    let playArrCopy = [...playArr.plays];
+    let play = playArrCopy.pop();
+    playArrCopy.unshift(play);
+    setPlayArr({ plays: playArrCopy });
+    setCurrentUrl(playArrCopy[0].url);
+    setShowProgressBar(true);
+  };
+
+  const handleRightArrowClick = () => {
+    let playArrCopy = [...playArr.plays];
+    let play = playArrCopy.shift();
+    playArrCopy.push(play);
+    setPlayArr({ plays: playArrCopy });
+    setCurrentUrl(playArrCopy[0].url);
+    setShowProgressBar(true);
+  };
+
   const setGameTypeFunc = (gameTypeArr) => {
     if (gameTypeArr[0] === true && gameTypeArr[1] === true) {
       setGameType("");
@@ -109,6 +139,7 @@ export default function PlayerDash(props) {
       setGameType("regular season");
     }
   };
+  // console.log(showProgressBar);
   return (
     <>
       <Paper
@@ -408,40 +439,69 @@ export default function PlayerDash(props) {
               Plays List */}
           <Grid item xs={6} ml={1}>
             {/* <Box padding={1} mx={5} minHeight={"40vh"}> */}
+            <Paper
+              variant='outlined'
+              sx={{ textAlign: "center", bgcolor: "#333" }}>
+              <Stack
+                direction='row'
+                justifyContent={"center"}
+                spacing={1}
+                alignItems={"center"}>
+                <Chip
+                  label={playArr.plays[0].ptype}
+                  variant='outlined'
+                  color='primary'
+                  sx={{ my: 0.5 }}
+                />
+                <Chip
+                  label={playArr.plays[0].matchupstr}
+                  variant='outlined'
+                  color='info'
+                  sx={{ my: 0.5 }}
+                />
+
+                <Chip
+                  label={playArr.plays[0].sznstr}
+                  variant='outlined'
+                  color='primary'
+                  sx={{ my: 0.5 }}
+                />
+              </Stack>
+            </Paper>
+            {showProgressBar && <LinearProgress color='success' />}
             <Stack
               direction={"row"}
               alignItems={"center"}
               spacing={2}
               ml={1}
               my={1}>
-              <IconButton
-                onClick={() => {
-                  if (videoPlayerIndex > 0)
-                    setVideoPlayerIndex(videoPlayerIndex - 1);
-                }}>
+              <IconButton onClick={handleLeftArrowClick}>
                 <KeyboardArrowLeftIcon fontSize='large' color='info' />
               </IconButton>
 
               <iframe
-                width='640'
-                height='360'
-                src={plays.plays[videoPlayerIndex].url}
+                id='videoIframe'
+                width={!showProgressBar ? "640" : "0"}
+                height={!showProgressBar ? "360" : "0"}
+                // onLoadStart={() => setShowProgressBar(true)}
+                // onLoad={() => setShowProgressBar(false)}
+                onLoad={() => setShowProgressBar(false)}
+                src={currentUrl}
                 frameborder='0'
                 allowFullScreen></iframe>
-              <IconButton
-                onClick={() => {
-                  if (videoPlayerIndex < plays.plays.length - 1)
-                    setVideoPlayerIndex(videoPlayerIndex + 1);
-                  //   plays.plays.push(temp);
-                }}>
+
+              {showProgressBar && (
+                <Box minHeight={"47.5vh"} width={"100%"}></Box>
+              )}
+              <IconButton onClick={handleRightArrowClick}>
                 <KeyboardArrowRightIcon fontSize='large' color='info' />
               </IconButton>
             </Stack>
             {/* </Box> */}
 
             <PlayersPlayList
-              playByPlay={plays}
-              playInVideoPlayer={plays.plays[videoPlayerIndex].playid}
+              playByPlay={playArr}
+              playInVideoPlayer={playArr.plays[0]}
               home_teamID={1610612738}
               away_teamID={1610612739}
             />

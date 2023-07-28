@@ -17,15 +17,15 @@ PLAYS_QUERY_COLUMNS_NAMES = [
     "scoreAway",
     "time",
     "quarter",
+    "views",
+    "downloads",
     "matchupstr",
     "gtype",
     "date",
     "sznstr",
     "row_number",
     "wl",
-    "mid",
-    "views",
-    "downloads"
+    "mid"
 ]
 
 # Create view tags

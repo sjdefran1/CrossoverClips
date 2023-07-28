@@ -4,8 +4,9 @@ import dayjs from "dayjs";
 import Paper from "@mui/material/Paper";
 
 import headerBG from "../static/cc2.gif";
-import { Button, Hidden, IconButton } from "@mui/material";
+import { Button, Hidden, IconButton, Stack } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import HomeIcon from "@mui/icons-material/Home";
 import { Link, useNavigate, useParams } from "react-router-dom";
 function Header(props) {
   const { date } = useParams();
@@ -41,9 +42,15 @@ function Header(props) {
             //     tabValueLink: 1,
             //     valueLink: date,
             //   }}>
-            <IconButton onClick={() => navigate(-1)}>
-              <ArrowBackIcon fontSize='large' color='info' />
-            </IconButton>
+            <Stack direction={"row"}>
+              <IconButton onClick={() => navigate(-1)}>
+                <ArrowBackIcon fontSize='large' color='info' />
+              </IconButton>
+
+              <IconButton onClick={() => navigate("/home")}>
+                <HomeIcon color='action' />
+              </IconButton>
+            </Stack>
             // </Link>
           )}
         </Paper>

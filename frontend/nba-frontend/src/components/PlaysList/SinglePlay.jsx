@@ -31,6 +31,7 @@ export default function SinglePlay(props) {
     // let fileName = givenUrl.split("/")[11];
     let data = {
       url: givenUrl,
+      ptype: props.play.ptype,
     };
     setIsLoading(true);
     axios
@@ -53,12 +54,11 @@ export default function SinglePlay(props) {
   const handleView = () => {
     let update = {
       url: props.play.url,
-      ptype: props.currentStatType,
+      ptype: props.play.ptype,
     };
     axios.post(reqString + "players/updatePlayViewCount", update);
   };
-  console.log(props.playInVideoPlayer);
-
+  console.log(props.playInVideoPlayer.playid + " " + props.play.playid);
   return (
     <>
       <Divider />
@@ -115,14 +115,14 @@ export default function SinglePlay(props) {
                             size='small'
                             variant='outlined'
                             icon={<FileDownloadIcon color='info' />}
-                            label='2'
+                            label={props.play.downloads}
                           />
                           <Chip
                             size='small'
                             color='info'
                             variant='outlined'
                             icon={<VisibilityIcon color='info' />}
-                            label='4'
+                            label={props.play.views}
                           />
 
                           {/* {props.playInVideoPlayer} */}
