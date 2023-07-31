@@ -405,51 +405,9 @@ export default function PlayerDash(props) {
               />
               <Divider />
             </Box>
-            {/* <Paper
-                // elevation={15}
-                variant='outlined'
-                sx={{ textAlign: "center", bgcolor: "#333" }}>
-                <Chip variant='outlined' label='Game Type' sx={{ my: 0.5 }} />
-              </Paper>
-              <Stack
-                direction={"row"}
-                spacing={2}
-                ml={"21.5%"}
-                divider={
-                  <div>
-                    <Divider orientation='vertical' />
-                  </div>
-                }>
-                <Stack direction={"row"}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        icon={<CircleOutlined />}
-                        checkedIcon={<CircleIcon color='success' />}
-                      />
-                    }
-                    label='Home'
-                    icon={<CircleOutlined />}
-                    checkedIcon={<CircleIcon color='success' />}
-                    checked={true}
-                    // onClick={() => handleChange(0)}
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        icon={<CircleOutlined />}
-                        checkedIcon={<CircleIcon color='success' />}
-                      />
-                    }
-                    label='Away'
-                    checked={true}
-                    // onClick={() => handleChange(1)}
-                  />
-                </Stack>
-                <GameTypeSelect setGameType={setGameTypeFunc} />
-              </Stack> */}
+
             <Grid container>
-              <Grid item xs={6}>
+              <Grid item xs={6} padding={1}>
                 <Filter
                   arrOfKeys={Object.keys(homeAwayDict)}
                   dict={homeAwayDict}
@@ -457,7 +415,7 @@ export default function PlayerDash(props) {
                   title={"Court"}
                 />
               </Grid>
-              <Grid item xs={5} ml={2.5}>
+              <Grid item xs={6} padding={1}>
                 <Filter
                   arrOfKeys={Object.keys(seasonTypeDict)}
                   dict={seasonTypeDict}
@@ -479,21 +437,8 @@ export default function PlayerDash(props) {
             </Box>
 
             {/* InGame Option */}
-
-            {/* <Grid container mt={1}>
-              <Grid item xs={6}>
-                <PlayStatFilter statDict={statDict} setStatDict={setStatDict} />
-              </Grid>
-
-              <Grid item xs={5.8} ml={1}>
-                <QuarterFilter
-                  quarterDict={quarterDict}
-                  setQuarterDict={setQuarterDict}
-                />
-              </Grid>
-            </Grid> */}
             <Grid container>
-              <Grid item xs={6}>
+              <Grid item xs={6} padding={1}>
                 <Filter
                   arrOfKeys={Object.keys(statDict)}
                   dict={statDict}
@@ -501,7 +446,7 @@ export default function PlayerDash(props) {
                   title={"Stat Type"}
                 />
               </Grid>
-              <Grid item xs={5} ml={2.5}>
+              <Grid item xs={6} padding={1}>
                 <Filter
                   arrOfKeys={Object.keys(quarterDict)}
                   dict={quarterDict}

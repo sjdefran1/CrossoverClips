@@ -6,10 +6,12 @@ import {
   Box,
   Stack,
   ButtonGroup,
+  Typography,
   Button,
+  Fade,
 } from "@mui/material";
 import * as React from "react";
-import "./File2.css";
+import "./Filter.css";
 export default function Filter(props) {
   /**
    * if we pass in arr of elements (dict keys)
@@ -29,78 +31,54 @@ export default function Filter(props) {
   //   console.log(12 % props.arrOfKeys.length);
   return (
     <>
-      <Paper>
-        <Paper variant='outlined' sx={{ textAlign: "center", bgcolor: "#333" }}>
-          <Chip label={props.title} variant='outlined' sx={{ my: 0.5 }} />
+      <Fade in={true}>
+        <Paper>
+          {/* <Paper variant='outlined' sx={{ textAlign: "center", bgcolor: "#333" }}>
+          <Chip label={props.title} variant='filled' sx={{ my: 0.5 }} />
+        </Paper> */}
+
+          <Paper
+            variant='outlined'
+            sx={{ textAlign: "center", bgcolor: "#333" }}>
+            <Typography variant='body1' color='text.secondary' padding>
+              {props.title}
+            </Typography>
+          </Paper>
+
+          <Grid container justifyContent={"center"}>
+            <ButtonGroup
+              className='flex-container'
+              disableFocusRipple
+              disableRipple
+              color='success'
+              sx={{ justifyContent: "center" }}>
+              {props.arrOfKeys.map((element) => (
+                <Grid item key={element}>
+                  <IconButton
+                    //   disableFocusRipple
+
+                    disableRipple
+                    onClick={() => {
+                      let dictCopy = { ...props.dict };
+                      let newVal = !dictCopy[element];
+                      props.setDict((prevState) => ({
+                        ...prevState,
+                        [element]: newVal,
+                      }));
+                    }}>
+                    <Chip
+                      className='hover-bg-color'
+                      variant={props.dict[element] ? "filled" : "outlined"}
+                      label={element}
+                      color={props.dict[element] ? "success" : "default"}
+                    />
+                  </IconButton>
+                </Grid>
+              ))}
+            </ButtonGroup>
+          </Grid>
         </Paper>
-
-        {/* <Grid container className='flex-container'>
-          {props.arrOfKeys.map((element) => (
-            // <Grid item xs={4} key={element}>
-            <IconButton
-              onClick={() => {
-                let dictCopy = { ...props.dict };
-                let newVal = dictCopy[element];
-                props.setDict((prevState) => ({
-                  ...prevState,
-                  [element]: newVal,
-                }));
-              }}>
-              <Chip label={element} />
-            </IconButton>
-            // </Grid>
-          ))}
-        </Grid> */}
-        {/* 
-        <Grid container justifyContent={"center"}>
-          <ButtonGroup disableFocusRipple disableRipple color='success'>
-            {props.arrOfKeys.map((element) => (
-              // <Grid item xs={4} key={element}>
-              <Button
-                key={element}
-                // color={props.dict[element] ? "success" : "default"}
-                variant={props.dict[element] ? "contained" : "outlined"}
-                onClick={() => {
-                  let dictCopy = props.dict;
-                  let newVal = !dictCopy[element];
-                  props.setDict((prevState) => ({
-                    ...prevState,
-                    [element]: newVal,
-                  }));
-                }}>
-                {element}
-              </Button>
-            ))}
-          </ButtonGroup>
-        </Grid> */}
-
-        <Grid container justifyContent={"center"}>
-          <ButtonGroup
-            disableFocusRipple
-            disableRipple
-            color='success'
-            sx={{ justifyContent: "center" }}>
-            {props.arrOfKeys.map((element) => (
-              // <Grid item xs={4} key={element}>
-              <IconButton
-                onClick={() => {
-                  let dictCopy = { ...props.dict };
-                  let newVal = !dictCopy[element];
-                  props.setDict((prevState) => ({
-                    ...prevState,
-                    [element]: newVal,
-                  }));
-                }}>
-                <Chip
-                  variant={props.dict[element] ? "filled" : "outlined"}
-                  label={element}
-                  color={props.dict[element] ? "success" : "default"}
-                />
-              </IconButton>
-            ))}
-          </ButtonGroup>
-        </Grid>
-      </Paper>
+      </Fade>
     </>
   );
 }
