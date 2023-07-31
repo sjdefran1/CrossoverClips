@@ -42,8 +42,10 @@ import GameTypeSelect from "../ByTeamDash/GameTypeSelect.jsx";
 import TeamLabel from "../ByTeamDash/TeamLabel.jsx";
 import SeasonsSelect from "../ByTeamDash/SeasonsSelect.jsx";
 import StatFilter from "../GameDetails/StatFilters.jsx";
-import QuarterFilter from "./QuarterFilter2.jsx";
+import QuarterFilter from "./QuarterFilter.jsx";
+import PlayStatFilter from "./PlayStatFilter.jsx";
 import axios from "axios";
+import Filter from "./Filter.jsx";
 
 export default function PlayerDash(props) {
   const [seasonsSelected, setSeasonsSelected] = React.useState([]);
@@ -52,6 +54,32 @@ export default function PlayerDash(props) {
   const [videoPlayerIndex, setVideoPlayerIndex] = React.useState(0);
   const [showProgressBar, setShowProgressBar] = React.useState(null);
   const [currentUrl, setCurrentUrl] = React.useState(playArr.plays[0].url);
+
+  const [quarterDict, setQuarterDict] = React.useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    OT: false,
+  });
+
+  const [statDict, setStatDict] = React.useState({
+    FGM: false,
+    BLK: false,
+    STL: false,
+    AST: false,
+    DUNK: false,
+  });
+
+  const [homeAwayDict, setHomeAwayDict] = React.useState({
+    Home: false,
+    Away: false,
+  });
+
+  const [seasonTypeDict, setSeasonTypeDict] = React.useState({
+    Regular: false,
+    Playoffs: false,
+  });
 
   // used for little active/inactive dot on player headshot
   const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -367,8 +395,17 @@ export default function PlayerDash(props) {
             </Paper>
 
             {/* Filter By GameType */}
-            <Paper sx={{ mt: 1 }}>
-              <Paper
+            <Box my={1} textAlign={"center"}>
+              <Divider />
+              <Chip
+                label='Game Type'
+                variant='outlined'
+                sx={{ my: 1 }}
+                color='info'
+              />
+              <Divider />
+            </Box>
+            {/* <Paper
                 // elevation={15}
                 variant='outlined'
                 sx={{ textAlign: "center", bgcolor: "#333" }}>
@@ -410,8 +447,25 @@ export default function PlayerDash(props) {
                   />
                 </Stack>
                 <GameTypeSelect setGameType={setGameTypeFunc} />
-              </Stack>
-            </Paper>
+              </Stack> */}
+            <Grid container>
+              <Grid item xs={6}>
+                <Filter
+                  arrOfKeys={Object.keys(homeAwayDict)}
+                  dict={homeAwayDict}
+                  setDict={setHomeAwayDict}
+                  title={"Court"}
+                />
+              </Grid>
+              <Grid item xs={5} ml={2.5}>
+                <Filter
+                  arrOfKeys={Object.keys(seasonTypeDict)}
+                  dict={seasonTypeDict}
+                  setDict={setSeasonTypeDict}
+                  title={"Season Type"}
+                />
+              </Grid>
+            </Grid>
 
             <Box my={1} textAlign={"center"}>
               <Divider />
@@ -424,49 +478,36 @@ export default function PlayerDash(props) {
               <Divider />
             </Box>
 
-            <Grid container mt={1}>
-              <Grid item xs={6}>
-                <StatFilter />
-              </Grid>
-              <Grid item xs={5.8}>
-                {/* <QuarterFilter /> */}
-                <Paper>
-                  <Paper
-                    variant='outlined'
-                    sx={{ textAlign: "center", bgcolor: "#333" }}>
-                    <Chip label='Quarter' variant='outlined' sx={{ my: 0.5 }} />
-                  </Paper>
+            {/* InGame Option */}
 
-                  <Stack
-                    direction={"row"}
-                    justifyContent={"center"}
-                    spacing={1}
-                    padding={1}
-                    my={1}>
-                    <Chip
-                      label={1}
-                      sx={{ height: 45, width: 45, borderRadius: "50%" }}
-                    />
-                    <Chip
-                      label={2}
-                      sx={{ height: 45, width: 45, borderRadius: "50%" }}
-                    />
-                    <Chip
-                      label={3}
-                      sx={{ height: 45, width: 45, borderRadius: "50%" }}
-                    />
-                    <Chip
-                      label={4}
-                      color='success'
-                      sx={{ height: 45, width: 45, borderRadius: "50%" }}
-                    />
-                    <Chip
-                      label={"OT"}
-                      color='success'
-                      sx={{ height: 45, width: 45, borderRadius: "50%" }}
-                    />
-                  </Stack>
-                </Paper>
+            {/* <Grid container mt={1}>
+              <Grid item xs={6}>
+                <PlayStatFilter statDict={statDict} setStatDict={setStatDict} />
+              </Grid>
+
+              <Grid item xs={5.8} ml={1}>
+                <QuarterFilter
+                  quarterDict={quarterDict}
+                  setQuarterDict={setQuarterDict}
+                />
+              </Grid>
+            </Grid> */}
+            <Grid container>
+              <Grid item xs={6}>
+                <Filter
+                  arrOfKeys={Object.keys(statDict)}
+                  dict={statDict}
+                  setDict={setStatDict}
+                  title={"Stat Type"}
+                />
+              </Grid>
+              <Grid item xs={5} ml={2.5}>
+                <Filter
+                  arrOfKeys={Object.keys(quarterDict)}
+                  dict={quarterDict}
+                  setDict={setQuarterDict}
+                  title={"Quarter"}
+                />
               </Grid>
             </Grid>
           </Grid>
