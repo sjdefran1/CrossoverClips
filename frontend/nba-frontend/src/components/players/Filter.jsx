@@ -57,7 +57,7 @@ export default function Filter(props) {
                   <IconButton
                     //   disableFocusRipple
 
-                    disableRipple
+                    // disableRipple
                     onClick={() => {
                       let dictCopy = { ...props.dict };
                       let newVal = !dictCopy[element];
@@ -65,7 +65,8 @@ export default function Filter(props) {
                         ...prevState,
                         [element]: newVal,
                       }));
-                    }}>
+                    }}
+                    sx={{ borderRadius: 15 }}>
                     <Chip
                       className='hover-bg-color'
                       variant={props.dict[element] ? "filled" : "outlined"}

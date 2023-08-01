@@ -14,6 +14,20 @@ class PlayOptions(BaseModel):
     season: Optional[str]
     home_away: Optional[str]
 
+
+class PlayOptionsArrays(BaseModel):
+    player_id: int
+    team_id: Optional[list[int]]
+    matchup_team_id: Optional[list[int]]
+    limit: Optional[int]
+    quarter: Optional[list[str]]
+    stat_type: Optional[list[str]]
+    gid: Optional[int]
+    gtype: Optional[list[int]]
+    season: Optional[list[str]]
+    home_away: Optional[list[str]]
+
+
 class Update(BaseModel):
     url: str
     ptype: str

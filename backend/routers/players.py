@@ -56,7 +56,7 @@ def plays_query_executor(query: str) -> dict:
 
     # Select all plays store as results
     psy_cursor.execute(
-        f"select * from {view_name} order by row_number desc limit 1000;"
+        f"select * from {view_name} order by row_number desc limit 10;"
     )
     results_dict["results"] = psy_cursor.fetchall()
 
@@ -187,6 +187,9 @@ async def register_or_update_viewer(req: Request) -> JSONResponse:
     
     psyconn.commit()
     return JSONResponse(content='success')
+
+# @players_router.post("/playerPtsByG")
+# async def playerPtsByGid(gid, pid):
 
 
 @players_router.on_event("shutdown")

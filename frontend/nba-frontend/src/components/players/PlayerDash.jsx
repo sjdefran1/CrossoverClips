@@ -19,6 +19,9 @@ import {
   LinearProgress,
   Divider,
   IconButton,
+  Link,
+  Button,
+  Collapse,
 } from "@mui/material";
 
 import SearchIcon from "@mui/icons-material/Search";
@@ -27,6 +30,9 @@ import CircleIcon from "@mui/icons-material/Circle";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 import NbaHeader from "../NbaHeader.jsx";
 import NbaFooter from "../NbaFooter";
@@ -46,6 +52,7 @@ import QuarterFilter from "./QuarterFilter.jsx";
 import PlayStatFilter from "./PlayStatFilter.jsx";
 import axios from "axios";
 import Filter from "./Filter.jsx";
+import FilterSnackBar from "./FilterSnackbar.jsx";
 
 export default function PlayerDash(props) {
   const [seasonsSelected, setSeasonsSelected] = React.useState([]);
@@ -54,7 +61,7 @@ export default function PlayerDash(props) {
   const [videoPlayerIndex, setVideoPlayerIndex] = React.useState(0);
   const [showProgressBar, setShowProgressBar] = React.useState(null);
   const [currentUrl, setCurrentUrl] = React.useState(playArr.plays[0].url);
-
+  const [filtersShowing, setFiltersShowing] = React.useState(true);
   const [quarterDict, setQuarterDict] = React.useState({
     1: false,
     2: false,
@@ -80,6 +87,37 @@ export default function PlayerDash(props) {
     Regular: false,
     Playoffs: false,
   });
+
+  const findTrueKeys = (dict) => {
+    const trueKeys = [];
+
+    for (const key in dict) {
+      if (dict[key] === true) {
+        trueKeys.push(key);
+      }
+    }
+
+    return trueKeys;
+  };
+  const createSearchResults = () => {
+    let quarterOptions = findTrueKeys(quarterDict);
+    let seasonTypeOptions = findTrueKeys(seasonTypeDict);
+    let statTypeOptions = findTrueKeys(statDict);
+    let homeAwayOptions = findTrueKeys(homeAwayDict);
+
+    let requestOptions = {
+      player_id: 1629627,
+      team_id: null,
+      matchup_team_id: null,
+      limit: 1000,
+      quarter: 4,
+      stat_type: "FGM",
+      gid: null,
+      gtype: null,
+      season: null,
+      home_away: null,
+    };
+  };
 
   // used for little active/inactive dot on player headshot
   const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -194,18 +232,6 @@ export default function PlayerDash(props) {
   };
 
   // -----------------------------------------------------
-
-  const setGameTypeFunc = (gameTypeArr) => {
-    if (gameTypeArr[0] === true && gameTypeArr[1] === true) {
-      setGameType("");
-    }
-    if (gameTypeArr[0] === false) {
-      setGameType("playoffs");
-    }
-    if (gameTypeArr[1] === false) {
-      setGameType("regular season");
-    }
-  };
   // console.log(showProgressBar);
   return (
     <>
@@ -223,7 +249,7 @@ export default function PlayerDash(props) {
       <Container maxWidth={"xl"}>
         <Grid container>
           {/* Player Dash, logo name etc */}
-          <Grid item xs={5.5} sx={{ my: 1, ml: 5 }}>
+          <Grid item xs={5.5} sx={{ my: 1 }}>
             <Paper sx={{ borderRadius: 2 }}>
               <Stack direction={"row"} alignItems={"center"} spacing={3} ml={5}>
                 {/* StyledBadge provides the little green/red circle
@@ -318,7 +344,7 @@ export default function PlayerDash(props) {
                     <SearchIcon />
                     <TextField
                       {...params}
-                      label='Find Plays Against These Teams'
+                      label='Find plays against these teams'
                     />
                   </Stack>
                 )}
@@ -362,7 +388,7 @@ export default function PlayerDash(props) {
                     <SearchIcon />
                     <TextField
                       {...params}
-                      label='Find Plays When Player Was On These Teams'
+                      label='Find plays when player was on these teams'
                     />
                   </Stack>
                 )}
@@ -370,91 +396,122 @@ export default function PlayerDash(props) {
             </Paper>
 
             {/* Filter By Season */}
-            <Paper sx={{ mt: 1 }}>
-              <Paper
-                // elevation={15}
-                variant='outlined'
-                sx={{ textAlign: "center", bgcolor: "#333" }}>
-                <Chip
-                  variant='outlined'
-                  label='Choose Seasons'
-                  sx={{ my: 0.5 }}
-                />
-              </Paper>
-              <Alert severity='info' sx={{ justifyContent: "center" }}>
-                All seasons returned by default
+
+            <FilterSnackBar
+              filtersShowing={filtersShowing}
+              setFiltersShowing={setFiltersShowing}
+            />
+
+            {/* Filters Start */}
+            <Collapse in={filtersShowing}>
+              <Alert
+                severity='info'
+                sx={{ justifyContent: "center", textAlign: "center" }}>
+                All results are returned by default. Choosing a filter type
+                (e.g. szn) will only filter that type down, others will remain
+                uneffected
               </Alert>
+              <Paper sx={{ mt: 1 }}>
+                <Paper
+                  // elevation={15}
+                  variant='outlined'
+                  sx={{ textAlign: "center", bgcolor: "#333" }}>
+                  <Chip
+                    variant='outlined'
+                    label='Choose Seasons'
+                    sx={{ my: 0.5 }}
+                  />
+                </Paper>
 
-              <Box padding={1} textAlign={"center"}>
-                <SeasonsSelect
-                  showAlert={false}
-                  seasonsSelected={seasonsSelected}
-                  setSeasonsSelected={setSeasonsSelected}
+                <Box padding={1} textAlign={"center"}>
+                  <SeasonsSelect
+                    showAlert={false}
+                    seasonsSelected={seasonsSelected}
+                    setSeasonsSelected={setSeasonsSelected}
+                  />
+                </Box>
+              </Paper>
+
+              {/* Filter By GameType */}
+              <Box my={1} textAlign={"center"}>
+                <Divider />
+                <Chip
+                  label='Game Type'
+                  variant='outlined'
+                  sx={{ my: 1 }}
+                  color='info'
                 />
+                <Divider />
               </Box>
-            </Paper>
 
-            {/* Filter By GameType */}
-            <Box my={1} textAlign={"center"}>
-              <Divider />
-              <Chip
-                label='Game Type'
-                variant='outlined'
-                sx={{ my: 1 }}
-                color='info'
-              />
-              <Divider />
-            </Box>
+              <Grid container>
+                <Grid item xs={6} padding={1}>
+                  <Filter
+                    arrOfKeys={Object.keys(homeAwayDict)}
+                    dict={homeAwayDict}
+                    setDict={setHomeAwayDict}
+                    title={"Court"}
+                  />
+                </Grid>
+                <Grid item xs={6} padding={1}>
+                  <Filter
+                    arrOfKeys={Object.keys(seasonTypeDict)}
+                    dict={seasonTypeDict}
+                    setDict={setSeasonTypeDict}
+                    title={"Season Type"}
+                  />
+                </Grid>
+              </Grid>
 
-            <Grid container>
-              <Grid item xs={6} padding={1}>
-                <Filter
-                  arrOfKeys={Object.keys(homeAwayDict)}
-                  dict={homeAwayDict}
-                  setDict={setHomeAwayDict}
-                  title={"Court"}
+              <Box my={1} textAlign={"center"}>
+                <Divider />
+                <Chip
+                  label='In Game Options'
+                  variant='outlined'
+                  sx={{ my: 1 }}
+                  color='info'
                 />
-              </Grid>
-              <Grid item xs={6} padding={1}>
-                <Filter
-                  arrOfKeys={Object.keys(seasonTypeDict)}
-                  dict={seasonTypeDict}
-                  setDict={setSeasonTypeDict}
-                  title={"Season Type"}
-                />
-              </Grid>
-            </Grid>
+                <Divider />
+              </Box>
 
-            <Box my={1} textAlign={"center"}>
-              <Divider />
-              <Chip
-                label='In Game Options'
-                variant='outlined'
-                sx={{ my: 1 }}
-                color='info'
-              />
-              <Divider />
-            </Box>
+              {/* InGame Option */}
+              <Grid container>
+                <Grid item xs={6} padding={1}>
+                  <Filter
+                    arrOfKeys={Object.keys(statDict)}
+                    dict={statDict}
+                    setDict={setStatDict}
+                    title={"Stat Type"}
+                  />
+                </Grid>
+                <Grid item xs={6} padding={1}>
+                  <Filter
+                    arrOfKeys={Object.keys(quarterDict)}
+                    dict={quarterDict}
+                    setDict={setQuarterDict}
+                    title={"Quarter"}
+                  />
+                </Grid>
+              </Grid>
+            </Collapse>
 
-            {/* InGame Option */}
-            <Grid container>
-              <Grid item xs={6} padding={1}>
-                <Filter
-                  arrOfKeys={Object.keys(statDict)}
-                  dict={statDict}
-                  setDict={setStatDict}
-                  title={"Stat Type"}
-                />
-              </Grid>
-              <Grid item xs={6} padding={1}>
-                <Filter
-                  arrOfKeys={Object.keys(quarterDict)}
-                  dict={quarterDict}
-                  setDict={setQuarterDict}
-                  title={"Quarter"}
-                />
-              </Grid>
-            </Grid>
+            <Stack
+              direction='row'
+              sx={{ textAlign: "center", justifyContent: "center" }}>
+              <Button
+                variant='contained'
+                color='success'
+                size='large'
+                // disabled={!selectedTeams[0]?.id || !seasonsSelected.length > 0} // only avaialbe when a team has been clicked
+                onClick={() => console.log("clicked")}
+                sx={{ my: 1 }}>
+                Submit
+              </Button>
+
+              <IconButton>
+                <DeleteIcon />
+              </IconButton>
+            </Stack>
           </Grid>
 
           {/* spacer between two grid items */}
@@ -513,12 +570,15 @@ export default function PlayerDash(props) {
                 onLoad={() => setShowProgressBar(false)}
                 src={currentUrl}
                 frameBorder='0'
+                // seamless
                 allowFullScreen></iframe>
 
               {showProgressBar && (
                 <Box minHeight={"47.5vh"} width={"100%"}></Box>
               )}
-              <IconButton onClick={handleRightArrowClick}>
+              <IconButton
+                onClick={handleRightArrowClick}
+                sx={{ borderRadius: 5 }}>
                 <KeyboardArrowRightIcon fontSize='large' color='info' />
               </IconButton>
             </Stack>

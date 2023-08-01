@@ -4,7 +4,6 @@ Queries PlayByPlayV2.Games table
 Populates Game pages on frontend
 """
 
-
 def insert_playByPlay_db(client, game):
     db = client['PlayByPlay']
     collection = db['Games']

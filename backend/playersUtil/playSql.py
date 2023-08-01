@@ -69,8 +69,8 @@ p1.gid = m.gid
 """
 MATCHUPS_VERSUS_OPTIONS_SQL = """
     case 
-        when m.htid = t.tid then m.atid={}
-        when m.atid = t.tid then m.htid={}
+        when m.htid = t.tid then m.atid in {}
+        when m.atid = t.tid then m.htid in {}
     end
 """
 
@@ -94,27 +94,28 @@ Teamid - only plays while player is on teamid team
 GTYPE - Regular Season = 0, Playoffs = 1
 """
 QUARTER_OPTIONS_SQL = """
-and p1.quarter={}
+and p1.quarter in {}
 """
 
 STAT_TYPE_OPTIONS_SQL = """
-and p1.ptype='{}'
+and p1.ptype in {}
 """
 
+# TODO needs thought
 GID_OPTIONS_SQL = """
 and p1.gid={}
 """
 
 TEAMID_OPTIONS_SQL = """
-and p1.tid={}
+and p1.tid in {}
 """
 
 GTYPE_OPTIONS_SQL = """
-and m.gtype={}
+and m.gtype in {}
 """
 
 SEASON_OPTIONS_SQL = """
-and m.sznstr='{}'
+and m.sznstr in {}
 """
 
 HOME_OPTIONS_SQL = """
