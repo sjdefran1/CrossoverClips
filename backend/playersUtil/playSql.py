@@ -69,8 +69,8 @@ p1.gid = m.gid
 """
 MATCHUPS_VERSUS_OPTIONS_SQL = """
     case 
-        when m.htid = t.tid then m.atid in {}
-        when m.atid = t.tid then m.htid in {}
+        when m.htid = t.tid then m.atid in {0}
+        when m.atid = t.tid then m.htid in {0}
     end
 """
 

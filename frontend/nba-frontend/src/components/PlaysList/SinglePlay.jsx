@@ -145,10 +145,10 @@ export default function SinglePlay(props) {
                           props.play.scoreHome,
                           props.play.scoreAway,
                           props.play.time,
-                          props.team_ids[0],
-                          props.team_ids[1],
-                          // props.playByPlay.team_ids[0],
-                          // props.playByPlay.team_ids[1],
+                          // props.team_ids[0],
+                          // props.team_ids[1],
+                          props.play.teamID,
+                          props.play.mid,
                         ]}
                       />
                     }

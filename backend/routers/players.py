@@ -11,10 +11,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from playersUtil.playsQueryBuilder import build_plays_search_query
+from playersUtil.playsQueryBuilder import build_plays_search_query, build_plays_search_query_arrays
 from playersUtil.playSql import PLAYS_QUERY_COLUMNS_NAMES, CREATE_VIEW, DROP_VIEW
 from playersUtil.table_schemas import *
-from playersUtil.RequestModels import PlayOptions, Update
+from playersUtil.RequestModels import PlayOptions, PlayOptionsArrays, Update
 
 players_router = APIRouter(prefix="/players")
 
@@ -56,7 +56,7 @@ def plays_query_executor(query: str) -> dict:
 
     # Select all plays store as results
     psy_cursor.execute(
-        f"select * from {view_name} order by row_number desc limit 10;"
+        f"select * from {view_name} order by row_number desc limit 1000;"
     )
     results_dict["results"] = psy_cursor.fetchall()
 
@@ -114,6 +114,18 @@ async def get_all_teams_controller() -> JSONResponse:
 async def get_players_plays(opts: PlayOptions, request: Request) -> JSONResponse:
     
     query = build_plays_search_query(opts=opts)
+    result_dict = plays_query_executor(query=query)
+    df = pd.DataFrame(data=result_dict["results"], columns=PLAYS_QUERY_COLUMNS_NAMES)
+    return_dict = {
+        "len": result_dict["len"],
+        "results": loads(df.to_json(orient="records")),
+    }
+    return JSONResponse(content=return_dict, status_code=200)
+
+@players_router.post("/plays2")
+async def get_players_plays_arr(opts: PlayOptionsArrays, request: Request) -> JSONResponse:
+    
+    query = build_plays_search_query_arrays(opts=opts)
     result_dict = plays_query_executor(query=query)
     df = pd.DataFrame(data=result_dict["results"], columns=PLAYS_QUERY_COLUMNS_NAMES)
     return_dict = {

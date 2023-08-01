@@ -88,6 +88,9 @@ export default function PlayerDash(props) {
     Playoffs: false,
   });
 
+  const [teamsPlayerOn, setTeamsPlayerOn] = React.useState([]);
+  const [matchups, setMatchups] = React.useState([]);
+
   const findTrueKeys = (dict) => {
     const trueKeys = [];
 
@@ -97,26 +100,66 @@ export default function PlayerDash(props) {
       }
     }
 
+    // if all filters are selected
+    // then that is the same as none being selected on the backend
+    // will just not include and clause in sql query
+    if (trueKeys.length === Object.keys(dict).length) return null;
+
+    // if no options selected
+    // return null to drop and clause
+    if (trueKeys.length === 0) return null;
+
     return trueKeys;
   };
+
   const createSearchResults = () => {
     let quarterOptions = findTrueKeys(quarterDict);
     let seasonTypeOptions = findTrueKeys(seasonTypeDict);
     let statTypeOptions = findTrueKeys(statDict);
     let homeAwayOptions = findTrueKeys(homeAwayDict);
 
+    // i prefer the boxs unchecked on load
+    // but if none are selected we have an empty arr != length of keys
+    // but we want to return null in this situation
+    let seasonsOptions = [...seasonsSelected];
+    if (seasonsSelected.length === 0) {
+      seasonsOptions = null;
+    }
+
+    // convert regular and playoffs to corresponding ints in db
+    if (seasonTypeOptions !== null) {
+      if (seasonTypeOptions[0] === "Regular") {
+        seasonTypeOptions = [0];
+      } else {
+        seasonTypeOptions = [1];
+      }
+    }
+
     let requestOptions = {
-      player_id: 1629627,
-      team_id: null,
-      matchup_team_id: null,
+      player_id: 2544,
+      team_id: teamsPlayerOn.length === 0 ? null : teamsPlayerOn,
+      matchup_team_id: matchups === 0 ? null : matchups,
       limit: 1000,
-      quarter: 4,
-      stat_type: "FGM",
+      quarter: quarterOptions, // needs to accept arr in backend
+      stat_type: statTypeOptions, // needs to accept arr in backend
       gid: null,
-      gtype: null,
-      season: null,
-      home_away: null,
+      gtype: seasonTypeOptions,
+      season: seasonsOptions,
+      home_away: homeAwayOptions,
     };
+    console.log(requestOptions);
+    // submit request
+    submitFilteredSearchAxios(requestOptions);
+  };
+
+  const submitFilteredSearchAxios = (options) => {
+    axios.post(reqString + "players/plays2", options).then((response) => {
+      let newDict = {
+        plays: response.data.results,
+      };
+      setPlayArr(newDict);
+      setCurrentUrl(response.data.results[0].url);
+    });
   };
 
   // used for little active/inactive dot on player headshot
@@ -233,6 +276,9 @@ export default function PlayerDash(props) {
 
   // -----------------------------------------------------
   // console.log(showProgressBar);
+  // console.log(seasonsSelected);
+  console.log(teamsPlayerOn);
+  console.log(matchups);
   return (
     <>
       <Paper
@@ -324,15 +370,12 @@ export default function PlayerDash(props) {
                   ));
                 }}
                 onChange={(event, newValue) => {
-                  //   let newId = newValue[newValue.length - 1];
-                  //   handleTeamSelect(newId?.team_id);
-                  //   console.log("newVal");
-                  //   console.log(newValue);
-                  //   // if (teamNameCompleteList.length === 0) {
-                  //   //   setTeamNameCompleteList(newId?.label);
-                  //   // }
-                  //   // console.log(newId);
-                  //   // setValue(newValue.team_id);
+                  try {
+                    let newId = newValue[newValue.length - 1].id;
+                    setMatchups((prevState) => [...prevState, newId]);
+                  } catch (error) {
+                    setMatchups([]);
+                  }
                 }}
                 renderOption={(props, option) => (
                   <Box component='li' {...props} key={option.id}>
@@ -368,15 +411,12 @@ export default function PlayerDash(props) {
                   ));
                 }}
                 onChange={(event, newValue) => {
-                  //   let newId = newValue[newValue.length - 1];
-                  //   handleTeamSelect(newId?.team_id);
-                  //   console.log("newVal");
-                  //   console.log(newValue);
-                  //   // if (teamNameCompleteList.length === 0) {
-                  //   //   setTeamNameCompleteList(newId?.label);
-                  //   // }
-                  //   // console.log(newId);
-                  //   // setValue(newValue.team_id);
+                  try {
+                    let newId = newValue[newValue.length - 1].id;
+                    setTeamsPlayerOn((prevState) => [...prevState, newId]);
+                  } catch (error) {
+                    setTeamsPlayerOn([]);
+                  }
                 }}
                 renderOption={(props, option) => (
                   <Box component='li' {...props} key={option.id}>
@@ -503,7 +543,7 @@ export default function PlayerDash(props) {
                 color='success'
                 size='large'
                 // disabled={!selectedTeams[0]?.id || !seasonsSelected.length > 0} // only avaialbe when a team has been clicked
-                onClick={() => console.log("clicked")}
+                onClick={() => createSearchResults()}
                 sx={{ my: 1 }}>
                 Submit
               </Button>
