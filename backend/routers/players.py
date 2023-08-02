@@ -12,9 +12,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from playersUtil.playsQueryBuilder import build_plays_search_query, build_plays_search_query_arrays
-from playersUtil.playSql import PLAYS_QUERY_COLUMNS_NAMES, CREATE_VIEW, DROP_VIEW
+from playersUtil.playSql import PLAYS_QUERY_COLUMNS_NAMES, CREATE_VIEW, DROP_VIEW, SAMPLE_PLAYS_FOR_PLAYER
 from playersUtil.table_schemas import *
-from playersUtil.RequestModels import PlayOptions, PlayOptionsArrays, Update
+from playersUtil.RequestModels import PlayOptions, PlayOptionsArrays, Player, Update
 
 players_router = APIRouter(prefix="/players")
 
@@ -165,6 +165,11 @@ async def update_play_download_count(update: Update):
 
 @players_router.post("/registerOrUpdateViewer")
 async def register_or_update_viewer(req: Request) -> JSONResponse:
+    """
+    if user exists already in table based of ip, update view count
+
+    if doesnt exists insert into table, includes a first_visit_date and last_visited_date
+    """
     ping_db()
     query = f"SELECT COUNT(*) FROM viewers WHERE ip = '{req.client.host}';"
     psy_cursor.execute(query)
@@ -200,12 +205,33 @@ async def register_or_update_viewer(req: Request) -> JSONResponse:
     psyconn.commit()
     return JSONResponse(content='success')
 
-# @players_router.post("/playerPtsByG")
-# async def playerPtsByGid(gid, pid):
+@players_router.get("/allPlayers")
+def get_all_players():
+    """return all players from db"""
+    ping_db()
+    psy_cursor.execute("select * from players order by lname asc;")
+    df = pd.DataFrame(
+        data=psy_cursor.fetchall(), 
+        columns=['playerID', 'fname', 'lname',\
+                'yrsplayed', 'jerseynum', 'pos',\
+                'status','teamID', 'goatflag'] 
+    )
+    return JSONResponse(content=loads(df.to_json(orient='records')))
 
-
+@players_router.post("/samplePlays")
+def get_sample_plays_for_player(player: Player):
+    ping_db()
+    result_dict = plays_query_executor(SAMPLE_PLAYS_FOR_PLAYER.format(player.pid))
+    df = pd.DataFrame(data=result_dict["results"], columns=PLAYS_QUERY_COLUMNS_NAMES)
+    return_dict = {
+        "len": result_dict["len"],
+        "results": loads(df.to_json(orient="records")),
+    }
+    return JSONResponse(content=return_dict, status_code=200)
+    
 @players_router.on_event("shutdown")
 async def shutdown() -> None:
+    """runs when server shutsdown, closes out connection and cursor to db"""
     print("\tCLOSING CURSOR & CONNECTION")
     psy_cursor.close()
     psyconn.close()

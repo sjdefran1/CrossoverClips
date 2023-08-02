@@ -1,7 +1,7 @@
 import * as React from "react";
 import NoHighlights from "./NoHighlights";
 import SinglePlay from "./SinglePlay";
-import { Alert, Hidden, Button, Grow, Collapse } from "@mui/material";
+import { Alert, Hidden, Button, Grow, Collapse, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function PlayList(props) {
   const navigate = useNavigate();
   const [alertShowing, setAlertShowing] = React.useState(true);
+
   const linkToNeedHelp = () => {
     navigate("/downloadHelp");
   };
@@ -26,6 +27,8 @@ export default function PlayList(props) {
   //   const handleClose = () => {
   //     setAnchorEl(null);
   //   };
+
+  // console.log(page);
   return (
     <>
       <Collapse in={alertShowing}>
@@ -50,11 +53,11 @@ export default function PlayList(props) {
         </Alert>
       </Grow>
       {props?.playByPlay &&
-        props?.playByPlay?.plays.map((play) => play).length === 0 && (
+        props?.playByPlay?.plays?.map((play) => play).length === 0 && (
           <NoHighlights isPlay={true} />
         )}
       {props?.playByPlay &&
-        props?.playByPlay?.plays.map((play) => (
+        props?.playByPlay?.plays?.map((play) => (
           <React.Fragment key={play.url}>
             <nav aria-label='playbyplay'>
               {/* {props.playInVideoPlayer} */}

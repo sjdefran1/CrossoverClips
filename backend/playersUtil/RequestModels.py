@@ -31,3 +31,6 @@ class PlayOptionsArrays(BaseModel):
 class Update(BaseModel):
     url: str
     ptype: str
+
+class Player(BaseModel):
+    pid: int

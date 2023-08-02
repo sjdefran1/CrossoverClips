@@ -38,7 +38,7 @@ export default function FilterSnackBar(props) {
         </Grid>
         <Grid item xs={4} textAlign={"center"} mr={1} alignItems={"center"}>
           <Button
-            onClick={() => props.setFiltersShowing(!props.filtersShowing)}
+            onClick={() => props.createSearchResults()}
             variant='text'
             color='success'
             endIcon={<SearchIcon sx={{ mr: 1 }} />}
@@ -53,7 +53,7 @@ export default function FilterSnackBar(props) {
           textAlign={"left"}
           alignItems={"center"}>
           <Button
-            onClick={() => props.setFiltersShowing(!props.filtersShowing)}
+            onClick={() => props.clearFilters()}
             variant='text'
             color='warning'
             endIcon={<DeleteIcon sx={{ mr: 1 }} />}

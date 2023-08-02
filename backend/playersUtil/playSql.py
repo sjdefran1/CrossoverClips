@@ -143,6 +143,40 @@ limit {}
 """
 
 
+# --------------------------------------------------------------------
+
+# Sample Player plays
+
+SAMPLE_PLAYS_FOR_PLAYER = '''
+select distinct 
+    p1.*, 
+    m.matchupstr,
+    m.gtype,
+    m.date,
+    m.sznstr,
+    ROW_NUMBER () OVER (ORDER BY p1.pid) AS row_number,
+    case
+        when m.atid = p1.tid then m."HWL"
+        when m.htid = p1.tid then m."AWL"
+    end as wl,
+    case
+        when m.atid = p1.tid then m.htid
+        when m.htid = p1.tid then m.atid
+    end as mid
+from plays p1
+join teams t on 
+    t.tid=p1.tid
+join matchups m on
+    p1.gid = m.gid
+where 
+    p1.pid={}
+and 
+    p1.gid=m.gid
+order by
+    p1.views desc
+limit 20;
+'''
+
 """
 
 """
