@@ -138,8 +138,8 @@ export default function PlayerDash(props) {
     let clearedHomeAway = setDictFalse(homeAwayDict);
 
     let tempDict = { plays: [] };
-    setPlayArr(tempDict);
-    setCurrentShowingPlays([]);
+    // setPlayArr(tempDict);
+    // setCurrentShowingPlays([]);
 
     setQuarterDict(clearedQuarters);
     setSeasonTypeDict(clearedSeasonType);
@@ -160,6 +160,7 @@ export default function PlayerDash(props) {
 
   React.useEffect(() => {
     playPagination(1);
+    // setCurrentUrl(playArr.plays[0]);
   }, [playArr]);
   /**
    *
@@ -714,7 +715,7 @@ export default function PlayerDash(props) {
                 <Box sx={{ width: "100%", textAlign: "center" }}>
                   <Pagination
                     page={page}
-                    count={playArr.plays.length / 10}
+                    count={Math.round(playArr.plays.length / 10)}
                     onChange={handlePageChange}
                   />
                 </Box>
