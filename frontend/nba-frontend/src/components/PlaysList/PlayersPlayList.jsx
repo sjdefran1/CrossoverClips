@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 //const project = projects[0];
-export default function PlayList(props) {
+export default function PlayersPlayList(props) {
   const navigate = useNavigate();
   const [alertShowing, setAlertShowing] = React.useState(true);
 
@@ -58,7 +58,7 @@ export default function PlayList(props) {
         )}
       {props?.playByPlay &&
         props?.playByPlay?.plays?.map((play) => (
-          <React.Fragment key={play.url}>
+          <React.Fragment key={play.playid}>
             <nav aria-label='playbyplay'>
               {/* {props.playInVideoPlayer} */}
               <SinglePlay

@@ -51,14 +51,23 @@ def plays_query_executor(query: str) -> dict:
 
     # Get length
     # [0][0] gets int value of len instead of row arr
-    psy_cursor.execute(f"select count(*) from {view_name}")
-    results_dict["len"] = psy_cursor.fetchall()[0][0]
+    try:
+        psy_cursor.execute(f"select count(*) from {view_name}")
+        results_dict["len"] = psy_cursor.fetchall()[0][0]
 
-    # Select all plays store as results
-    psy_cursor.execute(
-        f"select * from {view_name} order by row_number desc limit 1000;"
-    )
-    results_dict["results"] = psy_cursor.fetchall()
+        # Select all plays store as results
+        psy_cursor.execute(
+            f"select * from {view_name} order by row_number desc limit 1000;"
+        )
+        results_dict["results"] = psy_cursor.fetchall()
+    except Exception:
+        # no results will throw error when try to fetchall
+        # manually set dict drop view and return
+        results_dict['len'] = 0
+        results_dict['results'] = []
+        print(f"Dropping VIEW\n{DROP_VIEW.format(view_name)}")
+        psy_cursor.execute(DROP_VIEW.format(view_name))
+        return results_dict
 
     # drop view
     print(f"Dropping VIEW\n{DROP_VIEW.format(view_name)}")
