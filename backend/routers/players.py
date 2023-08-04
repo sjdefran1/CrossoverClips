@@ -25,6 +25,21 @@ def generate_unique_view_name() -> str:
     # removes - per postgres standars
     return ("temp_table_" + str(uuid.uuid4()).replace("-", "")).lower()
 
+def split_array_into_pages(arr: list, df_cols: list, page_length=5):
+    page_dict = {}
+    num_pages = (len(arr) + page_length - 1) // page_length  # Calculate the number of pages
+
+    for page_num in range(1, num_pages + 1):
+        start_idx = (page_num - 1) * page_length
+        end_idx = start_idx + page_length
+        page_dict[page_num] = arr[start_idx:end_idx]
+
+    for page in page_dict:
+        df = pd.DataFrame(data=page_dict[page], columns=df_cols)
+        page_dict[page] = loads(df.to_json(orient='records'))
+
+    return page_dict
+
 
 def plays_query_executor(query: str) -> dict:
     """
@@ -218,25 +233,78 @@ async def register_or_update_viewer(req: Request) -> JSONResponse:
 def get_all_players():
     """return all players from db"""
     ping_db()
-    psy_cursor.execute("select * from players order by lname asc;")
+    psy_cursor.execute("select * from players order by views desc;")
     df = pd.DataFrame(
         data=psy_cursor.fetchall(), 
         columns=['playerID', 'fname', 'lname',\
                 'yrsplayed', 'jerseynum', 'pos',\
-                'status','teamID', 'goatflag'] 
+                'status','teamID', 'goatflag', 'views'] 
     )
     return JSONResponse(content=loads(df.to_json(orient='records')))
+
+# @players_router.post("/samplePlays")
+# def get_sample_plays_for_player(player: Player):
+#     ping_db()
+#     # update player views
+#     query =f"""
+#     UPDATE 
+#         players
+#     SET 
+#         views = views + 1
+#     WHERE pid={player.pid};
+#     """
+#     print(query)
+#     psy_cursor.execute(query)
+#     psyconn.commit()
+
+#     # get sample plays
+#     result_dict = plays_query_executor(SAMPLE_PLAYS_FOR_PLAYER.format(player.pid))
+#     df = pd.DataFrame(data=result_dict["results"], columns=PLAYS_QUERY_COLUMNS_NAMES)
+#     return_dict = {
+#         "len": result_dict["len"],
+#         "results": loads(df.to_json(orient="records")),
+#     }
+#     return JSONResponse(content=return_dict, status_code=200)
+
+
 
 @players_router.post("/samplePlays")
 def get_sample_plays_for_player(player: Player):
     ping_db()
+    # update player views
+    query =f"""
+    UPDATE 
+        players
+    SET 
+        views = views + 1
+    WHERE pid={player.pid};
+    """
+    print(query)
+    psy_cursor.execute(query)
+    psyconn.commit()
+
+    # get sample plays
     result_dict = plays_query_executor(SAMPLE_PLAYS_FOR_PLAYER.format(player.pid))
-    df = pd.DataFrame(data=result_dict["results"], columns=PLAYS_QUERY_COLUMNS_NAMES)
+    pages_split = split_array_into_pages(arr=result_dict['results'], df_cols=PLAYS_QUERY_COLUMNS_NAMES)
+    # print(pages_split)
+
+    # df = pd.DataFrame(data=result_dict["results"], columns=PLAYS_QUERY_COLUMNS_NAMES)
     return_dict = {
         "len": result_dict["len"],
-        "results": loads(df.to_json(orient="records")),
+        "page_count": len(pages_split.keys()),
+        "results": pages_split,
     }
     return JSONResponse(content=return_dict, status_code=200)
+
+
+
+
+
+@players_router.post("/updatePlayerView")
+def update_player_view(player: Player):
+    ping_db()
+   
+    return
     
 @players_router.on_event("shutdown")
 async def shutdown() -> None:

@@ -2,7 +2,9 @@
 
 -- adding viewer table
 
--- !!!!!!! MAKE BACKUP ???
+-- !!!!!!! MAKE BACKUP ??? !!!!!!!
+-- before next alterning change we need to create solutions to
+-- back this stuff up
 DROP TABLE viewers IF EXISTS;
 
 CREATE TABLE viewers (
@@ -12,6 +14,13 @@ CREATE TABLE viewers (
     last_visited_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     first_visited_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+ALTER TABLE playerss
+DROP COLUMN IF EXISTS views;
+
+ALTER TABLE players
+ADD COLUMN views INTEGER DEFAULT 0;
 
  --HOUSEKEEPING FOR BAD DATA --------
 

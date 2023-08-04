@@ -69,9 +69,8 @@ export default function PlayerSearchBar(props) {
         setOpen(false);
       }}
       onChange={(event, newValue) => {
-        if (newValue === undefined) {
-          return;
-        } else {
+        console.log(newValue);
+        if (newValue !== null) {
           props.clearFiltersAndGetSamplePlays(newValue);
         }
         // props.setCurrentPlayer(newValue);

@@ -93,7 +93,7 @@ export default function PlayerCard(props) {
             <Avatar
               src={
                 "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
-                props.currentPlayer.playerID +
+                props.currentPlayer?.playerID +
                 ".png"
               }
               sx={{
@@ -112,7 +112,7 @@ export default function PlayerCard(props) {
               <Avatar
                 src={
                   "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
-                  props.currentPlayer.playerID +
+                  props.currentPlayer?.playerID +
                   ".png"
                 }
                 sx={{
@@ -131,14 +131,14 @@ export default function PlayerCard(props) {
         <Stack direction={"column"} spacing={0.5}>
           <Stack direction={"row"} alignItems={"center"} spacing={1}>
             <Typography variant='h4'>
-              {props.currentPlayer.fname + " " + props.currentPlayer.lname}
+              {props?.currentPlayer?.fname + " " + props?.currentPlayer?.lname}
             </Typography>
 
-            {props.currentPlayer?.status === "Active" ? (
+            {props?.currentPlayer?.status === "Active" ? (
               <Avatar
                 src={
                   "https://cdn.nba.com/logos/nba/" +
-                  props.currentPlayer.teamID +
+                  props?.currentPlayer?.teamID +
                   "/primary/L/logo.svg"
                 }
               />
@@ -148,17 +148,16 @@ export default function PlayerCard(props) {
           </Stack>
 
           <Typography variant='body1' color='text.secondary'>
-            {props.currentPlayer.pos} #{props.currentPlayer.jerseynum}
+            {props?.currentPlayer?.pos} #{props?.currentPlayer?.jerseynum}
           </Typography>
           <Stack direction={"row"} alignItems={"center"} spacing={1}>
             <Chip color='success' label={"Active"} />
 
             <Chip
-              label={props.currentPlayer.yrsplayed + " SZN's"}
+              label={props?.currentPlayer?.yrsplayed + " SZN's"}
               color='info'
             />
-
-            {props.currentPlayer.goatFlag === "Y" && (
+            {props?.currentPlayer?.goatflag === "Y" && (
               <Chip
                 label='Top 75 List'
                 variant='filled'

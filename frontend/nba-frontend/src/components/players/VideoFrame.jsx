@@ -7,11 +7,14 @@ import {
   Chip,
   LinearProgress,
   IconButton,
+  Switch,
+  Fade,
 } from "@mui/material";
 
 import { reqString } from "../../App";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 
 export default function VideoFrame(props) {
   /**
@@ -19,7 +22,13 @@ export default function VideoFrame(props) {
    * ---------------------------------------------------------
    */
   const [showProgressBar, setShowProgressBar] = React.useState(null);
+
+  const handleChange = (event) => {
+    props.setBigVideoEnabled(event.target.checked);
+  };
+
   const handleLeftArrowClick = async () => {
+    props.setPlayArrowIndexFunc(-1);
     setShowProgressBar(true);
     let playArrCopy = [...props.playArr.plays];
     // user going backwards
@@ -37,6 +46,7 @@ export default function VideoFrame(props) {
   };
 
   const handleRightArrowClick = async () => {
+    props.setPlayArrowIndexFunc(1);
     setShowProgressBar(true);
     let playArrCopy = [...props.playArr.plays];
     // move 1st element to end of arr
@@ -61,14 +71,10 @@ export default function VideoFrame(props) {
     await axios
       .post(reqString + "players/updatePlayViewCount", update)
       .then((response) => {
-        // return new view count
-        console.log(response.data.new_val);
+        // console.log(response.data.new_val);
         newViewsVal = response.data.new_val;
-        // return response.data;
       })
-      .catch(() => {
-        // return play.views;
-      });
+      .catch(() => {});
 
     return newViewsVal;
   };
@@ -100,6 +106,13 @@ export default function VideoFrame(props) {
             color='primary'
             sx={{ my: 0.5 }}
           />
+          <Switch
+            checked={props.bigVideoEnabled}
+            onChange={handleChange}
+            inputProps={{ "aria-label": "controlled" }}
+          />
+
+          <AspectRatioIcon />
         </Stack>
       </Paper>
       {showProgressBar && <LinearProgress color='success' />}
@@ -108,14 +121,29 @@ export default function VideoFrame(props) {
           <KeyboardArrowLeftIcon fontSize='large' color='info' />
         </IconButton>
 
-        <iframe
-          id='videoIframe'
-          width={!showProgressBar ? "640" : "0"}
-          height={!showProgressBar ? "360" : "0"}
-          onLoad={() => setShowProgressBar(false)}
-          src={props.currentUrl}
-          frameBorder='0'
-          allowFullScreen></iframe>
+        {props.bigVideoEnabled ? (
+          <Fade in={props.bigVideoEnabled}>
+            <iframe
+              id='videoIframe'
+              width={!showProgressBar ? "1280" : "0"}
+              height={!showProgressBar ? "720" : "0"}
+              onLoad={() => setShowProgressBar(false)}
+              src={props.currentUrl}
+              frameBorder='0'
+              allowFullScreen></iframe>
+          </Fade>
+        ) : (
+          <Fade in={!props.bigVideoEnabled}>
+            <iframe
+              id='videoIframe'
+              width={!showProgressBar ? "640" : "0"}
+              height={!showProgressBar ? "360" : "0"}
+              onLoad={() => setShowProgressBar(false)}
+              src={props.currentUrl}
+              frameBorder='0'
+              allowFullScreen></iframe>
+          </Fade>
+        )}
 
         {showProgressBar && <Box minHeight={"47.5vh"} width={"100%"}></Box>}
         <IconButton onClick={handleRightArrowClick} sx={{ borderRadius: 5 }}>
