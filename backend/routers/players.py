@@ -72,7 +72,7 @@ def plays_query_executor(query: str) -> dict:
 
         # Select all plays store as results
         psy_cursor.execute(
-            f"select * from {view_name} order by row_number desc limit 1000;"
+            f"select * from {view_name} order by row_number asc limit 1000;"
         )
         results_dict["results"] = psy_cursor.fetchall()
     except Exception:
@@ -134,29 +134,19 @@ async def get_all_teams_controller() -> JSONResponse:
     return JSONResponse(content=ret_list)
 
 
-@players_router.get("/plays")
-async def get_players_plays(opts: PlayOptions, request: Request) -> JSONResponse:
+# @players_router.get("/plays")
+# async def get_players_plays(opts: PlayOptions, request: Request) -> JSONResponse:
     
-    query = build_plays_search_query(opts=opts)
-    result_dict = plays_query_executor(query=query)
-    df = pd.DataFrame(data=result_dict["results"], columns=PLAYS_QUERY_COLUMNS_NAMES)
-    return_dict = {
-        "len": result_dict["len"],
-        "results": loads(df.to_json(orient="records")),
-    }
-    return JSONResponse(content=return_dict, status_code=200)
+#     query = build_plays_search_query(opts=opts)
+#     result_dict = plays_query_executor(query=query)
+#     df = pd.DataFrame(data=result_dict["results"], columns=PLAYS_QUERY_COLUMNS_NAMES)
+#     return_dict = {
+#         "len": result_dict["len"],
+#         "results": loads(df.to_json(orient="records")),
+#     }
+#     return JSONResponse(content=return_dict, status_code=200)
 
-@players_router.post("/plays2")
-async def get_players_plays_arr(opts: PlayOptionsArrays, request: Request) -> JSONResponse:
-    
-    query = build_plays_search_query_arrays(opts=opts)
-    result_dict = plays_query_executor(query=query)
-    df = pd.DataFrame(data=result_dict["results"], columns=PLAYS_QUERY_COLUMNS_NAMES)
-    return_dict = {
-        "len": result_dict["len"],
-        "results": loads(df.to_json(orient="records")),
-    }
-    return JSONResponse(content=return_dict, status_code=200)
+
 
 @players_router.post("/updatePlayViewCount")
 async def update_play_view_count(update: Update):
@@ -267,9 +257,22 @@ def get_all_players():
 #     return JSONResponse(content=return_dict, status_code=200)
 
 
+@players_router.post("/plays2")
+async def get_players_plays_arr(opts: PlayOptionsArrays, request: Request) -> JSONResponse:
+    ping_db()
+    query = build_plays_search_query_arrays(opts=opts)
+    result_dict = plays_query_executor(query=query)
+    pages_split = split_array_into_pages(arr=result_dict['results'], df_cols=PLAYS_QUERY_COLUMNS_NAMES)
+    return_dict = {
+        "len": result_dict["len"],
+        "page_count": len(pages_split.keys()),
+        "results": pages_split,
+    }
+    return JSONResponse(content=return_dict, status_code=200)
 
-@players_router.post("/samplePlays")
-def get_sample_plays_for_player(player: Player):
+
+@players_router.post("/samplePlays2")
+async def get_sample_plays_for_player_test(player: Player):
     ping_db()
     # update player views
     query =f"""
@@ -281,11 +284,12 @@ def get_sample_plays_for_player(player: Player):
     """
     print(query)
     psy_cursor.execute(query)
-    psyconn.commit()
 
     # get sample plays
     result_dict = plays_query_executor(SAMPLE_PLAYS_FOR_PLAYER.format(player.pid))
+    # print(result_dict)
     pages_split = split_array_into_pages(arr=result_dict['results'], df_cols=PLAYS_QUERY_COLUMNS_NAMES)
+    # print(pages_split)
     # print(pages_split)
 
     # df = pd.DataFrame(data=result_dict["results"], columns=PLAYS_QUERY_COLUMNS_NAMES)
@@ -294,6 +298,9 @@ def get_sample_plays_for_player(player: Player):
         "page_count": len(pages_split.keys()),
         "results": pages_split,
     }
+
+    psyconn.commit()
+
     return JSONResponse(content=return_dict, status_code=200)
 
 

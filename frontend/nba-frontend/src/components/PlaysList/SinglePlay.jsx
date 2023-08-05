@@ -64,16 +64,17 @@ export default function SinglePlay(props) {
 
       <Fade in={true}>
         <Stack sx={{ justifyContent: "center" }}>
-          {props?.playInVideoPlayer === props.play.playid && (
-            <Grow in={true}>
-              <Alert
-                severity='info'
-                variant='outlined'
-                sx={{ justifyContent: "center" }}>
-                Currently Viewing
-              </Alert>
-            </Grow>
-          )}
+          {props?.playInVideoPlayer &&
+            props?.playInVideoPlayer === props.play.playid && (
+              <Grow in={true}>
+                <Alert
+                  severity='info'
+                  variant='outlined'
+                  sx={{ justifyContent: "center" }}>
+                  Currently Viewing
+                </Alert>
+              </Grow>
+            )}
           {/* {console.log(props.play.url.split("/")[11])} */}
           <Link
             target='_blank'

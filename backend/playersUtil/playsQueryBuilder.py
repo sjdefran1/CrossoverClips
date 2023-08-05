@@ -58,8 +58,11 @@ def build_plays_search_query(opts: PlayOptions) -> str:
         if opts.home_away == "home":
             ret_query = delimiter.join([ret_query, HOME_OPTIONS_SQL])
         elif opts.home_away == "away":
-            ret_query = delimiter.join(([ret_query, AWAY_OPTIONS_SQL]))
+            ret_query = delimiter.join([ret_query, AWAY_OPTIONS_SQL])
 
+
+    # order by
+    ret_query = delimiter.join([ret_query, ORDER_BY_PLAY_ID_SQL])
     # limit
     # ret_query = delimiter.join([ret_query, LIMIT_OPTIONS_SQL.format(opts.limit)])
     return ret_query
@@ -148,6 +151,9 @@ def build_plays_search_query_arrays(opts: PlayOptionsArrays) -> str:
             ret_query = delimiter.join([ret_query, HOME_OPTIONS_SQL])
         elif opts.home_away[0] == "Away":
             ret_query = delimiter.join(([ret_query, AWAY_OPTIONS_SQL]))
+
+    # order by
+    ret_query = delimiter.join([ret_query, ORDER_BY_PLAY_ID_SQL])
 
     # limit
     # ret_query = delimiter.join([ret_query, LIMIT_OPTIONS_SQL.format(opts.limit)])

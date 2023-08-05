@@ -142,6 +142,9 @@ LIMIT_OPTIONS_SQL = """
 limit {}
 """
 
+ORDER_BY_PLAY_ID_SQL = """
+order by playid asc
+"""
 
 # --------------------------------------------------------------------
 
