@@ -7,7 +7,6 @@ import GameDetails from "./components/GameDetails/GameDetails.jsx";
 import DownloadHelp from "./components/DownloadHelp.jsx";
 import Landing from "./components/Landing.jsx";
 import PlayerDash from "./components/players/PlayerDash.jsx";
-import PlayerDash3 from "./components/players/PlayerDash3.jsx";
 
 // import TestMarkDown from "./components/TestMarkDown.jsx";
 // import TopBar from "./components/TopBar.jsx";
@@ -84,7 +83,6 @@ const App = () => {
               <Route exact path='/byDate/:date' element={<Main2 />} />
               <Route exact path='/downloadHelp' element={<DownloadHelp />} />
               <Route exact path='/playerTests' element={<PlayerDash />} />
-              <Route exact path='/playerTests2' element={<PlayerDash3 />} />
 
               {/* <Route exact path='/howto' element={<TestMarkDown />} /> */}
             </Routes>

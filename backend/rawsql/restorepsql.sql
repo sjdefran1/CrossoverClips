@@ -16,7 +16,7 @@ CREATE TABLE viewers (
 );
 
 
-ALTER TABLE playerss
+ALTER TABLE players
 DROP COLUMN IF EXISTS views;
 
 ALTER TABLE players

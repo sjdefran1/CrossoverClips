@@ -57,19 +57,22 @@ export default function PlayersPlayList(props) {
           <NoHighlights isPlay={true} />
         )}
       {props?.playByPlay &&
-        props?.playByPlay?.plays?.map((play) => (
+        props?.playByPlay?.plays?.map((play, index) => (
           <React.Fragment key={play.playid}>
             <nav aria-label='playbyplay'>
               {/* {props.playInVideoPlayer} */}
               <SinglePlay
+                index={index}
                 playInVideoPlayer={props.playInVideoPlayer}
                 play={play}
                 currentStatType={props.currentStatType}
+                team_ids={[play.htid, play.atid]}
                 // team_ids={props.playByPlay.team_ids}
-                team_ids={[props.home_teamID, props.away_teamID]}
+                // team_ids={[props.home_teamID, props.away_teamID]}
                 players_length={1}
               />
             </nav>
+            <Button>Show in Player</Button>
           </React.Fragment>
         ))}
     </>

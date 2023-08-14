@@ -37,9 +37,14 @@ export default function PlaySecondary(props) {
           sx={{ width: 32, height: 32, paddingLeft: 1 }}
         />
       </Stack>
-      <Typography variant='subtitle2' component={"span"}>
-        {props.stuff[2]}
-      </Typography>
+      <Stack direction={"column"} spacing={1} sx={{ justifyContent: "center" }}>
+        <Typography variant='subtitle2' component={"span"}>
+          {props.stuff[2]}
+        </Typography>
+        <Typography variant='subtitle2' component={"span"}>
+          {"Q" + props.stuff[5]}
+        </Typography>
+      </Stack>
     </Stack>
   );
 }

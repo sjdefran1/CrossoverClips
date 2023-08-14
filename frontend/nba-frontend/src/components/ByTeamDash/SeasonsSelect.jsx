@@ -58,6 +58,11 @@ export default function SeasonsSelect(props) {
         </Alert>
       )}
       <Grid container>
+        {props.shouldBeDisabled && (
+          <Alert severity='warning' color='warning' sx={{ width: "100%" }}>
+            Must filter seasons before search, click trash to redo search
+          </Alert>
+        )}
         {seasonsList.map((season) => (
           <React.Fragment key={season}>
             <Grid item xs={6} sm={3}>

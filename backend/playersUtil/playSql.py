@@ -23,9 +23,11 @@ PLAYS_QUERY_COLUMNS_NAMES = [
     "gtype",
     "date",
     "sznstr",
+    "htid",
+    "atid",
     "row_number",
     "wl",
-    "mid"
+    "mid",
 ]
 
 # Create view tags
@@ -43,6 +45,8 @@ select distinct
     m.gtype,
     m.date,
     m.sznstr,
+    m.htid,
+    m.atid,
     ROW_NUMBER () OVER (ORDER BY p1.pid) AS row_number,
     case
         when m.atid = p1.tid then m."HWL"
@@ -150,13 +154,15 @@ order by playid asc
 
 # Sample Player plays
 
-SAMPLE_PLAYS_FOR_PLAYER = '''
+SAMPLE_PLAYS_FOR_PLAYER = """
 select distinct 
     p1.*, 
     m.matchupstr,
     m.gtype,
     m.date,
     m.sznstr,
+    m.htid,
+    m.atid,
     ROW_NUMBER () OVER (ORDER BY p1.pid) AS row_number,
     case
         when m.atid = p1.tid then m."HWL"
@@ -178,7 +184,7 @@ and
 order by
     p1.views desc
 limit 20;
-'''
+"""
 
 """
 

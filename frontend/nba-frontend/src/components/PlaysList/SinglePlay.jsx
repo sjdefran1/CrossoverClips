@@ -61,7 +61,7 @@ export default function SinglePlay(props) {
   return (
     <>
       <Divider />
-
+      <Typography>{props.index}</Typography>
       <Fade in={true}>
         <Stack sx={{ justifyContent: "center" }}>
           {props?.playInVideoPlayer &&
@@ -116,6 +116,12 @@ export default function SinglePlay(props) {
                             variant='outlined'
                             icon={<FileDownloadIcon color='info' />}
                             label={props.play.downloads}
+                            sx={{
+                              display:
+                                props.play?.downloads !== undefined
+                                  ? ""
+                                  : "none",
+                            }}
                           />
                           <Chip
                             size='small'
@@ -123,6 +129,10 @@ export default function SinglePlay(props) {
                             variant='outlined'
                             icon={<VisibilityIcon color='info' />}
                             label={props.play.views}
+                            sx={{
+                              display:
+                                props.play?.views !== undefined ? "" : "none",
+                            }}
                           />
 
                           {/* {props.playInVideoPlayer} */}
@@ -146,10 +156,10 @@ export default function SinglePlay(props) {
                           props.play.scoreHome,
                           props.play.scoreAway,
                           props.play.time,
-                          // props.team_ids[0],
-                          // props.team_ids[1],
-                          props.play.teamID,
-                          props.play.mid,
+                          // props.play.teamID,
+                          props.team_ids[0],
+                          props.team_ids[1],
+                          props.play.quarter,
                         ]}
                       />
                     }

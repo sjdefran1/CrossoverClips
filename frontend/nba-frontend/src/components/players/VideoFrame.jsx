@@ -9,12 +9,16 @@ import {
   IconButton,
   Switch,
   Fade,
+  Hidden,
+  Button,
+  Link,
 } from "@mui/material";
 
 import { reqString } from "../../App";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import AspectRatioIcon from "@mui/icons-material/AspectRatio";
+import { useNavigate } from "react-router-dom";
 
 export default function VideoFrame(props) {
   /**
@@ -22,7 +26,7 @@ export default function VideoFrame(props) {
    * ---------------------------------------------------------
    */
   const [showProgressBar, setShowProgressBar] = React.useState(null);
-
+  const navigate = useNavigate();
   const handleLoad = () => {
     console.log("loaded");
     setShowProgressBar(false);
@@ -34,20 +38,21 @@ export default function VideoFrame(props) {
   const handleLeftArrowClick = async () => {
     setShowProgressBar(true);
     let playArrCopy = [...props.playArr.plays];
-    // user going backwards
-    // get last arr element and move it the front
+    // // user going backwards
+    // // get last arr element and move it the front
     let play = playArrCopy.pop();
     playArrCopy.unshift(play);
 
     // update views of next play about to be loaded
     playArrCopy[0].views = playArrCopy[0].views + 1;
+    // playArrCopy[props.playArrowIndex].views =
+    //   playArrCopy[props.playArrowIndex].views + 1;
     props.setPlayArr({ plays: playArrCopy });
 
     props.setPlayArrowIndexFunc(-1);
 
-    // set new url for iframe, and show progress bar to indicate loading
-    // props.setCurrentUrl(playArrCopy[0].url);
     handleView(playArrCopy[0]);
+    // handleView(playArrCopy[props.playArrowIndex]);
   };
 
   const handleRightArrowClick = async () => {
@@ -90,6 +95,13 @@ export default function VideoFrame(props) {
     console.log("Show progress bar changed");
   }, [showProgressBar]);
 
+  // updates first play shown view
+  // React.useEffect(() => {
+  //   let playArrCopy = [...props.playArr.plays];
+  //   playArrCopy[0].views = playArrCopy[0].views + 1;
+  //   handleView(playArrCopy[0]);
+  // }, []);
+
   return (
     <>
       <Paper variant='outlined' sx={{ textAlign: "center", bgcolor: "#333" }}>
@@ -98,21 +110,41 @@ export default function VideoFrame(props) {
           justifyContent={"center"}
           spacing={1}
           alignItems={"center"}>
+          <Link
+            href={
+              "#/games/" +
+              String(props?.playArr?.plays[0].date) +
+              "/" +
+              String(props?.playArr?.plays[0].gid)
+            }
+            // state={null}
+            target='_blank'
+            rel='noopener'>
+            <IconButton sx={{ borderRadius: 15 }}>
+              <Chip
+                className='hover-bg-color'
+                variant={"outlined"}
+                label={"View Full Game"}
+                color={"info"}
+              />
+            </IconButton>
+          </Link>
+
           <Chip
-            label={props?.playArr?.plays[0]?.ptype}
+            label={props?.playArr ? props.playArr.plays[0].ptype : "..."}
             variant='outlined'
             color='primary'
             sx={{ my: 0.5 }}
           />
           <Chip
-            label={props?.playArr?.plays[0]?.matchupstr}
+            label={props?.playArr ? props.playArr.plays[0].matchupstr : "..."}
             variant='outlined'
             color='info'
             sx={{ my: 0.5 }}
           />
 
           <Chip
-            label={props?.playArr?.plays[0]?.sznstr}
+            label={props?.playArr ? props.playArr.plays[0].sznstr : "..."}
             variant='outlined'
             color='primary'
             sx={{ my: 0.5 }}
@@ -136,9 +168,11 @@ export default function VideoFrame(props) {
         </Box>
       )}
       <Stack direction={"row"} alignItems={"center"} spacing={2} ml={1} my={1}>
-        <IconButton onClick={handleLeftArrowClick}>
-          <KeyboardArrowLeftIcon fontSize='large' color='info' />
-        </IconButton>
+        <Hidden smDown>
+          <IconButton onClick={handleLeftArrowClick}>
+            <KeyboardArrowLeftIcon fontSize='large' color='info' />
+          </IconButton>
+        </Hidden>
 
         {props.bigVideoEnabled ? (
           <Fade in={props.bigVideoEnabled}>
@@ -167,10 +201,29 @@ export default function VideoFrame(props) {
         )}
 
         {showProgressBar && <Box minHeight={"47.5vh"} width={"100%"}></Box>}
-        <IconButton onClick={handleRightArrowClick} sx={{ borderRadius: 5 }}>
-          <KeyboardArrowRightIcon fontSize='large' color='info' />
-        </IconButton>
+        <Hidden smDown>
+          <IconButton onClick={handleRightArrowClick} sx={{ borderRadius: 5 }}>
+            <KeyboardArrowRightIcon fontSize='large' color='info' />
+          </IconButton>
+        </Hidden>
       </Stack>
+
+      {/* Mobile Controls */}
+      <Hidden smUp>
+        <Paper>
+          <Stack direction={"row"} justifyContent={"center"} spacing={10}>
+            <IconButton onClick={handleLeftArrowClick}>
+              <KeyboardArrowLeftIcon fontSize='large' color='info' />
+            </IconButton>
+            <IconButton
+              onClick={handleRightArrowClick}
+              sx={{ borderRadius: 5 }}>
+              <KeyboardArrowRightIcon fontSize='large' color='info' />
+            </IconButton>
+          </Stack>
+        </Paper>
+      </Hidden>
+      {/* ----------------------------------- */}
     </>
   );
 }

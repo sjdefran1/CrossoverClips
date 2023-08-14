@@ -18,6 +18,8 @@ import {
   Pagination,
 } from "@mui/material";
 
+import { MyChip, setDictFalse, findTrueKeys } from "./PlayerDashUtil.jsx";
+
 import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -36,11 +38,14 @@ import FilterSnackBar from "./FilterSnackbar.jsx";
 import PlayerSearchBar from "./PlayerSeachBar.jsx";
 import PlayerCard from "./PlayerCard.jsx";
 import VideoFrame from "./VideoFrame.jsx";
+import PlayerCard2 from "./PlayerCard2.jsx";
 
 export default function PlayerDash(props) {
+  // season filter
   const [seasonsSelected, setSeasonsSelected] = React.useState([]);
-  const [playArr, setPlayArr] = React.useState(plays);
-  const [currentUrl, setCurrentUrl] = React.useState(playArr.plays[0]?.url);
+  //
+  // const [playArr, setPlayArr] = React.useState(plays);
+  const [currentUrl, setCurrentUrl] = React.useState("");
   const [filtersShowing, setFiltersShowing] = React.useState(true);
   const [bigVideoEnabled, setBigVideoEnabled] = React.useState(false);
   // pagination
@@ -48,30 +53,13 @@ export default function PlayerDash(props) {
   const [page, setPage] = React.useState(1);
   const [pageCount, setPageCount] = React.useState(1);
   const [currentShowingPlays, setCurrentShowingPlays] = React.useState();
-  const [currentStartIndex, setCurrentStartIndex] = React.useState(0);
-
   const [requestLoading, setRequestLoading] = React.useState(true);
 
   // new implementation
 
   const [pagePlayDict, setPagePlayDict] = React.useState({});
   const [lenPlaysAvailable, setLenPlaysAvailable] = React.useState(0);
-  /**
 
-currentshowingplays = response.data.results[page one]
-playlist = currenShowingPlays
-vidInPlayer = currentShowingPlays[0]
-
-
- */
-
-  /**
-   * filters
-   *
-   *
-   * */
-
-  // starts as lebron for now
   const [currentPlayer, setCurrentPlayer] = React.useState({
     playerID: 2544,
     fname: "LeBron",
@@ -113,14 +101,6 @@ vidInPlayer = currentShowingPlays[0]
   const [teamsPlayerOn, setTeamsPlayerOn] = React.useState([]);
   const [matchups, setMatchups] = React.useState([]);
 
-  const setDictFalse = (dict) => {
-    let dictCopy = { ...dict };
-
-    for (const key in dictCopy) {
-      dictCopy[key] = false;
-    }
-    return dictCopy;
-  };
   const clearFilters = () => {
     let clearedQuarters = setDictFalse(quarterDict);
     let clearedSeasonType = setDictFalse(seasonTypeDict);
@@ -137,27 +117,6 @@ vidInPlayer = currentShowingPlays[0]
   const clearFiltersAndGetSamplePlays = async (newPlayer) => {
     setCurrentPlayer(newPlayer);
     clearFilters();
-  };
-
-  const findTrueKeys = (dict) => {
-    const trueKeys = [];
-
-    for (const key in dict) {
-      if (dict[key] === true) {
-        trueKeys.push(key);
-      }
-    }
-
-    // if all filters are selected
-    // then that is the same as none being selected on the backend
-    // will just not include and clause in sql query
-    if (trueKeys.length === Object.keys(dict).length) return null;
-
-    // if no options selected
-    // return null to drop and clause
-    if (trueKeys.length === 0) return null;
-
-    return trueKeys;
   };
 
   const createSearchResults = () => {
@@ -304,42 +263,28 @@ vidInPlayer = currentShowingPlays[0]
     }
   };
 
-  React.useEffect(() => {
-    setCurrentUrl(currentShowingPlays?.plays[0].url);
-  }, [playArrowIndex]);
-
-  // Styled chip for autocomplete tags
-  const MyChip = (props) => {
-    return (
-      <Chip
-        label={props.label}
-        onDelete={() => null}
-        variant='outlined'
-        sx={{ mr: 0.5, my: 0.1 }}
-        avatar={
-          <Avatar
-            src={
-              "https://cdn.nba.com/logos/nba/" +
-              props.id +
-              "/primary/L/logo.svg"
-            }
-          />
-        }
-      />
-    );
-  };
-
   /**
-   * Use State Functions
+   * Use Effect Functions
    */
 
+  // when page is first loaded get sample plays
+  // atm it gets them for lebron to avoid white screens
   React.useState(() => {
     getSamplePlaysAxios();
   }, []);
 
+  // when a new player is selected from autocomplete
+  // get new sample plays
+  // retrieves top 20 highlights by view
   React.useEffect(() => {
     getSamplePlaysAxios();
   }, [currentPlayer]);
+
+  // when play is changed updated the url to new highlight at top of array
+  // updates videoframe
+  React.useEffect(() => {
+    setCurrentUrl(currentShowingPlays?.plays[0].url);
+  }, [playArrowIndex]);
 
   // console.log(currentShowingPlays);
   return (
@@ -378,100 +323,98 @@ vidInPlayer = currentShowingPlays[0]
           )}
 
           {/* Player Dash, logo name etc */}
-          <Grid item xs={5.5} sx={{ my: 1 }}>
-            <PlayerCard currentPlayer={currentPlayer} />
+          <Grid item xs={12} md={5.5} sx={{ my: 1 }}>
+            {/* <PlayerCard currentPlayer={currentPlayer} /> */}
+            <PlayerCard2 currentPlayer={currentPlayer} />
             {/* Find plays against matchup autocomplete */}
-            <Paper sx={{ mt: 1 }}>
-              <Autocomplete
-                multiple
-                autoHighlight
-                clearOnEscape
-                autoComplete={true}
-                id='combo-box-demo'
-                options={teams}
-                getOptionLabel={(option) => option?.full_name}
-                sx={{ width: "95%", padding: 1 }}
-                size='small'
-                renderTags={(tagValue, getTagProps) => {
-                  return tagValue.map((option) => (
-                    <MyChip label={option.full_name} id={option.id} />
-                  ));
-                }}
-                onChange={(event, newValue) => {
-                  try {
-                    let newId = newValue[newValue.length - 1].id;
-                    setMatchups((prevState) => [...prevState, newId]);
-                  } catch (error) {
-                    setMatchups([]);
-                  }
-                }}
-                renderOption={(props, option) => (
-                  <Box component='li' {...props} key={option.id}>
-                    <TeamLabel team_id={option?.id} name={option?.full_name} />
-                  </Box>
-                )}
-                renderInput={(params) => (
-                  <Stack direction={"row"} alignItems={"center"} spacing={1}>
-                    <SearchIcon />
-                    <TextField
-                      {...params}
-                      label='Find plays against these teams'
-                    />
-                  </Stack>
-                )}
-              />
+            {/* <Paper variant='outlined' sx={{ mt: 1 }}> */}
+            <Autocomplete
+              multiple
+              autoHighlight
+              clearOnEscape
+              autoComplete={true}
+              id='combo-box-demo'
+              options={teams}
+              getOptionLabel={(option) => option?.full_name}
+              sx={{ width: "95%", padding: 1 }}
+              size='small'
+              renderTags={(tagValue, getTagProps) => {
+                return tagValue.map((option) => (
+                  <MyChip label={option.full_name} id={option.id} />
+                ));
+              }}
+              onChange={(event, newValue) => {
+                try {
+                  let newId = newValue[newValue.length - 1].id;
+                  setMatchups((prevState) => [...prevState, newId]);
+                } catch (error) {
+                  setMatchups([]);
+                }
+              }}
+              renderOption={(props, option) => (
+                <Box component='li' {...props} key={option.id}>
+                  <TeamLabel team_id={option?.id} name={option?.full_name} />
+                </Box>
+              )}
+              renderInput={(params) => (
+                <Stack direction={"row"} alignItems={"center"} spacing={1}>
+                  <SearchIcon />
+                  <TextField
+                    {...params}
+                    label='Find plays against these teams'
+                  />
+                </Stack>
+              )}
+            />
 
-              {/* Find plays while player was on this team
+            {/* Find plays while player was on this team
                 auto complete */}
-              <Autocomplete
-                multiple
-                autoHighlight
-                clearOnEscape
-                autoComplete={true}
-                id='combo-box-demo'
-                options={teams}
-                getOptionLabel={(option) => option?.full_name}
-                sx={{ width: "90%", padding: 1 }}
-                size='small'
-                renderTags={(tagValue, getTagProps) => {
-                  return tagValue.map((option) => (
-                    <MyChip label={option.full_name} id={option.id} />
-                  ));
-                }}
-                onChange={(event, newValue) => {
-                  try {
-                    let newId = newValue[newValue.length - 1].id;
-                    setTeamsPlayerOn((prevState) => [...prevState, newId]);
-                  } catch (error) {
-                    setTeamsPlayerOn([]);
-                  }
-                }}
-                renderOption={(props, option) => (
-                  <Box component='li' {...props} key={option.id}>
-                    <TeamLabel team_id={option?.id} name={option?.full_name} />
-                  </Box>
-                )}
-                renderInput={(params) => (
-                  <Stack direction={"row"} alignItems={"center"} spacing={1}>
-                    <SearchIcon />
-                    <TextField
-                      {...params}
-                      label='Find plays when player was on these teams'
-                    />
-                  </Stack>
-                )}
-              />
-            </Paper>
-
+            <Autocomplete
+              multiple
+              autoHighlight
+              clearOnEscape
+              autoComplete={true}
+              id='combo-box-demo'
+              options={teams}
+              getOptionLabel={(option) => option?.full_name}
+              sx={{ width: "95%", padding: 1 }}
+              size='small'
+              renderTags={(tagValue, getTagProps) => {
+                return tagValue.map((option) => (
+                  <MyChip label={option.full_name} id={option.id} />
+                ));
+              }}
+              onChange={(event, newValue) => {
+                try {
+                  let newId = newValue[newValue.length - 1].id;
+                  setTeamsPlayerOn((prevState) => [...prevState, newId]);
+                } catch (error) {
+                  setTeamsPlayerOn([]);
+                }
+              }}
+              renderOption={(props, option) => (
+                <Box component='li' {...props} key={option.id}>
+                  <TeamLabel team_id={option?.id} name={option?.full_name} />
+                </Box>
+              )}
+              renderInput={(params) => (
+                <Stack direction={"row"} alignItems={"center"} spacing={1}>
+                  <SearchIcon />
+                  <TextField
+                    {...params}
+                    label='Find plays when player was on these teams'
+                  />
+                </Stack>
+              )}
+            />
+            {/* </Paper> */}
             {/* Filter By Season */}
-
             <FilterSnackBar
               filtersShowing={filtersShowing}
               setFiltersShowing={setFiltersShowing}
               clearFilters={clearFilters}
               createSearchResults={createSearchResults}
             />
-
             {/* Filters Start */}
             <Collapse in={filtersShowing}>
               <Alert
@@ -564,7 +507,6 @@ vidInPlayer = currentShowingPlays[0]
                 </Grid>
               </Grid>
             </Collapse>
-
             <Stack
               direction='row'
               sx={{ textAlign: "center", justifyContent: "center" }}>
@@ -586,7 +528,7 @@ vidInPlayer = currentShowingPlays[0]
 
           {/* Video preview
               Plays List */}
-          <Grid item xs={6} ml={1} mt={1}>
+          <Grid item xs={12} md={6} ml={1} mt={1}>
             {!bigVideoEnabled && (
               <VideoFrame
                 playArr={currentShowingPlays}
@@ -596,6 +538,7 @@ vidInPlayer = currentShowingPlays[0]
                 bigVideoEnabled={bigVideoEnabled}
                 setBigVideoEnabled={setBigVideoEnabled}
                 setPlayArrowIndexFunc={setPlayArrowIndexFunc}
+                playArrowIndex={playArrowIndex}
               />
             )}
 
@@ -611,6 +554,7 @@ vidInPlayer = currentShowingPlays[0]
             {pageCount > 0 && !requestLoading && (
               <Box sx={{ width: "100%", textAlign: "center" }}>
                 <Pagination
+                  sx={{ width: "100%" }}
                   page={page}
                   count={pageCount}
                   onChange={handlePageChange}

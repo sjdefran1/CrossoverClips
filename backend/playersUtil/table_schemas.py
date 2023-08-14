@@ -155,6 +155,8 @@ PANDAS_SCHEMA = {
         "ascore": str,
         "ptime": str,
         "quarter": int,
+        "views": int,
+        "downloads": int,
     },
     "players": {
         "pid": int,

@@ -17,7 +17,7 @@ export default function FilterSnackBar(props) {
         bgcolor: "#333",
         mt: 1,
       }}>
-      <Grid container>
+      <Grid container alignItems={"center"}>
         <Grid item xs={4} alignItems={"center"}>
           <Button
             onClick={() => props.setFiltersShowing(!props.filtersShowing)}
@@ -43,7 +43,7 @@ export default function FilterSnackBar(props) {
             color='success'
             endIcon={<SearchIcon sx={{ mr: 1 }} />}
             sx={{}}>
-            {"Submit Filters"}
+            {"Submit Search"}
           </Button>
         </Grid>
         <Grid
