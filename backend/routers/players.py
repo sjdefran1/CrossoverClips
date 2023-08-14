@@ -18,6 +18,7 @@ from playersUtil.playsQueryBuilder import (
     build_plays_search_query_arrays,
 )
 from playersUtil.playSql import (
+    AVAILABLE_GAMES_SQL,
     PLAYS_QUERY_COLUMNS_NAMES,
     CREATE_VIEW,
     DROP_VIEW,
@@ -67,6 +68,30 @@ def sort_plays(plays):
     return sorted_plays
 
 
+def get_games_with_pts(rows: list[tuple]):
+    def get_pts_from_description(desc: str):
+        return int(desc.split("(")[1].split(")")[0].split(" ")[0])
+
+    df = pd.DataFrame(
+        data=rows,
+        columns=[
+            "gid",
+            "playid",
+            "playerpts",
+            "matchupstr",
+            "atid",
+            "htid",
+            "sznstr",
+            "hwl",
+            "hpts",
+            "apts",
+        ],
+    )
+
+    df["playerpts"] = df["playerpts"].apply(get_pts_from_description)
+    return loads(df.to_json(orient="records"))
+
+
 def plays_query_executor(query: str) -> dict:
     """
     Creates view using provided query
@@ -93,8 +118,13 @@ def plays_query_executor(query: str) -> dict:
     # Get length
     # [0][0] gets int value of len instead of row arr
     try:
+        # Len of possible plays
         db.psy_cursor.execute(f"select count(*) from {view_name}")
         results_dict["len"] = db.psy_cursor.fetchall()[0][0]
+
+        # Get all available games w/ the last fgm made from it
+        db.psy_cursor.execute(AVAILABLE_GAMES_SQL.format(view_name))
+        results_dict["games_available"] = get_games_with_pts(db.psy_cursor.fetchall())
 
         # Select all plays store as results
         db.psy_cursor.execute(
@@ -109,6 +139,7 @@ def plays_query_executor(query: str) -> dict:
         print(e)
         results_dict["len"] = 0
         results_dict["results"] = []
+        results_dict["games_available"] = []
         print(f"Dropping VIEW\n{DROP_VIEW.format(view_name)}")
         db.psy_cursor.execute(DROP_VIEW.format(view_name))
         return results_dict
@@ -239,6 +270,7 @@ async def get_players_plays_arr(
     return_dict = {
         "len": result_dict["len"],
         "page_count": len(pages_split.keys()),
+        "games_available": result_dict["games_available"],
         "results": pages_split,
     }
     return JSONResponse(content=return_dict, status_code=200)

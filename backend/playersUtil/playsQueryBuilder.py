@@ -60,12 +60,12 @@ def build_plays_search_query(opts: PlayOptions) -> str:
         elif opts.home_away == "away":
             ret_query = delimiter.join([ret_query, AWAY_OPTIONS_SQL])
 
-
     # order by
     ret_query = delimiter.join([ret_query, ORDER_BY_PLAY_ID_SQL])
     # limit
     # ret_query = delimiter.join([ret_query, LIMIT_OPTIONS_SQL.format(opts.limit)])
     return ret_query
+
 
 def get_correct_tuple_str(arr: list) -> str:
     """
@@ -73,15 +73,35 @@ def get_correct_tuple_str(arr: list) -> str:
 
     eg = ['s'] -> "('s',)" which messes up sql query
 
-    this instead returns ('s') 
+    this instead returns ('s')
     """
-    if(len(arr) == 1):
-        # if string need ' ' 
-        if(type(arr[0]) == str):
+    if len(arr) == 1:
+        # if string need ' '
+        if type(arr[0]) == str:
             return f"('{arr[0]}')"
         return f"({arr[0]})"
     else:
         return str(tuple(arr))
+
+
+def handle_overtime_request(opts: PlayOptionsArrays):
+    """
+    Frontend request overtime as one thing, but in database it is stored as
+    5,6,7...
+
+    If we are requesting other quarters as well we need a different formated
+    sql string, if we aren't we can jsut find quarters > 4
+    """
+    if len(opts.quarter) > 1:
+        quarter_copy = opts.quarter.copy()
+        quarter_copy.remove("OT")
+
+        # print(opts.quarter.remove("OT"))
+        # tuple_wout_ot = tuple(opts.quarter.remove("OT"))
+        return OVERTIME_OPTIONS_ARRAY_SQL.format(get_correct_tuple_str(quarter_copy))
+    else:
+        return OVERTIME_OPTIONS_SQL
+
 
 def build_plays_search_query_arrays(opts: PlayOptionsArrays) -> str:
     """
@@ -114,36 +134,26 @@ def build_plays_search_query_arrays(opts: PlayOptionsArrays) -> str:
     # Add Additional options
     # 1) only plays from when player was on specific team
     if opts.team_id:
-        add_str = TEAMID_OPTIONS_SQL.format(
-            get_correct_tuple_str(opts.team_id)
-        )
+        add_str = TEAMID_OPTIONS_SQL.format(get_correct_tuple_str(opts.team_id))
         ret_query = delimiter.join([ret_query, add_str])
 
     # 2) only by quarter
     if opts.quarter:
-        add_str = QUARTER_OPTIONS_SQL.format(
-            get_correct_tuple_str(opts.quarter)
-        )
+        add_str = handle_overtime_request(opts=opts)
         ret_query = delimiter.join([ret_query, add_str])
 
     # 3) only fgm etc
     if opts.stat_type:
-        add_str = STAT_TYPE_OPTIONS_SQL.format(
-           get_correct_tuple_str(opts.stat_type)
-        )
+        add_str = STAT_TYPE_OPTIONS_SQL.format(get_correct_tuple_str(opts.stat_type))
         ret_query = delimiter.join([ret_query, add_str])
 
     # 4) only playoff games or regular szn
     if opts.gtype:
-        add_str = GTYPE_OPTIONS_SQL.format(
-            get_correct_tuple_str(opts.gtype)
-        )
+        add_str = GTYPE_OPTIONS_SQL.format(get_correct_tuple_str(opts.gtype))
         ret_query = delimiter.join([ret_query, add_str])
 
     if opts.season:
-        add_str = SEASON_OPTIONS_SQL.format(
-            get_correct_tuple_str(opts.season)
-        )
+        add_str = SEASON_OPTIONS_SQL.format(get_correct_tuple_str(opts.season))
         ret_query = delimiter.join([ret_query, add_str])
 
     if opts.home_away:
@@ -158,6 +168,7 @@ def build_plays_search_query_arrays(opts: PlayOptionsArrays) -> str:
     # limit
     # ret_query = delimiter.join([ret_query, LIMIT_OPTIONS_SQL.format(opts.limit)])
     return ret_query
+
 
 if __name__ == "__main__":
     opts_var = PlayOptions(

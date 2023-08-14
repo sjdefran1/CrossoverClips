@@ -16,7 +16,10 @@ import {
   LinearProgress,
   Alert,
   Grow,
+  Paper,
 } from "@mui/material";
+// import VisibilityIcon from "@mui/icons-material/Visibility";
+
 import PlaySecondary from "./PlaySecondary";
 import { reqString } from "../../App";
 
@@ -61,18 +64,29 @@ export default function SinglePlay(props) {
   return (
     <>
       <Divider />
-      <Typography>{props.index}</Typography>
       <Fade in={true}>
         <Stack sx={{ justifyContent: "center" }}>
-          {props?.playInVideoPlayer &&
-            props?.playInVideoPlayer === props.play.playid && (
+          {props?.playShowingIndex !== undefined &&
+            props?.index === props.playShowingIndex && (
               <Grow in={true}>
-                <Alert
-                  severity='info'
+                <Paper
                   variant='outlined'
-                  sx={{ justifyContent: "center" }}>
-                  Currently Viewing
-                </Alert>
+                  sx={{
+                    borderColor: "#90caf9",
+                    padding: 1,
+                    mt: 1,
+                  }}>
+                  <Stack
+                    direction={"row"}
+                    spacing={1}
+                    justifyContent={"center"}
+                    alignItems={"center"}>
+                    <VisibilityIcon sx={{ color: "#90caf9" }} />
+                    <Typography variant='subtitle2' color={"#90caf9"}>
+                      Currently Viewing
+                    </Typography>
+                  </Stack>
+                </Paper>
               </Grow>
             )}
           {/* {console.log(props.play.url.split("/")[11])} */}

@@ -38,21 +38,22 @@ export default function VideoFrame(props) {
   const handleLeftArrowClick = async () => {
     setShowProgressBar(true);
     let playArrCopy = [...props.playArr.plays];
+
     // // user going backwards
     // // get last arr element and move it the front
-    let play = playArrCopy.pop();
-    playArrCopy.unshift(play);
+    // let play = playArrCopy.pop();
+    // playArrCopy.unshift(play);
 
     // update views of next play about to be loaded
-    playArrCopy[0].views = playArrCopy[0].views + 1;
-    // playArrCopy[props.playArrowIndex].views =
-    //   playArrCopy[props.playArrowIndex].views + 1;
+    // playArrCopy[0].views = playArrCopy[0].views + 1;
+    playArrCopy[props.playArrowIndex].views =
+      playArrCopy[props.playArrowIndex].views + 1;
     props.setPlayArr({ plays: playArrCopy });
 
     props.setPlayArrowIndexFunc(-1);
 
-    handleView(playArrCopy[0]);
-    // handleView(playArrCopy[props.playArrowIndex]);
+    // handleView(playArrCopy[0]);
+    handleView(playArrCopy[props.playArrowIndex]);
   };
 
   const handleRightArrowClick = async () => {
@@ -60,15 +61,18 @@ export default function VideoFrame(props) {
     let playArrCopy = [...props.playArr.plays];
     // move 1st element to end of arr
     // allows for current viewing play to move to top
-    let play = playArrCopy.shift();
-    playArrCopy.push(play);
+    // let play = playArrCopy.shift();
+    // playArrCopy.push(play);
 
     // update views of next play about to be loaded
-    playArrCopy[0].views = playArrCopy[0].views + 1;
-    console.log("fired");
+    // playArrCopy[0].views = playArrCopy[0].views + 1;
+    playArrCopy[props.playArrowIndex].views =
+      playArrCopy[props.playArrowIndex].views + 1;
+    // console.log("fired");
     props.setPlayArr({ plays: playArrCopy });
     props.setPlayArrowIndexFunc(1);
-    handleView(playArrCopy[0]);
+    // handleView(playArrCopy[0]);
+    handleView(playArrCopy[props.playArrowIndex]);
 
     // set new url for iframe, and show progress bar to indicate loading
     // props.setCurrentUrl(playArrCopy[0].url);
@@ -113,9 +117,9 @@ export default function VideoFrame(props) {
           <Link
             href={
               "#/games/" +
-              String(props?.playArr?.plays[0].date) +
+              String(props?.playArr?.plays[props.playArrowIndex].date) +
               "/" +
-              String(props?.playArr?.plays[0].gid)
+              String(props?.playArr?.plays[props.playArrowIndex].gid)
             }
             // state={null}
             target='_blank'
@@ -131,20 +135,32 @@ export default function VideoFrame(props) {
           </Link>
 
           <Chip
-            label={props?.playArr ? props.playArr.plays[0].ptype : "..."}
+            label={
+              props?.playArr
+                ? props.playArr.plays[props.playArrowIndex].ptype
+                : "..."
+            }
             variant='outlined'
             color='primary'
             sx={{ my: 0.5 }}
           />
           <Chip
-            label={props?.playArr ? props.playArr.plays[0].matchupstr : "..."}
+            label={
+              props?.playArr
+                ? props.playArr.plays[props.playArrowIndex].matchupstr
+                : "..."
+            }
             variant='outlined'
             color='info'
             sx={{ my: 0.5 }}
           />
 
           <Chip
-            label={props?.playArr ? props.playArr.plays[0].sznstr : "..."}
+            label={
+              props?.playArr
+                ? props.playArr.plays[props.playArrowIndex].sznstr
+                : "..."
+            }
             variant='outlined'
             color='primary'
             sx={{ my: 0.5 }}

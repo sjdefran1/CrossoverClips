@@ -283,7 +283,7 @@ export default function PlayerDash(props) {
   // when play is changed updated the url to new highlight at top of array
   // updates videoframe
   React.useEffect(() => {
-    setCurrentUrl(currentShowingPlays?.plays[0].url);
+    setCurrentUrl(currentShowingPlays?.plays[playArrowIndex].url);
   }, [playArrowIndex]);
 
   // console.log(currentShowingPlays);
@@ -546,7 +546,9 @@ export default function PlayerDash(props) {
             {!requestLoading && (
               <PlayersPlayList
                 playByPlay={currentShowingPlays}
-                playInVideoPlayer={currentShowingPlays?.plays[0]}
+                playInVideoPlayer={currentShowingPlays?.plays[playArrowIndex]}
+                playIndex={playArrowIndex}
+                setPlayArrowIndex={setPlayArrowIndex}
               />
             )}
 
