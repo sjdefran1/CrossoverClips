@@ -39,7 +39,6 @@ import SeasonsSelect from "../ByTeamDash/SeasonsSelect.jsx";
 import Filter from "./Filter.jsx";
 import FilterSnackBar from "./FilterSnackbar.jsx";
 import PlayerSearchBar from "./PlayerSeachBar.jsx";
-import PlayerCard from "./PlayerCard.jsx";
 import VideoFrame from "./VideoFrame.jsx";
 import PlayerCard2 from "./PlayerCard2.jsx";
 import GamesAvailable from "./GamesAvailable.jsx";
@@ -484,6 +483,15 @@ export default function PlayerDash(props) {
               </Fade>
             )}
 
+            {/* Mobile view of Filter info */}
+            <Hidden smUp>
+              <Alert
+                severity='info'
+                sx={{ justifyContent: "center", textAlign: "center" }}>
+                All results are returned by default
+              </Alert>
+            </Hidden>
+
             {/* Top Of filters buttons/header */}
             <FilterSnackBar
               filtersShowing={filtersShowing}
@@ -581,13 +589,16 @@ export default function PlayerDash(props) {
               />
 
               {/* Filters Start */}
-              <Alert
-                severity='info'
-                sx={{ justifyContent: "center", textAlign: "center" }}>
-                All results are returned by default. Choosing a filter type
-                (e.g. szn) will only filter that type down, others will remain
-                uneffected
-              </Alert>
+              <Hidden smDown>
+                <Alert
+                  severity='info'
+                  sx={{ justifyContent: "center", textAlign: "center" }}>
+                  All results are returned by default. Choosing a filter type
+                  (e.g. szn) will only filter that type down, others will remain
+                  uneffected
+                </Alert>
+              </Hidden>
+
               {/* Seasons select */}
               <Paper sx={{ mt: 1 }}>
                 <Paper

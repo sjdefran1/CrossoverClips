@@ -88,30 +88,12 @@ export default function PlayerCard2(props) {
           Indicating if Active/inactive */}
         <Grid item xs={3} mx={"auto"} my={"auto"}>
           {props.currentPlayer?.status === "Active" ? (
-            <StyledBadgeActive
-              overlap='circular'
-              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-              variant='dot'
-              sx={{ mb: 1 }}>
-              <Avatar
-                src={
-                  "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
-                  props.currentPlayer?.playerID +
-                  ".png"
-                }
-                sx={{
-                  height: { xs: 115, md: 185 },
-                  width: { xs: 115, md: 185 },
-                }}
-              />
-            </StyledBadgeActive>
-          ) : (
-            <StyledBadgeInactive
-              overlap='circular'
-              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-              variant='dot'
-              sx={{ mb: 1 }}>
-              <Fade in={true}>
+            <>
+              <StyledBadgeActive
+                overlap='circular'
+                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                variant='dot'
+                sx={{ mb: 1 }}>
                 <Avatar
                   src={
                     "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
@@ -119,12 +101,34 @@ export default function PlayerCard2(props) {
                     ".png"
                   }
                   sx={{
-                    height: { xs: 85, md: 185 },
-                    width: { xs: 85, md: 185 },
+                    height: { xs: 115, md: 185 },
+                    width: { xs: 115, md: 185 },
                   }}
                 />
-              </Fade>
-            </StyledBadgeInactive>
+              </StyledBadgeActive>
+            </>
+          ) : (
+            <>
+              <StyledBadgeInactive
+                overlap='circular'
+                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                variant='dot'
+                sx={{ mb: 1 }}>
+                <Fade in={true}>
+                  <Avatar
+                    src={
+                      "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" +
+                      props.currentPlayer?.playerID +
+                      ".png"
+                    }
+                    sx={{
+                      height: { xs: 85, md: 185 },
+                      width: { xs: 85, md: 185 },
+                    }}
+                  />
+                </Fade>
+              </StyledBadgeInactive>
+            </>
           )}
         </Grid>
 
@@ -132,6 +136,7 @@ export default function PlayerCard2(props) {
           <Stack direction={"column"} spacing={0.5}>
             {/* Player Name */}
             {/* Some Players don't have first name aka nene */}
+
             <Typography sx={{ typography: { md: "h4", xs: "h6" } }}>
               {props?.currentPlayer?.fname !== null
                 ? props.currentPlayer.fname + " " + props.currentPlayer.lname
@@ -185,23 +190,26 @@ export default function PlayerCard2(props) {
               )}
             </Stack>
           </Stack>
-          <Hidden smUp>
-            <Chip
-              label='Top 75 List'
-              variant='filled'
-              color='default'
-              sx={{ my: 1 }}
-              avatar={
-                <Avatar
-                  src={GoatAvatar}
-                  style={{
-                    padding: 1,
-                    width: 24,
-                    height: 24,
-                  }}
-                />
-              }></Chip>
-          </Hidden>
+
+          {props?.currentPlayer?.goatflag === "Y" && (
+            <Hidden smUp>
+              <Chip
+                label='Top 75 List'
+                variant='filled'
+                color='default'
+                sx={{ my: 1 }}
+                avatar={
+                  <Avatar
+                    src={GoatAvatar}
+                    style={{
+                      padding: 1,
+                      width: 24,
+                      height: 24,
+                    }}
+                  />
+                }></Chip>
+            </Hidden>
+          )}
         </Grid>
       </Grid>
     </Paper>
