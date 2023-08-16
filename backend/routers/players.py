@@ -59,7 +59,7 @@ def split_array_into_pages(arr: list, df_cols: list, page_length=5) -> dict:
     return page_dict
 
 
-def sort_plays(plays: list[tuple]) -> list:
+def sort_plays(plays: list) -> list:
     """
     Ensures that plays are in order for user
 
@@ -78,7 +78,7 @@ def sort_plays(plays: list[tuple]) -> list:
     return sorted_plays
 
 
-def get_games_with_pts(rows: list[tuple]):
+def get_games_with_pts(rows: list):
     """
     Parses last description str for play in game and returns point value
     """
@@ -348,12 +348,6 @@ async def get_sample_plays_for_player(player: Player):
     db.psyconn.commit()
 
     return JSONResponse(content=return_dict, status_code=200)
-
-
-@players_router.post("/updatePlayerView")
-def update_player_view(player: Player):
-    db.ping_db()
-    return
 
 
 if __name__ == "__main__":
