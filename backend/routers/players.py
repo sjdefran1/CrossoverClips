@@ -141,7 +141,7 @@ def plays_query_executor(query: str, samplePlays=0) -> dict:
         # get information for available games if its a filtered search
         # also need to sort plays by quarter/time when filtered search
         # else don't worry abt it reduce response time
-        if samplePlays != 0:
+        if samplePlays == 0:
             # Get all available games w/ the last fgm made from it
             print("Executing stat query" + f"\n{'-' * 50}")
             db.psy_cursor.execute(AVAILABLE_GAMES_SQL_3.format(view_name))
@@ -335,7 +335,9 @@ async def get_sample_plays_for_player(player: Player):
     db.psy_cursor.execute(query)
 
     # get sample plays
-    result_dict = plays_query_executor(SAMPLE_PLAYS_FOR_PLAYER.format(player.pid))
+    result_dict = plays_query_executor(
+        SAMPLE_PLAYS_FOR_PLAYER.format(player.pid), samplePlays=1
+    )
     # print(result_dict)
     pages_split = split_array_into_pages(
         arr=result_dict["results"], df_cols=PLAYS_QUERY_COLUMNS_NAMES
