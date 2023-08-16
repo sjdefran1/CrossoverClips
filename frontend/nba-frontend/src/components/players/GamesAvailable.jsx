@@ -160,7 +160,6 @@ export default function GamesAvailable(props) {
                     {/* Main Component */}
                     <Fade in={true}>
                       <ListItem divider={<Divider />}>
-                        {/* props.getPlaysByGameID(props.gameShowing[0]) */}
                         <ListItemButton
                           onClick={() => props.getPlaysByGameID(game[0])}>
                           <Grid container>

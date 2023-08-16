@@ -202,6 +202,7 @@ export default function PlayerDash(props) {
         setLenPlaysAvailable(response.data.len);
 
         if (response.data.len > 0) {
+          // first page of results
           let newDict = {
             plays: response.data.results[1],
           };

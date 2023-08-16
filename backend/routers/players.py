@@ -112,7 +112,7 @@ def get_games_with_pts(rows: list):
     return loads(df.to_json(orient="index"))
 
 
-def plays_query_executor(query: str) -> dict:
+def plays_query_executor(query: str, samplePlays=0) -> dict:
     """
     - Creates view using provided query
     - View adds a row_number column that allows for pagination and offsets
@@ -123,40 +123,44 @@ def plays_query_executor(query: str) -> dict:
 
     Returns empty lists for dict keys on exceptions
     """
-    db.ping_db()
     results_dict = {}
     view_name = generate_unique_view_name()
     add_str = CREATE_VIEW.format(view_name)
     query = "".join([add_str, query])
 
-    # Create view
-    # print(f"CREATING VIEW\n{query}")
+    # Create view w/ base filter query
     print("Executing View Creation")
     print(query)
     db.psy_cursor.execute(query)
 
-    # Get length
-    # [0][0] gets int value of len instead of row arr
     try:
         # Len of possible plays
         db.psy_cursor.execute(f"select count(*) from {view_name}")
         results_dict["len"] = db.psy_cursor.fetchall()[0][0]
 
-        # Get all available games w/ the last fgm made from it
-        print("Executing stat query" + f"\n{'-' * 50}")
-        db.psy_cursor.execute(AVAILABLE_GAMES_SQL_3.format(view_name))
-        results_dict["games_available"] = get_games_with_pts(db.psy_cursor.fetchall())
+        # get information for available games if its a filtered search
+        # also need to sort plays by quarter/time when filtered search
+        # else don't worry abt it reduce response time
+        if samplePlays != 0:
+            # Get all available games w/ the last fgm made from it
+            print("Executing stat query" + f"\n{'-' * 50}")
+            db.psy_cursor.execute(AVAILABLE_GAMES_SQL_3.format(view_name))
+            results_dict["games_available"] = get_games_with_pts(
+                db.psy_cursor.fetchall()
+            )
 
-        # print("Executing normal query" + f"\n{'-' * 50}")
-        print(f"select * from {view_name} order by row_number asc limit 1000;")
-        # Select all plays store as results
-        db.psy_cursor.execute(
-            f"select * from {view_name} order by row_number asc limit 1000;"
-        )
-        # print("sorting plays")
-        # print(dumps(db.psy_cursor.fetchone(), indent=1))
-        sorted_plays = sort_plays(db.psy_cursor.fetchall())
-        results_dict["results"] = sorted_plays
+            db.psy_cursor.execute(
+                f"select * from {view_name} order by row_number asc limit 1000;"
+            )
+            sorted_plays = sort_plays(db.psy_cursor.fetchall())
+            results_dict["results"] = sorted_plays
+        else:
+            # We also don't want to order by row number here b/c we ordered by views
+            # in the sample plays of top 20 viewed
+            db.psy_cursor.execute(f"select * from {view_name} limit 20;")
+            results_dict["results"] = db.psy_cursor.fetchall()
+            results_dict["games_available"] = []
+
     except Exception as e:
         # no results will throw error when try to fetchall
         # manually set dict drop view and return
@@ -177,6 +181,7 @@ def plays_query_executor(query: str) -> dict:
 @players_router.get("/teams")
 async def get_all_teams_controller() -> JSONResponse:
     """Returns all teams"""
+    db.ping_db()
     db.psy_cursor.execute("SELECT * FROM teams")
     ret_list = []
     for res in db.psy_cursor.fetchall():
