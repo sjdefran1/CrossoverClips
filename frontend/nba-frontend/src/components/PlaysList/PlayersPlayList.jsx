@@ -25,16 +25,21 @@ export default function PlayersPlayList(props) {
   return (
     <>
       <Collapse in={alertShowing}>
-        <Alert
-          severity='info'
-          onClose={() => setAlertShowing(false)}
-          sx={{ justifyContent: "center" }}>
-          Click the blue download button to directly save to your device, having
-          issues?
-          <Button onClick={() => linkToNeedHelp()} size='small' color='success'>
-            Get Help
-          </Button>
-        </Alert>
+        <Hidden smDown>
+          <Alert
+            severity='info'
+            onClose={() => setAlertShowing(false)}
+            sx={{ justifyContent: "center" }}>
+            Click the blue download button to directly save to your device,
+            having issues?
+            <Button
+              onClick={() => linkToNeedHelp()}
+              size='small'
+              color='success'>
+              Get Help
+            </Button>
+          </Alert>
+        </Hidden>
       </Collapse>
 
       {props?.playByPlay &&

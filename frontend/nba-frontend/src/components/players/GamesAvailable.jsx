@@ -147,7 +147,7 @@ export default function GamesAvailable(props) {
               {slicedGamesShowing &&
                 slicedGamesShowing.map((game) => (
                   <React.Fragment key={game[0]}>
-                    {/* <Divider /> */}
+                    {/* Top of blue outline for selected game */}
                     {game[0] === props.gameShowing[0] && (
                       <Paper
                         variant='outlined'
@@ -156,6 +156,8 @@ export default function GamesAvailable(props) {
                           minWidth: "2px",
                         }}></Paper>
                     )}
+
+                    {/* Main Component */}
                     <Fade in={true}>
                       <ListItem divider={<Divider />}>
                         {/* props.getPlaysByGameID(props.gameShowing[0]) */}
@@ -209,16 +211,33 @@ export default function GamesAvailable(props) {
                                   variant='outlined'
                                   label={game[1].ast_count + " AST"}
                                 />
-                                <Chip
-                                  className={
-                                    game[1].playerpts >= 40 ? "icon" : ""
-                                  }
-                                  sx={{
-                                    bgcolor: getPointsString(game[1].playerpts),
-                                    color: "black",
-                                  }}
-                                  label={game[1].playerpts + " PTS"}
-                                />
+                                <Hidden smDown>
+                                  <Chip
+                                    className={
+                                      game[1].playerpts >= 40 ? "icon" : ""
+                                    }
+                                    sx={{
+                                      bgcolor: getPointsString(
+                                        game[1].playerpts
+                                      ),
+                                      color: "black",
+                                    }}
+                                    label={game[1].playerpts + " PTS"}
+                                  />
+                                </Hidden>
+
+                                <Hidden smUp>
+                                  <Chip
+                                    sx={{
+                                      bgcolor: getPointsString(
+                                        game[1].playerpts
+                                      ),
+                                      color: "black",
+                                    }}
+                                    label={game[1].playerpts + " PTS"}
+                                  />
+                                </Hidden>
+
                                 <Chip
                                   size='small'
                                   variant='outlined'

@@ -32,7 +32,7 @@ export default function GameShowingDash(props) {
             alignItems={"center"}>
             <VisibilityIcon sx={{ color: "#90caf9" }} />
             <Typography variant='subtitle2' color={"#90caf9"}>
-              Currently Viewing
+              Game Currently Viewing
             </Typography>
           </Stack>
         </Paper>
@@ -140,7 +140,7 @@ export default function GameShowingDash(props) {
             alignItems={"center"}>
             <VisibilityIcon sx={{ color: "#90caf9" }} />
             <Typography variant='subtitle2' color={"#90caf9"}>
-              Currently Viewing
+              Game Currently Viewing
             </Typography>
           </Stack>
         </Paper>

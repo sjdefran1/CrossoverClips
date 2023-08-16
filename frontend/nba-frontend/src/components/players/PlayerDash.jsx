@@ -440,17 +440,17 @@ export default function PlayerDash(props) {
                       gameShowing={gameShowing}
                       currentPlayer={currentPlayer}
                     />
-                  </Hidden>
 
-                  <GamesAvailable
-                    gamesAvailable={gamesAvailable}
-                    getPlaysByGameID={getPlaysByGameID}
-                    gidRequestLoading={gidRequestLoading}
-                    currentPlayer={currentPlayer}
-                    currentShowingPlay={currentShowingPlays[playArrowIndex]}
-                    gameShowing={gameShowing}
-                    setGameShowing={setGameShowing}
-                  />
+                    <GamesAvailable
+                      gamesAvailable={gamesAvailable}
+                      getPlaysByGameID={getPlaysByGameID}
+                      gidRequestLoading={gidRequestLoading}
+                      currentPlayer={currentPlayer}
+                      currentShowingPlay={currentShowingPlays[playArrowIndex]}
+                      gameShowing={gameShowing}
+                      setGameShowing={setGameShowing}
+                    />
+                  </Hidden>
                 </div>
               </Fade>
             )}
@@ -470,17 +470,17 @@ export default function PlayerDash(props) {
                       gameShowing={gameShowing}
                       currentPlayer={currentPlayer}
                     />
-                  </Hidden>
 
-                  <GamesAvailable
-                    gamesAvailable={gamesAvailable}
-                    getPlaysByGameID={getPlaysByGameID}
-                    currentPlayer={currentPlayer}
-                    gidRequestLoading={gidRequestLoading}
-                    currentShowingPlay={currentShowingPlays[playArrowIndex]}
-                    gameShowing={gameShowing}
-                    setGameShowing={setGameShowing}
-                  />
+                    <GamesAvailable
+                      gamesAvailable={gamesAvailable}
+                      getPlaysByGameID={getPlaysByGameID}
+                      currentPlayer={currentPlayer}
+                      gidRequestLoading={gidRequestLoading}
+                      currentShowingPlay={currentShowingPlays[playArrowIndex]}
+                      gameShowing={gameShowing}
+                      setGameShowing={setGameShowing}
+                    />
+                  </Hidden>
                 </div>
               </Fade>
             )}
@@ -726,6 +726,20 @@ export default function PlayerDash(props) {
                 playArrowIndex={playArrowIndex}
               />
             )}
+
+            <Hidden smUp>
+              {gamesAvailableShowing && !requestLoading && (
+                <GamesAvailable
+                  gamesAvailable={gamesAvailable}
+                  getPlaysByGameID={getPlaysByGameID}
+                  currentPlayer={currentPlayer}
+                  gidRequestLoading={gidRequestLoading}
+                  currentShowingPlay={currentShowingPlays[playArrowIndex]}
+                  gameShowing={gameShowing}
+                  setGameShowing={setGameShowing}
+                />
+              )}
+            </Hidden>
 
             {!requestLoading && (
               <PlayersPlayList
