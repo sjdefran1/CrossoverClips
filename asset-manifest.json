@@ -1,6 +1,7 @@
 {
   "files": {
-    "main.js": "/static/js/main.deba1892.js",
+    "main.css": "/static/css/main.11fd1e99.css",
+    "main.js": "/static/js/main.ca8318d5.js",
     "static/media/mbbGif2.gif": "/static/media/mbbGif2.992adf60c5b70db6c440.gif",
     "static/media/mbbGif.gif": "/static/media/mbbGif.373c53c1897f0eb1bd84.gif",
     "static/media/trophy.gif": "/static/media/trophy.608f90de16bc0dbff1a4.gif",
@@ -9,10 +10,14 @@
     "static/media/jordan.gif": "/static/media/jordan.946e606babc6834a01c5.gif",
     "static/media/cc2.gif": "/static/media/cc2.cb6301e60a7311300fc3.gif",
     "static/media/header.gif": "/static/media/header.a365567e4c1432c71fa4.gif",
+    "static/media/nbaCircleLogo.png": "/static/media/nbaCircleLogo.8d9b0471168a36d0d460.png",
+    "static/media/goat.png": "/static/media/goat.8e54f37d2eea870f8c46.png",
     "index.html": "/index.html",
-    "main.deba1892.js.map": "/static/js/main.deba1892.js.map"
+    "main.11fd1e99.css.map": "/static/css/main.11fd1e99.css.map",
+    "main.ca8318d5.js.map": "/static/js/main.ca8318d5.js.map"
   },
   "entrypoints": [
-    "static/js/main.deba1892.js"
+    "static/css/main.11fd1e99.css",
+    "static/js/main.ca8318d5.js"
   ]
 }
