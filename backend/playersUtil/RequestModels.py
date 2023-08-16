@@ -17,15 +17,15 @@ class PlayOptions(BaseModel):
 
 class PlayOptionsArrays(BaseModel):
     player_id: int
-    team_id: Optional[list[int]]
-    matchup_team_id: Optional[list[int]]
+    team_id: Optional[list]
+    matchup_team_id: Optional[list]
     limit: Optional[int]
-    quarter: Optional[list[str]]
-    stat_type: Optional[list[str]]
+    quarter: Optional[list]
+    stat_type: Optional[list]
     gid: Optional[str]
-    gtype: Optional[list[int]]
-    season: Optional[list[str]]
-    home_away: Optional[list[str]]
+    gtype: Optional[list]
+    season: Optional[list]
+    home_away: Optional[list]
 
 
 class Update(BaseModel):
