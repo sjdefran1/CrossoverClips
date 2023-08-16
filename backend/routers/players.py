@@ -15,7 +15,6 @@ from routers import pgresdatabase as db
 load_dotenv()
 
 from playersUtil.playsQueryBuilder import (
-    build_plays_search_query,
     build_plays_search_query_arrays,
 )
 from playersUtil.playSql import (

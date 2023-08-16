@@ -18,6 +18,7 @@ import {
   Pagination,
   Fade,
   Hidden,
+  LinearProgress,
 } from "@mui/material";
 
 import { MyChip, setDictFalse, findTrueKeys } from "./PlayerDashUtil.jsx";
@@ -297,10 +298,7 @@ export default function PlayerDash(props) {
         }
       })
       .finally(() => {
-        // setRequestLoading(false);
-        // setFiltersShowing(false);
         setGidRequestLoading(false);
-
         setGamesAvailableShowing(true);
       });
   };
@@ -742,6 +740,7 @@ export default function PlayerDash(props) {
               )}
             </Hidden>
 
+            {requestLoading && <LinearProgress color='success' />}
             {!requestLoading && (
               <PlayersPlayList
                 playByPlay={currentShowingPlays}
