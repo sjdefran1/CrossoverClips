@@ -17,6 +17,7 @@ import {
   Collapse,
   Pagination,
   Fade,
+  Hidden,
 } from "@mui/material";
 
 import { MyChip, setDictFalse, findTrueKeys } from "./PlayerDashUtil.jsx";
@@ -56,8 +57,10 @@ export default function PlayerDash(props) {
   const [page, setPage] = React.useState(1);
   const [pageCount, setPageCount] = React.useState(1);
   const [currentShowingPlays, setCurrentShowingPlays] = React.useState();
-  const [requestLoading, setRequestLoading] = React.useState(true);
 
+  // loading status
+  const [requestLoading, setRequestLoading] = React.useState(true);
+  const [gidRequestLoading, setGidRequestLoading] = React.useState(false);
   // new implementation
 
   const [pagePlayDict, setPagePlayDict] = React.useState({});
@@ -246,7 +249,7 @@ export default function PlayerDash(props) {
   const getPlaysByGameID = (gid) => {
     let statTypeOptions = findTrueKeys(statDict);
     let quarterOptions = findTrueKeys(quarterDict);
-    setRequestLoading(true);
+    setGidRequestLoading(true);
 
     // crete custom request for specific game
     // still includes in game options but gets rid of rest to ensure
@@ -293,8 +296,10 @@ export default function PlayerDash(props) {
         }
       })
       .finally(() => {
-        setRequestLoading(false);
-        setFiltersShowing(false);
+        // setRequestLoading(false);
+        // setFiltersShowing(false);
+        setGidRequestLoading(false);
+
         setGamesAvailableShowing(true);
       });
   };
@@ -430,13 +435,17 @@ export default function PlayerDash(props) {
             {gamesAvailableShowing && bigVideoEnabled && !requestLoading && (
               <Fade in={true} timeout={500}>
                 <div>
-                  <GameShowingDash
-                    gameShowing={gameShowing}
-                    currentPlayer={currentPlayer}
-                  />
+                  <Hidden smDown>
+                    <GameShowingDash
+                      gameShowing={gameShowing}
+                      currentPlayer={currentPlayer}
+                    />
+                  </Hidden>
+
                   <GamesAvailable
                     gamesAvailable={gamesAvailable}
                     getPlaysByGameID={getPlaysByGameID}
+                    gidRequestLoading={gidRequestLoading}
                     currentPlayer={currentPlayer}
                     currentShowingPlay={currentShowingPlays[playArrowIndex]}
                     gameShowing={gameShowing}
@@ -456,14 +465,18 @@ export default function PlayerDash(props) {
             {gamesAvailableShowing && !bigVideoEnabled && !requestLoading && (
               <Fade in={true} timeout={500}>
                 <div>
-                  <GameShowingDash
-                    gameShowing={gameShowing}
-                    currentPlayer={currentPlayer}
-                  />
+                  <Hidden smDown>
+                    <GameShowingDash
+                      gameShowing={gameShowing}
+                      currentPlayer={currentPlayer}
+                    />
+                  </Hidden>
+
                   <GamesAvailable
                     gamesAvailable={gamesAvailable}
                     getPlaysByGameID={getPlaysByGameID}
                     currentPlayer={currentPlayer}
+                    gidRequestLoading={gidRequestLoading}
                     currentShowingPlay={currentShowingPlays[playArrowIndex]}
                     gameShowing={gameShowing}
                     setGameShowing={setGameShowing}
@@ -685,6 +698,15 @@ export default function PlayerDash(props) {
                 </IconButton>
               </Stack>
             </Collapse>
+
+            <Hidden smUp>
+              {gamesAvailableShowing && !requestLoading && (
+                <GameShowingDash
+                  gameShowing={gameShowing}
+                  currentPlayer={currentPlayer}
+                />
+              )}
+            </Hidden>
 
             {/* Final Grid tag of left side of page */}
           </Grid>

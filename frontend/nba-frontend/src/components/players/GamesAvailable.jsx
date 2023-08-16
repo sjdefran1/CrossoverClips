@@ -4,18 +4,23 @@ import {
   Typography,
   List,
   ListItem,
-  ListItemIcon,
   ListItemButton,
-  ListItemText,
   Avatar,
-  Button,
   Chip,
   Divider,
   Stack,
   Grid,
   Pagination,
   Fade,
+  LinearProgress,
+  Alert,
+  Collapse,
+  Hidden,
+  IconButton,
 } from "@mui/material";
+
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import "./chip.css";
 
 export default function GamesAvailable(props) {
@@ -23,6 +28,7 @@ export default function GamesAvailable(props) {
   const [usePagination, setUsePagination] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const [pageCount, setPageCount] = React.useState(1);
+  const [collapsed, setCollapsed] = React.useState(false);
   const handlePageChange = (event, value) => {
     setPage(value);
   };
@@ -80,133 +86,160 @@ export default function GamesAvailable(props) {
     <>
       <Paper
         // elevation={15}
-
         variant='outlined'
         sx={{
           bgcolor: "#333",
           mt: 1,
+          // textAlign: "center",
         }}>
-        <Typography>Results</Typography>
-      </Paper>
-      <Paper sx={{ maxHeight: "60vh", overflow: "auto" }}>
-        <List>
-          {slicedGamesShowing &&
-            slicedGamesShowing.map((game) => (
-              <React.Fragment key={game[0]}>
-                <Divider />
-                {game[0] === props.gameShowing[0] && (
-                  <Paper
-                    variant='outlined'
-                    sx={{
-                      bgcolor: "#90caf9",
-                      minWidth: "2px",
-                    }}></Paper>
-                )}
-                <Fade in={true}>
-                  <Paper
-                    sx={{
-                      borderColor: "#90caf9",
-                    }}>
-                    <ListItem>
-                      {/* props.getPlaysByGameID(props.gameShowing[0]) */}
-                      <ListItemButton
-                        onClick={() => props.getPlaysByGameID(game[0])}
-                        sx={{}}>
-                        <Grid container>
-                          <Grid item sm={12} md={6}>
-                            <Stack
-                              direction={"row"}
-                              spacing={1}
-                              justifyContent={"left"}
-                              alignItems={"center"}>
-                              <Avatar
-                                src={
-                                  "https://cdn.nba.com/logos/nba/" +
-                                  game[1].atid +
-                                  "/primary/L/logo.svg"
-                                }
-                              />
-                              <Typography variant='subtitle2'>
-                                {game[1].matchupstr}
-                              </Typography>
+        {props.gidRequestLoading && <LinearProgress variant='indeterminate' />}
 
-                              <Avatar
-                                src={
-                                  "https://cdn.nba.com/logos/nba/" +
-                                  game[1].htid +
-                                  "/primary/L/logo.svg"
-                                }
-                              />
-
-                              <Chip
-                                size='small'
-                                color='default'
-                                variant='filled'
-                                label={game[1].sznstr}
-                              />
-                            </Stack>
-                          </Grid>
-
-                          {/* <Typography mr={1} variant='subtitle2'>
-                          See this game only
-                        </Typography> */}
-                          <Grid item sm={12} md={6}>
-                            <Stack
-                              direction={"row"}
-                              justifyContent={"center"}
-                              alignItems={"center"}
-                              spacing={1}>
-                              <Chip
-                                size='small'
-                                variant='outlined'
-                                label={game[1].ast_count + " AST"}
-                              />
-                              <Chip
-                                className={
-                                  game[1].playerpts >= 40 ? "icon" : ""
-                                }
-                                sx={{
-                                  bgcolor: getPointsString(game[1].playerpts),
-                                  color: "black",
-                                }}
-                                label={game[1].playerpts + " PTS"}
-                              />
-                              <Chip
-                                size='small'
-                                variant='outlined'
-                                label={game[1].blk_count + " BLK"}
-                              />
-                            </Stack>
-                          </Grid>
-                        </Grid>
-                      </ListItemButton>
-                    </ListItem>
-                  </Paper>
-                </Fade>
-                {game[0] === props.gameShowing[0] && (
-                  <Paper
-                    variant='outlined'
-                    sx={{
-                      bgcolor: "#90caf9",
-                      minWidth: "2px",
-                    }}></Paper>
-                )}
-              </React.Fragment>
-            ))}
-        </List>
-
-        <Grid item xs={12}>
-          {usePagination && (
-            <Pagination
-              // sx={{ justifyContent: "center" }}
-              page={page}
-              count={pageCount}
-              onChange={handlePageChange}
+        <Grid container alignItems={"center"}>
+          <Grid item xs={10} textAlign={"center"}>
+            <Chip
+              sx={{ my: 1 }}
+              variant='filled'
+              label={
+                <Typography variant='body1'>Games Found From Search</Typography>
+              }
             />
-          )}
+          </Grid>
+          <Grid item xs={2}>
+            <Hidden smUp>
+              {!collapsed && (
+                <IconButton onClick={() => setCollapsed(true)}>
+                  <ExpandLessIcon />
+                </IconButton>
+              )}
+
+              {collapsed && (
+                <IconButton onClick={() => setCollapsed(false)}>
+                  <ExpandMoreIcon />
+                </IconButton>
+              )}
+            </Hidden>
+          </Grid>
         </Grid>
 
-        {/* </Grid> */}
+        <Collapse in={!collapsed}>
+          <Paper sx={{ maxHeight: "60vh", overflow: "auto" }}>
+            <Alert severity='info'>
+              <strong>Click</strong> any game to view it's specific highlights
+            </Alert>
+            <List>
+              {slicedGamesShowing &&
+                slicedGamesShowing.map((game) => (
+                  <React.Fragment key={game[0]}>
+                    {/* <Divider /> */}
+                    {game[0] === props.gameShowing[0] && (
+                      <Paper
+                        variant='outlined'
+                        sx={{
+                          bgcolor: "#90caf9",
+                          minWidth: "2px",
+                        }}></Paper>
+                    )}
+                    <Fade in={true}>
+                      <ListItem divider={<Divider />}>
+                        {/* props.getPlaysByGameID(props.gameShowing[0]) */}
+                        <ListItemButton
+                          onClick={() => props.getPlaysByGameID(game[0])}>
+                          <Grid container>
+                            <Grid item sm={12} md={6} justifyContent={"center"}>
+                              <Stack
+                                direction={"row"}
+                                spacing={1}
+                                // justifyContent={{ sm: "center", md: "left" }}
+
+                                alignItems={"center"}>
+                                <Avatar
+                                  src={
+                                    "https://cdn.nba.com/logos/nba/" +
+                                    game[1].atid +
+                                    "/primary/L/logo.svg"
+                                  }
+                                />
+                                <Typography variant='subtitle2'>
+                                  {game[1].matchupstr}
+                                </Typography>
+
+                                <Avatar
+                                  src={
+                                    "https://cdn.nba.com/logos/nba/" +
+                                    game[1].htid +
+                                    "/primary/L/logo.svg"
+                                  }
+                                />
+                                <Hidden smDown>
+                                  <Chip
+                                    size='small'
+                                    color='default'
+                                    variant='outlined'
+                                    label={game[1].sznstr}
+                                  />
+                                </Hidden>
+                              </Stack>
+                            </Grid>
+
+                            <Grid item sm={12} md={6}>
+                              <Stack
+                                direction={"row"}
+                                justifyContent={"center"}
+                                alignItems={"center"}
+                                spacing={1}>
+                                <Chip
+                                  size='small'
+                                  variant='outlined'
+                                  label={game[1].ast_count + " AST"}
+                                />
+                                <Chip
+                                  className={
+                                    game[1].playerpts >= 40 ? "icon" : ""
+                                  }
+                                  sx={{
+                                    bgcolor: getPointsString(game[1].playerpts),
+                                    color: "black",
+                                  }}
+                                  label={game[1].playerpts + " PTS"}
+                                />
+                                <Chip
+                                  size='small'
+                                  variant='outlined'
+                                  label={game[1].blk_count + " BLK"}
+                                />
+                              </Stack>
+                            </Grid>
+                          </Grid>
+                        </ListItemButton>
+                      </ListItem>
+                    </Fade>
+                    {game[0] === props.gameShowing[0] && (
+                      <Paper
+                        variant='outlined'
+                        sx={{
+                          bgcolor: "#90caf9",
+                          minWidth: "2px",
+                        }}></Paper>
+                    )}
+                  </React.Fragment>
+                ))}
+            </List>
+
+            {/* </Grid> */}
+          </Paper>
+
+          <Grid item xs={12}>
+            {usePagination && (
+              <Pagination
+                sx={{ my: 1, mx: "20%" }}
+                // sx={{ justifyContent: "center" }}
+                page={page}
+                count={pageCount}
+                onChange={handlePageChange}
+              />
+            )}
+          </Grid>
+        </Collapse>
       </Paper>
     </>
   );

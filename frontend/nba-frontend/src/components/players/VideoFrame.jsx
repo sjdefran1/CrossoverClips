@@ -144,16 +144,6 @@ export default function VideoFrame(props) {
             color='primary'
             sx={{ my: 0.5 }}
           />
-          <Chip
-            label={
-              props?.playArr
-                ? props.playArr.plays[props.playArrowIndex].matchupstr
-                : "..."
-            }
-            variant='outlined'
-            color='info'
-            sx={{ my: 0.5 }}
-          />
 
           <Chip
             label={
@@ -165,13 +155,14 @@ export default function VideoFrame(props) {
             color='primary'
             sx={{ my: 0.5 }}
           />
-          <Switch
-            checked={props.bigVideoEnabled}
-            onChange={handleChange}
-            inputProps={{ "aria-label": "controlled" }}
-          />
-
-          <AspectRatioIcon />
+          <Hidden smDown>
+            <Switch
+              checked={props.bigVideoEnabled}
+              onChange={handleChange}
+              inputProps={{ "aria-label": "controlled" }}
+            />
+            <AspectRatioIcon />
+          </Hidden>
         </Stack>
       </Paper>
       {showProgressBar && (

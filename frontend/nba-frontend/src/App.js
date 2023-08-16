@@ -82,7 +82,7 @@ const App = () => {
               <Route exact path='/byDate/' element={<Main2 />} />
               <Route exact path='/byDate/:date' element={<Main2 />} />
               <Route exact path='/downloadHelp' element={<DownloadHelp />} />
-              <Route exact path='/playerTests' element={<PlayerDash />} />
+              <Route exact path='/playerBeta' element={<PlayerDash />} />
 
               {/* <Route exact path='/howto' element={<TestMarkDown />} /> */}
             </Routes>
