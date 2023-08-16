@@ -86,21 +86,25 @@ def get_correct_tuple_str(arr: list) -> str:
 
 def handle_overtime_request(opts: PlayOptionsArrays):
     """
-    Frontend request overtime as one thing, but in database it is stored as
+    Frontend request overtime as one thing ("OT"), but in database it is stored as
     5,6,7...
 
     If we are requesting other quarters as well we need a different formated
     sql string, if we aren't we can jsut find quarters > 4
     """
-    if len(opts.quarter) > 1:
+    if len(opts.quarter) > 1 and "OT" in opts.quarter:
         quarter_copy = opts.quarter.copy()
         quarter_copy.remove("OT")
 
         # print(opts.quarter.remove("OT"))
         # tuple_wout_ot = tuple(opts.quarter.remove("OT"))
         return OVERTIME_OPTIONS_ARRAY_SQL.format(get_correct_tuple_str(quarter_copy))
-    else:
+    # "OT" only thing being requested
+    elif "OT" in opts.quarter:
         return OVERTIME_OPTIONS_SQL
+    # "OT" not in quarters, pass in normal regulation quarters requested
+    else:
+        return QUARTER_OPTIONS_SQL.format(get_correct_tuple_str(opts.quarter))
 
 
 def build_plays_search_query_arrays(opts: PlayOptionsArrays) -> str:

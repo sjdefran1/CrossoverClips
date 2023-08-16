@@ -16,6 +16,7 @@ import {
   Button,
   Collapse,
   Pagination,
+  Fade,
 } from "@mui/material";
 
 import { MyChip, setDictFalse, findTrueKeys } from "./PlayerDashUtil.jsx";
@@ -39,6 +40,8 @@ import PlayerSearchBar from "./PlayerSeachBar.jsx";
 import PlayerCard from "./PlayerCard.jsx";
 import VideoFrame from "./VideoFrame.jsx";
 import PlayerCard2 from "./PlayerCard2.jsx";
+import GamesAvailable from "./GamesAvailable.jsx";
+import GameShowingDash from "./GameShowingDash.jsx";
 
 export default function PlayerDash(props) {
   // season filter
@@ -60,6 +63,15 @@ export default function PlayerDash(props) {
   const [pagePlayDict, setPagePlayDict] = React.useState({});
   const [lenPlaysAvailable, setLenPlaysAvailable] = React.useState(0);
 
+  // games available dash
+  const [gamesAvailableShowing, setGamesAvailableShowing] =
+    React.useState(false);
+
+  const [gamesAvailable, setGamesAvailable] = React.useState([]);
+  const [gameShowing, setGameShowing] = React.useState([]);
+  const [gamesAvailableDictionary, setGamesAvailableDictionary] =
+    React.useState({});
+  // Filter stuff
   const [currentPlayer, setCurrentPlayer] = React.useState({
     playerID: 2544,
     fname: "LeBron",
@@ -154,7 +166,7 @@ export default function PlayerDash(props) {
       season: seasonsOptions,
       home_away: homeAwayOptions,
     };
-    console.log(requestOptions);
+    // console.log(requestOptions);
     // submit request
     submitFilteredSearchAxios(requestOptions);
   };
@@ -164,8 +176,25 @@ export default function PlayerDash(props) {
     axios
       .post(reqString + "players/plays2", options)
       .then((response) => {
+        let sortedList = Object.entries(response.data.games_available).sort(
+          function (a, b) {
+            return b[1].playerpts - a[1].playerpts;
+          }
+        );
+        // console.log(sortedList);
         setPagePlayDict(response.data.results);
         setPageCount(response.data.page_count);
+        setGamesAvailable(sortedList);
+        setGamesAvailableDictionary(response.data.games_available);
+
+        // first page[1], first play[0], game id
+        let firstGameInResultsGID = response.data.results[1][0].gid;
+        // find games_available dict for this id to display pts and score
+        setGameShowing([
+          firstGameInResultsGID,
+          response.data.games_available[firstGameInResultsGID],
+        ]);
+
         setPage(1);
         setLenPlaysAvailable(response.data.len);
 
@@ -180,13 +209,17 @@ export default function PlayerDash(props) {
       })
       .finally(() => {
         setRequestLoading(false);
+        setFiltersShowing(false);
+        setGamesAvailableShowing(true);
+
+        // console.log(gameShowing);
       });
   };
 
-  const getSamplePlaysAxios = () => {
+  const getSamplePlaysAxios = (pid) => {
     setRequestLoading(true);
     let player = {
-      pid: currentPlayer.playerID,
+      pid: pid,
     };
     axios
       .post(reqString + "players/samplePlays2", player)
@@ -207,6 +240,62 @@ export default function PlayerDash(props) {
       })
       .finally(() => {
         setRequestLoading(false);
+      });
+  };
+
+  const getPlaysByGameID = (gid) => {
+    let statTypeOptions = findTrueKeys(statDict);
+    let quarterOptions = findTrueKeys(quarterDict);
+    setRequestLoading(true);
+
+    // crete custom request for specific game
+    // still includes in game options but gets rid of rest to ensure
+    // game is found in query
+    let requestOptions = {
+      player_id: currentPlayer.playerID,
+      team_id: null,
+      matchup_team_id: null,
+      limit: 1000,
+      quarter: quarterOptions, // needs to accept arr in backend
+      stat_type: statTypeOptions, // needs to accept arr in backend
+      gid: gid,
+      gtype: null,
+      season: null,
+      home_away: null,
+    };
+
+    axios
+      .post(reqString + "players/plays2", requestOptions)
+      .then((response) => {
+        // console.log(sortedList);
+        setPagePlayDict(response.data.results);
+        setPageCount(response.data.page_count);
+
+        // first page[1], first play[0], game id
+        let firstGameInResultsGID = response.data.results[1][0].gid;
+        // find games_available dict for this id to display pts and score
+        setGameShowing([
+          firstGameInResultsGID,
+          response.data.games_available[firstGameInResultsGID],
+        ]);
+
+        setPage(1);
+        setLenPlaysAvailable(response.data.len);
+
+        // update play list if we have results
+        if (response.data.len > 0) {
+          let newDict = {
+            plays: response.data.results[1],
+          };
+
+          setCurrentShowingPlays(newDict);
+          setCurrentUrl(newDict.plays[0].url);
+        }
+      })
+      .finally(() => {
+        setRequestLoading(false);
+        setFiltersShowing(false);
+        setGamesAvailableShowing(true);
       });
   };
 
@@ -256,10 +345,10 @@ export default function PlayerDash(props) {
       }
     } else {
       // still in same page update index
-      console.log("NewIndex " + newIndex);
+      // console.log("NewIndex " + newIndex);
       setPlayArrowIndex(newIndex);
       // setCurrentUrl(currentShowingPlays.plays[0].url);
-      console.log(currentShowingPlays.plays[0].url);
+      // console.log(currentShowingPlays.plays[0].url);
     }
   };
 
@@ -270,23 +359,35 @@ export default function PlayerDash(props) {
   // when page is first loaded get sample plays
   // atm it gets them for lebron to avoid white screens
   React.useState(() => {
-    getSamplePlaysAxios();
+    getSamplePlaysAxios(currentPlayer.playerID);
   }, []);
 
   // when a new player is selected from autocomplete
   // get new sample plays
   // retrieves top 20 highlights by view
   React.useEffect(() => {
-    getSamplePlaysAxios();
+    setGamesAvailableShowing(false);
+    setFiltersShowing(true);
+    setGamesAvailable([]);
+    getSamplePlaysAxios(currentPlayer.playerID);
+    setPlayArrowIndex(0);
   }, [currentPlayer]);
 
-  // when play is changed updated the url to new highlight at top of array
-  // updates videoframe
   React.useEffect(() => {
+    // update the url to change video in iframe
     setCurrentUrl(currentShowingPlays?.plays[playArrowIndex].url);
+
+    // when a new play comes, we need to see if its the same game
+    // as we were previously watching, if it isn't we need to update
+    // the currentShowingGame for the game select dash
+    // we pass in a list to perserve the gid, for later requests
+    let showingGameID = currentShowingPlays?.plays[playArrowIndex].gid;
+    if (showingGameID !== gameShowing[1]?.gid) {
+      setGameShowing([showingGameID, gamesAvailableDictionary[showingGameID]]);
+    }
   }, [playArrowIndex]);
 
-  // console.log(currentShowingPlays);
+  // console.log(gamesAvailable);
   return (
     <>
       <Collapse in={!bigVideoEnabled}>
@@ -324,99 +425,150 @@ export default function PlayerDash(props) {
 
           {/* Player Dash, logo name etc */}
           <Grid item xs={12} md={5.5} sx={{ my: 1 }}>
-            {/* <PlayerCard currentPlayer={currentPlayer} /> */}
-            <PlayerCard2 currentPlayer={currentPlayer} />
-            {/* Find plays against matchup autocomplete */}
-            {/* <Paper variant='outlined' sx={{ mt: 1 }}> */}
-            <Autocomplete
-              multiple
-              autoHighlight
-              clearOnEscape
-              autoComplete={true}
-              id='combo-box-demo'
-              options={teams}
-              getOptionLabel={(option) => option?.full_name}
-              sx={{ width: "95%", padding: 1 }}
-              size='small'
-              renderTags={(tagValue, getTagProps) => {
-                return tagValue.map((option) => (
-                  <MyChip label={option.full_name} id={option.id} />
-                ));
-              }}
-              onChange={(event, newValue) => {
-                try {
-                  let newId = newValue[newValue.length - 1].id;
-                  setMatchups((prevState) => [...prevState, newId]);
-                } catch (error) {
-                  setMatchups([]);
-                }
-              }}
-              renderOption={(props, option) => (
-                <Box component='li' {...props} key={option.id}>
-                  <TeamLabel team_id={option?.id} name={option?.full_name} />
-                </Box>
-              )}
-              renderInput={(params) => (
-                <Stack direction={"row"} alignItems={"center"} spacing={1}>
-                  <SearchIcon />
-                  <TextField
-                    {...params}
-                    label='Find plays against these teams'
+            {/* Game Showing above playercard when fullscreen */}
+            {/* If user enters new search we need to temp remove these */}
+            {gamesAvailableShowing && bigVideoEnabled && !requestLoading && (
+              <Fade in={true} timeout={500}>
+                <div>
+                  <GameShowingDash
+                    gameShowing={gameShowing}
+                    currentPlayer={currentPlayer}
                   />
-                </Stack>
-              )}
+                  <GamesAvailable
+                    gamesAvailable={gamesAvailable}
+                    getPlaysByGameID={getPlaysByGameID}
+                    currentPlayer={currentPlayer}
+                    currentShowingPlay={currentShowingPlays[playArrowIndex]}
+                    gameShowing={gameShowing}
+                    setGameShowing={setGameShowing}
+                  />
+                </div>
+              </Fade>
+            )}
+
+            <PlayerCard2
+              bigVideoEnabled={bigVideoEnabled}
+              currentPlayer={currentPlayer}
             />
 
-            {/* Find plays while player was on this team
-                auto complete */}
-            <Autocomplete
-              multiple
-              autoHighlight
-              clearOnEscape
-              autoComplete={true}
-              id='combo-box-demo'
-              options={teams}
-              getOptionLabel={(option) => option?.full_name}
-              sx={{ width: "95%", padding: 1 }}
-              size='small'
-              renderTags={(tagValue, getTagProps) => {
-                return tagValue.map((option) => (
-                  <MyChip label={option.full_name} id={option.id} />
-                ));
-              }}
-              onChange={(event, newValue) => {
-                try {
-                  let newId = newValue[newValue.length - 1].id;
-                  setTeamsPlayerOn((prevState) => [...prevState, newId]);
-                } catch (error) {
-                  setTeamsPlayerOn([]);
-                }
-              }}
-              renderOption={(props, option) => (
-                <Box component='li' {...props} key={option.id}>
-                  <TeamLabel team_id={option?.id} name={option?.full_name} />
-                </Box>
-              )}
-              renderInput={(params) => (
-                <Stack direction={"row"} alignItems={"center"} spacing={1}>
-                  <SearchIcon />
-                  <TextField
-                    {...params}
-                    label='Find plays when player was on these teams'
+            {/* Games Available below when fullscreenoff */}
+            {/* If user enters new search we need to temp remove these */}
+            {gamesAvailableShowing && !bigVideoEnabled && !requestLoading && (
+              <Fade in={true} timeout={500}>
+                <div>
+                  <GameShowingDash
+                    gameShowing={gameShowing}
+                    currentPlayer={currentPlayer}
                   />
-                </Stack>
-              )}
-            />
-            {/* </Paper> */}
-            {/* Filter By Season */}
+                  <GamesAvailable
+                    gamesAvailable={gamesAvailable}
+                    getPlaysByGameID={getPlaysByGameID}
+                    currentPlayer={currentPlayer}
+                    currentShowingPlay={currentShowingPlays[playArrowIndex]}
+                    gameShowing={gameShowing}
+                    setGameShowing={setGameShowing}
+                  />
+                </div>
+              </Fade>
+            )}
+
+            {/* Top Of filters buttons/header */}
             <FilterSnackBar
               filtersShowing={filtersShowing}
               setFiltersShowing={setFiltersShowing}
               clearFilters={clearFilters}
               createSearchResults={createSearchResults}
             />
-            {/* Filters Start */}
+
+            {/* When Search is made filters collapse
+            can also be triggered by expand/collapse filters button */}
             <Collapse in={filtersShowing}>
+              {/* Find plays against matchup autocomplete */}
+              {/* See second autocomplete for comments */}
+              <Autocomplete
+                multiple
+                autoHighlight
+                clearOnEscape
+                autoComplete={true}
+                id='combo-box-demo'
+                options={teams}
+                getOptionLabel={(option) => option?.full_name}
+                sx={{ width: "95%", padding: 1 }}
+                size='small'
+                renderTags={(tagValue, getTagProps) => {
+                  return tagValue.map((option) => (
+                    <MyChip label={option.full_name} id={option.id} />
+                  ));
+                }}
+                onChange={(event, newValue) => {
+                  try {
+                    let newId = newValue[newValue.length - 1].id;
+                    setMatchups((prevState) => [...prevState, newId]);
+                  } catch (error) {
+                    setMatchups([]);
+                  }
+                }}
+                renderOption={(props, option) => (
+                  <Box component='li' {...props} key={option.id}>
+                    <TeamLabel team_id={option?.id} name={option?.full_name} />
+                  </Box>
+                )}
+                renderInput={(params) => (
+                  <Stack direction={"row"} alignItems={"center"} spacing={1}>
+                    <SearchIcon />
+                    <TextField
+                      {...params}
+                      label='Find plays against these teams'
+                    />
+                  </Stack>
+                )}
+              />
+
+              {/* Find plays while player was on this team
+                auto complete */}
+              <Autocomplete
+                multiple
+                autoHighlight
+                clearOnEscape
+                autoComplete={true}
+                id='combo-box-demo'
+                options={teams}
+                getOptionLabel={(option) => option?.full_name}
+                sx={{ width: "95%", padding: 1 }}
+                size='small'
+                renderTags={(tagValue, getTagProps) => {
+                  return tagValue.map((option) => (
+                    <MyChip label={option.full_name} id={option.id} />
+                  ));
+                }}
+                onChange={(event, newValue) => {
+                  try {
+                    let newId = newValue[newValue.length - 1].id; // new team being added id
+                    setTeamsPlayerOn((prevState) => [...prevState, newId]); // add new val to end of array
+                  } catch (error) {
+                    // when deleting last elment for autocomplete it throws error
+                    setTeamsPlayerOn([]);
+                  }
+                }}
+                renderOption={(props, option) => (
+                  // Items for dropdown of autocomplete (team logo and name)
+                  <Box component='li' {...props} key={option.id}>
+                    <TeamLabel team_id={option?.id} name={option?.full_name} />
+                  </Box>
+                )}
+                renderInput={(params) => (
+                  // what the search bar looks like
+                  <Stack direction={"row"} alignItems={"center"} spacing={1}>
+                    <SearchIcon />
+                    <TextField
+                      {...params}
+                      label='Find plays when player was on these teams'
+                    />
+                  </Stack>
+                )}
+              />
+
+              {/* Filters Start */}
               <Alert
                 severity='info'
                 sx={{ justifyContent: "center", textAlign: "center" }}>
@@ -424,9 +576,9 @@ export default function PlayerDash(props) {
                 (e.g. szn) will only filter that type down, others will remain
                 uneffected
               </Alert>
+              {/* Seasons select */}
               <Paper sx={{ mt: 1 }}>
                 <Paper
-                  // elevation={15}
                   variant='outlined'
                   sx={{ textAlign: "center", bgcolor: "#333" }}>
                   <Chip
@@ -457,6 +609,9 @@ export default function PlayerDash(props) {
                 <Divider />
               </Box>
 
+              {/* Rest of filters */}
+
+              {/* home/away, regular/playoffs, */}
               <Grid container>
                 <Grid item xs={6} padding={1}>
                   <Filter
@@ -476,6 +631,7 @@ export default function PlayerDash(props) {
                 </Grid>
               </Grid>
 
+              {/* In Game Options */}
               <Box my={1} textAlign={"center"}>
                 <Divider />
                 <Chip
@@ -487,8 +643,9 @@ export default function PlayerDash(props) {
                 <Divider />
               </Box>
 
-              {/* InGame Option */}
+              {/* Filters that use Filter Component */}
               <Grid container>
+                {/* FGM, BLK etc (statType) */}
                 <Grid item xs={6} padding={1}>
                   <Filter
                     arrOfKeys={Object.keys(statDict)}
@@ -497,6 +654,8 @@ export default function PlayerDash(props) {
                     title={"Stat Type"}
                   />
                 </Grid>
+
+                {/* Quarters 1,2,3,4,OT */}
                 <Grid item xs={6} padding={1}>
                   <Filter
                     arrOfKeys={Object.keys(quarterDict)}
@@ -506,24 +665,28 @@ export default function PlayerDash(props) {
                   />
                 </Grid>
               </Grid>
-            </Collapse>
-            <Stack
-              direction='row'
-              sx={{ textAlign: "center", justifyContent: "center" }}>
-              <Button
-                variant='contained'
-                color='success'
-                size='large'
-                // disabled={!selectedTeams[0]?.id || !seasonsSelected.length > 0} // only avaialbe when a team has been clicked
-                onClick={() => createSearchResults()}
-                sx={{ my: 1 }}>
-                Submit
-              </Button>
 
-              <IconButton onClick={() => clearFilters()}>
-                <DeleteIcon />
-              </IconButton>
-            </Stack>
+              {/* Submit and clear button */}
+              <Stack
+                direction='row'
+                sx={{ textAlign: "center", justifyContent: "center" }}>
+                <Button
+                  variant='contained'
+                  color='success'
+                  size='large'
+                  // disabled={!selectedTeams[0]?.id || !seasonsSelected.length > 0} // only avaialbe when a team has been clicked
+                  onClick={() => createSearchResults()}
+                  sx={{ my: 1 }}>
+                  Submit
+                </Button>
+
+                <IconButton onClick={() => clearFilters()}>
+                  <DeleteIcon />
+                </IconButton>
+              </Stack>
+            </Collapse>
+
+            {/* Final Grid tag of left side of page */}
           </Grid>
 
           {/* Video preview
@@ -542,7 +705,6 @@ export default function PlayerDash(props) {
               />
             )}
 
-            {/* </Box> */}
             {!requestLoading && (
               <PlayersPlayList
                 playByPlay={currentShowingPlays}

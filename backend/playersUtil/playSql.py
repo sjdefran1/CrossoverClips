@@ -25,6 +25,7 @@ PLAYS_QUERY_COLUMNS_NAMES = [
     "sznstr",
     "htid",
     "atid",
+    "game_views",
     "row_number",
     "wl",
     "mid",
@@ -47,6 +48,7 @@ select distinct
     m.sznstr,
     m.htid,
     m.atid,
+    m.views as game_views,
     ROW_NUMBER () OVER (ORDER BY p1.pid) AS row_number,
     case
         when m.atid = p1.tid then m."HWL"
@@ -115,7 +117,7 @@ and p1.ptype in {}
 
 # TODO needs thought
 GID_OPTIONS_SQL = """
-and p1.gid={}
+and p1.gid='{}'
 """
 
 TEAMID_OPTIONS_SQL = """
@@ -171,6 +173,7 @@ select distinct
     m.sznstr,
     m.htid,
     m.atid,
+    m.views as game_views,
     ROW_NUMBER () OVER (ORDER BY p1.pid) AS row_number,
     case
         when m.atid = p1.tid then m."HWL"
@@ -211,13 +214,109 @@ with RankedPlays AS (
         m."HWL",
         m."HPTS",
         m."APTS",
-        ROW_NUMBER() OVER (PARTITION BY t.gid ORDER BY t.playid DESC) AS rn
+        m.views,
+        t.date,
+        ROW_NUMBER() OVER (PARTITION BY t.gid ORDER BY t.playid DESC) AS rn,
+        case
+            when m.atid = t.tid then m."HWL"
+            when m.htid = t.tid then m."AWL"
+        end as pwl
     FROM
         {} t
     JOIN
         matchups m ON t.gid = m.gid
     WHERE
         t.ptype = 'FGM'
+)
+
+SELECT
+    gid,
+    playid,
+    description,
+    matchupstr,
+    atid,
+    htid,
+    sznstr,
+    "HWL",
+    "HPTS",
+    "APTS",
+    views,
+    date,
+    pwl
+FROM
+    RankedPlays
+WHERE
+    rn = 1
+ORDER BY
+    playid;
+"""
+
+
+AVAILABLE_GAMES_SQL_2 = """
+WITH RankedPlays AS (
+     SELECT
+        s.gid,
+        s.playid,
+        s.description,
+        m.matchupstr,
+        m.htid,
+        m.atid,
+        m.sznstr,
+        m."HWL",
+        m."HPTS",
+        m."APTS",
+        m.views,
+        s.date,
+        ROW_NUMBER() OVER (PARTITION BY s.gid ORDER BY s.playid DESC) AS rn
+    FROM
+        {0} s
+    JOIN
+        matchups m ON s.gid = m.gid
+    WHERE
+        s.ptype = 'FGM'),
+    ast_count AS (
+        SELECT s.gid, COUNT(*) AS ast_count
+        FROM {0} s
+        WHERE s.ptype = 'AST'
+        GROUP BY s.gid
+    ),
+    blk_count AS (
+        SELECT s.gid, COUNT(*) AS blk_count
+        FROM {0} s
+        WHERE s.ptype = 'BLK'
+        GROUP BY s.gid
+    ), final_query as (
+
+    SELECT
+        s.gid,
+        s.playid,
+        s.description,
+        m.matchupstr,
+        m.htid,
+        m.atid,
+        m.sznstr,
+        m."HWL",
+        m."HPTS",
+        m."APTS",
+        m.views,
+        s.date,
+        case
+            when m.atid = s.tid then m."HWL"
+            when m.htid = s.tid then m."AWL"
+        end as pwl,
+        COALESCE(ast_count.ast_count, 0) AS ast_count, -- Add AST count with default value 0
+        COALESCE(blk_count.blk_count, 0) AS blk_count, -- Add BLK count with default value 0
+        ROW_NUMBER() OVER (PARTITION BY s.gid ORDER BY s.playid DESC) AS rn
+    FROM
+        {0} s
+    JOIN
+        matchups m ON s.gid = m.gid
+    LEFT JOIN
+        ast_count ON s.gid = ast_count.gid
+    LEFT JOIN
+        blk_count ON s.gid = blk_count.gid
+    WHERE
+        s.ptype = 'FGM'
 )
 SELECT
     gid,
@@ -229,11 +328,98 @@ SELECT
     sznstr,
     "HWL",
     "HPTS",
-    "APTS"
+    "APTS",
+    views,
+    date,
+    pwl,
+    ast_count,
+    blk_count
 FROM
-    RankedPlays
+    final_query
 WHERE
     rn = 1
 ORDER BY
     playid;
+
+"""
+
+AVAILABLE_GAMES_SQL_3 = """
+WITH RankedPlays AS (
+     SELECT
+        s.gid,
+        s.description,
+        ROW_NUMBER() OVER (PARTITION BY s.gid ORDER BY s.playid DESC) AS rn
+    FROM
+        {0} s
+    JOIN
+        matchups m ON s.gid = m.gid
+    WHERE
+        s.ptype = 'FGM'),
+    ast_count AS (
+        SELECT s.gid, COUNT(*) AS ast_count
+        FROM {0} s
+        WHERE s.ptype = 'AST'
+        GROUP BY s.gid
+    ),
+    blk_count AS (
+        SELECT s.gid, COUNT(*) AS blk_count
+        FROM {0} s
+        WHERE s.ptype = 'BLK'
+        GROUP BY s.gid
+    ), final_query as (
+
+    SELECT
+        s.gid,
+        s.playid,
+        s.description,
+        m.matchupstr,
+        m.htid,
+        m.atid,
+        m.sznstr,
+        m."HWL",
+        m."HPTS",
+        m."APTS",
+        m.views,
+        s.date,
+        case
+            when m.atid = s.tid then m."HWL"
+            when m.htid = s.tid then m."AWL"
+        end as pwl,
+        COALESCE(ast_count.ast_count, 0) AS ast_count, -- Add AST count with default value 0
+        COALESCE(blk_count.blk_count, 0) AS blk_count, -- Add BLK count with default value 0
+        ROW_NUMBER() OVER (PARTITION BY s.gid ORDER BY s.playid DESC) AS rn
+    FROM
+        {0} s
+    JOIN
+        matchups m ON s.gid = m.gid
+    LEFT JOIN
+        ast_count ON s.gid = ast_count.gid
+    LEFT JOIN
+        blk_count ON s.gid = blk_count.gid
+    WHERE
+        s.ptype = 'FGM'
+)
+SELECT
+    gid,
+    playid,
+    description,
+    matchupstr,
+    atid,
+    htid,
+    sznstr,
+    "HWL",
+    "HPTS",
+    "APTS",
+    views,
+    date,
+    pwl,
+    ast_count,
+    blk_count
+FROM
+    final_query
+WHERE
+    rn = 1
+ORDER BY
+    playid;
+
 """

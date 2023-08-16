@@ -9,7 +9,7 @@ class PlayOptions(BaseModel):
     limit: Optional[int]
     quarter: Union[None, int]
     stat_type: Optional[str]
-    gid: Optional[int]
+    gid: Optional[str]
     gtype: Optional[int]
     season: Optional[str]
     home_away: Optional[str]
@@ -22,7 +22,7 @@ class PlayOptionsArrays(BaseModel):
     limit: Optional[int]
     quarter: Optional[list[str]]
     stat_type: Optional[list[str]]
-    gid: Optional[int]
+    gid: Optional[str]
     gtype: Optional[list[int]]
     season: Optional[list[str]]
     home_away: Optional[list[str]]
@@ -31,6 +31,7 @@ class PlayOptionsArrays(BaseModel):
 class Update(BaseModel):
     url: str
     ptype: str
+
 
 class Player(BaseModel):
     pid: int

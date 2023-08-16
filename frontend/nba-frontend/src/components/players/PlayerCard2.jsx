@@ -82,7 +82,7 @@ export default function PlayerCard2(props) {
     },
   }));
   return (
-    <Paper sx={{ borderRadius: 2 }}>
+    <Paper sx={{ borderRadius: 2, mt: props.bigVideoEnabled ? 1 : 0 }}>
       <Grid container>
         {/* StyledBadge provides the little green/red circle
           Indicating if Active/inactive */}

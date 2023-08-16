@@ -1,6 +1,7 @@
 import os
+from time import perf_counter
 import uuid
-from json import loads
+from json import dumps, loads
 from datetime import datetime
 
 from fastapi import Request, APIRouter
@@ -19,6 +20,8 @@ from playersUtil.playsQueryBuilder import (
 )
 from playersUtil.playSql import (
     AVAILABLE_GAMES_SQL,
+    AVAILABLE_GAMES_SQL_2,
+    AVAILABLE_GAMES_SQL_3,
     PLAYS_QUERY_COLUMNS_NAMES,
     CREATE_VIEW,
     DROP_VIEW,
@@ -37,7 +40,8 @@ def generate_unique_view_name() -> str:
     return ("temp_table_" + str(uuid.uuid4()).replace("-", "")).lower()
 
 
-def split_array_into_pages(arr: list, df_cols: list, page_length=5):
+def split_array_into_pages(arr: list, df_cols: list, page_length=5) -> dict:
+    """"""
     page_dict = {}
     num_pages = (
         len(arr) + page_length - 1
@@ -55,7 +59,13 @@ def split_array_into_pages(arr: list, df_cols: list, page_length=5):
     return page_dict
 
 
-def sort_plays(plays):
+def sort_plays(plays: list[tuple]) -> list:
+    """
+    Ensures that plays are in order for user
+
+    Instead of returning all FGM then BLK etc it orders them by time and quarter
+    """
+
     def custom_sort_key(play):
         gid = play[2]  # GID
         quarter = play[10]
@@ -69,6 +79,10 @@ def sort_plays(plays):
 
 
 def get_games_with_pts(rows: list[tuple]):
+    """
+    Parses last description str for play in game and returns point value
+    """
+
     def get_pts_from_description(desc: str):
         return int(desc.split("(")[1].split(")")[0].split(" ")[0])
 
@@ -85,25 +99,29 @@ def get_games_with_pts(rows: list[tuple]):
             "hwl",
             "hpts",
             "apts",
+            "views",
+            "date",
+            "pwl",
+            "ast_count",
+            "blk_count",
         ],
     )
+    df.set_index("gid", inplace=True)
 
     df["playerpts"] = df["playerpts"].apply(get_pts_from_description)
-    return loads(df.to_json(orient="records"))
+    return loads(df.to_json(orient="index"))
 
 
 def plays_query_executor(query: str) -> dict:
     """
-    Creates view using provided query
+    - Creates view using provided query
+    - View adds a row_number column that allows for pagination and offsets
+    - Selects all results as well as len and stores them in a dict
+    - Gathers Player PTS, AST, BLK counts for game
+    - Sorts Plays by time that happened rather by statype like they are stored
+    - Drops view
 
-    View adds a row_number column that allows for pagination and offsets
-
-    Selects all results as well as len and stores them in a dict
-
-    Drops view,
-
-    ### returns
-    dict `{'results': rowset: list, 'len': len of rowset: int}`
+    Returns empty lists for dict keys on exceptions
     """
     db.ping_db()
     results_dict = {}
@@ -112,7 +130,9 @@ def plays_query_executor(query: str) -> dict:
     query = "".join([add_str, query])
 
     # Create view
-    print(f"CREATING VIEW\n{query}")
+    # print(f"CREATING VIEW\n{query}")
+    print("Executing View Creation")
+    print(query)
     db.psy_cursor.execute(query)
 
     # Get length
@@ -123,15 +143,19 @@ def plays_query_executor(query: str) -> dict:
         results_dict["len"] = db.psy_cursor.fetchall()[0][0]
 
         # Get all available games w/ the last fgm made from it
-        db.psy_cursor.execute(AVAILABLE_GAMES_SQL.format(view_name))
+        print("Executing stat query" + f"\n{'-' * 50}")
+        db.psy_cursor.execute(AVAILABLE_GAMES_SQL_3.format(view_name))
         results_dict["games_available"] = get_games_with_pts(db.psy_cursor.fetchall())
 
+        # print("Executing normal query" + f"\n{'-' * 50}")
+        print(f"select * from {view_name} order by row_number asc limit 1000;")
         # Select all plays store as results
         db.psy_cursor.execute(
             f"select * from {view_name} order by row_number asc limit 1000;"
         )
+        # print("sorting plays")
+        # print(dumps(db.psy_cursor.fetchone(), indent=1))
         sorted_plays = sort_plays(db.psy_cursor.fetchall())
-        # results_dict["results"] = db.psy_cursor.fetchall()
         results_dict["results"] = sorted_plays
     except Exception as e:
         # no results will throw error when try to fetchall
@@ -152,6 +176,7 @@ def plays_query_executor(query: str) -> dict:
 
 @players_router.get("/teams")
 async def get_all_teams_controller() -> JSONResponse:
+    """Returns all teams"""
     db.psy_cursor.execute("SELECT * FROM teams")
     ret_list = []
     for res in db.psy_cursor.fetchall():
@@ -261,7 +286,15 @@ def get_all_players():
 async def get_players_plays_arr(
     opts: PlayOptionsArrays, request: Request
 ) -> JSONResponse:
+    """
+    Main Functionality of player dashboard
+
+    Uses build_plays_search_query to create a sql query for the requested
+    options
+    """
+    start = perf_counter()
     db.ping_db()
+
     query = build_plays_search_query_arrays(opts=opts)
     result_dict = plays_query_executor(query=query)
     pages_split = split_array_into_pages(
@@ -273,11 +306,18 @@ async def get_players_plays_arr(
         "games_available": result_dict["games_available"],
         "results": pages_split,
     }
+    end = perf_counter()
+    print(f"Execution time for Query: {end - start:.6f} seconds\n")
+
     return JSONResponse(content=return_dict, status_code=200)
 
 
 @players_router.post("/samplePlays2")
-async def get_sample_plays_for_player_test(player: Player):
+async def get_sample_plays_for_player(player: Player):
+    """
+    Returns 20 highlights for player, sorted by most viewed
+    Also updates players view count + 1
+    """
     db.ping_db()
     # update player views
     query = f"""
@@ -287,7 +327,6 @@ async def get_sample_plays_for_player_test(player: Player):
         views = views + 1
     WHERE pid={player.pid};
     """
-    print(query)
     db.psy_cursor.execute(query)
 
     # get sample plays
