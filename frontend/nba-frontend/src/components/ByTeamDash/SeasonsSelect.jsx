@@ -49,10 +49,20 @@ export default function SeasonsSelect(props) {
 
   return (
     <>
-      <Alert severity='info'>
-        All seasons returned by default, submit button below
-      </Alert>
+      {/* if showalert is passed in it doesn't show ! so prop can be false */}
+      {!props?.showAlert ? (
+        <></>
+      ) : (
+        <Alert severity='info'>
+          All seasons returned by default, submit button below
+        </Alert>
+      )}
       <Grid container>
+        {props.shouldBeDisabled && (
+          <Alert severity='warning' color='warning' sx={{ width: "100%" }}>
+            Must filter seasons before search, click trash to redo search
+          </Alert>
+        )}
         {seasonsList.map((season) => (
           <React.Fragment key={season}>
             <Grid item xs={6} sm={3}>

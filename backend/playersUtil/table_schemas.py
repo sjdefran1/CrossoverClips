@@ -23,7 +23,7 @@ SCHEMAS = {
         "year_founded": SmallInteger,
     },
     "matchups": {
-        "gid": Integer,
+        "gid": VARCHAR(length=10),
         "sznstr": VARCHAR(length=7),
         "date": VARCHAR(length=10),
         "htid": Integer,
@@ -74,7 +74,7 @@ SCHEMAS = {
     "plays": {
         "playid": Integer,
         "pid": Integer,
-        "gid": Integer,
+        "gid": VARCHAR(length=10),
         "ptype": VARCHAR(length=4),
         "description": VARCHAR(length=90),
         "url": VARCHAR(length=120),
@@ -88,7 +88,7 @@ SCHEMAS = {
 
 PANDAS_SCHEMA = {
     "matchups": {
-        "gid": int,
+        "gid": str,
         "sznstr": str,
         "date": str,
         "htid": int,
@@ -146,7 +146,7 @@ PANDAS_SCHEMA = {
     "plays": {
         "playid": int,
         "pid": int,
-        "gid": int,
+        "gid": str,
         "ptype": str,
         "description": str,
         "url": str,
@@ -155,6 +155,8 @@ PANDAS_SCHEMA = {
         "ascore": str,
         "ptime": str,
         "quarter": int,
+        "views": int,
+        "downloads": int,
     },
     "players": {
         "pid": int,

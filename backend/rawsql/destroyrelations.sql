@@ -9,10 +9,20 @@ ALTER TABLE matchups DROP CONSTRAINT IF EXISTS fk_atid;
 
 -- INDEXES
 DROP INDEX IF EXISTS plays_pid_idx;
+DROP INDEX IF EXISTS plays_url_idx;
+DROP INDEX IF EXISTS plays_gid_idx;
+
+
 DROP INDEX IF EXISTS teams_tid;
+
 DROP INDEX IF EXISTS players_pid;
 DROP INDEX IF EXISTS players_tid;
+
+
 DROP INDEX IF EXISTS matchups_gid;
+
+-- DROP INDEX IF EXISTS ip_idx;
+
 
 -- PKS
 ALTER TABLE plays DROP CONSTRAINT IF EXISTS pk_plays;

@@ -8,18 +8,25 @@ import {
   ListItemIcon,
   Avatar,
   Divider,
+  Chip,
   Link,
   ListItemText,
   Typography,
   Button,
   LinearProgress,
+  Alert,
+  Grow,
+  Paper,
 } from "@mui/material";
+// import VisibilityIcon from "@mui/icons-material/Visibility";
+
 import PlaySecondary from "./PlaySecondary";
 import { reqString } from "../../App";
 
 import axios from "axios";
 import fileDownload from "js-file-download";
-
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 //const project = projects[0];
 export default function SinglePlay(props) {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -27,6 +34,7 @@ export default function SinglePlay(props) {
     // let fileName = givenUrl.split("/")[11];
     let data = {
       url: givenUrl,
+      ptype: props.play.ptype,
     };
     setIsLoading(true);
     axios
@@ -49,17 +57,38 @@ export default function SinglePlay(props) {
   const handleView = () => {
     let update = {
       url: props.play.url,
-      ptype: props.currentStatType,
+      ptype: props.play.ptype,
     };
     axios.post(reqString + "players/updatePlayViewCount", update);
   };
-
   return (
     <>
       <Divider />
-
       <Fade in={true}>
         <Stack sx={{ justifyContent: "center" }}>
+          {props?.playShowingIndex !== undefined &&
+            props?.index === props.playShowingIndex && (
+              <Grow in={true}>
+                <Paper
+                  variant='outlined'
+                  sx={{
+                    borderColor: "#90caf9",
+                    padding: 1,
+                    mt: 1,
+                  }}>
+                  <Stack
+                    direction={"row"}
+                    spacing={1}
+                    justifyContent={"center"}
+                    alignItems={"center"}>
+                    <VisibilityIcon sx={{ color: "#90caf9" }} />
+                    <Typography variant='subtitle2' color={"#90caf9"}>
+                      Currently Viewing
+                    </Typography>
+                  </Stack>
+                </Paper>
+              </Grow>
+            )}
           {/* {console.log(props.play.url.split("/")[11])} */}
           <Link
             target='_blank'
@@ -80,14 +109,49 @@ export default function SinglePlay(props) {
                 <ListItemButton>
                   {props.players_length > 0 && (
                     <ListItemIcon>
-                      <Avatar
-                        src={
-                          "https://cdn.nba.com/logos/nba/" +
-                          props.play.teamID +
-                          "/primary/L/logo.svg"
-                        }
-                        sx={{ width: 56, height: 56 }}
-                      />
+                      <Stack direction={"column"} alignItems={"center"}>
+                        <Avatar
+                          src={
+                            "https://cdn.nba.com/logos/nba/" +
+                            props.play.teamID +
+                            "/primary/L/logo.svg"
+                          }
+                          sx={{ width: 56, height: 56 }}
+                        />
+                        <Stack
+                          direction={"column"}
+                          spacing={0.5}
+                          // mt={1}
+                          sx={{
+                            alignItems: "center",
+                          }}>
+                          <Chip
+                            size='small'
+                            variant='outlined'
+                            icon={<FileDownloadIcon color='info' />}
+                            label={props.play.downloads}
+                            sx={{
+                              display:
+                                props.play?.downloads !== undefined
+                                  ? ""
+                                  : "none",
+                            }}
+                          />
+                          <Chip
+                            size='small'
+                            color='info'
+                            variant='outlined'
+                            icon={<VisibilityIcon color='info' />}
+                            label={props.play.views}
+                            sx={{
+                              display:
+                                props.play?.views !== undefined ? "" : "none",
+                            }}
+                          />
+
+                          {/* {props.playInVideoPlayer} */}
+                        </Stack>
+                      </Stack>
                     </ListItemIcon>
                   )}
                   <ListItemText
@@ -106,10 +170,10 @@ export default function SinglePlay(props) {
                           props.play.scoreHome,
                           props.play.scoreAway,
                           props.play.time,
+                          // props.play.teamID,
                           props.team_ids[0],
                           props.team_ids[1],
-                          // props.playByPlay.team_ids[0],
-                          // props.playByPlay.team_ids[1],
+                          props.play.quarter,
                         ]}
                       />
                     }
@@ -159,6 +223,7 @@ export default function SinglePlay(props) {
           {/* <Divider /> */}
 
           {/* <Divider /> */}
+
           <Button
             color='info'
             size='small'

@@ -4,14 +4,20 @@ import dayjs from "dayjs";
 import Paper from "@mui/material/Paper";
 
 import headerBG from "../static/cc2.gif";
-import { Button, Hidden, IconButton } from "@mui/material";
+import { Button, Hidden, IconButton, Stack } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import HomeIcon from "@mui/icons-material/Home";
+import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 function Header(props) {
   const { date } = useParams();
   const navigate = useNavigate();
+  const [hideBackArrow, setHideBackArrow] = React.useState(false);
   // const navigate = useNavigate();
+  let { state } = useLocation();
 
+  React.useEffect(() => {
+    if (state === null) setHideBackArrow(true);
+  }, []);
   //console.log(date);
 
   return (
@@ -41,9 +47,20 @@ function Header(props) {
             //     tabValueLink: 1,
             //     valueLink: date,
             //   }}>
-            <IconButton onClick={() => navigate(-1)}>
-              <ArrowBackIcon fontSize='large' color='info' />
-            </IconButton>
+            <Stack direction={"row"} alignItems={"center"}>
+              <IconButton
+                onClick={() => navigate(-1)}
+                sx={{ display: hideBackArrow ? "none" : "" }}>
+                <ArrowBackIcon fontSize='large' color='info' />
+              </IconButton>
+
+              <IconButton
+                onClick={() => navigate("/home")}
+                sx={{ mt: hideBackArrow ? 1 : 0 }} // arrow is off centered when back arrow isnt laoded
+              >
+                <HomeIcon color='action' />
+              </IconButton>
+            </Stack>
             // </Link>
           )}
         </Paper>
@@ -64,19 +81,20 @@ function Header(props) {
             backgroundPosition: props?.small ? "center" : "center right 1px",
           }}>
           {props.small && (
-            // <Link
-            //   to={"/byDate/" + date}
-            //   state={{
-            //     seasons: [],
-            //     selectedTeamsLink: [{}, {}],
-            //     maxSelectedLink: false,
-            //     tabValueLink: 1,
-            //     valueLink: date,
-            //   }}>
-            <IconButton onClick={() => navigate(-1)}>
-              <ArrowBackIcon fontSize='large' color='info' />
-            </IconButton>
-            // </Link>
+            <Stack direction={"row"} alignItems={"center"}>
+              <IconButton
+                onClick={() => navigate(-1)}
+                sx={{ display: hideBackArrow ? "none" : "" }}>
+                <ArrowBackIcon fontSize='large' color='info' />
+              </IconButton>
+
+              <IconButton
+                onClick={() => navigate("/home")}
+                sx={{ mt: hideBackArrow ? 1 : 0 }} // arrow is off centered when back arrow isnt laoded
+              >
+                <HomeIcon color='action' />
+              </IconButton>
+            </Stack>
           )}
         </Paper>
       </Hidden>

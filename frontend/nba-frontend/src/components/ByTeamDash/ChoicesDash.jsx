@@ -290,39 +290,9 @@ export default function ChoicesDash(props) {
             </Link>
           )}
 
-          {/* <Link
-            to={
-              !selectedTeams[1]?.id
-                ? "/byTeam/" + selectedTeams[0]?.id
-                : "/byTeam/" + selectedTeams[0]?.id + "/" + selectedTeams[1].id
-            }
-            state={{
-              seasons: seasonsSelected,
-              selectedTeamsLink: selectedTeams,
-              maxSelectedLink: maxSelected,
-            }}>
-            <Button
-              variant='contained'
-              color='success'
-              disabled={!selectedTeams[0]?.id || !seasonsSelected.length > 0} // only avaialbe when a team has been clicked
-              onClick={() => getGamesByTeamAxios()}
-              sx={{ my: 1 }}>
-              Submit
-            </Button>
-          </Link> */}
-          {/* <Tooltip title='Clear Filters' hidden={!selectedTeams[0]?.id}> */}
           <IconButton disabled={!selectedTeams[0]?.id} onClick={clearFilters}>
             <DeleteIcon />
           </IconButton>
-
-          {/* </Tooltip> */}
-          {/* <Button
-            variant='outlined'
-            color='success'
-            disabled={!selectedTeams[0]?.id} // only avaialbe when a team has been clicked
-            sx={{ my: 1, mx: "43%" }}>
-            Clear
-          </Button> */}
         </Stack>
       </Paper>
     </>

@@ -59,6 +59,8 @@ export default function GameDetails(props) {
   const [replacementGameLink, setReplacementGameLink] = React.useState({});
   const [replacementLoading, setReplacementLoading] = React.useState(true);
   const [errorOnReponse, setErrorOnReponse] = React.useState(false);
+  const [showBackArrow, setShowBackArrow] = React.useState(true);
+
   let { state } = useLocation();
 
   // const [anchorEl, setAnchorEl] = React.useState(null);
@@ -86,11 +88,10 @@ export default function GameDetails(props) {
     setPlaysIsLoading(true);
     axios
       // .post("http://localhost:8000/playByPlay", data)
-      .post(reqString + "playByPlay", data)
+      .post(reqString + "pgres/playByPlay", data)
       .then((response) => {
         if (response.data === null) {
           setErrorOnReponse(true);
-          console.log("fired");
         }
         //console.log(response.data);
         setPlayByPlay(response.data);

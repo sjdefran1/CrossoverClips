@@ -234,6 +234,9 @@ export default function Main(props) {
             {/* Tabs */}
             <Grid container spacing={1} paddingTop={4}>
               <Grid item xs={12} md={6}>
+                {/* <Button onClick={() => navigate("/playerTests")}>
+                  Try Player Dash
+                </Button> */}
                 <Box sx={{ width: "100%" }}>
                   <Box
                     sx={{ borderBottom: 1, borderColor: "divider", mb: 0.5 }}>

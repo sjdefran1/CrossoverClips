@@ -6,6 +6,8 @@ import Main2 from "./components/Main2.jsx";
 import GameDetails from "./components/GameDetails/GameDetails.jsx";
 import DownloadHelp from "./components/DownloadHelp.jsx";
 import Landing from "./components/Landing.jsx";
+import PlayerDash from "./components/players/PlayerDash.jsx";
+
 // import TestMarkDown from "./components/TestMarkDown.jsx";
 // import TopBar from "./components/TopBar.jsx";
 
@@ -80,6 +82,8 @@ const App = () => {
               <Route exact path='/byDate/' element={<Main2 />} />
               <Route exact path='/byDate/:date' element={<Main2 />} />
               <Route exact path='/downloadHelp' element={<DownloadHelp />} />
+              <Route exact path='/playerBeta' element={<PlayerDash />} />
+
               {/* <Route exact path='/howto' element={<TestMarkDown />} /> */}
             </Routes>
           </HashRouter>
@@ -89,8 +93,6 @@ const App = () => {
     </>
   );
 };
-
-//export const reqString = "https://nbaclipfinder4-1-u4961891.deta.app/";
 
 export const reqString = "https:///nbaclipsite.onrender.com/";
 // export const reqString = "http://localhost:8000/";
