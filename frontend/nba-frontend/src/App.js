@@ -94,7 +94,7 @@ const App = () => {
   );
 };
 
-// export const reqString = "https:///nbaclipsite.onrender.com/";
-export const reqString = "http://localhost:8000/";
+export const reqString = "https:///nbaclipsite.onrender.com/";
+// export const reqString = "http://localhost:8000/";
 
 export default App;
