@@ -55,11 +55,11 @@ export default function GamesAvailable(props) {
     } else if (points >= 40) {
       return "#f27573";
     } else if (points >= 30) {
-      return "#ef5350";
+      return "#35afea";
     } else if (points >= 20) {
-      return "#aed581";
+      return "#57bb6a";
     } else if (points >= 10) {
-      return "#8561c5";
+      return "#f57c00";
     } else {
       return "default";
     }
@@ -95,17 +95,20 @@ export default function GamesAvailable(props) {
         {props.gidRequestLoading && <LinearProgress variant='indeterminate' />}
 
         <Grid container alignItems={"center"}>
-          <Grid item xs={10} textAlign={"center"}>
-            <Chip
-              sx={{ my: 1 }}
-              variant='filled'
-              label={
-                <Typography variant='body1'>Games Found From Search</Typography>
-              }
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <Hidden smUp>
+          {/* Mobile view of Games Found Header */}
+          <Hidden smUp>
+            <Grid item xs={10} textAlign={"center"}>
+              <Chip
+                sx={{ my: 1 }}
+                variant='filled'
+                label={
+                  <Typography variant='body1'>
+                    Games Found From Search
+                  </Typography>
+                }
+              />
+            </Grid>
+            <Grid item xs={2}>
               {!collapsed && (
                 <IconButton onClick={() => setCollapsed(true)}>
                   <ExpandLessIcon />
@@ -117,8 +120,22 @@ export default function GamesAvailable(props) {
                   <ExpandMoreIcon />
                 </IconButton>
               )}
-            </Hidden>
-          </Grid>
+            </Grid>
+          </Hidden>
+          {/* Desktop view of games found header */}
+          <Hidden smDown>
+            <Grid item xs={12} textAlign={"center"}>
+              <Chip
+                sx={{ my: 1 }}
+                variant='filled'
+                label={
+                  <Typography variant='body1'>
+                    Games Found From Search
+                  </Typography>
+                }
+              />
+            </Grid>
+          </Hidden>
         </Grid>
 
         <Collapse in={!collapsed}>
