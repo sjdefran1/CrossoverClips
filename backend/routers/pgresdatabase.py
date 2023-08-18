@@ -4,6 +4,7 @@ import psycopg2
 # psy_cursor = None
 # psyconn = None
 
+
 def create_connections() -> None:
     """Makes connection w/ postgres db, declares psy_cursor and psyconn globally"""
     global psy_cursor
@@ -20,10 +21,11 @@ def create_connections() -> None:
     print("\tFINISHED")
     return
 
+
 def ping_db() -> None:
     """Checks if connection to db has closed, resets connection if it has"""
     try:
-        print("Pinging Databse")
+        print("\nPinging Databse")
         psy_cursor.execute("SELECT 1")
     except psycopg2.OperationalError:
         print("Connection was closed")

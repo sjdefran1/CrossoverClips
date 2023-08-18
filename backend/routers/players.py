@@ -18,9 +18,11 @@ from playersUtil.playsQueryBuilder import (
     build_plays_search_query_arrays,
 )
 from playersUtil.playSql import (
-    AVAILABLE_GAMES_SQL,
-    AVAILABLE_GAMES_SQL_2,
-    AVAILABLE_GAMES_SQL_3,
+    AVAILABLE_GAMES_PTS_AST_BLKS_SQL,
+    AVAILABLE_GAMES_PTS_AST_BLKS_SQL_2,
+    AVAILABLE_GAMES_PTS_AST_BLKS_SQL_3,
+    NON_FGM_WHERE_CLAUSE_SQL,
+    ORDER_BY_PLAY_ID_SQL,
     PLAYS_QUERY_COLUMNS_NAMES,
     CREATE_VIEW,
     DROP_VIEW,
@@ -111,7 +113,7 @@ def get_games_with_pts(rows: list):
     return loads(df.to_json(orient="index"))
 
 
-def plays_query_executor(query: str, samplePlays=0) -> dict:
+def plays_query_executor(query: str, non_fgm=False, samplePlays=0) -> dict:
     """
     - Creates view using provided query
     - View adds a row_number column that allows for pagination and offsets
@@ -128,8 +130,7 @@ def plays_query_executor(query: str, samplePlays=0) -> dict:
     query = "".join([add_str, query])
 
     # Create view w/ base filter query
-    print("Executing View Creation")
-    print(query)
+    print("\tPQE - EXECUTING VIEW CREATION")
     db.psy_cursor.execute(query)
 
     try:
@@ -139,31 +140,43 @@ def plays_query_executor(query: str, samplePlays=0) -> dict:
 
         # get information for available games if its a filtered search
         # also need to sort plays by quarter/time when filtered search
-        # else don't worry abt it reduce response time
+        # else don't worry abt it reduce response time for sample play queries
         if samplePlays == 0:
-            # Get all available games w/ the last fgm made from it
-            print("Executing stat query" + f"\n{'-' * 50}")
-            db.psy_cursor.execute(AVAILABLE_GAMES_SQL_3.format(view_name))
+            print("\tPQE - EXECUTING STAT QUERY")
+            stat_query = AVAILABLE_GAMES_PTS_AST_BLKS_SQL_3.format(view_name)
+            # build and execute stat query that returns PTS, BLKS, AST for available_games
+
+            stat_query = "".join([stat_query, ORDER_BY_PLAY_ID_SQL])
+            db.psy_cursor.execute(stat_query)
             results_dict["games_available"] = get_games_with_pts(
                 db.psy_cursor.fetchall()
             )
 
-            db.psy_cursor.execute(
-                f"select * from {view_name} order by row_number asc limit 1000;"
-            )
-            sorted_plays = sort_plays(db.psy_cursor.fetchall())
-            results_dict["results"] = sorted_plays
+            # grab first 1000 plays to be returned to usr
+            #   - if we aren't looking for fgm we need to
+            #     remove those rows after finding how many pts the player scored that game
+
+            results_query = f"select * from {view_name}"
+            if non_fgm:
+                results_query = results_query + " where ptype != 'FGM'"
+            results_query = results_query + " order by row_number asc limit 1000;"
+            db.psy_cursor.execute(results_query)
+
+            # order by Game -> Quarter -> by ptime desc from 12:00
+            results_dict["results"] = sort_plays(db.psy_cursor.fetchall())
         else:
             # We also don't want to order by row number here b/c we ordered by views
             # in the sample plays of top 20 viewed
+            print("\tPQE - EXECUTING SAMPLE PLAYS QUERY")
             db.psy_cursor.execute(f"select * from {view_name} limit 20;")
             results_dict["results"] = db.psy_cursor.fetchall()
             results_dict["games_available"] = []
-
     except Exception as e:
         # no results will throw error when try to fetchall
         # manually set dict drop view and return
-        print(e)
+        print(
+            f"EXCEPTION OCCURED IN PLAY QUERY EXECUTOR\n{'-'*50}{e}\n{query}\n{'-'*50}"
+        )
         results_dict["len"] = 0
         results_dict["results"] = []
         results_dict["games_available"] = []
@@ -172,7 +185,6 @@ def plays_query_executor(query: str, samplePlays=0) -> dict:
         return results_dict
 
     # drop view
-    print(f"Dropping VIEW\n{DROP_VIEW.format(view_name)}")
     db.psy_cursor.execute(DROP_VIEW.format(view_name))
     return results_dict
 
@@ -234,7 +246,7 @@ async def register_or_update_viewer(req: Request) -> JSONResponse:
     ip_exists = db.psy_cursor.fetchone()[0] > 0
 
     if ip_exists:
-        print(f"Returning user! {req.client.host}")
+        print(f"USER INFORMATION - Returning user! |{req.client.host}|")
         # user has visited before
         # get current time as str and then convert back into timestamp
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
@@ -252,7 +264,7 @@ async def register_or_update_viewer(req: Request) -> JSONResponse:
     else:
         # new user
         # insert ip and set visit count to 1
-        print(f"New user! {req.client.host}")
+        print(f"USER INFORMATION - New user! |{req.client.host}|")
 
         query = f"""
         INSERT INTO viewers (ip, visit_count) VALUES ('{req.client.host}', 1);    
@@ -294,26 +306,46 @@ async def get_players_plays_arr(
     Main Functionality of player dashboard
 
     Uses build_plays_search_query to create a sql query for the requested
-    options
+
+    Executes and creates return dict
+
     """
-    start = perf_counter()
     db.ping_db()
+    start = perf_counter()
 
-    query = build_plays_search_query_arrays(opts=opts)
-    result_dict = plays_query_executor(query=query)
-    pages_split = split_array_into_pages(
-        arr=result_dict["results"], df_cols=PLAYS_QUERY_COLUMNS_NAMES
-    )
-    return_dict = {
-        "len": result_dict["len"],
-        "page_count": len(pages_split.keys()),
-        "games_available": result_dict["games_available"],
-        "results": pages_split,
-    }
-    end = perf_counter()
-    print(f"Execution time for Query: {end - start:.6f} seconds\n")
+    # edge case
+    # w/ the way our sql queries are set up FGM needs to be included
+    # to find how many pts the player had in game
+    non_fgm_query = False
+    if opts.stat_type and "FGM" not in opts.stat_type:
+        print("STAT TYPE NOT NONE AND FGM NOT INCLUDED")
+        opts.stat_type.append("FGM")
+        print(opts.stat_type)
+        non_fgm_query = True
 
-    return JSONResponse(content=return_dict, status_code=200)
+    try:
+        # if fgm not in options
+        # add fgm to options, then sql query that w where clasue that says not fgm
+        print(f"FILTERED SEARCH - FOR |{opts.player_id}|")
+        query = build_plays_search_query_arrays(opts=opts)
+        result_dict = plays_query_executor(query=query, non_fgm=non_fgm_query)
+        pages_split = split_array_into_pages(
+            arr=result_dict["results"], df_cols=PLAYS_QUERY_COLUMNS_NAMES
+        )
+        return_dict = {
+            "len": result_dict["len"],
+            "page_count": len(pages_split.keys()),
+            "games_available": result_dict["games_available"],
+            "results": pages_split,
+        }
+        end = perf_counter()
+        print(f"Execution time for Query: {end - start:.6f} seconds\n")
+        return JSONResponse(content=return_dict, status_code=200)
+    except Exception as e:
+        print(
+            f"EXCEPTION OCCURED IN get_players_plays_arr\nEXCEPTION:{e}\nOPTIONS:{opts}"
+        )
+        return JSONResponse(status_code=404)
 
 
 @players_router.post("/samplePlays2")
@@ -331,6 +363,7 @@ async def get_sample_plays_for_player(player: Player):
         views = views + 1
     WHERE pid={player.pid};
     """
+    print(f"SAMPLE PLAYS - Updating views for |{player.pid}|")
     db.psy_cursor.execute(query)
 
     # get sample plays
