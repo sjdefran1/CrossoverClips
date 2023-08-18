@@ -185,6 +185,7 @@ export default function PlayerDash(props) {
             return b[1].playerpts - a[1].playerpts;
           }
         );
+        console.log(sortedList);
         // console.log(sortedList);
         setPagePlayDict(response.data.results);
         setPageCount(response.data.page_count);

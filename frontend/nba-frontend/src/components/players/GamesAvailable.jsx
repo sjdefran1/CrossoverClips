@@ -35,8 +35,8 @@ export default function GamesAvailable(props) {
 
   // When we change pages we need to update the games showing
   React.useEffect(() => {
-    let newStart = page === 1 ? 0 : page * 10;
-    let newEnd = page === 1 ? 10 : page * 10 + 10;
+    let newStart = page === 1 ? 0 : page * 8;
+    let newEnd = page === 1 ? 8 : page * 8 + 8;
 
     if (newEnd > props.gamesAvailable.length) {
       newEnd = props.gamesAvailable.length;
