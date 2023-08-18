@@ -168,7 +168,10 @@ async def get_players_plays_arr(
     Executes and creates return dict
 
     """
+    start = perf_counter()
     db.ping_db()
+    end = perf_counter()
+    print(f"PING DB EXEC TIME - {end - start:.6f} seconds")
     start = perf_counter()
 
     # edge case
