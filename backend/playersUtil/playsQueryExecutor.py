@@ -95,25 +95,17 @@ def plays_query_executor(query: str, non_fgm=False, samplePlays=0) -> dict:
 
     # Create view w/ base filter query
     print("\tPQE - EXECUTING VIEW CREATION")
-    start = perf_counter()
     db.psy_cursor.execute(query)
-    end = perf_counter()
-    print(f"PQE - Execution time AFTER View creation: {end - start:.6f} seconds\n")
 
     try:
         # Len of possible plays
-        start = perf_counter()
         db.psy_cursor.execute(f"select count(*) from {view_name}")
         results_dict["len"] = db.psy_cursor.fetchall()[0][0]
-        end = perf_counter()
-        print(f"PQE - Execution time AFTER len QUERY: {end - start:.6f} seconds\n")
 
         # get information for available games if its a filtered search
         # also need to sort plays by quarter/time when filtered search
         # else don't worry abt it reduce response time for sample play queries
         if samplePlays == 0:
-            print("\tPQE - EXECUTING STAT QUERY")
-            start = perf_counter()
             stat_query = AVAILABLE_GAMES_PTS_AST_BLKS_SQL.format(view_name)
             # build and execute stat query that returns PTS, BLKS, AST for available_games
             stat_query = "".join([stat_query, ORDER_BY_PLAY_ID_SQL])
@@ -121,15 +113,11 @@ def plays_query_executor(query: str, non_fgm=False, samplePlays=0) -> dict:
             results_dict["games_available"] = get_games_with_pts(
                 db.psy_cursor.fetchall()
             )
-            end = perf_counter()
-            print(
-                f"PQE - Execution time AFTER games_aviailable and pts: {end - start:.6f} seconds\n"
-            )
+
             # grab first 1000 plays to be returned to usr
             # if non_fgm we need to remove those rows after
             # finding how many pts the player scored that game
 
-            start = perf_counter()
             results_query = f"select * from {view_name}"
             if non_fgm:
                 results_query = results_query + " where ptype != 'FGM'"
@@ -138,11 +126,6 @@ def plays_query_executor(query: str, non_fgm=False, samplePlays=0) -> dict:
 
             # order by Game -> Quarter -> by ptime desc from 12:00
             results_dict["results"] = sort_plays(db.psy_cursor.fetchall())
-            end = perf_counter()
-            print(
-                f"PQE - Execution time for results and sorting query: {end - start:.6f} seconds\n"
-            )
-
         else:
             # We also don't want to order by row number here b/c we ordered by views
             # in the sample plays of top 20 viewed

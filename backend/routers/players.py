@@ -168,10 +168,7 @@ async def get_players_plays_arr(
     Executes and creates return dict
 
     """
-    start = perf_counter()
     db.ping_db()
-    end = perf_counter()
-    print(f"PING DB EXEC TIME - {end - start:.6f} seconds")
     start = perf_counter()
 
     # edge case
@@ -188,7 +185,6 @@ async def get_players_plays_arr(
         print(f"FILTERED SEARCH - FOR |{opts.player_id}|")
         query = build_plays_search_query_arrays(opts=opts)
         result_dict = plays_query_executor(query=query, non_fgm=non_fgm_query)
-        start2 = perf_counter()
         pages_split = split_array_into_pages(
             arr=result_dict["results"], df_cols=PLAYS_QUERY_COLUMNS_NAMES
         )
@@ -198,10 +194,6 @@ async def get_players_plays_arr(
             "games_available": result_dict["games_available"],
             "results": pages_split,
         }
-        end2 = perf_counter()
-        print(
-            f"Execution time for page split and return dict: {end2 - start2:.6f} seconds\n"
-        )
         end = perf_counter()
         print(f"Execution time for Query: {end - start:.6f} seconds\n")
         return JSONResponse(content=return_dict, status_code=200)
