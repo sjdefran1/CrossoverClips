@@ -1,27 +1,20 @@
+from time import perf_counter
 import uuid
 from json import loads
 
 import pandas as pd
-from psycopg2.extensions import cursor
 from dotenv import load_dotenv
-
 from routers import pgresdatabase as db
 
 load_dotenv()
 
-from playersUtil.playsQueryBuilder import (
-    build_plays_search_query_arrays,
-)
 from playersUtil.playSql import (
     AVAILABLE_GAMES_PTS_AST_BLKS_SQL,
     ORDER_BY_PLAY_ID_SQL,
-    PLAYS_QUERY_COLUMNS_NAMES,
     CREATE_VIEW,
     DROP_VIEW,
-    SAMPLE_PLAYS_FOR_PLAYER,
 )
 from playersUtil.table_schemas import *
-from playersUtil.RequestModels import PlayOptions, PlayOptionsArrays, Player, Update
 
 
 def generate_unique_view_name() -> str:
@@ -119,21 +112,27 @@ def plays_query_executor(query: str, non_fgm=False, samplePlays=0) -> dict:
 
             stat_query = "".join([stat_query, ORDER_BY_PLAY_ID_SQL])
             db.psy_cursor.execute(stat_query)
+            start = perf_counter()
             results_dict["games_available"] = get_games_with_pts(
                 db.psy_cursor.fetchall()
             )
-
+            end = perf_counter()
+            print(f"Execution time for GETTING PTS STRING: {end - start:.6f} seconds\n")
             # grab first 1000 plays to be returned to usr
             # if non_fgm we need to remove those rows after
             # finding how many pts the player scored that game
+
             results_query = f"select * from {view_name}"
             if non_fgm:
                 results_query = results_query + " where ptype != 'FGM'"
             results_query = results_query + " order by row_number asc limit 1000;"
             db.psy_cursor.execute(results_query)
 
+            start = perf_counter()
             # order by Game -> Quarter -> by ptime desc from 12:00
             results_dict["results"] = sort_plays(db.psy_cursor.fetchall())
+            end = perf_counter()
+            print(f"Execution time for SORTING PLAYS: {end - start:.6f} seconds\n")
         else:
             # We also don't want to order by row number here b/c we ordered by views
             # in the sample plays of top 20 viewed
