@@ -133,7 +133,7 @@ def plays_query_executor(query: str, non_fgm=False, samplePlays=0) -> dict:
             results_query = f"select * from {view_name}"
             if non_fgm:
                 results_query = results_query + " where ptype != 'FGM'"
-            results_query = results_query + " order by row_number asc limit 1000;"
+            results_query = results_query + " order by row_number asc limit 500;"
             db.psy_cursor.execute(results_query)
 
             # order by Game -> Quarter -> by ptime desc from 12:00
