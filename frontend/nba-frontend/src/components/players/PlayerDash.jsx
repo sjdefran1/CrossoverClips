@@ -176,6 +176,7 @@ export default function PlayerDash(props) {
 
   const submitFilteredSearchAxios = (options) => {
     setRequestLoading(true);
+    setFiltersShowing(false);
     axios
       .post(reqString + "players/plays2", options)
       .then((response) => {
@@ -213,7 +214,7 @@ export default function PlayerDash(props) {
       })
       .finally(() => {
         setRequestLoading(false);
-        setFiltersShowing(false);
+
         setGamesAvailableShowing(true);
 
         // console.log(gameShowing);
@@ -724,6 +725,9 @@ export default function PlayerDash(props) {
           {/* Video preview
               Plays List */}
           <Grid item xs={12} md={6} ml={1} mt={1}>
+            <Hidden smUp>
+              {requestLoading && <LinearProgress color='success' />}
+            </Hidden>
             {!bigVideoEnabled && (
               <VideoFrame
                 playArr={currentShowingPlays}
@@ -751,7 +755,9 @@ export default function PlayerDash(props) {
               )}
             </Hidden>
 
-            {requestLoading && <LinearProgress color='success' />}
+            <Hidden smDown>
+              {requestLoading && <LinearProgress color='success' />}
+            </Hidden>
             {!requestLoading && (
               <PlayersPlayList
                 playByPlay={currentShowingPlays}
