@@ -6,6 +6,7 @@ from datetime import datetime
 
 from fastapi import Request, APIRouter
 from fastapi.responses import JSONResponse
+from playersUtil.playsQueryExecutor import plays_query_executor
 import psycopg2
 import pandas as pd
 from dotenv import load_dotenv
@@ -18,25 +19,13 @@ from playersUtil.playsQueryBuilder import (
     build_plays_search_query_arrays,
 )
 from playersUtil.playSql import (
-    AVAILABLE_GAMES_SQL,
-    AVAILABLE_GAMES_SQL_2,
-    AVAILABLE_GAMES_SQL_3,
     PLAYS_QUERY_COLUMNS_NAMES,
-    CREATE_VIEW,
-    DROP_VIEW,
     SAMPLE_PLAYS_FOR_PLAYER,
 )
 from playersUtil.table_schemas import *
 from playersUtil.RequestModels import PlayOptions, PlayOptionsArrays, Player, Update
 
 players_router = APIRouter(prefix="/players")
-
-
-def generate_unique_view_name() -> str:
-    """Creates unique temp view name for query"""
-    # temp_table_539c35fb19024e7880738152f7743f89
-    # removes - per postgres standars
-    return ("temp_table_" + str(uuid.uuid4()).replace("-", "")).lower()
 
 
 def split_array_into_pages(arr: list, df_cols: list, page_length=5) -> dict:
@@ -56,125 +45,6 @@ def split_array_into_pages(arr: list, df_cols: list, page_length=5) -> dict:
         page_dict[page] = loads(df.to_json(orient="records"))
 
     return page_dict
-
-
-def sort_plays(plays: list) -> list:
-    """
-    Ensures that plays are in order for user
-
-    Instead of returning all FGM then BLK etc it orders them by time and quarter
-    """
-
-    def custom_sort_key(play):
-        gid = play[2]  # GID
-        quarter = play[10]
-        ptime = play[9]
-        # Convert quarter and ptime to a sortable value
-        quarter_value = int(quarter) * 1000 - int(ptime.replace(":", ""))
-        return (gid, quarter_value)
-
-    sorted_plays = sorted(plays, key=custom_sort_key)
-    return sorted_plays
-
-
-def get_games_with_pts(rows: list):
-    """
-    Parses last description str for play in game and returns point value
-    """
-
-    def get_pts_from_description(desc: str):
-        return int(desc.split("(")[1].split(")")[0].split(" ")[0])
-
-    df = pd.DataFrame(
-        data=rows,
-        columns=[
-            "gid",
-            "playid",
-            "playerpts",
-            "matchupstr",
-            "atid",
-            "htid",
-            "sznstr",
-            "hwl",
-            "hpts",
-            "apts",
-            "views",
-            "date",
-            "pwl",
-            "ast_count",
-            "blk_count",
-        ],
-    )
-    df.set_index("gid", inplace=True)
-
-    df["playerpts"] = df["playerpts"].apply(get_pts_from_description)
-    return loads(df.to_json(orient="index"))
-
-
-def plays_query_executor(query: str, samplePlays=0) -> dict:
-    """
-    - Creates view using provided query
-    - View adds a row_number column that allows for pagination and offsets
-    - Selects all results as well as len and stores them in a dict
-    - Gathers Player PTS, AST, BLK counts for game
-    - Sorts Plays by time that happened rather by statype like they are stored
-    - Drops view
-
-    Returns empty lists for dict keys on exceptions
-    """
-    results_dict = {}
-    view_name = generate_unique_view_name()
-    add_str = CREATE_VIEW.format(view_name)
-    query = "".join([add_str, query])
-
-    # Create view w/ base filter query
-    print("Executing View Creation")
-    print(query)
-    db.psy_cursor.execute(query)
-
-    try:
-        # Len of possible plays
-        db.psy_cursor.execute(f"select count(*) from {view_name}")
-        results_dict["len"] = db.psy_cursor.fetchall()[0][0]
-
-        # get information for available games if its a filtered search
-        # also need to sort plays by quarter/time when filtered search
-        # else don't worry abt it reduce response time
-        if samplePlays == 0:
-            # Get all available games w/ the last fgm made from it
-            print("Executing stat query" + f"\n{'-' * 50}")
-            db.psy_cursor.execute(AVAILABLE_GAMES_SQL_3.format(view_name))
-            results_dict["games_available"] = get_games_with_pts(
-                db.psy_cursor.fetchall()
-            )
-
-            db.psy_cursor.execute(
-                f"select * from {view_name} order by row_number asc limit 1000;"
-            )
-            sorted_plays = sort_plays(db.psy_cursor.fetchall())
-            results_dict["results"] = sorted_plays
-        else:
-            # We also don't want to order by row number here b/c we ordered by views
-            # in the sample plays of top 20 viewed
-            db.psy_cursor.execute(f"select * from {view_name} limit 20;")
-            results_dict["results"] = db.psy_cursor.fetchall()
-            results_dict["games_available"] = []
-
-    except Exception as e:
-        # no results will throw error when try to fetchall
-        # manually set dict drop view and return
-        print(e)
-        results_dict["len"] = 0
-        results_dict["results"] = []
-        results_dict["games_available"] = []
-        print(f"Dropping VIEW\n{DROP_VIEW.format(view_name)}")
-        db.psy_cursor.execute(DROP_VIEW.format(view_name))
-        return results_dict
-
-    # drop view
-    print(f"Dropping VIEW\n{DROP_VIEW.format(view_name)}")
-    db.psy_cursor.execute(DROP_VIEW.format(view_name))
-    return results_dict
 
 
 @players_router.get("/teams")
@@ -234,7 +104,7 @@ async def register_or_update_viewer(req: Request) -> JSONResponse:
     ip_exists = db.psy_cursor.fetchone()[0] > 0
 
     if ip_exists:
-        print(f"Returning user! {req.client.host}")
+        print(f"USER INFORMATION - Returning user! |{req.client.host}|")
         # user has visited before
         # get current time as str and then convert back into timestamp
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
@@ -252,7 +122,7 @@ async def register_or_update_viewer(req: Request) -> JSONResponse:
     else:
         # new user
         # insert ip and set visit count to 1
-        print(f"New user! {req.client.host}")
+        print(f"USER INFORMATION - New user! |{req.client.host}|")
 
         query = f"""
         INSERT INTO viewers (ip, visit_count) VALUES ('{req.client.host}', 1);    
@@ -294,26 +164,44 @@ async def get_players_plays_arr(
     Main Functionality of player dashboard
 
     Uses build_plays_search_query to create a sql query for the requested
-    options
+
+    Executes and creates return dict
+
     """
-    start = perf_counter()
     db.ping_db()
+    start = perf_counter()
 
-    query = build_plays_search_query_arrays(opts=opts)
-    result_dict = plays_query_executor(query=query)
-    pages_split = split_array_into_pages(
-        arr=result_dict["results"], df_cols=PLAYS_QUERY_COLUMNS_NAMES
-    )
-    return_dict = {
-        "len": result_dict["len"],
-        "page_count": len(pages_split.keys()),
-        "games_available": result_dict["games_available"],
-        "results": pages_split,
-    }
-    end = perf_counter()
-    print(f"Execution time for Query: {end - start:.6f} seconds\n")
+    # edge case
+    # w/ the way our sql queries are set up FGM needs to be included
+    # to find how many pts the player had in game
+    non_fgm_query = False
+    if opts.stat_type and "FGM" not in opts.stat_type:
+        opts.stat_type.append("FGM")
+        non_fgm_query = True
 
-    return JSONResponse(content=return_dict, status_code=200)
+    try:
+        # if fgm not in options
+        # add fgm to options, then sql query that w where clasue that says not fgm
+        print(f"FILTERED SEARCH - FOR |{opts.player_id}|")
+        query = build_plays_search_query_arrays(opts=opts)
+        result_dict = plays_query_executor(query=query, non_fgm=non_fgm_query)
+        pages_split = split_array_into_pages(
+            arr=result_dict["results"], df_cols=PLAYS_QUERY_COLUMNS_NAMES
+        )
+        return_dict = {
+            "len": result_dict["len"],
+            "page_count": len(pages_split.keys()),
+            "games_available": result_dict["games_available"],
+            "results": pages_split,
+        }
+        end = perf_counter()
+        print(f"Execution time for Query: {end - start:.6f} seconds\n")
+        return JSONResponse(content=return_dict, status_code=200)
+    except Exception as e:
+        print(
+            f"EXCEPTION OCCURED IN get_players_plays_arr\nEXCEPTION:{e}\nOPTIONS:{opts}"
+        )
+        return JSONResponse(status_code=404)
 
 
 @players_router.post("/samplePlays2")
@@ -331,20 +219,19 @@ async def get_sample_plays_for_player(player: Player):
         views = views + 1
     WHERE pid={player.pid};
     """
+    print(f"SAMPLE PLAYS - Updating views for |{player.pid}|")
     db.psy_cursor.execute(query)
 
     # get sample plays
     result_dict = plays_query_executor(
-        SAMPLE_PLAYS_FOR_PLAYER.format(player.pid), samplePlays=1
+        SAMPLE_PLAYS_FOR_PLAYER.format(player.pid),
+        samplePlays=1,
     )
-    # print(result_dict)
+
     pages_split = split_array_into_pages(
         arr=result_dict["results"], df_cols=PLAYS_QUERY_COLUMNS_NAMES
     )
-    # print(pages_split)
-    # print(pages_split)
 
-    # df = pd.DataFrame(data=result_dict["results"], columns=PLAYS_QUERY_COLUMNS_NAMES)
     return_dict = {
         "len": result_dict["len"],
         "page_count": len(pages_split.keys()),
@@ -352,7 +239,6 @@ async def get_sample_plays_for_player(player: Player):
     }
 
     db.psyconn.commit()
-
     return JSONResponse(content=return_dict, status_code=200)
 
 
