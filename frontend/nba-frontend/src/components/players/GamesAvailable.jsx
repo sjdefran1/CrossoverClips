@@ -163,7 +163,7 @@ export default function GamesAvailable(props) {
                         <ListItemButton
                           onClick={() => props.getPlaysByGameID(game[0])}>
                           <Grid container>
-                            <Grid item sm={12} md={6} justifyContent={"center"}>
+                            <Grid item xs={6} justifyContent={"center"}>
                               <Stack
                                 direction={"row"}
                                 spacing={1}
@@ -177,10 +177,15 @@ export default function GamesAvailable(props) {
                                     "/primary/L/logo.svg"
                                   }
                                 />
-                                <Typography variant='subtitle2'>
-                                  {game[1].matchupstr}
-                                </Typography>
+                                <Hidden smDown>
+                                  <Typography variant='subtitle2'>
+                                    {game[1].matchupstr}
+                                  </Typography>
+                                </Hidden>
 
+                                <Hidden smUp>
+                                  <Typography variant='subtitle2'>@</Typography>
+                                </Hidden>
                                 <Avatar
                                   src={
                                     "https://cdn.nba.com/logos/nba/" +
@@ -199,7 +204,7 @@ export default function GamesAvailable(props) {
                               </Stack>
                             </Grid>
 
-                            <Grid item sm={12} md={6}>
+                            <Grid item xs={6}>
                               <Stack
                                 direction={"row"}
                                 justifyContent={"center"}
