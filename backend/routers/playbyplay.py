@@ -87,5 +87,5 @@ async def get_play_by_play_by_gameid(req: PlayByPlayStr):
             "players": players,
         }
         return JSONResponse(content=return_dict)
-    except Excpetion as e:
+    except Exception as e:
         return None
