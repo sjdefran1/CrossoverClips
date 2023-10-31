@@ -155,3 +155,100 @@ GROUP BY date_part;
 
 
 
+
+
+-- 
+with sample as (
+select distinct
+    p1.*,
+    m.matchupstr,
+    m.gtype,
+    m.date,
+    m.sznstr,
+    m.htid,
+    m.atid,
+    m.views as game_views,
+    ROW_NUMBER () OVER (ORDER BY p1.pid) AS row_number,
+    case
+        when m.atid = p1.tid then m."HWL"
+        when m.htid = p1.tid then m."AWL"
+    end as wl,
+    case
+        when m.atid = p1.tid then m.htid
+        when m.htid = p1.tid then m.atid
+    end as mid
+from plays p1
+join teams t on
+    t.tid=p1.tid
+join matchups m on
+
+p1.gid = m.gid
+
+where p1.pid=2544 and p1.gid=m.gid
+
+and p1.ptype in ('BLK', 'FGM')
+
+ORDER BY playid),
+
+ast_count AS (
+        SELECT s.gid, COUNT(*) AS ast_count
+        FROM sample s
+        WHERE s.ptype = 'AST'
+        GROUP BY s.gid
+    ),
+blk_count AS (
+        SELECT s.gid, COUNT(*) AS blk_count
+        FROM sample s
+        WHERE s.ptype = 'BLK'
+        GROUP BY s.gid
+    ),
+pts_query as (
+    SELECT
+        s.gid,
+        s.playid,
+        s.description,
+        s.matchupstr,
+        s.ptype,
+        s.sznstr,
+        s.date,
+        s.tid,
+        ROW_NUMBER() OVER (PARTITION BY s.gid ORDER BY s.playid DESC) AS rn
+    FROM
+        sample s
+    WHERE
+        s.ptype = 'FGM'
+    )
+    
+SELECT
+    f.gid,
+    f.playid,
+    f.description,
+    f.matchupstr,
+    m.atid,
+    m.htid,
+    f.sznstr,
+    m."HWL",
+    m."HPTS",
+    m."APTS",
+    m.views,
+    f.date,
+    f.rn,
+    case
+        when m.atid = f.tid then m."HWL"
+        when m.htid = f.tid then m."AWL"
+    end as pwl,
+    COALESCE(ast_count.ast_count, 0) AS ast_count, -- Add AST count with default value 0
+    COALESCE(blk_count.blk_count, 0) AS blk_count -- Add BLK count with default value 0
+FROM
+    pts_query f
+JOIN
+    matchups m ON f.gid = m.gid
+LEFT JOIN
+    ast_count ON f.gid = ast_count.gid
+LEFT JOIN
+    blk_count ON f.gid = blk_count.gid
+
+WHERE
+    f.rn = 1
+
+ORDER BY playid;

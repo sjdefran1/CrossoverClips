@@ -85,29 +85,29 @@ export default function Main(props) {
       // };
 
       //OLD CORRECT LOGIC
-      // setValue(dayjs().subtract(1, "day").toString());
-      // getGamesAxios(value);
+      setValue(dayjs().subtract(1, "day").toString());
+      getGamesAxios(value);
 
       //TODO TEMP IF NEED TO REMOVE
-      if (dayjs("2023-06-12").isBefore(dayjs(value))) {
-        setValue(dayjs("2023-06-12").toString());
-        let str = "/byDate/2023-06-12";
-        navigate(str);
-        getGamesAxios("2023-06-12");
-      } else {
-        getGamesAxios(value);
-        let str = "/byDate/" + dayjs(value).format("YYYY-MM-DD").toString();
-        console.log(str);
-        navigate(str);
-      }
+      // if (dayjs("2023-06-12").isBefore(dayjs(value))) {
+      //   setValue(dayjs("2023-06-12").toString());
+      //   let str = "/byDate/2023-06-12";
+      //   navigate(str);
+      //   getGamesAxios("2023-06-12");
+      // } else {
+      //   getGamesAxios(value);
+      //   let str = "/byDate/" + dayjs(value).format("YYYY-MM-DD").toString();
+      //   console.log(str);
+      //   navigate(str);
+      // }
 
-      // navigate("/byDate/" + value.format("YYYY-MM-DD"), {
-      //   state: {
-      //     tabValueLink: 1,
-      //     selectedTeamsLink: [{}, {}],
-      //     valueLink: value.format("YYYY-MM-DD"),
-      //   },
-      // });
+      navigate("/byDate/" + value.format("YYYY-MM-DD"), {
+        state: {
+          tabValueLink: 1,
+          selectedTeamsLink: [{}, {}],
+          valueLink: value.format("YYYY-MM-DD"),
+        },
+      });
     }
     if (newVal === 2) {
       navigate("/downloadHelp");
@@ -204,6 +204,10 @@ export default function Main(props) {
     background-position: 0% 70%;
   }`;
 
+  const linkToPlayerDash = () => {
+    navigate("/playerBeta");
+  };
+
   return (
     <>
       <Container maxWidth='xl' sx={{ mt: 1 }}>
@@ -227,7 +231,20 @@ export default function Main(props) {
               </Box>
             </Grid>
           </Grid> */}
-
+          <Alert
+            severity='info'
+            color='success'
+            sx={{ justifyContent: "center", alignItems: "center" }}>
+            Try out the new player dashboard feature (Still buggy)
+            <Button
+              onClick={() => linkToPlayerDash()}
+              size='small'
+              variant='outlined'
+              color='success'
+              sx={{ mx: 1 }}>
+              See Beta
+            </Button>
+          </Alert>
           <Paper
             elevation={1}
             sx={{ padding: 2, borderRadius: 2, minHeight: "70vh" }}>
@@ -320,9 +337,7 @@ export default function Main(props) {
                           value={value}
                           showToolbar={false}
                           minDate={dayjs("2014-10-28")}
-                          maxDate={dayjs("2023-06-12")} //TODO fix
-                          // className='calendar'
-                          // shouldDisableDate={isWeekend}
+                          maxDate={dayjs().format("YYYY-MM-DD")}
                           onChange={(newValue) => {
                             navigate(
                               "/byDate/" + newValue.format("YYYY-MM-DD"),

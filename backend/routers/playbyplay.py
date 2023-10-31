@@ -68,19 +68,24 @@ async def get_play_by_play_by_gameid(req: PlayByPlayStr):
         ],
     )
 
-    plays = loads(df.to_json(orient="records"))
-    players = loads(
-        df[["teamID", "pname", "playerID"]].drop_duplicates().to_json(orient="values")
-    )
-    team_ids = df["teamID"].drop_duplicates().tolist()  # [1610612743, 1610612742]
-    num_quarters = max(df["quarter"].tolist())
-    gid = df["gameID"][0]
+    try:
+        plays = loads(df.to_json(orient="records"))
+        players = loads(
+            df[["teamID", "pname", "playerID"]]
+            .drop_duplicates()
+            .to_json(orient="values")
+        )
+        team_ids = df["teamID"].drop_duplicates().tolist()  # [1610612743, 1610612742]
+        num_quarters = max(df["quarter"].tolist())
+        gid = df["gameID"][0]
 
-    return_dict = {
-        "game_id": gid,
-        "number_quarters": num_quarters,
-        "team_ids": team_ids,
-        "plays": plays,
-        "players": players,
-    }
-    return JSONResponse(content=return_dict)
+        return_dict = {
+            "game_id": gid,
+            "number_quarters": num_quarters,
+            "team_ids": team_ids,
+            "plays": plays,
+            "players": players,
+        }
+        return JSONResponse(content=return_dict)
+    except Excpetion as e:
+        return None

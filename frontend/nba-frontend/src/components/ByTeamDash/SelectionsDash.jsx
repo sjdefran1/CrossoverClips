@@ -140,11 +140,11 @@ export default function SelectionsDash(props) {
             <Typography variant='body2' color={"text.secondary"}>
               Seasons:
             </Typography>
-            {seasonsSelected?.length === 8 && (
+            {seasonsSelected?.length === 9 && (
               <Chip label='Any' sx={{ mx: 0.5, my: 0.5 }} />
             )}
             <Grid item xs={12}>
-              {seasonsSelected?.length !== 8 &&
+              {seasonsSelected?.length !== 9 &&
                 seasonsSelected?.map((season) => (
                   <React.Fragment key={season}>
                     <Grow in timeout={600}>

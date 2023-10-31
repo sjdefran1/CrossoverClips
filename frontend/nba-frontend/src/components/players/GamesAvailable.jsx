@@ -81,7 +81,6 @@ export default function GamesAvailable(props) {
     }
   }, [props.gamesAvailable]);
 
-  console.log(props.gameShowing);
   return (
     <>
       <Paper

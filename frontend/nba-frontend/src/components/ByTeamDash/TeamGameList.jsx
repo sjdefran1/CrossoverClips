@@ -28,6 +28,7 @@ export default function TeamGameList(props) {
       "2020-21",
       "2021-22",
       "2022-23",
+      "2023-24",
     ].reverse()
   );
 

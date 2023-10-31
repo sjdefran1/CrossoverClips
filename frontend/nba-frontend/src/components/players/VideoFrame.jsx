@@ -28,7 +28,6 @@ export default function VideoFrame(props) {
   const [showProgressBar, setShowProgressBar] = React.useState(null);
   const navigate = useNavigate();
   const handleLoad = () => {
-    console.log("loaded");
     setShowProgressBar(false);
   };
   const handleChange = (event) => {
@@ -95,11 +94,10 @@ export default function VideoFrame(props) {
     return newViewsVal;
   };
 
-  React.useEffect(() => {
-    console.log("Show progress bar changed");
-  }, [showProgressBar]);
+
 
   // updates first play shown view
+  // TODO: NEED TO UNCCOMENT WHEN BACK IN PROD
   // React.useEffect(() => {
   //   let playArrCopy = [...props.playArr.plays];
   //   playArrCopy[0].views = playArrCopy[0].views + 1;

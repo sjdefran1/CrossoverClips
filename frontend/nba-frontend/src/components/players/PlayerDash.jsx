@@ -19,6 +19,7 @@ import {
   Fade,
   Hidden,
   LinearProgress,
+  Typography,
 } from "@mui/material";
 
 import { MyChip, setDictFalse, findTrueKeys } from "./PlayerDashUtil.jsx";
@@ -47,8 +48,7 @@ import GameShowingDash from "./GameShowingDash.jsx";
 export default function PlayerDash(props) {
   // season filter
   const [seasonsSelected, setSeasonsSelected] = React.useState([]);
-  //
-  // const [playArr, setPlayArr] = React.useState(plays);
+
   const [currentUrl, setCurrentUrl] = React.useState("");
   const [filtersShowing, setFiltersShowing] = React.useState(true);
   const [bigVideoEnabled, setBigVideoEnabled] = React.useState(false);
@@ -58,9 +58,10 @@ export default function PlayerDash(props) {
   const [pageCount, setPageCount] = React.useState(1);
   const [currentShowingPlays, setCurrentShowingPlays] = React.useState();
 
-  // loading status
+  // loading status / request utils
   const [requestLoading, setRequestLoading] = React.useState(true);
   const [gidRequestLoading, setGidRequestLoading] = React.useState(false);
+  const [noResultsFound, setNoResultsFound] = React.useState(false);
   // new implementation
 
   const [pagePlayDict, setPagePlayDict] = React.useState({});
@@ -116,6 +117,10 @@ export default function PlayerDash(props) {
   const [teamsPlayerOn, setTeamsPlayerOn] = React.useState([]);
   const [matchups, setMatchups] = React.useState([]);
 
+  /**
+   * Creates copies of each filter dictionary then
+   * sets all of there keys to false, then updates actual dicts
+   */
   const clearFilters = () => {
     let clearedQuarters = setDictFalse(quarterDict);
     let clearedSeasonType = setDictFalse(seasonTypeDict);
@@ -129,11 +134,18 @@ export default function PlayerDash(props) {
     setSeasonsSelected([]);
   };
 
+  /**
+   *
+   * @param {*} newPlayer
+   */
   const clearFiltersAndGetSamplePlays = async (newPlayer) => {
     setCurrentPlayer(newPlayer);
     clearFilters();
   };
 
+  /**
+   * Uses filter dictionaries to create parameters for backend
+   */
   const createSearchResults = () => {
     let quarterOptions = findTrueKeys(quarterDict);
     let seasonTypeOptions = findTrueKeys(seasonTypeDict);
@@ -169,26 +181,37 @@ export default function PlayerDash(props) {
       season: seasonsOptions,
       home_away: homeAwayOptions,
     };
-    // console.log(requestOptions);
+
     // submit request
     submitFilteredSearchAxios(requestOptions);
   };
 
+  /**
+   * Request made to backend when user clicks either of the submit buttons
+   *
+   * On recieving response it sets all necessary variables for page to render
+   *
+   * @param {*} options dictionary made from createSearchResults
+   */
   const submitFilteredSearchAxios = (options) => {
     setRequestLoading(true);
     setFiltersShowing(false);
     axios
       .post(reqString + "players/plays2", options)
       .then((response) => {
+        // sorts games avaialble games by pts scored
         let sortedList = Object.entries(response.data.games_available).sort(
           function (a, b) {
             return b[1].playerpts - a[1].playerpts;
           }
         );
-        console.log(sortedList);
-        // console.log(sortedList);
+
+        // set original play dictionary that wont be manipulated
         setPagePlayDict(response.data.results);
+
+        // amount of PLAY pages returned
         setPageCount(response.data.page_count);
+
         setGamesAvailable(sortedList);
         setGamesAvailableDictionary(response.data.games_available);
 
@@ -200,7 +223,12 @@ export default function PlayerDash(props) {
           response.data.games_available[firstGameInResultsGID],
         ]);
 
+        // start on first page
         setPage(1);
+        // start on first play
+        setPlayArrowIndex(0);
+
+        // store amt of plays avaialble to show
         setLenPlaysAvailable(response.data.len);
 
         if (response.data.len > 0) {
@@ -211,14 +239,14 @@ export default function PlayerDash(props) {
 
           setCurrentShowingPlays(newDict);
           setCurrentUrl(newDict.plays[0].url);
+          setGamesAvailableShowing(true);
+        } else {
+          setGamesAvailableShowing(false);
+          setNoResultsFound(true);
         }
       })
       .finally(() => {
         setRequestLoading(false);
-
-        setGamesAvailableShowing(true);
-
-        // console.log(gameShowing);
       });
   };
 
@@ -432,28 +460,31 @@ export default function PlayerDash(props) {
           <Grid item xs={12} md={5.5} sx={{ my: 1 }}>
             {/* Game Showing above playercard when fullscreen */}
             {/* If user enters new search we need to temp remove these */}
-            {gamesAvailableShowing && bigVideoEnabled && !requestLoading && (
-              <Fade in={true} timeout={500}>
-                <div>
-                  <Hidden smDown>
-                    <GameShowingDash
-                      gameShowing={gameShowing}
-                      currentPlayer={currentPlayer}
-                    />
+            {gamesAvailableShowing &&
+              bigVideoEnabled &&
+              !requestLoading &&
+              !noResultsFound && (
+                <Fade in={true} timeout={500}>
+                  <div>
+                    <Hidden smDown>
+                      <GameShowingDash
+                        gameShowing={gameShowing}
+                        currentPlayer={currentPlayer}
+                      />
 
-                    <GamesAvailable
-                      gamesAvailable={gamesAvailable}
-                      getPlaysByGameID={getPlaysByGameID}
-                      gidRequestLoading={gidRequestLoading}
-                      currentPlayer={currentPlayer}
-                      currentShowingPlay={currentShowingPlays[playArrowIndex]}
-                      gameShowing={gameShowing}
-                      setGameShowing={setGameShowing}
-                    />
-                  </Hidden>
-                </div>
-              </Fade>
-            )}
+                      <GamesAvailable
+                        gamesAvailable={gamesAvailable}
+                        getPlaysByGameID={getPlaysByGameID}
+                        gidRequestLoading={gidRequestLoading}
+                        currentPlayer={currentPlayer}
+                        currentShowingPlay={currentShowingPlays[playArrowIndex]}
+                        gameShowing={gameShowing}
+                        setGameShowing={setGameShowing}
+                      />
+                    </Hidden>
+                  </div>
+                </Fade>
+              )}
 
             <PlayerCard2
               bigVideoEnabled={bigVideoEnabled}
@@ -462,28 +493,31 @@ export default function PlayerDash(props) {
 
             {/* Games Available below when fullscreenoff */}
             {/* If user enters new search we need to temp remove these */}
-            {gamesAvailableShowing && !bigVideoEnabled && !requestLoading && (
-              <Fade in={true} timeout={500}>
-                <div>
-                  <Hidden smDown>
-                    <GameShowingDash
-                      gameShowing={gameShowing}
-                      currentPlayer={currentPlayer}
-                    />
+            {gamesAvailableShowing &&
+              !bigVideoEnabled &&
+              !requestLoading &&
+              !noResultsFound && (
+                <Fade in={true} timeout={500}>
+                  <div>
+                    <Hidden smDown>
+                      <GameShowingDash
+                        gameShowing={gameShowing}
+                        currentPlayer={currentPlayer}
+                      />
 
-                    <GamesAvailable
-                      gamesAvailable={gamesAvailable}
-                      getPlaysByGameID={getPlaysByGameID}
-                      currentPlayer={currentPlayer}
-                      gidRequestLoading={gidRequestLoading}
-                      currentShowingPlay={currentShowingPlays[playArrowIndex]}
-                      gameShowing={gameShowing}
-                      setGameShowing={setGameShowing}
-                    />
-                  </Hidden>
-                </div>
-              </Fade>
-            )}
+                      <GamesAvailable
+                        gamesAvailable={gamesAvailable}
+                        getPlaysByGameID={getPlaysByGameID}
+                        currentPlayer={currentPlayer}
+                        gidRequestLoading={gidRequestLoading}
+                        currentShowingPlay={currentShowingPlays[playArrowIndex]}
+                        gameShowing={gameShowing}
+                        setGameShowing={setGameShowing}
+                      />
+                    </Hidden>
+                  </div>
+                </Fade>
+              )}
 
             {/* Mobile view of Filter info */}
             <Hidden smUp>
@@ -759,7 +793,7 @@ export default function PlayerDash(props) {
             <Hidden smDown>
               {requestLoading && <LinearProgress color='success' />}
             </Hidden>
-            {!requestLoading && (
+            {!requestLoading && !noResultsFound && (
               <PlayersPlayList
                 playByPlay={currentShowingPlays}
                 playInVideoPlayer={currentShowingPlays?.plays[playArrowIndex]}
@@ -784,8 +818,7 @@ export default function PlayerDash(props) {
           {/* end of whole grid */}
         </Grid>
       </Container>
-
-      <NbaFooter />
+]\      <NbaFooter />
     </>
   );
 }

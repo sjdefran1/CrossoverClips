@@ -42,7 +42,15 @@ export default function SinglePlay(props) {
         responseType: "blob",
       })
       .then((res) => {
-        fileDownload(res.data, props.play.description + ".mp4");
+        let filename =
+          "Q" +
+          props.play.quarter +
+          "_m" +
+          props.play.time.replace(":", "-s") +
+          "_" +
+          props.play.description +
+          ".mp4";
+        fileDownload(res.data, filename);
         setIsLoading(false);
       });
 

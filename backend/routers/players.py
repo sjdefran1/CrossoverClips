@@ -47,18 +47,6 @@ def split_array_into_pages(arr: list, df_cols: list, page_length=5) -> dict:
     return page_dict
 
 
-@players_router.get("/teams")
-async def get_all_teams_controller() -> JSONResponse:
-    """Returns all teams"""
-    db.ping_db()
-    db.psy_cursor.execute("SELECT * FROM teams")
-    ret_list = []
-    for res in db.psy_cursor.fetchall():
-        ret_list.append(res)
-
-    return JSONResponse(content=ret_list)
-
-
 @players_router.post("/updatePlayViewCount")
 async def update_play_view_count(update: Update):
     """Temp view tracker until playbyplay setup"""
@@ -240,6 +228,26 @@ async def get_sample_plays_for_player(player: Player):
 
     db.psyconn.commit()
     return JSONResponse(content=return_dict, status_code=200)
+
+
+@players_router.post("/lastSecondShots")
+async def get_player_last_second_shots(player: Player):
+    db.ping_db()
+
+    db.psy_cursor.execute(
+        f"select * from plays where pid={player.pid} and quarter >= 4 and ptype='FGM'"
+    )
+    df = pd.DataFrame(data=db.psy_cursor.fetchall())
+    # Convert 'ptime' column to Timedelta
+    df[9] = pd.to_timedelta(df[9] + ":00")
+
+    # Create condition to filter rows
+    condition = df[9] > pd.Timedelta(seconds=5)
+
+    # Drop rows based on the condition
+    df = df[~condition]
+
+    return loads(df.to_json(orient="records"))
 
 
 if __name__ == "__main__":
