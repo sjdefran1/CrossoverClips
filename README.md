@@ -64,12 +64,12 @@ CC allows you to download the clip directly to your device. Works on Desktop and
 
 ---
 # Roadmap
-- [ ] Highlight Views (how many times has highlight been viewed/clicked)
-- [ ] Player Dashboards (most viewed plays, plays against matchups, etc)
-- [ ] Possible migration mongodb -> postgres (NeonDB)
+- [ x ] Highlight Views (how many times has highlight been viewed/clicked)
+- [ x ] Player Dashboards (most viewed plays, plays against matchups, etc)
+- [ x ] Possible migration mongodb -> postgres (NeonDB)
 - [ ] Redo some React Components (reduce overcomplexity)
-- [ ] Better Routing to allow for improved history/state retention
-- [ ] Fix UI bugs
+- [ x ] Better Routing to allow for improved history/state retention
+- [ x ] Fix UI bugs
 ---
 
 # Built With
