@@ -1,0 +1,13 @@
+dependencies:
+  - jupyter
+  - matplotlib
+  - numpy
+  - psycopg2
+  - pylint
+  - fastapi
+  - requests
+  - pymongo
+  - APScheduler
+  - python-dotenv
+  - uvicorn
+  - 
