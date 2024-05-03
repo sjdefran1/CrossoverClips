@@ -1,10 +1,6 @@
 import os
 import psycopg2
 
-# psy_cursor = None
-# psyconn = None
-
-
 def create_connections() -> None:
     """Makes connection w/ postgres db, declares psy_cursor and psyconn globally"""
     global psy_cursor
@@ -13,9 +9,9 @@ def create_connections() -> None:
     psyconn = psycopg2.connect(
         host=os.getenv("NEONHOST"),
         port=os.getenv("NEONPORT"),
-        user=os.getenv("USER"),
-        database=os.getenv("DATABASE"),
-        password=os.getenv("PASSWORD"),
+        user=os.getenv("PGUSER"),
+        database=os.getenv("PGDATABASE"),
+        password=os.getenv("PGPASSWORD"),
     )
     psy_cursor = psyconn.cursor()
     print("\tFINISHED")

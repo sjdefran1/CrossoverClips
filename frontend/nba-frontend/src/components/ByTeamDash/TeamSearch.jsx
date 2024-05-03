@@ -46,13 +46,6 @@ export default function TeamSearch(props) {
 
   //every time team is selected update parent
   React.useEffect(() => {
-    // //-----------------
-    // console.log("TeamSearch pre useeffect ids");
-    // console.log(props.getSelectedTeamsParent);
-    //----------------------
-    //console.log("TeamSearch UseEffect fire");
-    // console.log("ids");
-    // console.log(props.teamsSelectedIDS);
     if (props.teamSelectedIDS?.length === 0) {
       setValue([]);
       setTeamNameCompleteList([]);
@@ -72,10 +65,6 @@ export default function TeamSearch(props) {
     // console.log("TeamSearch post useeffect ids");
     // console.log(props.getSelectedTeamsParent);
   }, [props.teamsSelectedIDS, teamList]);
-
-  // React.useEffect(() => {
-  //   props.setTeamsSelectedIDS(props.getSelectedTeamsParent);
-  // }, [props.getSelectedTeamsParent]);
 
   const handleTeamSelect = (team) => {
     //console.log("fired");
@@ -109,23 +98,10 @@ export default function TeamSearch(props) {
       teamNameIdList.push(newTeamParams);
       teamNameList.push(newTeam.full_name);
     }
-    teamNameIdList.sort((e1, e2) => e1.label < e2.label);
+    teamNameIdList.sort((e1, e2) => e1.label < e2.label); //alphabetical order
     console.log(teamNameIdList);
     setIsLoading(false);
   };
-
-  // const getTeamsAxios = () => {
-  //   axios
-  //     // .post("http://localhost:8000/teams")
-  //     .post("https://nbaclipfinder4-1-u4961891.deta.app/teams")
-  //     .then((response) => {
-  //       setTeamList(response.data);
-  //       setIsLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
 
   const getTeamsAxios = () => {
     axios
