@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
+import NbaFooter from "../components/NbaFooter";
 // import NavBar from "../components/NavBar";
 
 export default function Root() {
@@ -23,7 +24,7 @@ export default function Root() {
       <div>
         <Outlet />
       </div>
-      <h5>This is in Root but below players</h5>
+      <NbaFooter />
     </>
   );
 }

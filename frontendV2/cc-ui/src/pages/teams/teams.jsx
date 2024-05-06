@@ -24,10 +24,17 @@ import { resetTeamPage } from "./teamSlice";
 export default function Teams() {
   const teams = useSelector((state) => state.teams);
   const gamesAvailableBool = Object.keys(teams.gamesFound).length === 0;
-
   const dispatch = useDispatch();
+  const [expanded, setExpanded] = React.useState("panel1");
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
+
+  // Retrieve Teams on Load
   React.useEffect(() => {
     dispatch(fetchTeamsAxios());
+    // eslint-disable-next-line
   }, []);
 
   /* TODO: fix dumb backend logic to clean this tf up */
@@ -62,9 +69,13 @@ export default function Teams() {
       <h3>Teams</h3>
       <Container>
         <Grid container spacing={2}>
-          {/* Team Selector, Filters, and submit/delete (left hand side) */}
+          {/* (left hand side) */}
           <Grid item xs={12} md={6}>
-            <Accordion defaultExpanded>
+            {/* Team Selector */}
+            <Accordion
+              defaultExpanded
+              expanded={expanded === "panel1"}
+              onChange={handleChange("panel1")}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls='panel1-content'
@@ -75,7 +86,11 @@ export default function Teams() {
                 {!teams.loading && <TeamSelector />}
               </AccordionDetails>
             </Accordion>
-            <Accordion>
+
+            {/* Fitlers */}
+            <Accordion
+              expanded={expanded === "panel2"}
+              onChange={handleChange("panel2")}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls='panel2-content'
@@ -87,6 +102,7 @@ export default function Teams() {
               </AccordionDetails>
             </Accordion>
 
+            {/* Submit/Delete Buttons */}
             <Stack
               direction={"row"}
               spacing={1}
@@ -108,7 +124,7 @@ export default function Teams() {
             </Stack>
           </Grid>
 
-          {/* Teams selected view and games list (right side of desktop view) */}
+          {/* (right side of desktop view) */}
           <Grid item xs={12} md={6}>
             {!teams.loading && <MatchupDisplay />}
 

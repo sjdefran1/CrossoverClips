@@ -13,22 +13,12 @@ import { keyframes } from "@mui/material";
 
 //import Link from "@mui/material/Link";
 import { Link } from "react-router-dom";
+import { incrementGameViewCount } from "../services/TeamService";
+import { useDispatch } from "react-redux";
 
 export default function GameList(props) {
-  React.useEffect(() => {}, [props.gameList]);
-
+  const dispatch = useDispatch();
   let delays = ["2s", "1s", "0.5s"];
-  //   const updateViewCount = (e) => {
-  //     const data = {
-  //       gameID: e,
-  //     };
-  //     axios
-  //       .post(reqString + "updateViewCount", data)
-  //       .then((response) => {})
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   };
   const gradient = keyframes`
     0% {
       background-position: 0% 50%;
@@ -95,7 +85,7 @@ export default function GameList(props) {
               <React.Fragment key={game.game_id}>
                 <Link
                   to={"/games/" + game.date + "/" + game.game_id}
-                  //   onClick={() => updateViewCount(game.game_id)}
+                  onClick={() => dispatch(incrementGameViewCount(game.game_id))}
                   state={{ game_link: game }}
                   style={{ textDecoration: "none" }}>
                   <Fade in={true} timeout={600}>
