@@ -16,6 +16,14 @@ const initialState = {
   selectedTeamIds: [null, null], // selected team id's for if checkbox should be disabled in mathcupDisplay
   disableTeamSelect: false, // set true when 2 teams selected
   searchOptions: {
+    "Season Type": {
+      "Regular Season": false,
+      Playoffs: false,
+    },
+    "Win or Loss": {
+      Win: false,
+      Loss: false,
+    },
     Seasons: {
       "2023-24": true,
       "2022-23": true,
@@ -27,14 +35,6 @@ const initialState = {
       "2016-17": true,
       "2015-16": true,
       "2014-15": true,
-    },
-    "Season Type": {
-      "Regular Season": false,
-      Playoffs: false,
-    },
-    "Win or Loss": {
-      Win: false,
-      Loss: false,
     },
     "Game Location": {
       Home: false,
@@ -113,6 +113,20 @@ export const teamSlice = createSlice({
       state.searchOptions[action.payload.title][action.payload.valueToChange] =
         !oldVal;
     },
+    /**
+     * Resets Team Dashboard to Basic State
+     * @param {*} state
+     * @returns
+     */
+    resetTeamPage(state) {
+      // return all state vars to init besides loading (retrieving teams)
+      // and teamDetailsList (arr of teams basic info)
+      return {
+        ...initialState,
+        loading: state.loading,
+        teamDetailsList: state.teamDetailsList,
+      };
+    },
   },
 
   // Handles Network Request Loading States
@@ -147,5 +161,6 @@ export const teamSlice = createSlice({
   },
 });
 
-export const { selectTeam, deselectTeam, updateTeamFilter } = teamSlice.actions;
+export const { selectTeam, deselectTeam, updateTeamFilter, resetTeamPage } =
+  teamSlice.actions;
 export default teamSlice.reducer;

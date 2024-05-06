@@ -7,6 +7,8 @@ import {
   IconButton,
   Fade,
   Tooltip,
+  CircularProgress,
+  Grid,
 } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
@@ -103,6 +105,7 @@ export default function TeamGameList(props) {
         </AppBar>
       </Fade>
       {/* <Box sx={{ maxHeight: "70vh", overflow: "auto" }}> */}
+
       {renderedSeasonGamesList?.length === 0 && (
         <>
           <Stack
@@ -116,12 +119,17 @@ export default function TeamGameList(props) {
           </Stack>
         </>
       )}
+
       {seasonsList[currentSeasonIndex].length > 0 && (
-        <GameList
-          gameList={renderedSeasonGamesList}
-          date={""}
-          showDate={true}
-        />
+        <>
+          <Grid container xs={12} sx={{ maxHeight: "60vh", overflowY: "auto" }}>
+            <GameList
+              gameList={renderedSeasonGamesList}
+              date={""}
+              showDate={true}
+            />
+          </Grid>
+        </>
       )}
     </>
   );

@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import Fade from "@mui/material/Fade";
 import InfoIcon from "@mui/icons-material/Info";
 import Tooltip from "@mui/material/Tooltip";
-import axios from "axios";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 // import { reqString } from "../App.js";
 import { keyframes } from "@mui/material";
@@ -44,7 +43,7 @@ export default function GameList(props) {
     <>
       {props.gameList.map((game) => (
         <Grid item xs={12} sm={6}>
-          <Box sx={{ overflow: "hidden" }}>
+          <Box sx={{ overflow: "hidden", m: 0.5 }}>
             {/* Check if game is over */}
             {game.away_info.WL === null ? (
               <React.Fragment key={game.game_id}>
