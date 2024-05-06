@@ -1,16 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
-class TeamService {
-  async getTeams() {
-    const response = await fetch(`https://nbaclipsite.onrender.com/teams`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
 
-    if (!response.ok) throw new Error("Fetch failed");
-    // console.log(response.json());
-    return await response.json();
-  }
-}
+export const fetchTeamsAxios = createAsyncThunk("teams/fetchTeams", () => {
+  return axios
+    .get("https://nbaclipsite.onrender.com/teams")
+    .then((response) => response.data);
+});
 
-export default new TeamService();
+export const fetchGamesByTeam = createAsyncThunk("teams/fetchGamesByTeam", async (data) => {
+  return axios.post("https://nbaclipsite.onrender.com/gamesByTeam", data).then((response => response.data))
+})
