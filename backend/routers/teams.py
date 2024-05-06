@@ -6,7 +6,7 @@ from db.gamesController import get_game_by_id_db, get_games_on_date_db, get_game
 from db.get_database import get_db_client_connection
 from db.teamsController import get_teams
 from db.playByPlayController import get_playByPlay_db
-from requestModels import DateStr, PlayByPlayStr, TeamSearch, UrlStr, ViewCount
+from requestModels import DateStr, PlayByPlayStr, TeamSearch, UrlStr, ViewCount, GameId
 from api_helpers import fix_date_db
 
 # MongoDb Connection
@@ -73,18 +73,19 @@ async def get_play_by_play_dictionary(data: PlayByPlayStr):
     return JSONResponse(content=plays)
 
 @teams_router.post('/updateViewCount')
-async def update_view_count_of_game(data: ViewCount):
+async def update_view_count_of_game(data: GameId):
     """
     Adds 1 to viewcount for respective game
+    returns new val
     """
-    update_game_view_count_db(data.gameID, client=client)
+    return update_game_view_count_db(data.gid, client=client)
 
 @teams_router.post('/getGameByID')
-async def get_game_by_id(data: ViewCount):
+async def get_game_by_id(data: GameId):
     """
-    Returns game by game_id
+    Returns game by game_id from Mongo GamesV2 collection
     """
-    game = get_game_by_id_db(data.gameID, client=client)
+    game = get_game_by_id_db(data.gid, client=client)
     return JSONResponse(content=game)
 
 @teams_router.post('/downloadClip')

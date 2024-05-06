@@ -1,14 +1,16 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import NbaFooter from "../components/NbaFooter";
+import { Paper } from "@mui/material";
+import NavBar from "../components/NavBar";
 // import NavBar from "../components/NavBar";
 
 export default function Root() {
   return (
     <>
-      <h1>This is the landing Page</h1>
-      {/* <NavBar /> */}
-      <h2>Below is the child content</h2>
+      <Paper>
+        <NavBar />
+      </Paper>
 
       <nav>
         <ul>

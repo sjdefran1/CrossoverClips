@@ -2,7 +2,6 @@ import React from "react";
 import {
   Grid,
   Stack,
-  Box,
   FormControlLabel,
   Checkbox,
   Divider,
@@ -26,18 +25,15 @@ export default function TeamSelector() {
         <>
           {/* Desktop View East/Western Chip Header */}
           <Hidden smDown>
-            <Grid item xs={12}>
-              <Divider />
-              <Stack direction={"row"} spacing={23} alignItems={"center"}>
-                <Box my={1} ml={"20%"}>
-                  <Chip variant='outlined' label='East' />
-                </Box>
-
-                <Box my={1}>
-                  <Chip variant='outlined' label='West' />
-                </Box>
-              </Stack>
-              <Divider />
+            <Grid container textAlign={"center"} xs={12}>
+              <Divider sx={{ width: "100%", my: 0.5 }} />
+              <Grid item xs={6}>
+                <Chip variant='outlined' label='East' />
+              </Grid>
+              <Grid item xs={6}>
+                <Chip variant='outlined' label='West' />
+              </Grid>
+              <Divider sx={{ width: "100%", my: 0.5 }} />
             </Grid>
           </Hidden>
 
@@ -130,7 +126,6 @@ export default function TeamSelector() {
                 .filter((team) => team.conf === "West")
                 .map((team) => (
                   <React.Fragment key={team.id}>
-                    {/* <Grid item xs={6} sm={6}> */}
                     <Stack direction={"row"}>
                       <FormControlLabel
                         key={team.id}
@@ -170,7 +165,6 @@ export default function TeamSelector() {
                         }
                       />
                     </Stack>
-                    {/* </Grid> */}
                   </React.Fragment>
                 ))}
             </Stack>

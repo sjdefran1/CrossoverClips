@@ -14,8 +14,8 @@ class DateStr(BaseModel):
 
 class PlayByPlayStr(BaseModel):
     gameID: str # '01001216'
-    date: str # 'YYYY-MM-DD'
-    statType: str # 'FGM' || 'STL' || 'BLK' || 'DUNK' || 'AST' 
+    # date: str # 'YYYY-MM-DD'
+    # statType: str # 'FGM' || 'STL' || 'BLK' || 'DUNK' || 'AST' 
 
 class GameInfo(BaseModel):
     date: str # 'YYYY-MM-DD'
@@ -31,3 +31,6 @@ class ViewCount(BaseModel):
 
 class UrlStr(BaseModel):
     url: str
+
+class GameId(BaseModel):
+    gid: str

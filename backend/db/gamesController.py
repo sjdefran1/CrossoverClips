@@ -141,7 +141,7 @@ def update_game_view_count_db(game_id: str, client):
     view_count = document.get('views', 0) + 1
     # Update the document with the new view count
     collection.update_one({'game_id': game_id}, {'$set': {'views': view_count}})
-    return
+    return view_count
 
 
 def get_games_by_season(season: str, client) -> list:

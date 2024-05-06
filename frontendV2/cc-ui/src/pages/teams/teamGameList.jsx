@@ -16,6 +16,14 @@ import InfoIcon from "@mui/icons-material/Info";
 import GameList from "../../components/GameList";
 import { useSelector } from "react-redux";
 
+/**
+ * Wrapper for GamesList coomponent
+ * Basically provides the toolbar to switch between seasons being currently rendered
+ * And then renders the GameList passing in only the selected seasons games
+ *
+ * @param {*} props
+ * @returns
+ */
 export default function TeamGameList(props) {
   const allSeasonsGameList = useSelector((state) => state.teams.gamesFound);
   const [renderedSeasonGamesList, setRenderedSeasonGamesList] = React.useState(
@@ -120,6 +128,7 @@ export default function TeamGameList(props) {
         </>
       )}
 
+      {/* Where the actual games are handled */}
       {seasonsList[currentSeasonIndex].length > 0 && (
         <>
           <Grid container xs={12} sx={{ maxHeight: "60vh", overflowY: "auto" }}>

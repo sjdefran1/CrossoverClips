@@ -13,6 +13,7 @@ import Players from "./pages/players";
 import Root from "./pages/root";
 import ErrorPage from "./pages/error";
 import Teams from "./pages/teams/teams";
+import Game from "./pages/game/game";
 
 const darkTheme = createTheme({
   palette: {
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
         path: "/teams",
         element: <Teams />,
       },
+      {
+        path: "/game/:gid",
+        element: <Game />,
+      },
     ],
   },
 ]);
@@ -94,3 +99,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </ThemeProvider>
   </React.StrictMode>
 );
+
+export const baseRequestURL = "http://localhost:8000";

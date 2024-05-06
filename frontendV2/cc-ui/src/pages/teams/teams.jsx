@@ -82,7 +82,7 @@ export default function Teams() {
                 id='panel1-header'>
                 Choose your team(s)
               </AccordionSummary>
-              <AccordionDetails sx={{ maxHeight: "40vh", overflow: "auto" }}>
+              <AccordionDetails sx={{ maxHeight: "50vh", overflow: "auto" }}>
                 {!teams.loading && <TeamSelector />}
               </AccordionDetails>
             </Accordion>

@@ -190,7 +190,7 @@ export default function GameDetails(props) {
                 back soon, sorry!
               </Typography>
               <br></br>
-              <img src={jordanGif}></img>
+              <img alt='No Results cry' src={jordanGif}></img>
               <Stack direction={"row"} justifyContent={"center"} spacing={1}>
                 <InfoIcon color='error' />
                 <Typography color={"text.secondary"}>Try Refreshing</Typography>

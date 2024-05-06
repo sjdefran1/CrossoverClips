@@ -15,31 +15,12 @@ import "./Filter.css";
 import { useDispatch } from "react-redux";
 
 export default function Filter(props) {
-  const dispatch = useDispatch()
-  /**
-   * if we pass in arr of elements (dict keys)
-   * title = header label
-   * arr =[1,2,3,4]
-   * dict = {1: t, 2: t, 3: t, 4: t}
-   *
-   * grid 12
-   *  arr.map
-   *   /grid 3
-   *      button onclick dict[element] = !dict[element]
-   *          chip label=element color = dict.element ? green:default
-   *      /button
-   *   /grod
-   * /grid
-   */
-  //   console.log(12 % props.arrOfKeys.length);
+  const dispatch = useDispatch();
+
   return (
     <>
       <Fade in={true}>
         <Paper>
-          {/* <Paper variant='outlined' sx={{ textAlign: "center", bgcolor: "#333" }}>
-            <Chip label={props.title} variant='filled' sx={{ my: 0.5 }} />
-          </Paper> */}
-
           <Paper
             variant='outlined'
             sx={{ textAlign: "center", bgcolor: "#333" }}>
@@ -66,9 +47,9 @@ export default function Filter(props) {
                       // allowing us to use this filter componenet in multiple different pages
                       let action = {
                         title: props.title,
-                        valueToChange: element
-                      }
-                      dispatch(props.parentDispatchFunction(action))
+                        valueToChange: element,
+                      };
+                      dispatch(props.parentDispatchFunction(action));
                     }}
                     sx={{ borderRadius: 15 }}>
                     <Chip
