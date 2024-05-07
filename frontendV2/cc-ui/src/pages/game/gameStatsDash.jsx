@@ -5,35 +5,37 @@ import {
   TableCell,
   Box,
   TableRow,
+  Paper,
   Stack,
   Avatar,
 } from "@mui/material";
 
+import { useSelector } from "react-redux";
 //const project = projects[0];
 export default function GameStatsDash(props) {
-  const [statTypes, setStatTypes] = React.useState([]);
+  const homeTeam = useSelector((state) => state.game.homeTeam);
+  const awayTeam = useSelector((state) => state.game.awayTeam);
 
-  React.useEffect(() => {
-    setStatTypes([
-      "FGM",
-      "FGA",
-      "FG_PCT",
-      "FG3M",
-      "FG3A",
-      "FG3_PCT",
-      "FTM",
-      "FTA",
-      "FT_PCT",
-      "OREB",
-      "DREB",
-      "REB",
-      "AST",
-      "STL",
-      "BLK",
-      "TOV",
-      "PTS",
-    ]);
-  }, []);
+  const statTypes = [
+    "FGM",
+    "FGA",
+    "FG_PCT",
+    "FG3M",
+    "FG3A",
+    "FG3_PCT",
+    "FTM",
+    "FTA",
+    "FT_PCT",
+    "OREB",
+    "DREB",
+    "REB",
+    "AST",
+    "STL",
+    "BLK",
+    "TOV",
+    "PTS",
+  ];
+
   return (
     <>
       <Box sx={{ maxWidth: { lg: "100vh", sm: "35vh" } }}>
@@ -44,7 +46,7 @@ export default function GameStatsDash(props) {
                 <Avatar
                   src={
                     "https://cdn.nba.com/logos/nba/" +
-                    props.gameInfo.away_info.TEAM_ID +
+                    awayTeam.TEAM_ID +
                     "/primary/L/logo.svg"
                   }
                 />
@@ -54,7 +56,7 @@ export default function GameStatsDash(props) {
                 <Avatar
                   src={
                     "https://cdn.nba.com/logos/nba/" +
-                    props.gameInfo.home_info.TEAM_ID +
+                    homeTeam.TEAM_ID +
                     "/primary/L/logo.svg"
                   }
                 />
@@ -80,39 +82,27 @@ export default function GameStatsDash(props) {
                     align='center'
                     sx={{
                       color:
-                        props.gameInfo.away_info[row] >
-                        props.gameInfo.home_info[row]
-                          ? "#6fbf73"
-                          : "#ffa199",
+                        awayTeam[row] > homeTeam[row] ? "#6fbf73" : "#ffa199",
                     }}>
-                    {props.gameInfo.away_info[row] < 1
-                      ? (props.gameInfo.away_info[row] * 100).toLocaleString(
-                          "en-US",
-                          {
-                            minimumFractionDigits: 1,
-                            maximumFractionDigits: 2,
-                          }
-                        ) + "%"
-                      : props.gameInfo.away_info[row]}
+                    {awayTeam[row] < 1
+                      ? (awayTeam[row] * 100).toLocaleString("en-US", {
+                          minimumFractionDigits: 1,
+                          maximumFractionDigits: 2,
+                        }) + "%"
+                      : awayTeam[row]}
                   </TableCell>
                   <TableCell
                     align='center'
                     sx={{
                       color:
-                        props.gameInfo.home_info[row] >
-                        props.gameInfo.away_info[row]
-                          ? "#6fbf73"
-                          : "#ffa199",
+                        homeTeam[row] > awayTeam[row] ? "#6fbf73" : "#ffa199",
                     }}>
-                    {props.gameInfo.home_info[row] < 1
-                      ? (props.gameInfo.home_info[row] * 100).toLocaleString(
-                          "en-US",
-                          {
-                            minimumFractionDigits: 0,
-                            maximumFractionDigits: 2,
-                          }
-                        ) + "%"
-                      : props.gameInfo.home_info[row]}
+                    {homeTeam[row] < 1
+                      ? (homeTeam[row] * 100).toLocaleString("en-US", {
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 2,
+                        }) + "%"
+                      : homeTeam[row]}
                   </TableCell>
                 </TableRow>
               ))}

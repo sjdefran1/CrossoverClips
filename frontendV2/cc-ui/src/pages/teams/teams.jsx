@@ -66,9 +66,8 @@ export default function Teams() {
   }
   return (
     <>
-      <h3>Teams</h3>
       <Container>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} mt={2}>
           {/* (left hand side) */}
           <Grid item xs={12} md={6}>
             {/* Team Selector */}

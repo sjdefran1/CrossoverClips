@@ -78,7 +78,7 @@ async def get_play_by_play_by_gameid(req: GameId):
         )
 
         plays_by_type = {
-            ptype: group.drop(columns=["ptype"]).to_dict(orient="records")
+            ptype: group.to_dict(orient="records")
             for ptype, group in df.groupby("ptype")
         }
         # print(plays_by_type)

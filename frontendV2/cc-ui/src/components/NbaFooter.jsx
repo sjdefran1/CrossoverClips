@@ -18,7 +18,7 @@ import {
   Hidden,
 } from "@mui/material";
 
-function Footer(props) {
+export default function Footer(props) {
   const copyText = () => {
     let email = "sjdefran@gmail.com";
     navigator.clipboard.writeText(email);
@@ -281,9 +281,6 @@ function Footer(props) {
           </Box>
         </Hidden>
       </Paper>
-      <br></br>
     </Container>
   );
 }
-
-export default React.memo(Footer);

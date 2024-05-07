@@ -1,27 +1,18 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import NbaFooter from "../components/NbaFooter";
-import { Paper } from "@mui/material";
+import { Paper, Box } from "@mui/material";
 import NavBar from "../components/NavBar";
+import NavBar2 from "../components/navBar2";
 // import NavBar from "../components/NavBar";
 
 export default function Root() {
   return (
     <>
       <Paper>
-        <NavBar />
+        {/* <NavBar small={true} /> */}
+        <NavBar2 />
       </Paper>
-
-      <nav>
-        <ul>
-          <li>
-            <Link to={`players/2544`}>Players</Link>
-          </li>
-          <li>
-            <Link to={`teams`}>Teams</Link>
-          </li>
-        </ul>
-      </nav>
 
       <div>
         <Outlet />

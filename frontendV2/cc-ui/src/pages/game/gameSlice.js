@@ -15,6 +15,7 @@ const initialState = {
   allStatTypePlayDict: {}, // {fgm: [], ast: [] ...}
   currentlySelectedStatType: "FGM", // What user has selected to show
   quarterSelected: 1,
+  numberOfQuarters: 4,
   currentShowingPlays: [], // current stat type play list
   allPlayersInGame: [], // list of players for player filter comp
   filteredPlayers: [], // id's of players that have been selected
@@ -24,8 +25,54 @@ export const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
-    changeStatType(state, action) {
+    /**
+     * Removes or adds a player to the id filter based off if they are
+     * already in it
+     * @param {*} state
+     * @param {*} action player id
+     */
+    handlePlayerSelect(state, action) {
+      if (state.filteredPlayers.includes(action.payload)) {
+        state.filteredPlayers = state.filteredPlayers.filter(
+          (id) => id !== action.payload
+        );
+      } else {
+        state.filteredPlayers.push(action.payload);
+      }
+    },
+    clearPlayerFilter(state) {
+      state.filteredPlayers = initialState.filteredPlayers;
+    },
+    handleTeamSelect(state, action) {
+      //console.log(props.players.filter((player) => player[0] === teamID));
+      let players = state.allPlayersInGame.filter(
+        (player) => player[0] === action.payload
+      );
+      let player_ids = players.map((player) => player[2]);
+      state.filteredPlayers = player_ids;
+    },
+    handleQuarterChange(state, action) {
+      if (state.quarterSelected === 1 && action.payload === 0) {
+        return;
+      }
+      if (
+        state.quarterSelected === state.numberOfQuarters &&
+        action.payload === 1
+      ) {
+        return;
+      }
+
+      if (action.payload === 1) {
+        state.quarterSelected += 1;
+      }
+      if (action.payload === 0) {
+        state.quarterSelected -= 1;
+      }
+    },
+    handleStatChange(state, action) {
       state.currentlySelectedStatType = action.payload;
+      state.currentShowingPlays = initialState.currentShowingPlays;
+      state.currentShowingPlays = state.allStatTypePlayDict[action.payload];
     },
   },
   extraReducers: (builder) => {
@@ -52,9 +99,17 @@ export const gameSlice = createSlice({
         action.payload.plays[state.currentlySelectedStatType];
 
       state.allPlayersInGame = action.payload.players;
+      state.numberOfQuarters = action.payload.number_quarters;
     });
   },
 });
 
-export const { changeStatType } = gameSlice.actions;
+export const {
+  changeStatType,
+  handlePlayerSelect,
+  clearPlayerFilter,
+  handleTeamSelect,
+  handleQuarterChange,
+  handleStatChange,
+} = gameSlice.actions;
 export default gameSlice.reducer;
