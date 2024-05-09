@@ -19,3 +19,15 @@ export const fetchPlayByPlayByGameId = createAsyncThunk(
       .then((response) => response.data);
   }
 );
+
+export const fetchGamesByDate = createAsyncThunk(
+  "date/fetchGamesByDate",
+  async (data) => {
+    data = {
+      value: data,
+    };
+    return axios
+      .post(baseRequestURL + "/date", data)
+      .then((response) => response.data);
+  }
+);

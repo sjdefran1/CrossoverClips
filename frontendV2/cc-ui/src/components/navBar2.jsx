@@ -1,27 +1,36 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
+
 import AdbIcon from "@mui/icons-material/Adb";
-import { Fade } from "@mui/material";
 import CrossoverClipsLogo from "../static/logoImg.png";
 import { useNavigate } from "react-router-dom";
+import MenuIcon from "@mui/icons-material/Menu";
+import {
+  Typography,
+  IconButton,
+  Toolbar,
+  Box,
+  AppBar,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+  Fade,
+} from "@mui/material";
+import dayjs from "dayjs";
+import { useDispatch } from "react-redux";
+import { changeDateSelected } from "../pages/date/dateSlice";
 
 const pages = ["teams", "players", "date"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const currentDate = dayjs().format("YYYY-MM-DD").toString();
 
 function NavBar2() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const dispatch = useDispatch();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -101,14 +110,27 @@ function NavBar2() {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={() => navigate("/" + page)}
-                sx={{ my: 2, color: "white", display: "block" }}>
-                {page}
-              </Button>
-            ))}
+            <Button
+              key={"Teams"}
+              onClick={() => navigate("/teams")}
+              sx={{ my: 2, color: "white", display: "block" }}>
+              Teams
+            </Button>
+            <Button
+              key={"Players"}
+              onClick={() => navigate("/players")}
+              sx={{ my: 2, color: "white", display: "block" }}>
+              Players
+            </Button>
+            <Button
+              key={"Date"}
+              onClick={() => {
+                dispatch(changeDateSelected(currentDate));
+                navigate("/date/" + currentDate);
+              }}
+              sx={{ my: 2, color: "white", display: "block" }}>
+              Date
+            </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

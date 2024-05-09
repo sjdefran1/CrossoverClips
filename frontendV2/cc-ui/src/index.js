@@ -14,6 +14,7 @@ import Root from "./pages/root";
 import ErrorPage from "./pages/error";
 import Teams from "./pages/teams/teams";
 import Game from "./pages/game/game";
+import Date from "./pages/date/date";
 
 const darkTheme = createTheme({
   palette: {
@@ -85,19 +86,23 @@ const router = createBrowserRouter([
         path: "/game/:gid",
         element: <Game />,
       },
+      {
+        path: "/date/:datestr",
+        element: <Date />,
+      },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
-    </ThemeProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <ThemeProvider theme={darkTheme}>
+    <CssBaseline />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </ThemeProvider>
+  // </React.StrictMode>
 );
 
 export const baseRequestURL = "http://localhost:8000";

@@ -11,7 +11,7 @@ import {
   Grow,
   Paper,
 } from "@mui/material";
-// import jordanGif from "../../static/jordan.gif";
+import allnba from "../../static/allnbateamSepia.gif";
 
 import { getTrueKeys } from "../../ccUtils/FilterUtil";
 import { useSelector } from "react-redux";
@@ -43,10 +43,13 @@ export default function MatchupDisplay(props) {
                     direction={"column"}
                     sx={{ alignItems: "center", textAlign: "center" }}>
                     <Avatar
-                      // src={jordanGif}
-                      sx={{ width: 85, height: 85, mt: 1.2 }}
+                      src={allnba}
+                      sx={{ width: 100, height: 100, mt: 1.2 }}
                     />
-                    <Typography>Choose 1 team!</Typography>
+                    <Typography variant='body1'>Choose</Typography>
+                    <Typography variant='body2' color={"text.secondary"}>
+                      One Team
+                    </Typography>
                   </Stack>
                   <Typography>VS</Typography>
                   <Stack
@@ -111,7 +114,21 @@ export default function MatchupDisplay(props) {
                         </Stack>
                       </Fade>
                     ) : (
-                      <Typography textAlign={"center"}>Any Opponent</Typography>
+                      // <Typography textAlign={"center"}>Any Opponent</Typography>
+                      <>
+                        <Stack
+                          direction={"column"}
+                          sx={{ alignItems: "center", textAlign: "center" }}>
+                          <Avatar
+                            src={allnba}
+                            sx={{ width: 100, height: 100, mt: 1.2 }}
+                          />
+                          <Typography variant='body1'>Any</Typography>
+                          <Typography variant='body2' color={"text.secondary"}>
+                            Opponent
+                          </Typography>
+                        </Stack>
+                      </>
                     )}
                   </Stack>
                 </Box>

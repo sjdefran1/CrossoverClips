@@ -35,9 +35,18 @@ export default function Footer(props) {
     setOpen(false);
   };
   return (
-    <Container maxWidth='xl' sx={{}}>
-      <Paper sx={{ mt: 2, textAlign: "center" }}>
-        <Alert severity='info' sx={{ mt: 1, justifyContent: "center" }}>
+    <Container maxWidth='xl'>
+      {/* SX ensures that footer stays at bottom of page */}
+      <Paper
+        sx={{
+          mt: 2,
+          textAlign: "center",
+          position: "sticky",
+          bottom: "0px",
+
+          width: "100%",
+        }}>
+        <Alert severity='info' sx={{ justifyContent: "center" }}>
           DISCLAIMER - All clips property of the NBA. No copyright infringement
           is intended
         </Alert>

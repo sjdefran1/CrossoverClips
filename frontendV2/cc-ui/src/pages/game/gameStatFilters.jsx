@@ -17,7 +17,7 @@ export default function GameStatFilter(props) {
   const dispatch = useDispatch();
   return (
     <>
-      <Paper sx={{ mx: 2, mt: 2 }}>
+      <Paper sx={{ mx: 2 }}>
         <Paper variant='outlined' sx={{ textAlign: "center", bgcolor: "#333" }}>
           <Typography variant='body1' color='text.secondary' padding>
             STATS

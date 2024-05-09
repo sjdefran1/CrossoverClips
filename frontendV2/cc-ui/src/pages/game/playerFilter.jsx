@@ -49,7 +49,6 @@ export default function PlayerFilter(props) {
             overflowY: "auto",
             overflowX: "clip",
             maxWidth: "100%",
-            mt: 2,
           }}>
           <AppBar position='static' sx={{ borderRadius: 1, minWidth: "100%" }}>
             <Hidden smDown>

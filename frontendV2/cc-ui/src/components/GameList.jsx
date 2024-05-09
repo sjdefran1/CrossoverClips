@@ -85,7 +85,9 @@ export default function GameList(props) {
               <React.Fragment key={game.game_id}>
                 <Link
                   to={"/game/" + game.game_id}
-                  onClick={() => dispatch(incrementGameViewCount(game.game_id))}
+                  onClick={() => {
+                    dispatch(incrementGameViewCount(game.game_id));
+                  }}
                   style={{ textDecoration: "none" }}>
                   <Fade in={true} timeout={600}>
                     <Paper

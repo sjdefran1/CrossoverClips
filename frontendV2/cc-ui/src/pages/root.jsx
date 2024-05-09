@@ -9,10 +9,8 @@ import NavBar2 from "../components/navBar2";
 export default function Root() {
   return (
     <>
-      <Paper>
-        {/* <NavBar small={true} /> */}
-        <NavBar2 />
-      </Paper>
+      {/* <NavBar small={true} /> */}
+      <NavBar2 />
 
       <div>
         <Outlet />

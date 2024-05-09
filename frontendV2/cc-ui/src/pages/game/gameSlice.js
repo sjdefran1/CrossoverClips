@@ -79,6 +79,14 @@ export const gameSlice = createSlice({
     /**
      * Basic Game Info
      */
+
+    // This is IMPORTANT, basically any time we are loading into a new game page
+    // we clear any previous set state from users looking at old games
+    // without this weird behavior comes into play with old players from different games being filtered
+    // / old plays showing up
+    builder.addCase(fetchBasicGameInfo.pending, () => {
+      return { ...initialState };
+    });
     builder.addCase(fetchBasicGameInfo.fulfilled, (state, action) => {
       state.basicGameInfoLoading = false;
       state.homeTeam = action.payload.home_info;
