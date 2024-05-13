@@ -32,11 +32,11 @@ export default function GameList(props) {
   return (
     <>
       {props.gameList.map((game) => (
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} key={game.game_id}>
           <Box sx={{ overflow: "hidden", m: 0.5 }}>
             {/* Check if game is over */}
             {game.away_info.WL === null ? (
-              <React.Fragment key={game.game_id}>
+              <React.Fragment>
                 <Fade in={true} timeout={600}>
                   <Paper
                     variant='outlined'

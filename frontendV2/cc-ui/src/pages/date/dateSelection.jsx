@@ -14,19 +14,21 @@ export default function DateSelection(props) {
             direction={"row"}
             spacing={1}
             sx={{ justifyContent: "center", alignItems: "center" }}>
-            <Chip
-              variant='outlined'
-              color='info'
-              label={"Games Found: " + gamesFoundLen}
-              sx={{ my: 10 }}
-            />
+            <Box>
+              <Chip
+                variant='outlined'
+                color='info'
+                label={"Games Found: " + gamesFoundLen}
+                sx={{ my: 1 }}
+              />
 
-            <Chip
-              variant='outlined'
-              color='info'
-              label={"Date: " + date}
-              sx={{ my: 10 }}
-            />
+              <Chip
+                variant='outlined'
+                color='info'
+                label={"Date: " + date}
+                sx={{ my: 1 }}
+              />
+            </Box>
           </Stack>
         </Paper>
       </Box>

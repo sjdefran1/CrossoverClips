@@ -9,7 +9,6 @@ import {
   Box,
   Fade,
   LinearProgress,
-  TextField,
   Paper,
   Grid,
 } from "@mui/material";
@@ -23,14 +22,24 @@ import { changeDateSelected } from "./dateSlice";
 import { fetchGamesByDate } from "../../services/GameService";
 import DateSelection from "./dateSelection";
 import GameList from "../../components/GameList";
+
+import QuickLinks2 from "./dateQuickLinks2";
+
 export default function Date() {
   const navigate = useNavigate();
+  const { dateurlstr } = useParams();
   const { dateStr, loading, gameList } = useSelector((state) => state.date);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
+    if (dateurlstr !== dateStr) {
+      console.log(dateurlstr);
+      dispatch(changeDateSelected(dateurlstr));
+      dispatch(fetchGamesByDate(dateurlstr));
+      return;
+    }
     dispatch(fetchGamesByDate(dateStr));
-  }, [dateStr]);
+  }, [dateStr, dateurlstr]);
 
   return (
     <>
@@ -39,26 +48,30 @@ export default function Date() {
           <Grid item xs={12} md={7}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Fade in={true}>
-                <Paper
-                  variant='outlined'
-                  sx={{ borderRadius: 4, overflow: "auto" }}>
+                <Paper variant='outlined' sx={{ borderRadius: "0 0 6 6" }}>
                   {loading && (
                     <Box sx={{ width: "100%" }}>
-                      {/* <CircularProgress /> */}
                       <LinearProgress color='success' />
                     </Box>
                   )}
+                  <Grid container>
+                    <Grid item md={6}>
+                      <QuickLinks2 />
+                    </Grid>
 
-                  <DateCalendar
-                    value={dayjs(dateStr)}
-                    minDate={dayjs("2014-10-28")}
-                    maxDate={dayjs()}
-                    onChange={(newValue) => {
-                      let newDate = newValue.format("YYYY-MM-DD");
-                      dispatch(changeDateSelected(newDate));
-                      navigate("/date/" + newDate);
-                    }}
-                  />
+                    <Grid item md={6}>
+                      <DateCalendar
+                        value={dayjs(dateStr)}
+                        minDate={dayjs("2014-10-28")}
+                        maxDate={dayjs()}
+                        onChange={(newValue) => {
+                          let newDate = newValue.format("YYYY-MM-DD");
+                          dispatch(changeDateSelected(newDate));
+                          navigate("/date/" + newDate);
+                        }}
+                      />
+                    </Grid>
+                  </Grid>
                 </Paper>
               </Fade>
             </LocalizationProvider>

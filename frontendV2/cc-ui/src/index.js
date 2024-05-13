@@ -87,7 +87,7 @@ const router = createBrowserRouter([
         element: <Game />,
       },
       {
-        path: "/date/:datestr",
+        path: "/date/:dateurlstr",
         element: <Date />,
       },
     ],
