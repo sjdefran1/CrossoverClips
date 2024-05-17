@@ -1,9 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchGamesByDate } from "../../services/GameService";
+import {
+  fetchDaysToHighlight,
+  fetchGamesByDate,
+} from "../../services/GameService";
 import dayjs from "dayjs";
 
 const initialState = {
   dateStr: dayjs().format("YYYY-MM-DD"),
+  calendarLoading: true,
+  daysToHighlight: [],
   loading: false,
   gameList: [],
 };
@@ -13,11 +18,13 @@ export const dateSlice = createSlice({
   initialState,
   reducers: {
     changeDateSelected(state, action) {
+      state.gameList = initialState.gameList;
       state.dateStr = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchGamesByDate.pending, (state) => {
+      state.gameList = initialState.gameList;
       state.loading = true;
     });
     builder.addCase(fetchGamesByDate.fulfilled, (state, action) => {
@@ -28,6 +35,14 @@ export const dateSlice = createSlice({
       } else {
         state.gameList = [];
       }
+    });
+
+    builder.addCase(fetchDaysToHighlight.pending, (state) => {
+      state.calendarLoading = true;
+    });
+    builder.addCase(fetchDaysToHighlight.fulfilled, (state, action) => {
+      state.calendarLoading = false;
+      state.daysToHighlight = action.payload;
     });
   },
 });

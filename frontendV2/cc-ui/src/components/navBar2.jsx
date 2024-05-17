@@ -21,6 +21,10 @@ import {
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
 import { changeDateSelected } from "../pages/date/dateSlice";
+import {
+  fetchDaysToHighlight,
+  fetchGamesByDate,
+} from "../services/GameService";
 
 const pages = ["teams", "players", "date"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -126,6 +130,8 @@ function NavBar2() {
               key={"Date"}
               onClick={() => {
                 dispatch(changeDateSelected(currentDate));
+                dispatch(fetchDaysToHighlight(currentDate));
+                dispatch(fetchGamesByDate(currentDate));
                 navigate("/date/" + currentDate);
               }}
               sx={{ my: 2, color: "white", display: "block" }}>

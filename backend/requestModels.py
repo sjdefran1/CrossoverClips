@@ -34,3 +34,7 @@ class UrlStr(BaseModel):
 
 class GameId(BaseModel):
     gid: str
+
+class MonthYear(BaseModel):
+    month: str
+    year: str

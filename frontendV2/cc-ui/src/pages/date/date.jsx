@@ -11,6 +11,7 @@ import {
   LinearProgress,
   Paper,
   Grid,
+  Hidden,
 } from "@mui/material";
 
 import dayjs from "dayjs";
@@ -24,6 +25,7 @@ import DateSelection from "./dateSelection";
 import GameList from "../../components/GameList";
 
 import QuickLinks2 from "./dateQuickLinks2";
+import CustomDateCalendar from "./dateCustomCalendar";
 
 export default function Date() {
   const navigate = useNavigate();
@@ -31,50 +33,43 @@ export default function Date() {
   const { dateStr, loading, gameList } = useSelector((state) => state.date);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    if (dateurlstr !== dateStr) {
-      console.log(dateurlstr);
-      dispatch(changeDateSelected(dateurlstr));
-      dispatch(fetchGamesByDate(dateurlstr));
-      return;
-    }
-    dispatch(fetchGamesByDate(dateStr));
-  }, [dateStr, dateurlstr]);
+  // React.useEffect(() => {
+  //   dispatch(fetchGamesByDate(dateStr));
+  // }, []);
 
   return (
     <>
       <Container maxWidth='xl' sx={{ minHeight: "70vh" }}>
         <Grid container mt={2} spacing={4}>
           <Grid item xs={12} md={7}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Fade in={true}>
-                <Paper variant='outlined' sx={{ borderRadius: "0 0 6 6" }}>
-                  {loading && (
-                    <Box sx={{ width: "100%" }}>
-                      <LinearProgress color='success' />
-                    </Box>
-                  )}
-                  <Grid container>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}> */}
+            <Fade in={true}>
+              <Paper variant='outlined' sx={{ borderRadius: "0 0 6 6" }}>
+                {loading && (
+                  <Box sx={{ width: "100%" }}>
+                    <LinearProgress color='success' />
+                  </Box>
+                )}
+                <Grid container>
+                  <Hidden smDown>
                     <Grid item md={6}>
-                      <QuickLinks2 />
+                      <QuickLinks2 defaultExpanded={true} />
                     </Grid>
+                  </Hidden>
 
-                    <Grid item md={6}>
-                      <DateCalendar
-                        value={dayjs(dateStr)}
-                        minDate={dayjs("2014-10-28")}
-                        maxDate={dayjs()}
-                        onChange={(newValue) => {
-                          let newDate = newValue.format("YYYY-MM-DD");
-                          dispatch(changeDateSelected(newDate));
-                          navigate("/date/" + newDate);
-                        }}
-                      />
-                    </Grid>
+                  <Grid item xs={12} md={6}>
+                    <CustomDateCalendar />
                   </Grid>
-                </Paper>
-              </Fade>
-            </LocalizationProvider>
+
+                  <Hidden smUp>
+                    <Grid item sm={12}>
+                      <QuickLinks2 defaultExpanded={false} />
+                    </Grid>
+                  </Hidden>
+                </Grid>
+              </Paper>
+            </Fade>
+            {/* </LocalizationProvider> */}
           </Grid>
           <Grid item xs={12} md={5}>
             <DateSelection />

@@ -9,7 +9,7 @@ import psycopg2
 import pandas as pd
 
 from dotenv import load_dotenv
-from requestModels import PlayByPlayStr, GameId
+from requestModels import PlayByPlayStr, GameId, MonthYear, DateStr
 from routers import pgresdatabase as db
 
 load_dotenv()
@@ -96,3 +96,30 @@ async def get_play_by_play_by_gameid(req: GameId):
         return JSONResponse(content=return_dict)
     except Exception as e:
         return None
+
+@playbyplay_router.post('/games/calendar')
+async def get_days_to_highlight_for_calendar(data: DateStr):
+    db.ping_db()
+    
+    year = data.value[0:4]
+    month = data.value[5:7]
+  
+    # SQL query to count games per day for a given month and year
+    query = f"""
+    select substr(date, 0,8) as monthyear, substr(date, 9,2) as day, count(*) as game_count from matchups
+    where substr(date, 0,8) = '{year}-{month}'
+    group by day, monthyear
+    order by monthyear, day
+    """
+
+    print(query)
+
+    # Execute the query
+    db.psy_cursor.execute(query)
+
+    # Fetch results
+    results = db.psy_cursor.fetchall()
+
+    # Convert results into a dictionary {day: game_count}
+    games_count = {int(day): count for monthyear, day, count in results}
+    return JSONResponse(content=games_count)

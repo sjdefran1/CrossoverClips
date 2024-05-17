@@ -15,6 +15,7 @@ import {
   Typography,
   IconButton,
   Avatar,
+  Alert,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import trophyGif from "../../static/trophy.gif";
@@ -22,13 +23,21 @@ import christmas from "../../static/christmas.png";
 import playoffs from "../../static/playoffs.png";
 import { useNavigate } from "react-router-dom";
 import { quickLinks } from "./dateMeta";
+import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
+import { useDispatch } from "react-redux";
+import { changeDateSelected } from "./dateSlice";
 
-export default function QuickLinks2() {
+export default function QuickLinks2(props) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const customNavigate = (date) => {
+    dispatch(changeDateSelected(date));
+    navigate(date);
+  };
   return (
     <>
-      <Accordion defaultExpanded>
+      <Accordion defaultExpanded={props.defaultExpanded}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls='panel2-content'
@@ -37,14 +46,16 @@ export default function QuickLinks2() {
         </AccordionSummary>
         <AccordionDetails
           sx={{ maxHeight: "50vh", overflowY: "scroll", width: "100%" }}>
-          <TableContainer component={Paper}>
+          <Alert severity='info' sx={{ justifyContent: "center" }}>
+            Click the icons/buttons to navigate
+          </Alert>
+          <TableContainer>
             <Table aria-label='simple table'>
               <TableHead>
                 <TableRow>
                   <TableCell align='center'>Season Start</TableCell>
-                  <TableCell align='right'>Christmas</TableCell>
-                  <TableCell align='right'>Playoffs</TableCell>
-                  <TableCell align='right'>Finals</TableCell>
+                  <TableCell align='center'>Playoffs</TableCell>
+                  <TableCell align='center'>Finals</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -57,27 +68,25 @@ export default function QuickLinks2() {
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}>
-                        <TableCell component='th' scope='row'>
+                        <TableCell align='center'>
                           <Button
-                            variant='outlined'
-                            onClick={() => navigate(dates.openingDay)}
-                            sx={{ my: 2, color: "white", display: "block" }}>
+                            variant='contained'
+                            color='info'
+                            onClick={() => customNavigate(dates.openingDay)}
+                            sx={{ my: 2 }}>
                             {seasonYear}
                           </Button>
                         </TableCell>
 
-                        <TableCell align='right'>
-                          <IconButton onClick={() => navigate(dates.christmas)}>
-                            <Avatar src={christmas} />
-                          </IconButton>
-                        </TableCell>
-                        <TableCell align='right'>
-                          <IconButton onClick={() => navigate(dates.playoffs)}>
+                        <TableCell align='center'>
+                          <IconButton
+                            onClick={() => customNavigate(dates.playoffs)}>
                             <Avatar src={playoffs} />
                           </IconButton>
                         </TableCell>
-                        <TableCell align='right'>
-                          <IconButton onClick={() => navigate(dates.finals)}>
+                        <TableCell align='center'>
+                          <IconButton
+                            onClick={() => customNavigate(dates.finals)}>
                             <Avatar src={trophyGif} />
                           </IconButton>
                         </TableCell>

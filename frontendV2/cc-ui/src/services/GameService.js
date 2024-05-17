@@ -31,3 +31,12 @@ export const fetchGamesByDate = createAsyncThunk(
       .then((response) => response.data);
   }
 );
+
+export const fetchDaysToHighlight = createAsyncThunk(
+  "date/fetchDaysToHighlight",
+  async (incomingData) => {
+    return axios
+      .post(baseRequestURL + "/pgres/games/calendar", { value: incomingData })
+      .then((response) => response.data);
+  }
+);
