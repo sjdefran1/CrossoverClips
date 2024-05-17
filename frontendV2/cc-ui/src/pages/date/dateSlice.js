@@ -6,11 +6,14 @@ import {
 import dayjs from "dayjs";
 
 const initialState = {
-  dateStr: dayjs().format("YYYY-MM-DD"),
-  calendarLoading: true,
-  daysToHighlight: [],
-  loading: false,
+  dateStr: dayjs().format("YYYY-MM-DD"), // value of DateCalendar
+  calendarLoading: true, // fetching days to highlight
+  daysToHighlight: [], // {1: 2, 2: 4} renders badge for days with games
+  loading: false, // loading new games for date
   gameList: [],
+  isQuickLink: false, // when being redirected from quick link
+  // avoids handleMonthChange setting the calendar to the first
+  // when the month changes
 };
 
 export const dateSlice = createSlice({
@@ -20,6 +23,9 @@ export const dateSlice = createSlice({
     changeDateSelected(state, action) {
       state.gameList = initialState.gameList;
       state.dateStr = action.payload;
+    },
+    setQuickLink(state, action) {
+      state.isQuickLink = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -43,9 +49,12 @@ export const dateSlice = createSlice({
     builder.addCase(fetchDaysToHighlight.fulfilled, (state, action) => {
       state.calendarLoading = false;
       state.daysToHighlight = action.payload;
+      if (state.isQuickLink === true) {
+        state.isQuickLink = false;
+      }
     });
   },
 });
 
-export const { changeDateSelected } = dateSlice.actions;
+export const { changeDateSelected, setQuickLink } = dateSlice.actions;
 export default dateSlice.reducer;

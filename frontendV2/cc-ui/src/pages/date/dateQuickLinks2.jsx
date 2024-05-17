@@ -19,20 +19,18 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import trophyGif from "../../static/trophy.gif";
-import christmas from "../../static/christmas.png";
-import playoffs from "../../static/playoffs.png";
+import playoffs from "../../static/bracket.jpg";
 import { useNavigate } from "react-router-dom";
 import { quickLinks } from "./dateMeta";
-import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import { useDispatch } from "react-redux";
-import { changeDateSelected } from "./dateSlice";
+import { setQuickLink } from "./dateSlice";
 
 export default function QuickLinks2(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const customNavigate = (date) => {
-    dispatch(changeDateSelected(date));
+    dispatch(setQuickLink(true));
     navigate(date);
   };
   return (
@@ -81,13 +79,19 @@ export default function QuickLinks2(props) {
                         <TableCell align='center'>
                           <IconButton
                             onClick={() => customNavigate(dates.playoffs)}>
-                            <Avatar src={playoffs} />
+                            <Avatar
+                              sx={{ height: 56, width: 56 }}
+                              src={playoffs}
+                            />
                           </IconButton>
                         </TableCell>
                         <TableCell align='center'>
                           <IconButton
                             onClick={() => customNavigate(dates.finals)}>
-                            <Avatar src={trophyGif} />
+                            <Avatar
+                              sx={{ height: 56, width: 56 }}
+                              src={trophyGif}
+                            />
                           </IconButton>
                         </TableCell>
                       </TableRow>

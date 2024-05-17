@@ -11,24 +11,23 @@ import {
   fetchDaysToHighlight,
   fetchGamesByDate,
 } from "../../services/GameService";
-import { changeDateSelected } from "./dateSlice";
+import { changeDateSelected, setQuickLink } from "./dateSlice";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 
 function ServerDay(props) {
   const { daysToHighlight, day, outsideCurrentMonth, ...other } = props;
 
   // Retrieve game count for the day
+  // used to determine if a badge should be rendered
   const gameCount = daysToHighlight[dayjs(day).date()];
-  // console.log(dayjs(day).date() + " gameCount: " + gameCount);
-  // console.log(dayjs(day).date() + " outside: " + outsideCurrentMonth);
+
   return (
     <Badge
       key={day}
       variant='dot'
       color='success'
       overlap='circular'
-      // anchorOrigin={{ vertical: "bottom" }}
       invisible={outsideCurrentMonth || gameCount === undefined}>
       <PickersDay
         {...other}
@@ -41,35 +40,57 @@ function ServerDay(props) {
 }
 
 export default function CustomDateCalendar() {
-  const { dateStr, daysToHighlight, calendarLoading } = useSelector(
-    (state) => state.date
-  );
+  const { dateStr, daysToHighlight, calendarLoading, isQuickLink } =
+    useSelector((state) => state.date);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { dateurlstr } = useParams();
 
+  /**
+   * Arrow keys on calendar prop are clicked
+   * @param {*} date
+   * @returns
+   */
   const handleMonthChange = (date) => {
     let newDateStr = dayjs(date).format("YYYY-MM-DD").toString();
-
-    // update current date selected and url
-    // fetch highlighted days
-    dispatch(changeDateSelected(newDateStr));
-    navigate("/date/" + newDateStr);
-    dispatch(fetchDaysToHighlight(newDateStr));
-    dispatch(fetchGamesByDate(newDateStr));
-  };
-
-  React.useEffect(() => {
-    // manual url entered
-    // make it so that is actually what shows up instead
-    // of "today" date
-    if (dateurlstr !== dateStr) {
-      dispatch(changeDateSelected(dateurlstr));
-      dispatch(fetchGamesByDate(dateurlstr));
-      dispatch(fetchDaysToHighlight(dateurlstr));
+    if (isQuickLink) {
       return;
     }
+    dispatch(changeDateSelected(newDateStr));
+    dispatch(fetchDaysToHighlight(newDateStr));
+  };
+
+  /**
+   * Handles URL routing, and fetching the games when a new
+   * day is selected
+   */
+  React.useEffect(() => {
+    navigate("/date/" + dateStr);
+    dispatch(fetchGamesByDate(dateStr));
+    return;
+  }, [dateStr]);
+
+  /**
+   * Handles Quick links, avoids redirection to the first of the
+   * month
+   */
+  React.useEffect(() => {
+    if (isQuickLink) {
+      dispatch(fetchDaysToHighlight(dateurlstr));
+      dispatch(changeDateSelected(dateurlstr));
+    }
   }, [dateurlstr]);
+
+  /**
+   * Handles refresh and when a full url is pasted
+   */
+  React.useEffect(() => {
+    if (dateurlstr !== dateStr) {
+      dispatch(setQuickLink(true));
+    }
+    dispatch(fetchDaysToHighlight(dateurlstr));
+    dispatch(changeDateSelected(dateurlstr));
+  }, []);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -77,7 +98,9 @@ export default function CustomDateCalendar() {
         <DateCalendar
           value={dayjs(dateStr)}
           loading={calendarLoading}
-          onMonthChange={handleMonthChange}
+          onMonthChange={(date) => {
+            handleMonthChange(date);
+          }}
           minDate={dayjs("2014-10-28")}
           renderLoading={() => <DayCalendarSkeleton />}
           slots={{
@@ -89,11 +112,8 @@ export default function CustomDateCalendar() {
             },
           }}
           onChange={(newValue) => {
-            // new day of the month selected
             let newDate = newValue.format("YYYY-MM-DD");
             dispatch(changeDateSelected(newDate));
-            navigate("/date/" + newDate);
-            dispatch(fetchGamesByDate(newDate));
           }}
         />
       </Box>
