@@ -111,6 +111,7 @@ export default function CustomDateCalendar() {
               daysToHighlight,
             },
           }}
+          // triggers when a new DAY is selected
           onChange={(newValue) => {
             let newDate = newValue.format("YYYY-MM-DD");
             dispatch(changeDateSelected(newDate));

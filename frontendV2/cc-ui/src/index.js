@@ -15,6 +15,7 @@ import ErrorPage from "./pages/error";
 import Teams from "./pages/teams/teams";
 import Game from "./pages/game/game";
 import Date from "./pages/date/date";
+import Player from "./pages/players/player";
 
 const darkTheme = createTheme({
   palette: {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
       {
         path: "/players/:pid",
         element: <Players />,
+      },
+      {
+        path: "/player",
+        element: <Player />,
       },
       {
         path: "/teams",

@@ -49,6 +49,11 @@ export const dateSlice = createSlice({
     builder.addCase(fetchDaysToHighlight.fulfilled, (state, action) => {
       state.calendarLoading = false;
       state.daysToHighlight = action.payload;
+
+      // if this request was triggered from a redirect
+      // (quick link on calendar)
+      // set quick link back to false to allow normal
+      // calendar behavior
       if (state.isQuickLink === true) {
         state.isQuickLink = false;
       }

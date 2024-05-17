@@ -112,8 +112,6 @@ async def get_days_to_highlight_for_calendar(data: DateStr):
     order by monthyear, day
     """
 
-    print(query)
-
     # Execute the query
     db.psy_cursor.execute(query)
 
