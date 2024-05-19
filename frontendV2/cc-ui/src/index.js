@@ -9,7 +9,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./apprdx/store";
 
-import Players from "./pages/players";
 import Root from "./pages/root";
 import ErrorPage from "./pages/error";
 import Teams from "./pages/teams/teams";
@@ -76,11 +75,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/players/:pid",
-        element: <Players />,
-      },
-      {
-        path: "/player",
+        path: "/player/:pid",
         element: <Player />,
       },
       {

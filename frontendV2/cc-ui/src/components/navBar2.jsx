@@ -122,7 +122,7 @@ function NavBar2() {
             </Button>
             <Button
               key={"Players"}
-              onClick={() => navigate("/players")}
+              onClick={() => navigate("/player/2544")}
               sx={{ my: 2, color: "white", display: "block" }}>
               Players
             </Button>

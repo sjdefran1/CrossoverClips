@@ -28,13 +28,13 @@ export default function PlayerSearch() {
 
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    if (!open) {
-      setOptions([]);
-    } else {
-      dispatch(fetchAllPlayers());
-    }
-  }, [open]);
+  //   React.useEffect(() => {
+  //     if (!open) {
+  //       setOptions([]);
+  //     } else {
+  //       dispatch(fetchAllPlayers());
+  //     }
+  //   }, [open]);
 
   return (
     <>
