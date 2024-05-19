@@ -8,7 +8,6 @@ const initialState = {
   filtersShowing: true,
   currentPlayer: {},
   allPlayers: [],
-  searchOptions: 
 };
 
 export const playerSlice = createSlice({
