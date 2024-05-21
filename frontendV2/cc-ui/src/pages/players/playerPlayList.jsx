@@ -1,6 +1,5 @@
 import * as React from "react";
-import axios from "axios";
-// import NoHighlights from "./NoHighlights";
+
 import Play from "../../components/play";
 import {
   Alert,
@@ -8,28 +7,22 @@ import {
   Button,
   Grow,
   Collapse,
-  Box,
   Paper,
   Typography,
   Stack,
-  Pagination,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-// import { reqString } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
-import { handlePaginationChange, setPlayIndex } from "./playerSlice";
+import { setPlayIndex } from "./playerSlice";
 import { handlePlayView } from "../../services/PlayService";
 
 //const project = projects[0];
 export default function PlayersPlayList(props) {
   const navigate = useNavigate();
   const [alertShowing, setAlertShowing] = React.useState(true);
-  const { currentPagePlays, playIndex, pageCount, currentPage } = useSelector(
-    (state) => state.player
-  );
+  const { currentPagePlays, playIndex } = useSelector((state) => state.player);
   const dispatch = useDispatch();
   const linkToNeedHelp = () => {
     navigate("/downloadHelp");
@@ -113,16 +106,6 @@ export default function PlayersPlayList(props) {
             </Button>
           </React.Fragment>
         ))}
-
-      {/* Pagination Controls */}
-      {pageCount > 0 && (
-        <Pagination
-          sx={{ display: "flex", justifyContent: "center", mt: 1 }}
-          page={currentPage}
-          count={pageCount}
-          onChange={(event, page) => dispatch(handlePaginationChange(page))}
-        />
-      )}
     </>
   );
 }

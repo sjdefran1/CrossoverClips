@@ -11,6 +11,7 @@ const initialState = {
   playerNotFound: false,
   filtersShowing: true,
   currentPlayer: {},
+  fullScreenVideo: false,
 
   // filters
   gid: null, // selected game from returned games
@@ -147,6 +148,35 @@ export const playerSlice = createSlice({
       let newGame = state.gamesAvailable[currentGid];
       state.gameShowing = { ...newGame, gid: currentGid };
     },
+
+    incrementPlayIndex(state, action) {
+      let newIndex = state.playIndex + action.payload;
+      // need to move onto next page
+      if (newIndex > 4) {
+        // if the new page to load exists
+        if (state.currentPage + 1 <= state.pageCount) {
+          // reset index for new page
+          state.playIndex = 0;
+          // passing in null as "event", then next page
+          state.currentPage += 1;
+        }
+        // need to move back a page
+        // same process as above
+      } else if (newIndex < 0) {
+        if (state.currentPage - 1 > 1) {
+          state.playIndex = 0;
+          state.currentPage -= 1;
+        }
+      } else {
+        state.playIndex = newIndex;
+      }
+      state.currentPagePlays = state.playResults[state.currentPage];
+      state.currentUrl = state.currentPagePlays[state.playIndex].url;
+    },
+
+    setFullscreenVideo(state, action) {
+      state.fullScreenVideo = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAllPlayers.pending, (state) => {
@@ -225,5 +255,7 @@ export const {
   updatePlayerFilter,
   setPlayIndex,
   handlePaginationChange,
+  incrementPlayIndex,
+  setFullscreenVideo,
 } = playerSlice.actions;
 export default playerSlice.reducer;

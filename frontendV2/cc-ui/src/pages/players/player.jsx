@@ -4,11 +4,12 @@ import PlayerCard from "./playerCard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllPlayers } from "../../services/PlayerService";
 import { useParams } from "react-router-dom";
-import { setPlayerByPid } from "./playerSlice";
+import { handlePaginationChange, setPlayerByPid } from "./playerSlice";
 import PlayerFilters from "./filters/playerFilters";
-import { Container, Grid } from "@mui/material";
+import { Box, Container, Grid, Pagination } from "@mui/material";
 import PlayersPlayList from "./playerPlayList";
 import PlayerGameShowing from "./playerGameShowing";
+import PlayerVideoWrapper from "./playerVideoWrapper";
 
 export default function Player() {
   const {
@@ -18,6 +19,9 @@ export default function Player() {
     filteredSearchLoading,
     gameShowing,
     noResultsFound,
+    pageCount,
+    currentPage,
+    fullScreenVideo,
   } = useSelector((state) => state.player);
   const dispatch = useDispatch();
   const { pid } = useParams();
@@ -40,21 +44,13 @@ export default function Player() {
     }
   }, [allPlayers]);
 
-  /**
-   * Updates Player View when new one is selected
-   *
-   * TODO: UNCMMENT WHEN BACK IN PROD
-   */
-  // React.useEffect(() => {
-  //   updatePlayerView(pid);
-  // }, [pid]);
-
   return (
     <>
       <Container maxWidth='xl'>
         <Grid container spacing={1}>
           <Grid item xs={12}>
             <PlayerSearch />
+            {gameShowing?.gid && fullScreenVideo && <PlayerVideoWrapper />}
           </Grid>
           {playerNotFound && (
             <p>No player found with that ID. Try searching a new one above</p>
@@ -67,7 +63,30 @@ export default function Player() {
           </Grid>
 
           <Grid item xs={6}>
-            {!filteredSearchLoading && !noResultsFound && <PlayersPlayList />}
+            {!filteredSearchLoading && gameShowing?.gid && !fullScreenVideo && (
+              <PlayerVideoWrapper />
+            )}
+
+            {/* Should only be rendering plays when we have results and a game to shwo */}
+            {!filteredSearchLoading && !noResultsFound && gameShowing?.gid && (
+              <>
+                <Box overflow={"auto"} maxHeight={"80vh"}>
+                  <PlayersPlayList />
+                </Box>
+
+                {/* Pagination Controls */}
+                {pageCount > 0 && (
+                  <Pagination
+                    sx={{ display: "flex", justifyContent: "center", mt: 1 }}
+                    page={currentPage}
+                    count={pageCount}
+                    onChange={(event, page) =>
+                      dispatch(handlePaginationChange(page))
+                    }
+                  />
+                )}
+              </>
+            )}
             {noResultsFound && !filteredSearchLoading && (
               <p>No results for that search</p>
             )}
