@@ -1,9 +1,4 @@
 import React from "react";
-
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-
 import {
   Container,
   Box,
@@ -19,8 +14,6 @@ import "dayjs/locale/de";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { changeDateSelected } from "./dateSlice";
-import { fetchGamesByDate } from "../../services/GameService";
 import DateSelection from "./dateSelection";
 import GameList from "../../components/GameList";
 
@@ -28,21 +21,13 @@ import QuickLinks2 from "./dateQuickLinks2";
 import CustomDateCalendar from "./dateCustomCalendar";
 
 export default function Date() {
-  const navigate = useNavigate();
-  const { dateurlstr } = useParams();
-  const { dateStr, loading, gameList } = useSelector((state) => state.date);
-  const dispatch = useDispatch();
-
-  // React.useEffect(() => {
-  //   dispatch(fetchGamesByDate(dateStr));
-  // }, []);
+  const { loading, gameList } = useSelector((state) => state.date);
 
   return (
     <>
       <Container maxWidth='xl' sx={{ minHeight: "70vh" }}>
         <Grid container mt={2} spacing={4}>
           <Grid item xs={12} md={7}>
-            {/* <LocalizationProvider dateAdapter={AdapterDayjs}> */}
             <Fade in={true}>
               <Paper variant='outlined' sx={{ borderRadius: "0 0 6 6" }}>
                 {loading && (
@@ -69,7 +54,6 @@ export default function Date() {
                 </Grid>
               </Paper>
             </Fade>
-            {/* </LocalizationProvider> */}
           </Grid>
           <Grid item xs={12} md={5}>
             <DateSelection />

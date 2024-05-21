@@ -140,7 +140,6 @@ export const teamSlice = createSlice({
     builder.addCase(fetchTeamsAxios.fulfilled, (state, action) => {
       state.loading = false;
       state.teamDetailsList = action.payload;
-      console.log(action.payload.map((dict) => [dict.team_id, dict.team_name]));
     });
     /**
      * FetchGamesByTeam

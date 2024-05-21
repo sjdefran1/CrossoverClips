@@ -7,10 +7,20 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { useSelector, useDispatch } from "react-redux";
 import { setFiltersShowing, clearPlayerFilters } from "../playerSlice";
+import {
+  createSearchResults,
+  fetchFilteredPlays,
+} from "../../../services/PlayerService";
 
 export default function FilterSnackBar() {
   const dispatch = useDispatch();
   const filtersShowing = useSelector((state) => state.player.filtersShowing);
+  const playerState = useSelector((state) => state.player);
+
+  const submitSearch = () => {
+    let searchOptions = createSearchResults(playerState);
+    dispatch(fetchFilteredPlays(searchOptions));
+  };
   return (
     <Paper
       // elevation={15}
@@ -52,7 +62,7 @@ export default function FilterSnackBar() {
         </Grid>
         <Grid item xs={4} textAlign={"center"} mr={1} alignItems={"center"}>
           <Button
-            // onClick={() => props.createSearchResults()}
+            onClick={() => submitSearch()}
             variant='text'
             color='success'
             endIcon={<SearchIcon sx={{ mr: 1 }} />}

@@ -1,3 +1,10 @@
+/**
+ * Search Bars on player page
+ *
+ * Games Vs this team
+ * Games while player was on this team
+ */
+
 import {
   Stack,
   Box,
@@ -8,14 +15,18 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { teams } from "./teams";
+import { useDispatch, useSelector } from "react-redux";
+import { setMatchupId, setPlayerTeamId } from "../playerSlice";
+import TeamLabel from "../../teams/teamLabel";
 
 export default function PlayerTeamSearch() {
+  const dispatch = useDispatch();
+  const { matchupTeamId, teamId } = useSelector((state) => state.player);
   const MyChip = (props) => {
     //   const [hidden, /setHidden] = React.useState(false);
     return (
       <Chip
         label={props.label}
-        //   onDelete={() => setHidden(true)}
         variant='outlined'
         sx={{ mr: 0.5, my: 0.1 }}
         avatar={
@@ -34,6 +45,7 @@ export default function PlayerTeamSearch() {
     <>
       {/* Matchup search bar */}
       <Autocomplete
+        value={matchupTeamId}
         multiple
         autoHighlight
         clearOnEscape
@@ -49,12 +61,7 @@ export default function PlayerTeamSearch() {
           ));
         }}
         onChange={(event, newValue) => {
-          try {
-            let newId = newValue[newValue.length - 1].id;
-            setMatchups((prevState) => [...prevState, newId]);
-          } catch (error) {
-            setMatchups([]);
-          }
+          dispatch(setMatchupId(newValue));
         }}
         renderOption={(props, option) => (
           <Box component='li' {...props} key={option.id}>
@@ -71,6 +78,7 @@ export default function PlayerTeamSearch() {
 
       {/* Team on search bar */}
       <Autocomplete
+        value={teamId}
         multiple
         autoHighlight
         clearOnEscape
@@ -86,13 +94,7 @@ export default function PlayerTeamSearch() {
           ));
         }}
         onChange={(event, newValue) => {
-          try {
-            let newId = newValue[newValue.length - 1].id; // new team being added id
-            setTeamsPlayerOn((prevState) => [...prevState, newId]); // add new val to end of array
-          } catch (error) {
-            // when deleting last elment for autocomplete it throws error
-            setTeamsPlayerOn([]);
-          }
+          dispatch(setPlayerTeamId(newValue));
         }}
         renderOption={(props, option) => (
           // Items for dropdown of autocomplete (team logo and name)

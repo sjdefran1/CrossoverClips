@@ -7,11 +7,12 @@ import { useParams } from "react-router-dom";
 import { setPlayer, setPlayerByPid } from "./playerSlice";
 import FilterSnackBar from "./filters/filterSnackbar";
 import PlayerFilters from "./filters/playerFilters";
+import { Container, Grid } from "@mui/material";
+import PlayersPlayList from "./playerPlayList";
 
 export default function Player() {
-  const { currentPlayer, allPlayers, playerNotFound } = useSelector(
-    (state) => state.player
-  );
+  const { currentPlayer, allPlayers, playerNotFound, filteredSearchLoading } =
+    useSelector((state) => state.player);
   const dispatch = useDispatch();
   const { pid } = useParams();
 
@@ -20,7 +21,6 @@ export default function Player() {
    */
   React.useEffect(() => {
     dispatch(fetchAllPlayers());
-    dispatch();
   }, []);
 
   /**
@@ -36,15 +36,26 @@ export default function Player() {
 
   return (
     <>
-      <PlayerSearch />
+      <Container maxWidth='xl'>
+        <Grid container spacing={1}>
+          <Grid item xs={12}>
+            <PlayerSearch />
+          </Grid>
+          {playerNotFound && (
+            <p>No player found with that ID. Try searching a new one above</p>
+          )}
 
-      {playerNotFound && (
-        <p>No player found with that ID. Try searching a new one above</p>
-      )}
+          <Grid item xs={6}>
+            {currentPlayer?.playerID && <PlayerCard />}
 
-      {currentPlayer?.playerID && <PlayerCard />}
+            {currentPlayer?.playerID && <PlayerFilters />}
+          </Grid>
 
-      {currentPlayer?.playerID && <PlayerFilters />}
+          <Grid item xs={6}>
+            {!filteredSearchLoading && <PlayersPlayList />}
+          </Grid>
+        </Grid>
+      </Container>
     </>
   );
 }
