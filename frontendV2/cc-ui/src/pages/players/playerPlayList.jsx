@@ -62,10 +62,6 @@ export default function PlayersPlayList(props) {
       </Collapse>
 
       {currentPagePlays &&
-        currentPagePlays.map((play) => play).length === 0 && (
-          <p>no highlights</p>
-        )}
-      {currentPagePlays &&
         currentPagePlays.map((play, index) => (
           <React.Fragment key={play.playid}>
             <nav aria-label='playbyplay'>

@@ -49,11 +49,13 @@ const initialState = {
   currentPage: 1,
   currentPagePlays: [],
   currentUrl: "",
+  gameShowing: {},
 
   // results
   noResultsFound: false,
   playResults: [],
-  gamesAvailable: [],
+  gamesAvailable: {},
+  gamesAvailableSortedByPoints: [],
 
   // all players for search bar
   allPlayers: [],
@@ -106,13 +108,10 @@ export const playerSlice = createSlice({
       state.teamId = initialState.teamId;
     },
     clearPlayerFilters(state) {
-      return {
-        ...initialState,
-        allPlayers: state.allPlayers,
-        loading: state.loading,
-        currentPlayer: state.currentPlayer,
-        playersLoading: true,
-      };
+      state.gid = initialState.gid;
+      state.matchupTeamId = initialState.matchupTeamId;
+      state.teamId = initialState.teamId;
+      state.filterAutoOptions = initialState.filterAutoOptions;
     },
 
     /**
@@ -126,6 +125,10 @@ export const playerSlice = createSlice({
       // updates the view count locally, making it seem like the view
       // count when up on the user screen, the request is being made in the bg
       state.currentPagePlays[action.payload].views += 1;
+
+      let currentGid = state.currentPagePlays[action.payload].gid;
+      let newGame = state.gamesAvailable[currentGid];
+      state.gameShowing = { ...newGame, gid: currentGid };
     },
     /**
      *
@@ -139,6 +142,10 @@ export const playerSlice = createSlice({
       state.currentPagePlays = state.playResults[action.payload];
       // new page, first plays url
       state.currentUrl = state.currentPagePlays[0].url;
+
+      let currentGid = state.currentPagePlays[0].gid;
+      let newGame = state.gamesAvailable[currentGid];
+      state.gameShowing = { ...newGame, gid: currentGid };
     },
   },
   extraReducers: (builder) => {
@@ -154,17 +161,34 @@ export const playerSlice = createSlice({
       //TODO
       // Loading States
       state.filteredSearchLoading = true;
+      state.filtersShowing = false;
     });
 
+    /**
+     * Responsible for setting most of the state
+     */
     builder.addCase(fetchFilteredPlays.fulfilled, (state, action) => {
+      // NO results
+      if (action.payload.len === 0) {
+        return {
+          ...initialState,
+          allPlayers: state.allPlayers,
+          loading: state.loading,
+          currentPlayer: state.currentPlayer,
+          playersLoading: false,
+          noResultsFound: true,
+        };
+      }
+
+      state.noResultsFound = false;
       // sorts games avaialble games by pts scored
       let sortedList = Object.entries(action.payload.games_available).sort(
         function (a, b) {
           return b[1].playerpts - a[1].playerpts;
         }
       );
-      state.gamesAvailable = sortedList;
-
+      state.gamesAvailable = action.payload.games_available;
+      state.gamesAvailableSortedByPoints = sortedList;
       state.numberOfPlays = action.payload.len;
       state.pageCount = action.payload.page_count;
       state.playResults = action.payload.results;
@@ -175,6 +199,12 @@ export const playerSlice = createSlice({
         state.currentPagePlays = action.payload.results[1];
         // first page, first play, URL
         state.currentUrl = state.playResults[1][0].url;
+
+        // set game showing
+
+        let currentGid = state.currentPagePlays[1].gid;
+        let newGame = state.gamesAvailable[currentGid];
+        state.gameShowing = { ...newGame, gid: currentGid };
       } else {
         state.noResultsFound = true;
       }

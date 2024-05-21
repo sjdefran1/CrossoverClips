@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import FilterSnackBar from "./filterSnackbar";
 import PlayerTeamSearch from "./playerTeamSearch";
 import { Box, Grid } from "@mui/material";
@@ -10,8 +10,6 @@ export default function PlayerFilters() {
   const { currentPlayer, filterAutoOptions, filtersShowing } = useSelector(
     (state) => state.player
   );
-  const dispatch = useDispatch();
-
   return (
     <>
       {currentPlayer?.playerID && <FilterSnackBar />}

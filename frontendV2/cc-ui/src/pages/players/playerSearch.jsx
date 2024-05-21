@@ -14,6 +14,7 @@ import PlayerLabel from "../../components/playerLabel";
 import { fetchAllPlayers } from "../../services/PlayerService";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlayer } from "./playerSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function PlayerSearch() {
   const [open, setOpen] = React.useState(false);
@@ -27,7 +28,7 @@ export default function PlayerSearch() {
   const { playersLoading, allPlayers } = useSelector((state) => state.player);
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   //   React.useEffect(() => {
   //     if (!open) {
   //       setOptions([]);
@@ -51,6 +52,7 @@ export default function PlayerSearch() {
         onChange={(event, newValue) => {
           if (newValue !== null) {
             dispatch(setPlayer(newValue));
+            navigate("/player/" + newValue.playerID);
           }
         }}
         isOptionEqualToValue={(option, value) => option.title === value.title}

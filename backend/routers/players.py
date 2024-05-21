@@ -196,19 +196,8 @@ async def get_players_plays_arr(
 async def get_sample_plays_for_player(player: Player):
     """
     Returns 20 highlights for player, sorted by most viewed
-    Also updates players view count + 1
     """
     db.ping_db()
-    # update player views
-    query = f"""
-    UPDATE 
-        players
-    SET 
-        views = views + 1
-    WHERE pid={player.pid};
-    """
-    print(f"SAMPLE PLAYS - Updating views for |{player.pid}|")
-    db.psy_cursor.execute(query)
 
     # get sample plays
     result_dict = plays_query_executor(
@@ -229,6 +218,21 @@ async def get_sample_plays_for_player(player: Player):
     db.psyconn.commit()
     return JSONResponse(content=return_dict, status_code=200)
 
+
+@players_router.post("/player/view")
+async def update_player_view(player: Player):
+    db.ping_db()
+    # update player views
+    query = f"""
+    UPDATE 
+        players
+    SET 
+        views = views + 1
+    WHERE pid={player.pid};
+    """
+    print(f"PLAYER ROUTER - Updating views for |{player.pid}|")
+    db.psy_cursor.execute(query)
+    return JSONResponse(content={}, status_code=200)
 
 @players_router.post("/lastSecondShots")
 async def get_player_last_second_shots(player: Player):

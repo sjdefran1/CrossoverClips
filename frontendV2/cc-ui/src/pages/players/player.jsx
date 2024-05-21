@@ -4,15 +4,21 @@ import PlayerCard from "./playerCard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllPlayers } from "../../services/PlayerService";
 import { useParams } from "react-router-dom";
-import { setPlayer, setPlayerByPid } from "./playerSlice";
-import FilterSnackBar from "./filters/filterSnackbar";
+import { setPlayerByPid } from "./playerSlice";
 import PlayerFilters from "./filters/playerFilters";
 import { Container, Grid } from "@mui/material";
 import PlayersPlayList from "./playerPlayList";
+import PlayerGameShowing from "./playerGameShowing";
 
 export default function Player() {
-  const { currentPlayer, allPlayers, playerNotFound, filteredSearchLoading } =
-    useSelector((state) => state.player);
+  const {
+    currentPlayer,
+    allPlayers,
+    playerNotFound,
+    filteredSearchLoading,
+    gameShowing,
+    noResultsFound,
+  } = useSelector((state) => state.player);
   const dispatch = useDispatch();
   const { pid } = useParams();
 
@@ -34,6 +40,15 @@ export default function Player() {
     }
   }, [allPlayers]);
 
+  /**
+   * Updates Player View when new one is selected
+   *
+   * TODO: UNCMMENT WHEN BACK IN PROD
+   */
+  // React.useEffect(() => {
+  //   updatePlayerView(pid);
+  // }, [pid]);
+
   return (
     <>
       <Container maxWidth='xl'>
@@ -47,12 +62,15 @@ export default function Player() {
 
           <Grid item xs={6}>
             {currentPlayer?.playerID && <PlayerCard />}
-
+            {gameShowing?.gid && <PlayerGameShowing />}
             {currentPlayer?.playerID && <PlayerFilters />}
           </Grid>
 
           <Grid item xs={6}>
-            {!filteredSearchLoading && <PlayersPlayList />}
+            {!filteredSearchLoading && !noResultsFound && <PlayersPlayList />}
+            {noResultsFound && !filteredSearchLoading && (
+              <p>No results for that search</p>
+            )}
           </Grid>
         </Grid>
       </Container>

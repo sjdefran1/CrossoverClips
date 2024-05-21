@@ -11,19 +11,11 @@ import {
   Fade,
   IconButton,
   Paper,
-  Checkbox,
-  FormControlLabel,
   Hidden,
   Divider,
 } from "@mui/material";
-import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
-import CircleIcon from "@mui/icons-material/Circle";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  handlePlayerSelect,
-  clearPlayerFilter,
-  handleTeamSelect,
-} from "./gameSlice.js";
+import { clearPlayerFilter, handleTeamSelect } from "./gameSlice.js";
 import PlayerOptionList from "./playerOptionList.jsx";
 
 //const project = projects[0];
@@ -33,7 +25,6 @@ export default function PlayerFilter(props) {
   //     props.currentFilterPlayers
   //   );
 
-  const selectedPlayers = useSelector((state) => state.game.filteredPlayers);
   const allPlayers = useSelector((state) => state.game.allPlayersInGame);
   const teamIDs = [
     useSelector((state) => state.game.homeTeam.TEAM_ID),

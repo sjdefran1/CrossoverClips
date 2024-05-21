@@ -25,7 +25,7 @@ export default function TeamSelector() {
         <>
           {/* Desktop View East/Western Chip Header */}
           <Hidden smDown>
-            <Grid container textAlign={"center"} xs={12}>
+            <Grid container textAlign={"center"}>
               <Divider sx={{ width: "100%", my: 0.5 }} />
               <Grid item xs={6}>
                 <Chip variant='outlined' label='East' />

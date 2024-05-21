@@ -7,7 +7,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   Button,
   Accordion,
   AccordionDetails,
@@ -50,10 +49,16 @@ export default function QuickLinks2(props) {
           <TableContainer>
             <Table aria-label='simple table'>
               <TableHead>
-                <TableRow>
-                  <TableCell align='center'>Season Start</TableCell>
-                  <TableCell align='center'>Playoffs</TableCell>
-                  <TableCell align='center'>Finals</TableCell>
+                <TableRow key={"headers"}>
+                  <TableCell key={"season"} align='center'>
+                    Season Start
+                  </TableCell>
+                  <TableCell key={"playoffs"} align='center'>
+                    Playoffs
+                  </TableCell>
+                  <TableCell key={"finals"} align='center'>
+                    Finals
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -66,7 +71,7 @@ export default function QuickLinks2(props) {
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}>
-                        <TableCell align='center'>
+                        <TableCell align='center' key={dates.openingDay}>
                           <Button
                             variant='contained'
                             color='info'
@@ -76,7 +81,7 @@ export default function QuickLinks2(props) {
                           </Button>
                         </TableCell>
 
-                        <TableCell align='center'>
+                        <TableCell align='center' key={dates.playoffs}>
                           <IconButton
                             onClick={() => customNavigate(dates.playoffs)}>
                             <Avatar
@@ -85,7 +90,7 @@ export default function QuickLinks2(props) {
                             />
                           </IconButton>
                         </TableCell>
-                        <TableCell align='center'>
+                        <TableCell align='center' key={dates.finals}>
                           <IconButton
                             onClick={() => customNavigate(dates.finals)}>
                             <Avatar

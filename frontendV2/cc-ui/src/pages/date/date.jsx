@@ -9,11 +9,9 @@ import {
   Hidden,
 } from "@mui/material";
 
-import dayjs from "dayjs";
 import "dayjs/locale/de";
 
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import DateSelection from "./dateSelection";
 import GameList from "../../components/GameList";
 

@@ -42,6 +42,10 @@ export const fetchFilteredPlays = createAsyncThunk(
   }
 );
 
+export const updatePlayerView = (pid) => {
+  axios.post(baseRequestURL + "/players/player/view", { pid: pid });
+};
+
 /**
  * Helper to create request body for grabbing plays
  *
