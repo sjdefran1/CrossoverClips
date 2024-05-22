@@ -29,13 +29,14 @@ export default function Player() {
     currentPage,
     fullScreenVideo,
     endOfResultsReached,
-    loading,
     samplePlaysShowing,
+    samplePlaysLoading,
   } = useSelector((state) => state.player);
   const dispatch = useDispatch();
   const { pid } = useParams();
 
-  const videoShouldRender = !filteredSearchLoading && !endOfResultsReached;
+  const videoShouldRender =
+    !filteredSearchLoading && !endOfResultsReached && !samplePlaysLoading;
 
   const playListAndPaginationShouldRender =
     !filteredSearchLoading && !noResultsFound;
@@ -93,7 +94,7 @@ export default function Player() {
             {videoShouldRender && !fullScreenVideo && <PlayerVideoWrapper />}
 
             {filteredSearchLoading && <LoadingGif />}
-
+            {samplePlaysLoading && <LoadingGif />}
             {/* Should only be rendering plays when we have results and a game to shwo */}
             {playListAndPaginationShouldRender && (
               <>

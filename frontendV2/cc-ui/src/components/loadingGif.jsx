@@ -52,9 +52,6 @@ export default function LoadingGif() {
           <Image src={selectedGif} fit='contain' />
         </Box>
       )}
-      <Typography variant='h6' sx={{ mt: 1 }}>
-        Hang Tight
-      </Typography>
     </div>
   );
 }

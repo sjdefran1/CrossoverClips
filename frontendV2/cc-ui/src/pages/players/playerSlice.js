@@ -11,6 +11,7 @@ const initialState = {
   loading: true, // first overall load
   filteredSearchLoading: false, // submitted search
   playersLoading: true, // searchbar retrieving players
+  samplePlaysLoading: true,
   samplePlaysShowing: true,
   playerNotFound: false, // pid from url not found
   filtersShowing: true,
@@ -295,8 +296,11 @@ export const playerSlice = createSlice({
     /**
      * Sample plays
      */
-
+    builder.addCase(fetchSamplePlays.pending, (state) => {
+      state.samplePlaysLoading = true;
+    });
     builder.addCase(fetchSamplePlays.fulfilled, (state, action) => {
+      state.samplePlaysLoading = false;
       state.endOfResultsReached = false;
       state.numberOfPlays = action.payload.len;
       state.pageCount = action.payload.page_count;
