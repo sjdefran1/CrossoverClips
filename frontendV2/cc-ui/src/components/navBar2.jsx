@@ -25,9 +25,13 @@ import {
   fetchDaysToHighlight,
   fetchGamesByDate,
 } from "../services/GameService";
+import "./navBar2.css";
 
-const pages = ["teams", "players", "date"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = [
+  ["teams", "/teams"],
+  ["players", "/player/2544"],
+  ["date", "/date/" + dayjs().format("YYYY-MM-DD")],
+];
 const currentDate = dayjs().format("YYYY-MM-DD").toString();
 
 function NavBar2() {
@@ -58,7 +62,9 @@ function NavBar2() {
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <Fade in={true} timeout={600}>
-            <Avatar src={CrossoverClipsLogo} />
+            <IconButton className='avatar-button' onClick={() => navigate("/")}>
+              <Avatar src={CrossoverClipsLogo} />
+            </IconButton>
           </Fade>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -88,9 +94,11 @@ function NavBar2() {
               sx={{
                 display: { xs: "block", md: "none" },
               }}>
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>{page}</Typography>
+              {pages.map((page, link) => (
+                <MenuItem key={page[0]} onClick={handleCloseNavMenu}>
+                  <Button onClick={() => navigate(page[1])}>
+                    <Typography textAlign='center'>{page[0]}</Typography>
+                  </Button>
                 </MenuItem>
               ))}
             </Menu>
@@ -139,7 +147,7 @@ function NavBar2() {
             </Button>
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title='Open settings'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
@@ -166,7 +174,7 @@ function NavBar2() {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>

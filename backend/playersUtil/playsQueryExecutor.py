@@ -114,7 +114,7 @@ def plays_query_executor(query: str, non_fgm=False, samplePlays=0) -> dict:
                 db.psy_cursor.fetchall()
             )
 
-            # grab first 1000 plays to be returned to usr
+            # grab first 500 plays to be returned to usr
             # if non_fgm we need to remove those rows after
             # finding how many pts the player scored that game
 

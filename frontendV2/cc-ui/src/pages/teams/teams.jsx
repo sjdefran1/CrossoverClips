@@ -10,6 +10,7 @@ import {
   AccordionDetails,
   Stack,
   IconButton,
+  Hidden,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -74,6 +75,10 @@ export default function Teams() {
           <Grid container spacing={2} mt={2}>
             {/* (left hand side) */}
             <Grid item xs={12} md={6}>
+              {/* Mobile team display */}
+              <Hidden smUp>
+                <MatchupDisplay />
+              </Hidden>
               {/* Team Selector */}
               <Accordion
                 defaultExpanded
@@ -130,8 +135,9 @@ export default function Teams() {
 
             {/* (right side of desktop view) */}
             <Grid item xs={12} md={6}>
-              <MatchupDisplay />
-
+              <Hidden smDown>
+                <MatchupDisplay />
+              </Hidden>
               {/* Request is complete, and we found games */}
               {!teams.resultsLoading && !gamesAvailableBool && <TeamGameList />}
 

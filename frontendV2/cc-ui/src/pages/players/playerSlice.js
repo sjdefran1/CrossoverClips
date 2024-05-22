@@ -2,17 +2,20 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   fetchAllPlayers,
   fetchFilteredPlays,
+  fetchPlaysByGid,
+  fetchSamplePlays,
 } from "../../services/PlayerService";
 
 const initialState = {
-  loading: true,
-  filteredSearchLoading: false,
-  playersLoading: true,
-  playerNotFound: false,
+  // loading states
+  loading: true, // first overall load
+  filteredSearchLoading: false, // submitted search
+  playersLoading: true, // searchbar retrieving players
+  samplePlaysShowing: true,
+  playerNotFound: false, // pid from url not found
   filtersShowing: true,
   currentPlayer: {},
   fullScreenVideo: false,
-
   // filters
   gid: null, // selected game from returned games
   matchupTeamId: [], // games against these id's
@@ -44,18 +47,19 @@ const initialState = {
   },
 
   // indexing and pagination
-  pageCount: 0,
-  numberOfPlays: 0,
-  playIndex: 0,
+  pageCount: 0, // # of pages of plays
+  numberOfPlays: 0, // overall possible plays, will be used for offset
+  playIndex: 0, // index of current page plays "currently viewing"
   currentPage: 1,
-  currentPagePlays: [],
-  currentUrl: "",
+  endOfResultsReached: false, // true when viewed last possible clip returned
+  currentPagePlays: [], // rendered plays
+  currentUrl: "", // url in vidplayer
   gameShowing: {},
 
   // results
   noResultsFound: false,
-  playResults: [],
-  gamesAvailable: {},
+  playResults: [], // pages of plays {1: [..], 2: [..]}
+  gamesAvailable: {}, // possible games {gid: {game}}
   gamesAvailableSortedByPoints: [],
 
   // all players for search bar
@@ -67,7 +71,13 @@ export const playerSlice = createSlice({
   initialState,
   reducers: {
     setPlayer(state, action) {
-      state.currentPlayer = action.payload;
+      return {
+        ...initialState,
+        currentPlayer: action.payload,
+        allPlayers: state.allPlayers,
+        playersLoading: false,
+        loading: state.loading,
+      };
     },
     setPlayerByPid(state, action) {
       let tempPlayer = state.allPlayers.find(
@@ -88,6 +98,9 @@ export const playerSlice = createSlice({
     },
     setPlayerTeamId(state, action) {
       state.teamId = action.payload;
+    },
+    setPlayerGid(state, action) {
+      state.gid = action.payload;
     },
     updatePlayerFilter(state, action) {
       // get if the selected option was true or false, then change it to the opposite
@@ -130,6 +143,7 @@ export const playerSlice = createSlice({
       let currentGid = state.currentPagePlays[action.payload].gid;
       let newGame = state.gamesAvailable[currentGid];
       state.gameShowing = { ...newGame, gid: currentGid };
+      state.endOfResultsReached = false;
     },
     /**
      *
@@ -152,13 +166,17 @@ export const playerSlice = createSlice({
     incrementPlayIndex(state, action) {
       let newIndex = state.playIndex + action.payload;
       // need to move onto next page
-      if (newIndex > 4) {
+      if (newIndex > state.currentPagePlays.length - 1) {
         // if the new page to load exists
         if (state.currentPage + 1 <= state.pageCount) {
           // reset index for new page
           state.playIndex = 0;
           // passing in null as "event", then next page
           state.currentPage += 1;
+        } else {
+          console.log("fired");
+          state.endOfResultsReached = true;
+          return;
         }
         // need to move back a page
         // same process as above
@@ -170,6 +188,7 @@ export const playerSlice = createSlice({
       } else {
         state.playIndex = newIndex;
       }
+      state.endOfResultsReached = false;
       state.currentPagePlays = state.playResults[state.currentPage];
       state.currentUrl = state.currentPagePlays[state.playIndex].url;
     },
@@ -188,10 +207,9 @@ export const playerSlice = createSlice({
     });
 
     builder.addCase(fetchFilteredPlays.pending, (state) => {
-      //TODO
-      // Loading States
       state.filteredSearchLoading = true;
       state.filtersShowing = false;
+      state.samplePlaysShowing = false;
     });
 
     /**
@@ -242,6 +260,57 @@ export const playerSlice = createSlice({
       // load stuff
       state.filteredSearchLoading = false;
     });
+    builder.addCase(fetchPlaysByGid.pending, (state) => {
+      //TODO
+      // Loading States
+      state.filteredSearchLoading = true;
+      state.filtersShowing = false;
+    });
+
+    /**
+     * Triggered when game selected from games available
+     */
+    builder.addCase(fetchPlaysByGid.fulfilled, (state, action) => {
+      state.endOfResultsReached = false;
+      state.numberOfPlays = action.payload.len;
+      state.pageCount = action.payload.page_count;
+      state.playResults = action.payload.results;
+
+      // set the currentshowing plays to the first page of results
+      state.currentPagePlays = action.payload.results[1];
+      // first page, first play, URL
+      state.currentUrl = state.playResults[1][0].url;
+      state.playIndex = 0;
+      // set game showing
+      let newGame = state.gamesAvailable[state.gid];
+      state.gameShowing = { ...newGame, gid: state.gid };
+
+      // reset this to null so if user submits a new search
+      // its not only for that game
+      state.gid = null;
+      // load stuff
+      state.filteredSearchLoading = false;
+    });
+
+    /**
+     * Sample plays
+     */
+
+    builder.addCase(fetchSamplePlays.fulfilled, (state, action) => {
+      state.endOfResultsReached = false;
+      state.numberOfPlays = action.payload.len;
+      state.pageCount = action.payload.page_count;
+      state.playResults = action.payload.results;
+
+      // set the currentshowing plays to the first page of results
+      state.currentPagePlays = action.payload.results[1];
+      // first page, first play, URL
+      state.currentUrl = action.payload.results[1][0].url;
+      state.playIndex = 0;
+
+      // load stuff
+      state.filteredSearchLoading = false;
+    });
   },
 });
 
@@ -257,5 +326,6 @@ export const {
   handlePaginationChange,
   incrementPlayIndex,
   setFullscreenVideo,
+  setPlayerGid,
 } = playerSlice.actions;
 export default playerSlice.reducer;

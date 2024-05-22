@@ -1,0 +1,7 @@
+.avatar-button .MuiAvatar-root {
+  transition: transform 0.3s;
+}
+
+.avatar-button:hover .MuiAvatar-root {
+  transform: scale(1.1);
+}

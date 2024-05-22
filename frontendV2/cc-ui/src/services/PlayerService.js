@@ -42,6 +42,24 @@ export const fetchFilteredPlays = createAsyncThunk(
   }
 );
 
+export const fetchPlaysByGid = createAsyncThunk(
+  "player/fetchPlaysByGid",
+  async (options) => {
+    return axios
+      .post(baseRequestURL + "/players/plays2", options)
+      .then((response) => response.data);
+  }
+);
+
+export const fetchSamplePlays = createAsyncThunk(
+  "player/fetchSamplePlays",
+  async (player) => {
+    return axios
+      .post(baseRequestURL + "/players/samplePlays2", player)
+      .then((response) => response.data);
+  }
+);
+
 export const updatePlayerView = (pid) => {
   axios.post(baseRequestURL + "/players/player/view", { pid: pid });
 };
@@ -75,6 +93,24 @@ export const createSearchResults = (playerState) => {
 
   let teamIds = playerState.teamId.map((team) => team.id);
   let matchupIds = playerState.matchupTeamId.map((team) => team.id);
+
+  // if searching for just a certain game
+  // ie: clicked a game in games available
+  if (playerState.gid !== null) {
+    let requestOptions = {
+      player_id: playerState.currentPlayer.playerID,
+      team_id: null,
+      matchup_team_id: null,
+      limit: 1000,
+      quarter: quarterOptions, // needs to accept arr in backend
+      stat_type: statTypeOptions, // needs to accept arr in backend
+      gid: playerState.gid,
+      gtype: null,
+      season: null,
+      home_away: null,
+    };
+    return requestOptions;
+  }
 
   let requestOptions = {
     player_id: playerState.currentPlayer.playerID,

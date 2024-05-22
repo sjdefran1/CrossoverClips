@@ -68,32 +68,47 @@ export default function VideoFrame(props) {
           {props.showProgressBar && <LinearProgress color='success' />}
         </Paper>
 
-        {props.isFullScreen ? (
-          <Fade in={props.isFullScreen}>
-            <iframe
-              title='Full Screen Video'
-              id='videoIframe'
-              width={"1280"}
-              height={"720"}
-              // onLoad={() => setShowProgressBar(false)}
-              onLoad={() => handleLoad()}
-              src={props.currentUrl}
-              frameBorder='0'
-              allowFullScreen></iframe>
-          </Fade>
-        ) : (
-          <Fade in={!props.isFullScreen}>
-            <iframe
-              title='Minimized Video'
-              id='videoIframe'
-              width={"640"}
-              height={"360"}
-              onLoad={() => handleLoad()}
-              src={props.currentUrl}
-              frameBorder='0'
-              allowFullScreen></iframe>
-          </Fade>
-        )}
+        <Hidden smDown>
+          {props.isFullScreen ? (
+            <Fade in={props.isFullScreen}>
+              <iframe
+                title='Full Screen Video'
+                id='videoIframe'
+                width={"1280"}
+                height={"720"}
+                // onLoad={() => setShowProgressBar(false)}
+                onLoad={() => handleLoad()}
+                src={props.currentUrl}
+                frameBorder='0'
+                allowFullScreen></iframe>
+            </Fade>
+          ) : (
+            <Fade in={!props.isFullScreen}>
+              <iframe
+                title='Minimized Video'
+                id='videoIframe'
+                width={"640"}
+                height={"360"}
+                onLoad={() => handleLoad()}
+                src={props.currentUrl}
+                frameBorder='0'
+                allowFullScreen></iframe>
+            </Fade>
+          )}
+        </Hidden>
+
+        <Hidden smUp>
+          <iframe
+            title='Full Screen Video'
+            id='videoIframe'
+            width={"360"}
+            height={"360"}
+            // onLoad={() => setShowProgressBar(false)}
+            onLoad={() => handleLoad()}
+            src={props.currentUrl}
+            frameBorder='0'
+            allowFullScreen></iframe>
+        </Hidden>
       </Stack>
     </>
   );

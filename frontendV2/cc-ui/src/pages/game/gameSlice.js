@@ -19,6 +19,9 @@ const initialState = {
   currentShowingPlays: [], // current stat type play list
   allPlayersInGame: [], // list of players for player filter comp
   filteredPlayers: [], // id's of players that have been selected
+
+  // video player func
+  currentlyRenderedPlays: [],
 };
 
 export const gameSlice = createSlice({
@@ -74,6 +77,9 @@ export const gameSlice = createSlice({
       state.currentShowingPlays = initialState.currentShowingPlays;
       state.currentShowingPlays = state.allStatTypePlayDict[action.payload];
     },
+    setCurrentlyRenderedPlays(state, action) {
+      state.currentlyRenderedPlays = action.payload;
+    },
   },
   extraReducers: (builder) => {
     /**
@@ -119,5 +125,6 @@ export const {
   handleTeamSelect,
   handleQuarterChange,
   handleStatChange,
+  setCurrentlyRenderedPlays,
 } = gameSlice.actions;
 export default gameSlice.reducer;

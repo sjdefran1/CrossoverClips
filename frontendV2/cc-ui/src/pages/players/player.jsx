@@ -2,14 +2,20 @@ import React from "react";
 import PlayerSearch from "./playerSearch";
 import PlayerCard from "./playerCard";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllPlayers } from "../../services/PlayerService";
+import {
+  fetchAllPlayers,
+  fetchSamplePlays,
+} from "../../services/PlayerService";
 import { useParams } from "react-router-dom";
 import { handlePaginationChange, setPlayerByPid } from "./playerSlice";
 import PlayerFilters from "./filters/playerFilters";
-import { Box, Container, Grid, Pagination } from "@mui/material";
+import { Alert, Box, Container, Grid, Pagination } from "@mui/material";
 import PlayersPlayList from "./playerPlayList";
 import PlayerGameShowing from "./playerGameShowing";
 import PlayerVideoWrapper from "./playerVideoWrapper";
+import LoadingGif from "../../components/loadingGif";
+import GamesAvailable from "./playerGamesAvailable";
+import Loading from "../../components/loading";
 
 export default function Player() {
   const {
@@ -22,10 +28,17 @@ export default function Player() {
     pageCount,
     currentPage,
     fullScreenVideo,
+    endOfResultsReached,
+    loading,
+    samplePlaysShowing,
   } = useSelector((state) => state.player);
   const dispatch = useDispatch();
   const { pid } = useParams();
 
+  const videoShouldRender = !filteredSearchLoading && !endOfResultsReached;
+
+  const playListAndPaginationShouldRender =
+    !filteredSearchLoading && !noResultsFound;
   /**
    * Fetches all players on load
    */
@@ -41,6 +54,7 @@ export default function Player() {
   React.useEffect(() => {
     if (allPlayers.length > 0) {
       dispatch(setPlayerByPid({ pid: Number(pid) }));
+      dispatch(fetchSamplePlays({ pid: Number(pid) }));
     }
   }, [allPlayers]);
 
@@ -50,25 +64,38 @@ export default function Player() {
         <Grid container spacing={1}>
           <Grid item xs={12}>
             <PlayerSearch />
-            {gameShowing?.gid && fullScreenVideo && <PlayerVideoWrapper />}
+            {samplePlaysShowing && (
+              <Alert severity='info' sx={{ justifyContent: "center" }}>
+                You are currently viewing sample plays (Top 20 viewed
+                highlights)
+              </Alert>
+            )}
+            {videoShouldRender && fullScreenVideo && <PlayerVideoWrapper />}
+            {/* {loading && <LoadingGif />} */}
           </Grid>
           {playerNotFound && (
             <p>No player found with that ID. Try searching a new one above</p>
           )}
 
-          <Grid item xs={6}>
+          {/* On initial load before we load bron */}
+          <Grid item xs={12}>
+            {!currentPlayer?.playerID && <Loading />}
+          </Grid>
+
+          <Grid item xs={12} md={6}>
             {currentPlayer?.playerID && <PlayerCard />}
             {gameShowing?.gid && <PlayerGameShowing />}
             {currentPlayer?.playerID && <PlayerFilters />}
+            {gameShowing?.gid && <GamesAvailable />}
           </Grid>
 
-          <Grid item xs={6}>
-            {!filteredSearchLoading && gameShowing?.gid && !fullScreenVideo && (
-              <PlayerVideoWrapper />
-            )}
+          <Grid item xs={12} md={6}>
+            {videoShouldRender && !fullScreenVideo && <PlayerVideoWrapper />}
+
+            {filteredSearchLoading && <LoadingGif />}
 
             {/* Should only be rendering plays when we have results and a game to shwo */}
-            {!filteredSearchLoading && !noResultsFound && gameShowing?.gid && (
+            {playListAndPaginationShouldRender && (
               <>
                 <Box overflow={"auto"} maxHeight={"80vh"}>
                   <PlayersPlayList />

@@ -11,7 +11,10 @@ import Autocomplete from "@mui/material/Autocomplete";
 import SearchIcon from "@mui/icons-material/Search";
 import { createFilterOptions } from "@mui/material/Autocomplete";
 import PlayerLabel from "../../components/playerLabel";
-import { fetchAllPlayers } from "../../services/PlayerService";
+import {
+  fetchAllPlayers,
+  fetchSamplePlays,
+} from "../../services/PlayerService";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlayer } from "./playerSlice";
 import { useNavigate } from "react-router-dom";
@@ -53,6 +56,7 @@ export default function PlayerSearch() {
           if (newValue !== null) {
             dispatch(setPlayer(newValue));
             navigate("/player/" + newValue.playerID);
+            dispatch(fetchSamplePlays({ pid: newValue.playerID }));
           }
         }}
         isOptionEqualToValue={(option, value) => option.title === value.title}

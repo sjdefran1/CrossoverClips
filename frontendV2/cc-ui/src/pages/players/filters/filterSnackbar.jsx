@@ -6,7 +6,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { useSelector, useDispatch } from "react-redux";
-import { setFiltersShowing, clearPlayerFilters } from "../playerSlice";
+import {
+  setFiltersShowing,
+  clearPlayerFilters,
+  setPlayerGid,
+} from "../playerSlice";
 import {
   createSearchResults,
   fetchFilteredPlays,

@@ -16,6 +16,7 @@
     "axios": "^1.6.8",
     "dayjs": "^1.11.11",
     "js-file-download": "^0.4.12",
+    "mui-image": "^1.0.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.1.2",
