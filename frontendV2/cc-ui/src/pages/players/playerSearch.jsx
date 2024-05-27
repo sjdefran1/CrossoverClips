@@ -1,19 +1,12 @@
 import React from "react";
-import {
-  Stack,
-  Chip,
-  Avatar,
-  Box,
-  CircularProgress,
-  TextField,
-} from "@mui/material";
+import { Stack, Box, CircularProgress, TextField } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import SearchIcon from "@mui/icons-material/Search";
 import { createFilterOptions } from "@mui/material/Autocomplete";
 import PlayerLabel from "../../components/playerLabel";
 import {
   fetchAllPlayers,
-  fetchSamplePlays,
+  updatePlayerView,
 } from "../../services/PlayerService";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlayer } from "./playerSlice";
@@ -32,13 +25,6 @@ export default function PlayerSearch() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //   React.useEffect(() => {
-  //     if (!open) {
-  //       setOptions([]);
-  //     } else {
-  //       dispatch(fetchAllPlayers());
-  //     }
-  //   }, [open]);
 
   return (
     <>
@@ -56,7 +42,7 @@ export default function PlayerSearch() {
           if (newValue !== null) {
             dispatch(setPlayer(newValue));
             navigate("/player/" + newValue.playerID);
-            dispatch(fetchSamplePlays({ pid: newValue.playerID }));
+            updatePlayerView({ pid: newValue.playerID });
           }
         }}
         isOptionEqualToValue={(option, value) => option.title === value.title}

@@ -15,6 +15,7 @@ import Teams from "./pages/teams/teams";
 import Game from "./pages/game/game";
 import Date from "./pages/date/date";
 import Player from "./pages/players/player";
+import Home from "./pages/home/home";
 
 const darkTheme = createTheme({
   palette: {
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
       {
         path: "/date/:dateurlstr",
         element: <Date />,
+      },
+      {
+        path: "/",
+        element: <Home />,
       },
     ],
   },

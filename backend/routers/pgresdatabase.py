@@ -1,5 +1,7 @@
 import os
 import psycopg2
+import psycopg2.errors
+
 
 def create_connections() -> None:
     """Makes connection w/ postgres db, declares psy_cursor and psyconn globally"""
@@ -28,5 +30,9 @@ def ping_db() -> None:
         create_connections()  # reset connection
     except psycopg2.InterfaceError:
         print("Cursor was closed")
+        create_connections()
+    except Exception as e:  # other errors
+        psy_cursor.close()
+        psyconn.close()
         create_connections()
     return

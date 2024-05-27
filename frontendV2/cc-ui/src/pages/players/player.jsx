@@ -55,9 +55,17 @@ export default function Player() {
   React.useEffect(() => {
     if (allPlayers.length > 0) {
       dispatch(setPlayerByPid({ pid: Number(pid) }));
-      dispatch(fetchSamplePlays({ pid: Number(pid) }));
     }
   }, [allPlayers]);
+
+  /**
+   * Fetch sample plays on new player select
+   */
+  React.useEffect(() => {
+    if (currentPlayer?.playerID) {
+      dispatch(fetchSamplePlays({ pid: currentPlayer.playerID }));
+    }
+  }, [currentPlayer]);
 
   return (
     <>

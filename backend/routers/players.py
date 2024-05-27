@@ -122,12 +122,15 @@ async def register_or_update_viewer(req: Request) -> JSONResponse:
 
 
 @players_router.get("/allPlayers")
-def get_all_players():
+async def get_all_players():
     """return all players from db"""
     db.ping_db()
+
     db.psy_cursor.execute("select * from players order by views desc;")
+    results = db.psy_cursor.fetchall()
+
     df = pd.DataFrame(
-        data=db.psy_cursor.fetchall(),
+        data=results,
         columns=[
             "playerID",
             "fname",
@@ -215,7 +218,7 @@ async def get_sample_plays_for_player(player: Player):
         "results": pages_split,
     }
 
-    db.psyconn.commit()
+    # db.psyconn.commit()
     return JSONResponse(content=return_dict, status_code=200)
 
 
@@ -232,7 +235,9 @@ async def update_player_view(player: Player):
     """
     print(f"PLAYER ROUTER - Updating views for |{player.pid}|")
     db.psy_cursor.execute(query)
+    db.psyconn.commit()
     return JSONResponse(content={}, status_code=200)
+
 
 @players_router.post("/lastSecondShots")
 async def get_player_last_second_shots(player: Player):

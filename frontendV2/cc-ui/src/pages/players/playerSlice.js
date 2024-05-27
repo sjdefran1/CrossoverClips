@@ -168,27 +168,41 @@ export const playerSlice = createSlice({
       let newIndex = state.playIndex + action.payload;
       // need to move onto next page
       if (newIndex > state.currentPagePlays.length - 1) {
+        console.log("Inside first if ");
         // if the new page to load exists
         if (state.currentPage + 1 <= state.pageCount) {
+          console.log("\t inside second if");
           // reset index for new page
           state.playIndex = 0;
-          // passing in null as "event", then next page
+          // update next pages first view
+          state.currentPagePlays[0].views += 1;
+          // passing in null as "event" ?? wut, then next page
           state.currentPage += 1;
+          // need to update in playResults as well
+          state.playResults[state.currentPage][0].views += 1;
         } else {
-          console.log("fired");
           state.endOfResultsReached = true;
           return;
         }
         // need to move back a page
         // same process as above
       } else if (newIndex < 0) {
+        console.log("inside else if");
         if (state.currentPage - 1 > 1) {
+          console.log("\tinside else if if");
           state.playIndex = 0;
+          state.currentPagePlays[0].views += 1;
           state.currentPage -= 1;
+          state.playResults[state.currentPage][0].views += 1;
         }
       } else {
+        console.log("inside base else");
         state.playIndex = newIndex;
+        state.currentPagePlays[newIndex].views += 1;
+        state.playResults[state.currentPage][newIndex].views += 1;
+        // console.log(state.currentPagePlays[newIndex].views);
       }
+      // state.currentPagePlays[newIndex].views += 1;
       state.endOfResultsReached = false;
       state.currentPagePlays = state.playResults[state.currentPage];
       state.currentUrl = state.currentPagePlays[state.playIndex].url;
@@ -196,6 +210,15 @@ export const playerSlice = createSlice({
 
     setFullscreenVideo(state, action) {
       state.fullScreenVideo = action.payload;
+    },
+
+    incrementDownloadCount(state, action) {
+      let play = state.currentPagePlays.find(
+        (play) =>
+          play.url === action.payload.url && play.ptype === action.payload.ptype
+      );
+
+      console.log(play);
     },
   },
   extraReducers: (builder) => {
@@ -331,5 +354,6 @@ export const {
   incrementPlayIndex,
   setFullscreenVideo,
   setPlayerGid,
+  incrementDownloadCount,
 } = playerSlice.actions;
 export default playerSlice.reducer;

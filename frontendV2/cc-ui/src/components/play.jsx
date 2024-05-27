@@ -14,19 +14,24 @@ import {
   Button,
   LinearProgress,
 } from "@mui/material";
-// import VisibilityIcon from "@mui/icons-material/Visibility";
 
 import PlaySecondary from "./playSecondary";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { handlePlayDownload, handlePlayView } from "../services/PlayService";
+import { incrementDownloadCount } from "../pages/players/playerSlice";
+import { useDispatch } from "react-redux";
 
 //const project = projects[0];
 export default function Play(props) {
   const [isLoading, setIsLoading] = React.useState(false);
+  const dispatch = useDispatch();
 
   const handleDownload = async (givenUrl) => {
     setIsLoading(true);
+    // dispatch(
+    //   incrementDownloadCount({ url: givenUrl, ptype: props.play.ptype })
+    // ); // need better solution because this is used in both game and player states
     try {
       await handlePlayDownload({
         playUrl: givenUrl,
@@ -44,31 +49,6 @@ export default function Play(props) {
       <Divider />
       <Fade in={true}>
         <Stack sx={{ justifyContent: "center" }}>
-          {/* Believe this is for players dahsboard, would rather wrap this over there */}
-          {/* {props?.playShowingIndex !== undefined &&
-            props?.index === props.playShowingIndex && (
-              <Grow in={true}>
-                <Paper
-                  variant='outlined'
-                  sx={{
-                    borderColor: "#90caf9",
-                    padding: 1,
-                    mt: 1,
-                  }}>
-                  <Stack
-                    direction={"row"}
-                    spacing={1}
-                    justifyContent={"center"}
-                    alignItems={"center"}>
-                    <VisibilityIcon sx={{ color: "#90caf9" }} />
-                    <Typography variant='subtitle2' color={"#90caf9"}>
-                      Currently Viewing
-                    </Typography>
-                  </Stack>
-                </Paper>
-              </Grow>
-            )} */}
-
           <Link
             target='_blank'
             rel='noreferrer'

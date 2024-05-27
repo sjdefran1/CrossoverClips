@@ -61,7 +61,8 @@ export const fetchSamplePlays = createAsyncThunk(
 );
 
 export const updatePlayerView = (pid) => {
-  axios.post(baseRequestURL + "/players/player/view", { pid: pid });
+  let player = pid;
+  axios.post(baseRequestURL + "/players/player/view", player);
 };
 
 /**

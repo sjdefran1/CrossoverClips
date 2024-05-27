@@ -103,7 +103,7 @@ function NavBar2() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant='h5'
             noWrap
@@ -120,7 +120,7 @@ function NavBar2() {
               textDecoration: "none",
             }}>
             LOGO
-          </Typography>
+          </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
               key={"Teams"}

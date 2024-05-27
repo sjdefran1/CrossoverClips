@@ -1,18 +1,17 @@
 import {
   Paper,
   Stack,
-  Badge,
   Avatar,
   Typography,
   Chip,
   Divider,
-  Fade,
   Grid,
   Hidden,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import GoatAvatar from "../../static/goat.png";
 import NbaCircle from "../../static/nbaCircleLogo.png";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 export default function PlayerCard() {
   const currentPlayer = useSelector((state) => state.player.currentPlayer);
@@ -77,7 +76,7 @@ export default function PlayerCard() {
                   }
                 />
 
-                <Chip label={currentPlayer.yrsplayed + " SZN's"} color='info' />
+                {/* <Chip label={currentPlayer.yrsplayed + " SZN's"} color='info' /> */}
 
                 {currentPlayer.goatflag === "Y" && (
                   <Hidden smDown>
@@ -97,6 +96,17 @@ export default function PlayerCard() {
                       }></Chip>
                   </Hidden>
                 )}
+
+                <Chip
+                  size='small'
+                  color='info'
+                  variant='outlined'
+                  icon={<VisibilityIcon color='info' />}
+                  label={currentPlayer.views}
+                  sx={{
+                    display: currentPlayer.views !== undefined ? "" : "none",
+                  }}
+                />
               </Stack>
             </Stack>
 
