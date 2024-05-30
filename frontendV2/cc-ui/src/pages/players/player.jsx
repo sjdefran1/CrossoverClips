@@ -16,6 +16,7 @@ import PlayerVideoWrapper from "./playerVideoWrapper";
 import LoadingGif from "../../components/loadingGif";
 import GamesAvailable from "./playerGamesAvailable";
 import Loading from "../../components/loading";
+import NoResults from "../../components/NoResults";
 
 export default function Player() {
   const {
@@ -101,8 +102,8 @@ export default function Player() {
           <Grid item xs={12} md={6}>
             {videoShouldRender && !fullScreenVideo && <PlayerVideoWrapper />}
 
-            {filteredSearchLoading && <LoadingGif />}
-            {samplePlaysLoading && <LoadingGif />}
+            {filteredSearchLoading && !noResultsFound && <LoadingGif />}
+            {samplePlaysLoading && !noResultsFound && <LoadingGif />}
             {/* Should only be rendering plays when we have results and a game to shwo */}
             {playListAndPaginationShouldRender && (
               <>
@@ -124,7 +125,7 @@ export default function Player() {
               </>
             )}
             {noResultsFound && !filteredSearchLoading && (
-              <p>No results for that search</p>
+              <NoResults isFromPlayer={true} />
             )}
           </Grid>
         </Grid>

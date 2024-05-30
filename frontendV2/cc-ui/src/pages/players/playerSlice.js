@@ -244,6 +244,10 @@ export const playerSlice = createSlice({
       if (action.payload.len === 0) {
         return {
           ...initialState,
+          samplePlaysShowing: false,
+          filterAutoOptions: state.filterAutoOptions,
+          teamId: state.teamId,
+          matchupTeamId: state.matchupTeamId,
           allPlayers: state.allPlayers,
           loading: state.loading,
           currentPlayer: state.currentPlayer,
@@ -323,6 +327,7 @@ export const playerSlice = createSlice({
       state.samplePlaysLoading = true;
     });
     builder.addCase(fetchSamplePlays.fulfilled, (state, action) => {
+      state.noResultsFound = false;
       state.samplePlaysLoading = false;
       state.endOfResultsReached = false;
       state.numberOfPlays = action.payload.len;

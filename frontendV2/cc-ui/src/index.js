@@ -4,7 +4,11 @@ import * as ReactDOM from "react-dom/client";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 
 import { Provider } from "react-redux";
 import { store } from "./apprdx/store";
@@ -91,9 +95,13 @@ const router = createBrowserRouter([
         path: "/date/:dateurlstr",
         element: <Date />,
       },
+      // {
+      //   path: "/",
+      //   element: <Home />,
+      // },
       {
         path: "/",
-        element: <Home />,
+        element: <Navigate to='/teams' replace />,
       },
     ],
   },

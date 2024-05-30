@@ -3,6 +3,7 @@ import {
   fetchBasicGameInfo,
   fetchPlayByPlayByGameId,
 } from "../../services/GameService";
+import { setFullscreenVideo } from "../players/playerSlice";
 
 const initialState = {
   gid: null,
@@ -22,6 +23,10 @@ const initialState = {
 
   // video player func
   currentlyRenderedPlays: [],
+  currentPlayIndex: 0,
+  currentUrl: "",
+  fullScreenVideo: false,
+  videoPlayerEnabled: false,
 };
 
 export const gameSlice = createSlice({
@@ -80,6 +85,37 @@ export const gameSlice = createSlice({
     setCurrentlyRenderedPlays(state, action) {
       state.currentlyRenderedPlays = action.payload;
     },
+    incrementGamePlayIndex(state, action) {
+      let newIndex = state.currentPlayIndex + action.payload;
+      // forwards
+      if (newIndex > state.currentlyRenderedPlays.length - 1) {
+        if (state.quarterSelected + 1 <= state.numberOfQuarters) {
+          state.currentPlayIndex = 0;
+          state.quarterSelected += 1;
+        } else {
+          // out of plays
+        }
+      }
+
+      // backwards
+      else if (newIndex < 0) {
+        if (state.quarterSelected - 1 > 1) {
+          state.currentPlayIndex = 0;
+          state.quarterSelected -= 1;
+        }
+        // out of quarters/plays
+        else {
+        }
+      }
+      // dont need to change quarters
+      else {
+        state.currentPlayIndex = newIndex;
+      }
+      state.currentUrl = state.currentShowingPlays[state.currentPlayIndex].url;
+    },
+    setGameFullscreenVideo(state, action) {
+      state.fullScreenVideo = action.payload;
+    },
   },
   extraReducers: (builder) => {
     /**
@@ -126,5 +162,7 @@ export const {
   handleQuarterChange,
   handleStatChange,
   setCurrentlyRenderedPlays,
+  incrementGamePlayIndex,
+  setGameFullscreenVideo,
 } = gameSlice.actions;
 export default gameSlice.reducer;

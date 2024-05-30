@@ -58,7 +58,7 @@ function NavBar2() {
   const navigate = useNavigate();
 
   return (
-    <AppBar position='static'>
+    <AppBar position='static' elevation={0} sx={{}}>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <Fade in={true} timeout={600}>
@@ -67,71 +67,39 @@ function NavBar2() {
             </IconButton>
           </Fade>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size='large'
-              aria-label='account of current user'
-              aria-controls='menu-appbar'
-              aria-haspopup='true'
-              onClick={handleOpenNavMenu}
-              color='inherit'>
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id='menu-appbar'
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}>
-              {pages.map((page, link) => (
-                <MenuItem key={page[0]} onClick={handleCloseNavMenu}>
-                  <Button onClick={() => navigate(page[1])}>
-                    <Typography textAlign='center'>{page[0]}</Typography>
-                  </Button>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant='h5'
-            noWrap
-            component='a'
-            href='#app-bar-with-responsive-menu'
+          <Box
             sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
+              justifyContent: "center",
               flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
+              display: "flex",
+              mr: { xs: 4, md: 2 },
             }}>
-            LOGO
-          </Typography> */}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
               key={"Teams"}
               onClick={() => navigate("/teams")}
-              sx={{ my: 2, color: "white", display: "block" }}>
+              sx={{
+                my: 2,
+                color: "text.secondary",
+                display: "block",
+                "&:hover": {
+                  transform: "scale(1.1)",
+                  transition: "transform 0.2s",
+                },
+              }}>
               Teams
             </Button>
             <Button
               key={"Players"}
               onClick={() => navigate("/player/2544")}
-              sx={{ my: 2, color: "white", display: "block" }}>
+              sx={{
+                color: "text.secondary",
+                my: 2,
+                display: "block",
+                "&:hover": {
+                  transform: "scale(1.1)",
+                  transition: "transform 0.2s",
+                },
+              }}>
               Players
             </Button>
             <Button
@@ -142,7 +110,15 @@ function NavBar2() {
                 dispatch(fetchGamesByDate(currentDate));
                 navigate("/date/" + currentDate);
               }}
-              sx={{ my: 2, color: "white", display: "block" }}>
+              sx={{
+                color: "text.secondary",
+                my: 2,
+                display: "block",
+                "&:hover": {
+                  transform: "scale(1.1)",
+                  transition: "transform 0.2s",
+                },
+              }}>
               Date
             </Button>
           </Box>

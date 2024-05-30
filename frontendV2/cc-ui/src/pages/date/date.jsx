@@ -17,6 +17,7 @@ import GameList from "../../components/GameList";
 
 import QuickLinks2 from "./dateQuickLinks2";
 import CustomDateCalendar from "./dateCustomCalendar";
+import NoResults from "../../components/NoResults";
 
 export default function Date() {
   const { loading, gameList } = useSelector((state) => state.date);
@@ -61,6 +62,8 @@ export default function Date() {
                 <GameList gameList={gameList} />
               </Grid>
             )}
+
+            {!loading && gameList.length < 1 && <NoResults isFromDate={true} />}
           </Grid>
         </Grid>
       </Container>

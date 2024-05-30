@@ -27,6 +27,7 @@ import GameStatsDash from "./gameStatsDash";
 import QuarterControl from "./quarterControl";
 import GameStatFilter from "./gameStatFilters";
 import Loading from "../../components/loading";
+import GameVideoWrapper from "./gameVideoWrapper";
 
 export default function Game() {
   const { gid } = useParams();
@@ -132,8 +133,8 @@ export default function Game() {
             {/* RHS of screen */}
             <Grid item sm={12} md={6}>
               <>
+                {/* <GameVideoWrapper /> */}
                 <QuarterControl />
-
                 <Box overflow={"auto"} maxHeight={"80vh"}>
                   <GamePlayList />
                 </Box>
