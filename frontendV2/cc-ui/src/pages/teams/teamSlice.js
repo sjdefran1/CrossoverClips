@@ -20,10 +20,10 @@ const initialState = {
       "Regular Season": false,
       Playoffs: false,
     },
-    "Win or Loss": {
-      Win: false,
-      Loss: false,
-    },
+    // "Win or Loss": {
+    //   Win: false,
+    //   Loss: false,
+    // },
     Seasons: {
       "2023-24": true,
       "2022-23": true,
@@ -36,10 +36,10 @@ const initialState = {
       "2015-16": true,
       "2014-15": true,
     },
-    "Game Location": {
-      Home: false,
-      Away: false,
-    },
+    // "Game Location": {
+    //   Home: false,
+    //   Away: false,
+    // },
   },
 };
 

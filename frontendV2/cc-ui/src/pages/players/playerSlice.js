@@ -5,6 +5,7 @@ import {
   fetchPlaysByGid,
   fetchSamplePlays,
 } from "../../services/PlayerService";
+import { handlePlayView } from "../../services/PlayService";
 
 const initialState = {
   // loading states
@@ -168,10 +169,8 @@ export const playerSlice = createSlice({
       let newIndex = state.playIndex + action.payload;
       // need to move onto next page
       if (newIndex > state.currentPagePlays.length - 1) {
-        console.log("Inside first if ");
         // if the new page to load exists
         if (state.currentPage + 1 <= state.pageCount) {
-          console.log("\t inside second if");
           // reset index for new page
           state.playIndex = 0;
           // update next pages first view
@@ -187,16 +186,13 @@ export const playerSlice = createSlice({
         // need to move back a page
         // same process as above
       } else if (newIndex < 0) {
-        console.log("inside else if");
         if (state.currentPage - 1 > 1) {
-          console.log("\tinside else if if");
           state.playIndex = 0;
           state.currentPagePlays[0].views += 1;
           state.currentPage -= 1;
           state.playResults[state.currentPage][0].views += 1;
         }
       } else {
-        console.log("inside base else");
         state.playIndex = newIndex;
         state.currentPagePlays[newIndex].views += 1;
         state.playResults[state.currentPage][newIndex].views += 1;
@@ -206,6 +202,7 @@ export const playerSlice = createSlice({
       state.endOfResultsReached = false;
       state.currentPagePlays = state.playResults[state.currentPage];
       state.currentUrl = state.currentPagePlays[state.playIndex].url;
+      handlePlayView(state.currentPagePlays[state.playIndex]);
     },
 
     setFullscreenVideo(state, action) {

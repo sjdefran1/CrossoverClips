@@ -25,7 +25,7 @@ export default function PlayerVideoWrapper() {
 
   return (
     <>
-      <Stack direction={"row"} alignItems={"center"}>
+      <Stack direction={"row"} alignItems={"center"} minWidth={"85%"}>
         <Hidden smDown>
           <IconButton onClick={handleLeftArrowClick}>
             <KeyboardArrowLeftIcon fontSize='large' color='info' />

@@ -26,17 +26,9 @@ export default function VideoFrame(props) {
     dispatch(props.setFullscreenVideo(event.target.checked));
   };
 
-  // updates first play shown view
-  // TODO: NEED TO UNCCOMENT WHEN BACK IN PROD
-  // React.useEffect(() => {
-  //   let playArrCopy = [...props.playArr.plays];
-  //   playArrCopy[0].views = playArrCopy[0].views + 1;
-  //   handleView(playArrCopy[0]);
-  // }, []);
-
   return (
     <>
-      <Stack direction={"column"}>
+      <Stack direction={"column"} minWidth={"inherit"}>
         <Paper variant='outlined' sx={{ textAlign: "center", bgcolor: "#333" }}>
           <Stack
             direction='row'
@@ -51,7 +43,11 @@ export default function VideoFrame(props) {
             />
 
             <Chip
-              label={props.currentPlay ? props.currentPlay.sznstr : "..."}
+              label={
+                props.location === "game" // loaded in a game view, rather than player
+                  ? props.currentPlay.pname
+                  : props.currentPlay.sznstr
+              }
               variant='outlined'
               color='primary'
               sx={{ my: 0.5 }}
@@ -74,8 +70,8 @@ export default function VideoFrame(props) {
               <iframe
                 title='Full Screen Video'
                 id='videoIframe'
-                width={"1280"}
-                height={"720"}
+                width={"100%"}
+                height={720}
                 // onLoad={() => setShowProgressBar(false)}
                 onLoad={() => handleLoad()}
                 src={props.currentUrl}
@@ -87,7 +83,7 @@ export default function VideoFrame(props) {
               <iframe
                 title='Minimized Video'
                 id='videoIframe'
-                width={"640"}
+                width={"100%"}
                 height={"360"}
                 onLoad={() => handleLoad()}
                 src={props.currentUrl}
@@ -99,7 +95,7 @@ export default function VideoFrame(props) {
 
         <Hidden smUp>
           <iframe
-            title='Full Screen Video'
+            title='Full Screen Video Mobile'
             id='videoIframe'
             width={"360"}
             height={"360"}

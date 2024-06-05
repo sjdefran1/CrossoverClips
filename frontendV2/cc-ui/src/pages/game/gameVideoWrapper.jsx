@@ -29,7 +29,11 @@ export default function GameVideoWrapper() {
 
   return (
     <>
-      <Stack direction={"row"} alignItems={"center"}>
+      <Stack
+        direction={"row"}
+        alignItems={"center"}
+        minWidth={"85%"}
+        minHeight={"50vh"}>
         <Hidden smDown>
           <IconButton onClick={handleLeftArrowClick}>
             <KeyboardArrowLeftIcon fontSize='large' color='info' />
@@ -38,11 +42,12 @@ export default function GameVideoWrapper() {
 
         <VideoFrame
           currentPlay={currentlyRenderedPlays[currentPlayIndex]}
-          currentUrl={currentUrl}
+          currentUrl={currentlyRenderedPlays[currentPlayIndex]?.url}
           setFullscreenVideo={setGameFullscreenVideo}
           isFullScreen={fullScreenVideo}
           showProgressBar={showProgressBar}
           setShowProgressBar={setShowProgressBar}
+          location={"game"}
         />
 
         <Hidden smDown>

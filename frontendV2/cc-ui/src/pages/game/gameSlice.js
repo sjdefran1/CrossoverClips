@@ -4,6 +4,7 @@ import {
   fetchPlayByPlayByGameId,
 } from "../../services/GameService";
 import { setFullscreenVideo } from "../players/playerSlice";
+import { handlePlayView } from "../../services/PlayService";
 
 const initialState = {
   gid: null,
@@ -22,7 +23,7 @@ const initialState = {
   filteredPlayers: [], // id's of players that have been selected
 
   // video player func
-  currentlyRenderedPlays: [],
+  currentlyRenderedPlays: [], // Rendered on screen, updates on quarter/filter change
   currentPlayIndex: 0,
   currentUrl: "",
   fullScreenVideo: false,
@@ -85,10 +86,19 @@ export const gameSlice = createSlice({
     setCurrentlyRenderedPlays(state, action) {
       state.currentlyRenderedPlays = action.payload;
     },
+    setGamePlayIndex(state, action) {
+      state.currentPlayIndex = action.payload;
+      let currentPlayId = state.currentlyRenderedPlays[action.payload].playid;
+      let tempIndex = state.currentShowingPlays.findIndex(
+        (play) => play.playid === currentPlayId
+      );
+      state.currentShowingPlays[tempIndex].views += 1;
+    },
     incrementGamePlayIndex(state, action) {
       let newIndex = state.currentPlayIndex + action.payload;
       // forwards
       if (newIndex > state.currentlyRenderedPlays.length - 1) {
+        newIndex = 0;
         if (state.quarterSelected + 1 <= state.numberOfQuarters) {
           state.currentPlayIndex = 0;
           state.quarterSelected += 1;
@@ -99,7 +109,8 @@ export const gameSlice = createSlice({
 
       // backwards
       else if (newIndex < 0) {
-        if (state.quarterSelected - 1 > 1) {
+        newIndex = 0;
+        if (state.quarterSelected - 1 >= 1) {
           state.currentPlayIndex = 0;
           state.quarterSelected -= 1;
         }
@@ -111,10 +122,21 @@ export const gameSlice = createSlice({
       else {
         state.currentPlayIndex = newIndex;
       }
+      let currentPlayId = state.currentlyRenderedPlays[newIndex].playid;
+      let tempIndex = state.currentShowingPlays.findIndex(
+        (play) => play.playid === currentPlayId
+      );
+      handlePlayView(state.currentlyRenderedPlays[newIndex]);
+      state.currentShowingPlays[tempIndex].views += 1;
       state.currentUrl = state.currentShowingPlays[state.currentPlayIndex].url;
     },
     setGameFullscreenVideo(state, action) {
       state.fullScreenVideo = action.payload;
+    },
+    enableVideoPlayer(state) {
+      state.videoPlayerEnabled = !state.videoPlayerEnabled;
+      state.currentShowingPlays[0].views += 1;
+      handlePlayView(state.currentShowingPlays[0]);
     },
   },
   extraReducers: (builder) => {
@@ -164,5 +186,7 @@ export const {
   setCurrentlyRenderedPlays,
   incrementGamePlayIndex,
   setGameFullscreenVideo,
+  enableVideoPlayer,
+  setGamePlayIndex,
 } = gameSlice.actions;
 export default gameSlice.reducer;

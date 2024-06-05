@@ -7,13 +7,16 @@ import {
   Tooltip,
   Typography,
   Chip,
+  Switch,
+  Box,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 
 import { useSelector, useDispatch } from "react-redux";
-import { handleQuarterChange } from "./gameSlice";
+import { enableVideoPlayer, handleQuarterChange } from "./gameSlice";
+import OndemandVideo from "@mui/icons-material/OndemandVideo";
 
 export default function QuarterControl() {
   const currentQuarter = useSelector((state) => state.game.quarterSelected);
@@ -21,11 +24,14 @@ export default function QuarterControl() {
 
   return (
     <AppBar position='static' sx={{ borderRadius: 1 }}>
-      <Toolbar sx={{ justifyContent: "right" }}>
+      <Toolbar sx={{ justifyContent: "center" }}>
         <Stack
           direction='row'
           alignItems={"center"}
-          sx={{ mr: { xs: "20%", md: "36%" } }}>
+
+          // textAlign={"center"}
+          // sx={{ mr: { xs: "20%", md: "36%" } }}
+        >
           <IconButton onClick={() => dispatch(handleQuarterChange(0))}>
             <KeyboardArrowLeftIcon color='info' />
           </IconButton>
@@ -38,10 +44,9 @@ export default function QuarterControl() {
           <IconButton onClick={() => dispatch(handleQuarterChange(1))}>
             <KeyboardArrowRightIcon color='info' />
           </IconButton>
+          <Switch onClick={() => dispatch(enableVideoPlayer())} />
+          <OndemandVideo />
         </Stack>
-        <Tooltip title='Click anywhere on a play to be redirected!'>
-          <InfoIcon color='success' />
-        </Tooltip>
       </Toolbar>
     </AppBar>
   );

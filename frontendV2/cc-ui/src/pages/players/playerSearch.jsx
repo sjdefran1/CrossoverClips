@@ -30,7 +30,7 @@ export default function PlayerSearch() {
     <>
       <Autocomplete
         id='asynchronous-demo'
-        sx={{ width: "85%", mt: 0.5 }}
+        sx={{ width: "100%", mt: 0.5 }}
         open={open}
         onOpen={() => {
           setOpen(true);

@@ -11,8 +11,13 @@ import {
   AccordionSummary,
   AccordionDetails,
   Alert,
+  Switch,
+  Typography,
+  Stack,
+  Paper,
 } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 
 import {
   fetchBasicGameInfo,
@@ -57,8 +62,14 @@ export default function Game() {
       {/* Actual Page */}
       {!game.basicGameInfoLoading && !game.playByPlayLoading && (
         <Container maxWidth={"xl"}>
-          <Grid container spacing={2} mt={1}>
-            <Grid item sm={12} md={6} width={"100%"}>
+          <Grid container spacing={2}>
+            {/* Full Screen Video */}
+            <Grid item xs={12}>
+              {game.videoPlayerEnabled && game.fullScreenVideo && (
+                <GameVideoWrapper />
+              )}
+            </Grid>
+            <Grid item sm={12} md={6}>
               <>
                 {/* Team Vs Team, score, date */}
                 <ScoreBoard />
@@ -82,7 +93,7 @@ export default function Game() {
                   </Tabs>
                 </Box>
 
-                {/* Render corresponding tab element */}
+                {/* Render corresponding tab element (filters vs game stats) */}
                 {tabValue === 0 && (
                   <>
                     <Alert sx={{ justifyContent: "center" }}>
@@ -133,7 +144,9 @@ export default function Game() {
             {/* RHS of screen */}
             <Grid item sm={12} md={6}>
               <>
-                {/* <GameVideoWrapper /> */}
+                {game.videoPlayerEnabled && !game.fullScreenVideo && (
+                  <GameVideoWrapper />
+                )}
                 <QuarterControl />
                 <Box overflow={"auto"} maxHeight={"80vh"}>
                   <GamePlayList />
