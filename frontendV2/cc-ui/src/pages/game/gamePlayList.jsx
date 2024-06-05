@@ -32,32 +32,32 @@ export default function GamePlayList(props) {
 
   /**
    * Selects Plays by current quarter
-   */
-  const playsByQuarter = React.useMemo(() => {
-    return plays.filter((play) => play.quarter === currentQuarter);
-  }, [plays, currentQuarter]);
+  //  */
+  // const playsByQuarter = React.useMemo(() => {
+  //   return plays.filter((play) => play.quarter === currentQuarter);
+  // }, [plays, currentQuarter]);
 
-  /***
-   * Selects plays that include filtered players
-   * based off of quarter filter
-   */
-  const filteredPlaysByPlayer = React.useMemo(() => {
-    return playsByQuarter.filter((play) => filteredIds.includes(play.playerID));
-  }, [playsByQuarter, filteredIds]);
+  // /***
+  //  * Selects plays that include filtered players
+  //  * based off of quarter filter
+  //  */
+  // const filteredPlaysByPlayer = React.useMemo(() => {
+  //   return playsByQuarter.filter((play) => filteredIds.includes(play.playerID));
+  // }, [playsByQuarter, filteredIds]);
 
-  React.useEffect(() => {
-    if (filteredPlaysByPlayer.length === 0 && filteredIds.length === 0) {
-      dispatch(setCurrentlyRenderedPlays(playsByQuarter));
-    } else {
-      dispatch(setCurrentlyRenderedPlays(filteredPlaysByPlayer));
-    }
-  }, [playsByQuarter, filteredPlaysByPlayer]);
+  // React.useEffect(() => {
+  //   if (filteredPlaysByPlayer.length === 0 && filteredIds.length === 0) {
+  //     dispatch(setCurrentlyRenderedPlays(playsByQuarter));
+  //   } else {
+  //     dispatch(setCurrentlyRenderedPlays(filteredPlaysByPlayer));
+  //   }
+  // }, [playsByQuarter, filteredPlaysByPlayer]);
 
   return (
     <>
       {/* No Plays found for current Filter */}
-      {filteredPlaysByPlayer.map((play) => play).length === 0 &&
-        filteredIds.length > 0 && <NoResults />}
+      {/* {filteredPlaysByPlayer.map((play) => play).length === 0 &&
+        filteredIds.length > 0 && <NoResults />} */}
 
       {playsRendered.map((play, index) => (
         <React.Fragment key={play.url}>

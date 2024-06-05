@@ -94,7 +94,7 @@ export default function Player() {
 
           <Grid item xs={12} md={6}>
             {currentPlayer?.playerID && <PlayerCard />}
-            {gameShowing?.gid && <PlayerGameShowing />}
+            {gameShowing?.playerpts && <PlayerGameShowing />}
             {currentPlayer?.playerID && <PlayerFilters />}
             {gameShowing?.gid && <GamesAvailable />}
           </Grid>

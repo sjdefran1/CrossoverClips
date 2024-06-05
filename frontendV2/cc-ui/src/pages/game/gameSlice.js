@@ -48,9 +48,26 @@ export const gameSlice = createSlice({
       } else {
         state.filteredPlayers.push(action.payload);
       }
+
+      // set currently rendered plays based on if we have
+      // ids selected
+      if (state.filteredPlayers.length === 0) {
+        state.currentlyRenderedPlays = state.currentShowingPlays.filter(
+          (play) => play.quarter === state.quarterSelected
+        );
+      } else {
+        state.currentlyRenderedPlays = state.currentShowingPlays.filter(
+          (play) =>
+            play.quarter === state.quarterSelected &&
+            state.filteredPlayers.includes(play.playerID)
+        );
+      }
     },
     clearPlayerFilter(state) {
       state.filteredPlayers = initialState.filteredPlayers;
+      state.currentlyRenderedPlays = state.currentShowingPlays.filter(
+        (play) => play.quarter === state.quarterSelected
+      );
     },
     handleTeamSelect(state, action) {
       //console.log(props.players.filter((player) => player[0] === teamID));
@@ -77,17 +94,42 @@ export const gameSlice = createSlice({
       if (action.payload === 0) {
         state.quarterSelected -= 1;
       }
+
+      if (state.filteredPlayers.length > 0) {
+        state.currentlyRenderedPlays = state.currentShowingPlays.filter(
+          (play) =>
+            play.quarter === state.quarterSelected &&
+            state.filteredPlayers.includes(play.playerID)
+        );
+      } else {
+        state.currentlyRenderedPlays = state.currentShowingPlays.filter(
+          (play) => play.quarter === state.quarterSelected
+        );
+      }
     },
     handleStatChange(state, action) {
       state.currentlySelectedStatType = action.payload;
       state.currentShowingPlays = initialState.currentShowingPlays;
       state.currentShowingPlays = state.allStatTypePlayDict[action.payload];
+      if (state.filteredPlayers.length > 0) {
+        state.currentlyRenderedPlays = state.currentShowingPlays.filter(
+          (play) =>
+            play.quarter === state.quarterSelected &&
+            state.filteredPlayers.includes(play.playerID)
+        );
+      } else {
+        state.currentlyRenderedPlays = state.currentShowingPlays.filter(
+          (play) => play.quarter === state.quarterSelected
+        );
+      }
     },
     setCurrentlyRenderedPlays(state, action) {
       state.currentlyRenderedPlays = action.payload;
     },
     setGamePlayIndex(state, action) {
       state.currentPlayIndex = action.payload;
+      // state.currentlyRenderedPlays[action.payload].views += 1;
+
       let currentPlayId = state.currentlyRenderedPlays[action.payload].playid;
       let tempIndex = state.currentShowingPlays.findIndex(
         (play) => play.playid === currentPlayId
@@ -126,9 +168,10 @@ export const gameSlice = createSlice({
       let tempIndex = state.currentShowingPlays.findIndex(
         (play) => play.playid === currentPlayId
       );
-      handlePlayView(state.currentlyRenderedPlays[newIndex]);
+
       state.currentShowingPlays[tempIndex].views += 1;
       state.currentUrl = state.currentShowingPlays[state.currentPlayIndex].url;
+      handlePlayView(state.currentlyRenderedPlays[newIndex]);
     },
     setGameFullscreenVideo(state, action) {
       state.fullScreenVideo = action.payload;
@@ -169,7 +212,9 @@ export const gameSlice = createSlice({
       state.allStatTypePlayDict = action.payload.plays;
       state.currentShowingPlays =
         action.payload.plays[state.currentlySelectedStatType];
-
+      state.currentlyRenderedPlays = state.currentShowingPlays.filter(
+        (play) => play.quarter === 1
+      );
       state.allPlayersInGame = action.payload.players;
       state.numberOfQuarters = action.payload.number_quarters;
     });

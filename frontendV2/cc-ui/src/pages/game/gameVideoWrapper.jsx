@@ -32,6 +32,7 @@ export default function GameVideoWrapper() {
       <Stack
         direction={"row"}
         alignItems={"center"}
+        justifyContent={"center"}
         minWidth={"85%"}
         minHeight={"50vh"}>
         <Hidden smDown>

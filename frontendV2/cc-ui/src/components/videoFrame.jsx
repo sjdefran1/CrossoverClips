@@ -52,6 +52,23 @@ export default function VideoFrame(props) {
               color='primary'
               sx={{ my: 0.5 }}
             />
+
+            {props.location === "game" && (
+              <>
+                <Chip
+                  label={"Q" + props.currentPlay.quarter}
+                  variant='outlined'
+                  color='primary'
+                  sx={{ my: 0.5 }}
+                />
+                <Chip
+                  label={props.currentPlay.time}
+                  variant='outlined'
+                  color='primary'
+                  sx={{ my: 0.5 }}
+                />
+              </>
+            )}
             <Hidden smDown>
               <Switch
                 checked={props.isFullScreen}
