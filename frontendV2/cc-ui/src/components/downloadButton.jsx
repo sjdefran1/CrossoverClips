@@ -28,7 +28,7 @@ const DownloadButton = ({ url, filename, size }) => {
         </IconButton>
       ) : (
         <Button
-          endIcon={<DownloadIcon />}
+          endIcon={size === "default" ? <DownloadIcon /> : undefined}
           color='info'
           onClick={handleDownload}>
           Download
