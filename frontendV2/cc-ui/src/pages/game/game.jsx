@@ -15,6 +15,7 @@ import {
   Typography,
   Stack,
   Paper,
+  Snackbar,
 } from "@mui/material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
@@ -34,12 +35,15 @@ import GameStatFilter from "./gameStatFilters";
 import Loading from "../../components/loading";
 import GameVideoWrapper from "./gameVideoWrapper";
 import TemporaryDrawer from "./gamePlayDrawer";
+import FormatListBulleted from "@mui/icons-material/FormatListBulleted";
 
 export default function Game() {
   const { gid } = useParams();
   const dispatch = useDispatch();
   const game = useSelector((state) => state.game);
   const [tabValue, setTabValue] = React.useState(0);
+
+  const [toolTipsOpen, setTooltipsOpen] = React.useState(true);
   /**
    * Populate redux store with game information and play by play data
    */
@@ -154,6 +158,17 @@ export default function Game() {
                     {game.videoPlayerEnabled && !game.fullScreenVideo && (
                       <GameVideoWrapper />
                     )}
+                    <Snackbar
+                      open={toolTipsOpen}
+                      color='info'
+                      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                      autoHideDuration={4000}
+                      onClose={() => setTooltipsOpen(false)}>
+                      <Alert icon={<OndemandVideoIcon />} severity='success'>
+                        You can now enable video player in games! Try out full
+                        screen for a new look
+                      </Alert>
+                    </Snackbar>
                     <QuarterControl />
                     <Box overflow={"auto"} maxHeight={"80vh"}>
                       <GamePlayList />

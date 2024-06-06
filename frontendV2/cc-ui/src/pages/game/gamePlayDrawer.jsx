@@ -10,6 +10,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
@@ -25,6 +26,9 @@ import {
   Paper,
   Accordion,
   AccordionDetails,
+  Fab,
+  AccordionSummary,
+  Snackbar,
 } from "@mui/material";
 import { setGamePlayIndex } from "./gameSlice";
 import { enableVideoPlayer, handleQuarterChange } from "./gameSlice";
@@ -42,23 +46,10 @@ export default function TemporaryDrawer() {
     currentPlayIndex,
   } = useSelector((state) => state.game);
 
-  const [showSecondQuarterSelect, setShowSecondQuarterSelect] =
-    React.useState(false);
-  const containerRef = React.useRef(null);
-
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
   const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    const container = containerRef.current;
-    if (container && container.scrollHeight > container.clientHeight) {
-      setShowSecondQuarterSelect(true);
-    } else {
-      setShowSecondQuarterSelect(false);
-    }
-  }, [currentlyRenderedPlays]);
 
   const QuarterSelect = (
     <Paper elevation={1} sx={{ borderRadius: 0 }}>
@@ -87,6 +78,17 @@ export default function TemporaryDrawer() {
       >
         {QuarterSelect}
 
+        <Accordion disableGutters>
+          <AccordionSummary
+            expandIcon={<ArrowDropDownIcon />}
+            aria-controls='panel1-content'
+            id='panel1-header'>
+            <Typography>Player Filters</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <PlayerFilter />
+          </AccordionDetails>
+        </Accordion>
         <DrawerStatSelect />
         <List disablePadding>
           {currentlyRenderedPlays
@@ -113,21 +115,32 @@ export default function TemporaryDrawer() {
                         }
                       />
                     </ListItemIcon>
-                    <ListItemText sx={{ textOverflow: "clip" }}>
-                      <Typography variant='body1'>{play.pname}</Typography>
-                      <Divider sx={{ width: "50%" }} />
-                      <Typography variant='body2' color={"text.secondary"}>
-                        {play.description}
-                      </Typography>
-                      <Stack
-                        direction={"row"}
-                        spacing={1}
-                        alignItems={"center"}>
-                        <Chip sx={{ mt: 0.5 }} label={play.ptype} />
+                    <ListItemText>
+                      <Stack direction={"column"} spacing={0.5}>
+                        <Typography variant='body1'>{play.pname}</Typography>
 
+                        <Divider sx={{ width: "50%" }} />
                         <Typography variant='body2' color={"text.secondary"}>
-                          {play.time}
+                          {play.description}
                         </Typography>
+                        <Stack
+                          direction={"row"}
+                          spacing={1}
+                          alignItems={"center"}>
+                          <Chip sx={{ mt: 0.5 }} label={play.ptype} />
+
+                          <Typography variant='body2' color={"text.secondary"}>
+                            {play.time}
+                          </Typography>
+                          <Avatar
+                            src={
+                              "https://cdn.nba.com/logos/nba/" +
+                              play.teamID +
+                              "/primary/L/logo.svg"
+                            }
+                            sx={{ height: 20, width: 20 }}
+                          />
+                        </Stack>
                       </Stack>
                     </ListItemText>
 
@@ -143,19 +156,26 @@ export default function TemporaryDrawer() {
   );
 
   return (
-    <Box width='100%' textAlign={"center"}>
-      <Button
-        variant='contained'
-        color='info'
-        sx={{ mt: 2 }}
-        startIcon={<FormatListBulletedIcon />}
-        onClick={toggleDrawer(true)}>
-        Show PlayList
-      </Button>
-
-      <Drawer anchor='right' open={open} onClose={toggleDrawer(false)}>
-        {DrawerList}
-      </Drawer>
-    </Box>
+    <>
+      <Box width='100%' textAlign={"center"}>
+        {!open && (
+          <Snackbar
+            open={true}
+            anchorOrigin={{ horizontal: "center", vertical: "bottom" }}>
+            <Button
+              variant='contained'
+              color='info'
+              sx={{ mt: 2 }}
+              startIcon={<FormatListBulletedIcon />}
+              onClick={toggleDrawer(true)}>
+              Show PlayList
+            </Button>
+          </Snackbar>
+        )}
+        <Drawer anchor='right' open={open} onClose={toggleDrawer(false)}>
+          {DrawerList}
+        </Drawer>
+      </Box>
+    </>
   );
 }

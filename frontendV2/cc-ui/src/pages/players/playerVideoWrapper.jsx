@@ -42,7 +42,9 @@ export default function PlayerVideoWrapper() {
           setFullscreenVideo={setFullscreenVideo}
           isFullScreen={fullScreenVideo}
           showProgressBar={showProgressBar}
+          incrementIndex={incrementPlayIndex}
           setShowProgressBar={setShowProgressBar}
+          location='player'
         />
 
         <Hidden smDown>

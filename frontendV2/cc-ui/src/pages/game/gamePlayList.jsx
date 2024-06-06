@@ -58,7 +58,7 @@ export default function GamePlayList(props) {
       {/* No Plays found for current Filter */}
       {/* {filteredPlaysByPlayer.map((play) => play).length === 0 &&
         filteredIds.length > 0 && <NoResults />} */}
-
+      {playsRendered.length === 0 && <NoResults />}
       {playsRendered.map((play, index) => (
         <React.Fragment key={play.url}>
           <nav aria-label='playbyplay'>

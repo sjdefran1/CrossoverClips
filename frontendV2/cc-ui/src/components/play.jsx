@@ -13,6 +13,7 @@ import {
   ListItemText,
   Button,
   LinearProgress,
+  Typography,
 } from "@mui/material";
 
 import PlaySecondary from "./playSecondary";
@@ -21,6 +22,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { handlePlayDownload, handlePlayView } from "../services/PlayService";
 import { incrementDownloadCount } from "../pages/players/playerSlice";
 import { useDispatch } from "react-redux";
+import DownloadButton from "./downloadButton";
 
 //const project = projects[0];
 export default function Play(props) {
@@ -108,7 +110,11 @@ export default function Play(props) {
                   </ListItemIcon>
 
                   <ListItemText
-                    primary={props.play.description}
+                    primary={
+                      <Typography component={"div"}>
+                        {props.play.description}
+                      </Typography>
+                    }
                     secondary={
                       <PlaySecondary
                         meta={{
@@ -138,7 +144,7 @@ export default function Play(props) {
             </List>
           </Link>
 
-          <Button
+          {/* <Button
             color='info'
             size='small'
             sx={{ justifyContent: "center" }}
@@ -146,7 +152,14 @@ export default function Play(props) {
               handleDownload(props.play.url);
             }}>
             Download
-          </Button>
+          </Button> */}
+          <DownloadButton
+            url={props.play.url}
+            filename={`Q${props.play.quarter}_m${props.play.time.replace(
+              ":",
+              "-s"
+            )}_${props.play.description}.mp4`}
+          />
         </Stack>
       </Fade>
     </>

@@ -50,7 +50,7 @@ export default function QuarterControl() {
               checked={videoPlayerEnabled}
               onClick={() => dispatch(enableVideoPlayer())}
             />
-            <OndemandVideo />
+            <OndemandVideo sx={{ display: { xs: "none", sm: "flex" } }} />
           </Stack>
         </Box>
       </Toolbar>
