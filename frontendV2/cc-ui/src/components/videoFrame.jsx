@@ -131,6 +131,17 @@ export default function VideoFrame(props) {
                   }.mp4`}
                 />
               </Hidden>
+              <Hidden smDown>
+                <DownloadButton
+                  url={props.currentPlay?.url}
+                  size='default'
+                  filename={`Q${
+                    props.currentPlay?.quarter
+                  }_m${props.currentPlay?.time?.replace(":", "-s")}_${
+                    props.currentPlay?.description
+                  }.mp4`}
+                />
+              </Hidden>
             </Grid>
             <Hidden smDown>
               <Grid item xs={4}>

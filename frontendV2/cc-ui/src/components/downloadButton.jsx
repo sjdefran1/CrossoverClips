@@ -27,7 +27,10 @@ const DownloadButton = ({ url, filename, size }) => {
           <DownloadIcon />
         </IconButton>
       ) : (
-        <Button color='info' onClick={handleDownload}>
+        <Button
+          endIcon={<DownloadIcon />}
+          color='info'
+          onClick={handleDownload}>
           Download
         </Button>
       )}
