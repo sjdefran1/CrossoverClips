@@ -122,12 +122,15 @@ async def register_or_update_viewer(req: Request) -> JSONResponse:
 
 
 @players_router.get("/allPlayers")
-def get_all_players():
+async def get_all_players():
     """return all players from db"""
     db.ping_db()
+
     db.psy_cursor.execute("select * from players order by views desc;")
+    results = db.psy_cursor.fetchall()
+
     df = pd.DataFrame(
-        data=db.psy_cursor.fetchall(),
+        data=results,
         columns=[
             "playerID",
             "fname",
@@ -172,7 +175,9 @@ async def get_players_plays_arr(
         # add fgm to options, then sql query that w where clasue that says not fgm
         print(f"FILTERED SEARCH - FOR |{opts.player_id}|")
         query = build_plays_search_query_arrays(opts=opts)
-        result_dict = plays_query_executor(query=query, non_fgm=non_fgm_query)
+        result_dict = plays_query_executor(
+            query=query, non_fgm=non_fgm_query, opts=opts
+        )
         pages_split = split_array_into_pages(
             arr=result_dict["results"], df_cols=PLAYS_QUERY_COLUMNS_NAMES
         )
@@ -196,19 +201,8 @@ async def get_players_plays_arr(
 async def get_sample_plays_for_player(player: Player):
     """
     Returns 20 highlights for player, sorted by most viewed
-    Also updates players view count + 1
     """
     db.ping_db()
-    # update player views
-    query = f"""
-    UPDATE 
-        players
-    SET 
-        views = views + 1
-    WHERE pid={player.pid};
-    """
-    print(f"SAMPLE PLAYS - Updating views for |{player.pid}|")
-    db.psy_cursor.execute(query)
 
     # get sample plays
     result_dict = plays_query_executor(
@@ -226,8 +220,25 @@ async def get_sample_plays_for_player(player: Player):
         "results": pages_split,
     }
 
-    db.psyconn.commit()
+    # db.psyconn.commit()
     return JSONResponse(content=return_dict, status_code=200)
+
+
+@players_router.post("/player/view")
+async def update_player_view(player: Player):
+    db.ping_db()
+    # update player views
+    query = f"""
+    UPDATE 
+        players
+    SET 
+        views = views + 1
+    WHERE pid={player.pid};
+    """
+    print(f"PLAYER ROUTER - Updating views for |{player.pid}|")
+    db.psy_cursor.execute(query)
+    db.psyconn.commit()
+    return JSONResponse(content={}, status_code=200)
 
 
 @players_router.post("/lastSecondShots")

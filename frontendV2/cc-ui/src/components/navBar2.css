@@ -1,0 +1,15 @@
+.avatar-button .MuiAvatar-root {
+  transition: transform 0.3s;
+}
+
+.avatar-button:hover .MuiAvatar-root {
+  transform: scale(1.2);
+}
+
+.button-grow .MuiButton {
+  transition: transform 0.3s;
+}
+
+.button-grow:hover .MuiButton {
+  transform: scale(1.2);
+}
