@@ -175,7 +175,9 @@ async def get_players_plays_arr(
         # add fgm to options, then sql query that w where clasue that says not fgm
         print(f"FILTERED SEARCH - FOR |{opts.player_id}|")
         query = build_plays_search_query_arrays(opts=opts)
-        result_dict = plays_query_executor(query=query, non_fgm=non_fgm_query)
+        result_dict = plays_query_executor(
+            query=query, non_fgm=non_fgm_query, opts=opts
+        )
         pages_split = split_array_into_pages(
             arr=result_dict["results"], df_cols=PLAYS_QUERY_COLUMNS_NAMES
         )

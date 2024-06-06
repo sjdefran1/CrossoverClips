@@ -33,6 +33,7 @@ import QuarterControl from "./quarterControl";
 import GameStatFilter from "./gameStatFilters";
 import Loading from "../../components/loading";
 import GameVideoWrapper from "./gameVideoWrapper";
+import TemporaryDrawer from "./gamePlayDrawer";
 
 export default function Game() {
   const { gid } = useParams();
@@ -66,93 +67,101 @@ export default function Game() {
             {/* Full Screen Video */}
             <Grid item xs={12}>
               {game.videoPlayerEnabled && game.fullScreenVideo && (
-                <GameVideoWrapper />
-              )}
-            </Grid>
-            <Grid item sm={12} md={6}>
-              <>
-                {/* Team Vs Team, score, date */}
-                <ScoreBoard />
-
-                {/* Filter/Game Stats Tabs */}
-
-                <Box
-                  sx={{
-                    borderBottom: 1,
-                    borderColor: "divider",
-                    mb: 0.5,
-                    width: "100%",
-                  }}>
-                  <Tabs
-                    centered
-                    value={tabValue}
-                    onChange={handleTabChange}
-                    aria-label='Filters or Game Stats'>
-                    <Tab label='Filters' tabIndex={0} />
-                    <Tab label='Game Stats' tabIndex={1} />
-                  </Tabs>
-                </Box>
-
-                {/* Render corresponding tab element (filters vs game stats) */}
-                {tabValue === 0 && (
-                  <>
-                    <Alert sx={{ justifyContent: "center" }}>
-                      Filters now apply automatically on select
-                    </Alert>
-                    {/* Desktop View */}
-                    <Hidden smDown>
-                      <Grid container>
-                        <Grid item sm={12} lg={8}>
-                          <PlayerFilter />
-                        </Grid>
-                        <Grid item sm={12} lg={4}>
-                          <GameStatFilter />
-                        </Grid>
-                      </Grid>
-                    </Hidden>
-
-                    {/* Mobile View */}
-                    <Hidden smUp>
-                      <Accordion sx={{ minWidth: "100%" }} disableGutters>
-                        <AccordionSummary expandIcon={<ExpandMore />}>
-                          Player Filters
-                        </AccordionSummary>
-                        <AccordionDetails sx={{ minWidth: "100%" }}>
-                          <PlayerFilter />
-                        </AccordionDetails>
-                      </Accordion>
-
-                      <Accordion sx={{ minWidth: "100%" }} disableGutters>
-                        <AccordionSummary expandIcon={<ExpandMore />}>
-                          Stat Filters
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <GameStatFilter />
-                        </AccordionDetails>
-                      </Accordion>
-                    </Hidden>
-                  </>
-                )}
-              </>
-              {tabValue === 1 && (
-                <Grid item sm={12}>
-                  <GameStatsDash />
-                </Grid>
-              )}
-            </Grid>
-
-            {/* RHS of screen */}
-            <Grid item sm={12} md={6}>
-              <>
-                {game.videoPlayerEnabled && !game.fullScreenVideo && (
+                <>
                   <GameVideoWrapper />
-                )}
-                <QuarterControl />
-                <Box overflow={"auto"} maxHeight={"80vh"}>
-                  <GamePlayList />
-                </Box>
-              </>
+                  <TemporaryDrawer />
+                </>
+              )}
             </Grid>
+
+            {!game.fullScreenVideo && (
+              <>
+                <Grid item sm={12} md={6}>
+                  <>
+                    {/* Team Vs Team, score, date */}
+                    <ScoreBoard />
+
+                    {/* Filter/Game Stats Tabs */}
+
+                    <Box
+                      sx={{
+                        borderBottom: 1,
+                        borderColor: "divider",
+                        mb: 0.5,
+                        width: "100%",
+                      }}>
+                      <Tabs
+                        centered
+                        value={tabValue}
+                        onChange={handleTabChange}
+                        aria-label='Filters or Game Stats'>
+                        <Tab label='Filters' tabIndex={0} />
+                        <Tab label='Game Stats' tabIndex={1} />
+                      </Tabs>
+                    </Box>
+
+                    {/* Render corresponding tab element (filters vs game stats) */}
+                    {tabValue === 0 && (
+                      <>
+                        <Alert sx={{ justifyContent: "center" }}>
+                          Filters now apply automatically on select
+                        </Alert>
+                        {/* Desktop View */}
+                        <Hidden smDown>
+                          <Grid container>
+                            <Grid item sm={12} lg={8}>
+                              <PlayerFilter />
+                            </Grid>
+                            <Grid item sm={12} lg={4}>
+                              <GameStatFilter />
+                            </Grid>
+                          </Grid>
+                        </Hidden>
+
+                        {/* Mobile View */}
+                        <Hidden smUp>
+                          <Accordion sx={{ minWidth: "100%" }} disableGutters>
+                            <AccordionSummary expandIcon={<ExpandMore />}>
+                              Player Filters
+                            </AccordionSummary>
+                            <AccordionDetails sx={{ minWidth: "100%" }}>
+                              <PlayerFilter />
+                            </AccordionDetails>
+                          </Accordion>
+
+                          <Accordion sx={{ minWidth: "100%" }} disableGutters>
+                            <AccordionSummary expandIcon={<ExpandMore />}>
+                              Stat Filters
+                            </AccordionSummary>
+                            <AccordionDetails>
+                              <GameStatFilter />
+                            </AccordionDetails>
+                          </Accordion>
+                        </Hidden>
+                      </>
+                    )}
+                  </>
+                  {tabValue === 1 && (
+                    <Grid item sm={12}>
+                      <GameStatsDash />
+                    </Grid>
+                  )}
+                </Grid>
+
+                {/* RHS of screen */}
+                <Grid item sm={12} md={6}>
+                  <>
+                    {game.videoPlayerEnabled && !game.fullScreenVideo && (
+                      <GameVideoWrapper />
+                    )}
+                    <QuarterControl />
+                    <Box overflow={"auto"} maxHeight={"80vh"}>
+                      <GamePlayList />
+                    </Box>
+                  </>
+                </Grid>
+              </>
+            )}
           </Grid>
         </Container>
       )}

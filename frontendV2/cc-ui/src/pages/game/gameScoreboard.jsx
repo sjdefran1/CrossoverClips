@@ -51,8 +51,6 @@ export default function ScoreBoard(props) {
   return (
     <>
       <Paper sx={{ borderRadius: 2 }}>
-        <br></br>
-
         <Grid container spacing={1}>
           <Grid item xs={4}>
             <Stack

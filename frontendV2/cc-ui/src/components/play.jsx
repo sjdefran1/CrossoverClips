@@ -82,7 +82,7 @@ export default function Play(props) {
                         sx={{
                           alignItems: "center",
                         }}>
-                        <Chip
+                        {/* <Chip
                           size='small'
                           variant='outlined'
                           icon={<FileDownloadIcon color='info' />}
@@ -91,7 +91,7 @@ export default function Play(props) {
                             display:
                               props.play?.downloads !== undefined ? "" : "none",
                           }}
-                        />
+                        /> */}
                         <Chip
                           size='small'
                           color='info'

@@ -8,10 +8,14 @@ import {
   Switch,
   Fade,
   Hidden,
+  IconButton,
+  Button,
 } from "@mui/material";
 
 import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import { useDispatch } from "react-redux";
+import FormatListBulleted from "@mui/icons-material/FormatListBulleted";
+import FileDownload from "@mui/icons-material/FileDownload";
 
 export default function VideoFrame(props) {
   const dispatch = useDispatch();
@@ -35,6 +39,9 @@ export default function VideoFrame(props) {
             justifyContent={"center"}
             spacing={1}
             alignItems={"center"}>
+            <Button color='info' endIcon={<FileDownload />}>
+              Download
+            </Button>
             <Chip
               label={props.currentPlay ? props.currentPlay.ptype : "..."}
               variant='outlined'
@@ -69,6 +76,7 @@ export default function VideoFrame(props) {
                 />
               </>
             )}
+
             <Hidden smDown>
               <Switch
                 checked={props.isFullScreen}

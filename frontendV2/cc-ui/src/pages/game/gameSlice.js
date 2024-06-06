@@ -15,6 +15,7 @@ const initialState = {
   homeTeam: {}, // stores basic team info, as well as team stats info for this game
   awayTeam: {}, // ^^
   allStatTypePlayDict: {}, // {fgm: [], ast: [] ...}
+  allPlaysSorted: [], // combines fgm, blk, and stl into sorted by quarter and time
   currentlySelectedStatType: "FGM", // What user has selected to show
   quarterSelected: 1,
   numberOfQuarters: 4,
@@ -30,6 +31,31 @@ const initialState = {
   videoPlayerEnabled: false,
 };
 
+const sortAllPlays = (plays) => {
+  let allPlays = [];
+  for (const statType in plays) {
+    if (["FGM", "BLK", "STL"].includes(statType)) {
+      allPlays = allPlays.concat(plays[statType]);
+    }
+  }
+
+  // Step 2: Sort the plays by quarter and then by time left in the quarter
+  allPlays.sort((a, b) => {
+    if (a.quarter !== b.quarter) {
+      return a.quarter - b.quarter;
+    }
+
+    const timeToSeconds = (time) => {
+      const [minutes, seconds] = time.split(":").map(Number);
+      return minutes * 60 + seconds;
+    };
+
+    return timeToSeconds(b.time) - timeToSeconds(a.time);
+  });
+
+  console.log(allPlays);
+  return allPlays;
+};
 export const gameSlice = createSlice({
   name: "game",
   initialState,
@@ -105,6 +131,7 @@ export const gameSlice = createSlice({
         state.currentlyRenderedPlays = state.currentShowingPlays.filter(
           (play) => play.quarter === state.quarterSelected
         );
+        handlePlayView(state.currentlyRenderedPlays[0]);
       }
     },
     handleStatChange(state, action) {
@@ -134,6 +161,7 @@ export const gameSlice = createSlice({
       let tempIndex = state.currentShowingPlays.findIndex(
         (play) => play.playid === currentPlayId
       );
+      state.currentlyRenderedPlays[action.payload].views += 1;
       state.currentShowingPlays[tempIndex].views += 1;
     },
     incrementGamePlayIndex(state, action) {
@@ -169,6 +197,7 @@ export const gameSlice = createSlice({
         (play) => play.playid === currentPlayId
       );
 
+      state.currentlyRenderedPlays[newIndex].views += 1;
       state.currentShowingPlays[tempIndex].views += 1;
       state.currentUrl = state.currentShowingPlays[state.currentPlayIndex].url;
       handlePlayView(state.currentlyRenderedPlays[newIndex]);
@@ -179,6 +208,7 @@ export const gameSlice = createSlice({
     enableVideoPlayer(state) {
       state.videoPlayerEnabled = !state.videoPlayerEnabled;
       state.currentShowingPlays[0].views += 1;
+      state.currentlyRenderedPlays[0].views += 1;
       handlePlayView(state.currentShowingPlays[0]);
     },
   },
@@ -210,6 +240,8 @@ export const gameSlice = createSlice({
       // set the whole dict {fgm: [fgm plays]...}
       // set the currently showing to just fgm at start
       state.allStatTypePlayDict = action.payload.plays;
+      state.allPlaysSorted = sortAllPlays(state.allStatTypePlayDict);
+
       state.currentShowingPlays =
         action.payload.plays[state.currentlySelectedStatType];
       state.currentlyRenderedPlays = state.currentShowingPlays.filter(

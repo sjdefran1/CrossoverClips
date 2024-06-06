@@ -284,6 +284,7 @@ export const playerSlice = createSlice({
 
       // load stuff
       state.filteredSearchLoading = false;
+      state.loading = false;
     });
     builder.addCase(fetchPlaysByGid.pending, (state) => {
       //TODO

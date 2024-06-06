@@ -4,7 +4,6 @@ import {
   Toolbar,
   Stack,
   IconButton,
-  Typography,
   Chip,
   Switch,
   Box,
@@ -17,13 +16,21 @@ import { enableVideoPlayer, handleQuarterChange } from "./gameSlice";
 
 export default function QuarterControl() {
   const currentQuarter = useSelector((state) => state.game.quarterSelected);
+  const videoPlayerEnabled = useSelector(
+    (state) => state.game.videoPlayerEnabled
+  );
   const dispatch = useDispatch();
 
   return (
     <AppBar position='static' sx={{ borderRadius: 1 }}>
-      <Toolbar>
-        <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
-          <Stack direction='row' alignItems='center' spacing={1}>
+      <Toolbar sx={{ position: "relative" }}>
+        <Box
+          sx={{
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}>
+          <Stack direction='row' alignItems='center'>
             <IconButton onClick={() => dispatch(handleQuarterChange(0))}>
               <KeyboardArrowLeftIcon color='info' />
             </IconButton>
@@ -37,10 +44,15 @@ export default function QuarterControl() {
             </IconButton>
           </Stack>
         </Box>
-        <Stack direction='row' alignItems='center' spacing={1}>
-          <Switch onClick={() => dispatch(enableVideoPlayer())} />
-          <OndemandVideo />
-        </Stack>
+        <Box sx={{ marginLeft: "auto" }}>
+          <Stack direction='row' alignItems='center' spacing={1}>
+            <Switch
+              checked={videoPlayerEnabled}
+              onClick={() => dispatch(enableVideoPlayer())}
+            />
+            <OndemandVideo />
+          </Stack>
+        </Box>
       </Toolbar>
     </AppBar>
   );

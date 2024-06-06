@@ -26,8 +26,9 @@ function ServerDay(props) {
     <Badge
       key={day}
       variant='dot'
-      color='success'
+      color='info'
       overlap='circular'
+      badgeContent={gameCount}
       invisible={outsideCurrentMonth || gameCount === undefined}>
       <PickersDay
         {...other}
@@ -94,7 +95,7 @@ export default function CustomDateCalendar() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box sx={{ justifyContent: "center" }}>
+      <Box sx={{ justifyContent: "center", mt: { md: 5 } }}>
         <DateCalendar
           value={dayjs(dateStr)}
           loading={calendarLoading}
