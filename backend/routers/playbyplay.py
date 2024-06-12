@@ -9,7 +9,7 @@ import psycopg2
 import pandas as pd
 
 from dotenv import load_dotenv
-from requestModels import PlayByPlayStr
+from requestModels import PlayByPlayStr, GameId, MonthYear, DateStr
 from routers import pgresdatabase as db
 
 load_dotenv()
@@ -18,7 +18,7 @@ playbyplay_router = APIRouter(prefix="/pgres")
 
 
 @playbyplay_router.post("/playByPlay")
-async def get_play_by_play_by_gameid(req: PlayByPlayStr):
+async def get_play_by_play_by_gameid(req: GameId):
     db.ping_db()
     db.psy_cursor.execute(
         f"""
@@ -42,10 +42,11 @@ async def get_play_by_play_by_gameid(req: PlayByPlayStr):
         join players p2 
             on p1.pid=p2.pid 
         where 
-            gid='{req.gameID}'
-        and 
-            ptype='{req.statType}';
+            gid='{req.gid}'
+       
         """
+        #  and 
+        #     ptype='{req.statType}';
     )
 
     df = pd.DataFrame(
@@ -69,12 +70,18 @@ async def get_play_by_play_by_gameid(req: PlayByPlayStr):
     )
 
     try:
-        plays = loads(df.to_json(orient="records"))
+        # plays = loads(df.to_json(orient="records"))
         players = loads(
             df[["teamID", "pname", "playerID"]]
             .drop_duplicates()
             .to_json(orient="values")
         )
+
+        plays_by_type = {
+            ptype: group.to_dict(orient="records")
+            for ptype, group in df.groupby("ptype")
+        }
+        # print(plays_by_type)
         team_ids = df["teamID"].drop_duplicates().tolist()  # [1610612743, 1610612742]
         num_quarters = max(df["quarter"].tolist())
         gid = df["gameID"][0]
@@ -83,9 +90,34 @@ async def get_play_by_play_by_gameid(req: PlayByPlayStr):
             "game_id": gid,
             "number_quarters": num_quarters,
             "team_ids": team_ids,
-            "plays": plays,
+            "plays": plays_by_type,
             "players": players,
         }
         return JSONResponse(content=return_dict)
     except Exception as e:
         return None
+
+@playbyplay_router.post('/games/calendar')
+async def get_days_to_highlight_for_calendar(data: DateStr):
+    db.ping_db()
+    
+    year = data.value[0:4]
+    month = data.value[5:7]
+  
+    # SQL query to count games per day for a given month and year
+    query = f"""
+    select substr(date, 0,8) as monthyear, substr(date, 9,2) as day, count(*) as game_count from matchups
+    where substr(date, 0,8) = '{year}-{month}'
+    group by day, monthyear
+    order by monthyear, day
+    """
+
+    # Execute the query
+    db.psy_cursor.execute(query)
+
+    # Fetch results
+    results = db.psy_cursor.fetchall()
+
+    # Convert results into a dictionary {day: game_count}
+    games_count = {int(day): count for monthyear, day, count in results}
+    return JSONResponse(content=games_count)

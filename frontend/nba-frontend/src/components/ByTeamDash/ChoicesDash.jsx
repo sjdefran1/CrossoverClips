@@ -116,6 +116,7 @@ export default function ChoicesDash(props) {
         "2020-21",
         "2021-22",
         "2022-23",
+        "2023-24",
       ].reverse()
     );
     setTeamsSelectedIDS([]);
@@ -158,22 +159,10 @@ export default function ChoicesDash(props) {
   };
 
   React.useEffect(() => {
-    //---------------
-    //console.log("useEffect Pre ChoicesDash [selectedteams]");
-    // console.log(selectedTeams);
-    // console.log(teamsSelectedIDS);
-    //console.log("Choices Dash UseEffect fire");
-    //----------------
     if (selectedTeams[1]?.id) {
       setExpanded("?");
     }
     props.updateSelectedTeams(selectedTeams);
-    //---------------
-    //console.log("useEffect Post ChoicesDash [selectedteams]");
-    // console.log(selectedTeams);
-    // console.log(teamsSelectedIDS);
-    //----------------
-    //console.log([locationState, selectedTeams, teamsSelectedIDS]);
   }, [selectedTeams]);
 
   React.useEffect(() => {
@@ -181,12 +170,6 @@ export default function ChoicesDash(props) {
     props.updateGameList(gameList);
   }, [seasonsSelected, gameList]);
 
-  // React.useEffect(() => {
-  //   props.updateGameList(gameList);
-  // }, [gameList]);
-  // console.log("ooga booga");
-  // console.log(selectedTeams);
-  // console.log(teamsSelectedIDS);
   return (
     <>
       <Paper>

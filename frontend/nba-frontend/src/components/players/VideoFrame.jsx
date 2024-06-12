@@ -38,8 +38,8 @@ export default function VideoFrame(props) {
     setShowProgressBar(true);
     let playArrCopy = [...props.playArr.plays];
 
-    // // user going backwards
-    // // get last arr element and move it the front
+    // user going backwards
+    // get last arr element and move it the front
     // let play = playArrCopy.pop();
     // playArrCopy.unshift(play);
 
@@ -73,8 +73,6 @@ export default function VideoFrame(props) {
     // handleView(playArrCopy[0]);
     handleView(playArrCopy[props.playArrowIndex]);
 
-    // set new url for iframe, and show progress bar to indicate loading
-    // props.setCurrentUrl(playArrCopy[0].url);
   };
 
   const handleView = async (play) => {
@@ -119,7 +117,6 @@ export default function VideoFrame(props) {
               "/" +
               String(props?.playArr?.plays[props.playArrowIndex].gid)
             }
-            // state={null}
             target='_blank'
             rel='noopener'>
             <IconButton sx={{ borderRadius: 15 }}>
@@ -166,8 +163,6 @@ export default function VideoFrame(props) {
       {showProgressBar && (
         <Box
           minHeight={props.bigVideoEnabled ? "25vh" : "640"}
-          // minWidth={props.bigVideoEnabled ? "720" : "360"}
-          // mb={props.bigVideoEnabled ? "250px" : "640px"}
         >
           <LinearProgress color='success' />
         </Box>
@@ -185,7 +180,6 @@ export default function VideoFrame(props) {
               id='videoIframe'
               width={!showProgressBar ? "1280" : "0"}
               height={!showProgressBar ? "720" : "0"}
-              // onLoad={() => setShowProgressBar(false)}
               onLoad={() => handleLoad()}
               src={props.currentUrl}
               frameBorder='0'
@@ -198,7 +192,6 @@ export default function VideoFrame(props) {
               width={!showProgressBar ? "640" : "0"}
               height={!showProgressBar ? "360" : "0"}
               onLoad={() => handleLoad()}
-              // onLoad={() => setShowProgressBar(false)}
               src={props.currentUrl}
               frameBorder='0'
               allowFullScreen></iframe>

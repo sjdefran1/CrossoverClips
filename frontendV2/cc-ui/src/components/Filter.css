@@ -1,0 +1,15 @@
+/* File2.css */
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0px;
+}
+
+.hover-bg-color {
+  background-color: #f0f0f0; /* Default background color */
+}
+
+.hover-bg-color:hover {
+  cursor: pointer;
+}

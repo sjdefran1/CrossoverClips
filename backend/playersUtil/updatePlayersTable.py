@@ -80,6 +80,7 @@ def main():
     active_players_from_api = players.get_active_players()
     for player in active_players_from_api:
         if player["id"] not in active_ids:
+            print(f"Need to add {player['id']}")
             ids_to_add.append(player["id"])
 
     for id in ids_to_add:

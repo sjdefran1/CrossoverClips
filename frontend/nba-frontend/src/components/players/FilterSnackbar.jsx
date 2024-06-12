@@ -6,6 +6,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
+
+
 export default function FilterSnackBar(props) {
   return (
     <Paper

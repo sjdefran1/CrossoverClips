@@ -4,6 +4,8 @@ from json import loads
 
 import pandas as pd
 from dotenv import load_dotenv
+from playersUtil.RequestModels import PlayOptionsArrays
+from playersUtil.playsQueryBuilder import get_correct_tuple_str
 from routers import pgresdatabase as db
 
 load_dotenv()
@@ -77,7 +79,9 @@ def get_games_with_pts(rows: list):
     return loads(df.to_json(orient="index"))
 
 
-def plays_query_executor(query: str, non_fgm=False, samplePlays=0) -> dict:
+def plays_query_executor(
+    query: str, opts: PlayOptionsArrays = None, non_fgm=False, samplePlays=0
+) -> dict:
     """
     - Creates view using provided query
     - View adds a row_number column that allows for pagination and offsets
@@ -109,18 +113,34 @@ def plays_query_executor(query: str, non_fgm=False, samplePlays=0) -> dict:
             stat_query = AVAILABLE_GAMES_PTS_AST_BLKS_SQL.format(view_name)
             # build and execute stat query that returns PTS, BLKS, AST for available_games
             stat_query = "".join([stat_query, ORDER_BY_PLAY_ID_SQL])
+            print(stat_query)
             db.psy_cursor.execute(stat_query)
             results_dict["games_available"] = get_games_with_pts(
                 db.psy_cursor.fetchall()
             )
 
-            # grab first 1000 plays to be returned to usr
+            # grab first 500 plays to be returned to usr
             # if non_fgm we need to remove those rows after
             # finding how many pts the player scored that game
-
-            results_query = f"select * from {view_name}"
-            if non_fgm:
-                results_query = results_query + " where ptype != 'FGM'"
+            if opts.stat_type is not None:
+                # print(opts)
+                if non_fgm:
+                    opts.stat_type.remove("FGM")
+                    correct_stat_types_str = get_correct_tuple_str(opts.stat_type)
+                else:
+                    correct_stat_types_str = get_correct_tuple_str(opts.stat_type)
+                results_query = (
+                    f"select * from {view_name} where ptype in {correct_stat_types_str}"
+                )
+            else:
+                results_query = (
+                    f"select * from {view_name} where ptype != 'FGM'"
+                    if non_fgm
+                    else f"select * from {view_name}"
+                )
+            print(results_query)
+            # if non_fgm:
+            #     results_query = results_query + " where ptype != 'FGM'"
             results_query = results_query + " order by row_number asc limit 500;"
             db.psy_cursor.execute(results_query)
 

@@ -1,8 +1,6 @@
 import os
 import psycopg2
-
-# psy_cursor = None
-# psyconn = None
+import psycopg2.errors
 
 
 def create_connections() -> None:
@@ -13,9 +11,9 @@ def create_connections() -> None:
     psyconn = psycopg2.connect(
         host=os.getenv("NEONHOST"),
         port=os.getenv("NEONPORT"),
-        user=os.getenv("USER"),
-        database=os.getenv("DATABASE"),
-        password=os.getenv("PASSWORD"),
+        user=os.getenv("PGUSER"),
+        database=os.getenv("PGDATABASE"),
+        password=os.getenv("PGPASSWORD"),
     )
     psy_cursor = psyconn.cursor()
     print("\tFINISHED")
@@ -32,5 +30,9 @@ def ping_db() -> None:
         create_connections()  # reset connection
     except psycopg2.InterfaceError:
         print("Cursor was closed")
+        create_connections()
+    except Exception as e:  # other errors
+        psy_cursor.close()
+        psyconn.close()
         create_connections()
     return
