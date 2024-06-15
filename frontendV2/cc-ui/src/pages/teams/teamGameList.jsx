@@ -9,6 +9,7 @@ import {
   Tooltip,
   CircularProgress,
   Grid,
+  Chip,
 } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
@@ -83,32 +84,31 @@ export default function TeamGameList(props) {
   return (
     <>
       <Fade in={true} timeout={800}>
-        <AppBar position='static' sx={{ borderRadius: 1 }}>
-          <Toolbar sx={{ justifyContent: "right" }}>
-            <Stack
-              direction='row'
-              alignItems={"center"}
-              sx={{ mr: { xs: "7%", md: "25%" } }}>
-              <IconButton onClick={() => handleSeasonChange(0)}>
-                <KeyboardArrowLeftIcon color='info' />
+        <AppBar position='static' sx={{ borderRadius: 1, mt: 1 }}>
+          <Toolbar sx={{ justifyContent: "center" }}>
+            <Stack direction='row' alignItems={"center"}>
+              <IconButton
+                color={currentSeasonIndex === 0 ? "disabled" : "info"}
+                disabled={currentSeasonIndex === 0}
+                onClick={() => handleSeasonChange(0)}>
+                <KeyboardArrowLeftIcon />
               </IconButton>
-              <Typography variant='body1' color='text.secondary'>
-                Season: {seasonsList[currentSeasonIndex]}
-              </Typography>
 
-              <IconButton onClick={() => handleSeasonChange(1)}>
-                <KeyboardArrowRightIcon color='info' />
+              <Chip
+                color='info'
+                variant='outlined'
+                label={seasonsList[currentSeasonIndex]}
+              />
+
+              <IconButton
+                color={
+                  currentSeasonIndex === seasonsListLength ? "disabled" : "info"
+                }
+                disabled={currentSeasonIndex === seasonsListLength - 1}
+                onClick={() => handleSeasonChange(1)}>
+                <KeyboardArrowRightIcon />
               </IconButton>
             </Stack>
-
-            <Tooltip
-              title={
-                "You are only seeing games from the " +
-                seasonsList[currentSeasonIndex] +
-                " season."
-              }>
-              <InfoIcon color='success' />
-            </Tooltip>
           </Toolbar>
         </AppBar>
       </Fade>
@@ -131,7 +131,7 @@ export default function TeamGameList(props) {
       {/* Where the actual games are handled */}
       {seasonsList[currentSeasonIndex].length > 0 && (
         <>
-          <Grid container xs={12} sx={{ maxHeight: "60vh", overflowY: "auto" }}>
+          <Grid container sx={{ maxHeight: "60vh", overflowY: "auto" }}>
             <GameList
               gameList={renderedSeasonGamesList}
               date={""}

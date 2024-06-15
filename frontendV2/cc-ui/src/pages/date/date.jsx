@@ -26,7 +26,7 @@ export default function Date() {
     <>
       <Container maxWidth='xl' sx={{ minHeight: "70vh" }}>
         <Grid container mt={2} spacing={4}>
-          <Grid item xs={12} md={7}>
+          <Grid item xs={12} lg={7}>
             <Fade in={true}>
               <Paper variant='outlined' sx={{ borderRadius: "0 0 6 6" }}>
                 {loading && (
@@ -35,26 +35,25 @@ export default function Date() {
                   </Box>
                 )}
                 <Grid container>
-                  <Hidden smDown>
-                    <Grid item md={6}>
+                  <Hidden lgDown>
+                    <Grid item lg={6}>
                       <QuickLinks2 defaultExpanded={true} />
                     </Grid>
                   </Hidden>
 
-                  <Grid item xs={12} md={6}>
-                    <CustomDateCalendar />
-                  </Grid>
-
-                  <Hidden smUp>
-                    <Grid item sm={12}>
+                  <Hidden lgUp>
+                    <Grid item md={6}>
                       <QuickLinks2 defaultExpanded={false} />
                     </Grid>
                   </Hidden>
+                  <Grid item xs={12} md={6}>
+                    <CustomDateCalendar />
+                  </Grid>
                 </Grid>
               </Paper>
             </Fade>
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} lg={5}>
             <DateSelection />
 
             {!loading && (

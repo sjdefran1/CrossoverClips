@@ -42,7 +42,7 @@ export default function PlayerFilter(props) {
             maxWidth: "100%",
           }}>
           <AppBar position='static' sx={{ borderRadius: 1, minWidth: "100%" }}>
-            <Hidden smDown>
+            <Hidden mdDown>
               <Toolbar sx={{ justifyContent: "center" }}>
                 {/* Team Logos Desktop View */}
                 <Grid container textAlign={"center"}>
@@ -80,7 +80,7 @@ export default function PlayerFilter(props) {
             <Grid container>
               <Grid item xs={12} md={6}>
                 {/* First Logo for mobile view */}
-                <Hidden smUp>
+                <Hidden mdUp>
                   <Divider sx={{}} />
                   <Box mx={"35%"}>
                     <IconButton
@@ -120,7 +120,7 @@ export default function PlayerFilter(props) {
 
               {/* Second Team Mapping, and second logo for mobile */}
               <Grid item xs={12} md={6}>
-                <Hidden smUp>
+                <Hidden mdUp>
                   <Divider sx={{ mt: 1 }} />
                   <Box mx={"35%"}>
                     <IconButton

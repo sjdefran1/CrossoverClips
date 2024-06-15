@@ -17,6 +17,22 @@ load_dotenv()
 playbyplay_router = APIRouter(prefix="/pgres")
 
 
+def sort_plays(plays: list) -> list:
+    """
+    Ensures that plays are in order for user
+
+    Instead of returning all FGM then BLK etc it orders them by time and quarter
+    """
+
+    def custom_sort_key(play):
+        # Convert quarter and ptime to a sortable value
+        quarter_value = int(play["quarter"]) * 1000 - int(play["time"].replace(":", ""))
+        return (play["playid"], quarter_value)
+
+    sorted_plays = sorted(plays, key=custom_sort_key)
+    return sorted_plays
+
+
 @playbyplay_router.post("/playByPlay")
 async def get_play_by_play_by_gameid(req: GameId):
     db.ping_db()
@@ -45,7 +61,7 @@ async def get_play_by_play_by_gameid(req: GameId):
             gid='{req.gid}'
        
         """
-        #  and 
+        #  and
         #     ptype='{req.statType}';
     )
 
@@ -86,24 +102,32 @@ async def get_play_by_play_by_gameid(req: GameId):
         num_quarters = max(df["quarter"].tolist())
         gid = df["gameID"][0]
 
+        # get rid of weird sorting from NBA
+        # sort by quarter -> then play time desc
+        sorted_dict = {}
+        for play_type in plays_by_type:
+            sorted_dict[play_type] = sort_plays(plays=plays_by_type[play_type])
+
         return_dict = {
             "game_id": gid,
             "number_quarters": num_quarters,
             "team_ids": team_ids,
-            "plays": plays_by_type,
+            "plays": sorted_dict,
             "players": players,
         }
         return JSONResponse(content=return_dict)
     except Exception as e:
+        print(e)
         return None
 
-@playbyplay_router.post('/games/calendar')
+
+@playbyplay_router.post("/games/calendar")
 async def get_days_to_highlight_for_calendar(data: DateStr):
     db.ping_db()
-    
+
     year = data.value[0:4]
     month = data.value[5:7]
-  
+
     # SQL query to count games per day for a given month and year
     query = f"""
     select substr(date, 0,8) as monthyear, substr(date, 9,2) as day, count(*) as game_count from matchups

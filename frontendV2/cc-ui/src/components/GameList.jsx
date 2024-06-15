@@ -137,107 +137,110 @@ export default function GameList(props) {
                         </>
                       )}
                       <Fade in={true} timeout={600}>
-                        <Stack direction={"row"}>
-                          <Stack
-                            direction='column'
-                            divider={<Divider />}
-                            spacing={1}
-                            sx={{
-                              justifyContent: "center",
-                              alignItems: "left",
-                              ml: { xs: 4, md: 1 },
-                            }}>
-                            {game.away_info.WL === null && (
-                              <Tooltip title="Game in Progress. Highlights aren't available until ~20 minutes after game finish">
-                                <InfoIcon
-                                  color='error'
-                                  sx={{ height: "20px" }}
-                                />
-                              </Tooltip>
-                            )}
+                        <Grid container>
+                          <Grid item xs={6}>
+                            <Stack direction='row' spacing={1}>
+                              <Stack
+                                direction='column'
+                                divider={<Divider />}
+                                spacing={1}
+                                sx={{
+                                  justifyContent: "center",
+                                  alignItems: "left",
+                                }}>
+                                <Avatar
+                                  sx={{ width: 50, height: 50 }}
+                                  src={
+                                    "https://cdn.nba.com/logos/nba/" +
+                                    game.away_info.TEAM_ID +
+                                    "/primary/L/logo.svg"
+                                  }></Avatar>
 
-                            <Avatar
-                              sx={{ width: 50, height: 50 }}
-                              src={
-                                "https://cdn.nba.com/logos/nba/" +
-                                game.away_info.TEAM_ID +
-                                "/primary/L/logo.svg"
-                              }></Avatar>
+                                <Avatar
+                                  sx={{ width: 50, height: 50 }}
+                                  src={
+                                    "https://cdn.nba.com/logos/nba/" +
+                                    game.home_info.TEAM_ID +
+                                    "/primary/L/logo.svg"
+                                  }></Avatar>
+                              </Stack>
 
-                            <Avatar
-                              sx={{ width: 50, height: 50 }}
-                              src={
-                                "https://cdn.nba.com/logos/nba/" +
-                                game.home_info.TEAM_ID +
-                                "/primary/L/logo.svg"
-                              }></Avatar>
-                          </Stack>
-                          <Divider />
-                          <Stack direction='column' spacing={3} ml={1}>
-                            <Stack
-                              direction={"column"}
-                              sx={{ textAlign: "left", fontFamily: "Roboto" }}>
-                              <Typography variant='body1'>
-                                {game.away_info.TEAM_ABBREVIATION}
-                              </Typography>
+                              <Divider />
+                              <Stack direction='column' spacing={3}>
+                                <Stack
+                                  direction={"column"}
+                                  sx={{
+                                    textAlign: "left",
+                                    fontFamily: "Roboto",
+                                  }}>
+                                  <Typography variant='body1'>
+                                    {game.away_info.TEAM_ABBREVIATION}
+                                  </Typography>
 
-                              <Typography
-                                variant='body2'
-                                color={
-                                  game.away_info.PTS > game.home_info.PTS
-                                    ? "#6fbf73"
-                                    : "#ffa199"
-                                }>
-                                {game.away_info.PTS}
-                              </Typography>
+                                  <Typography
+                                    variant='body2'
+                                    color={
+                                      game.away_info.PTS > game.home_info.PTS
+                                        ? "#6fbf73"
+                                        : "#ffa199"
+                                    }>
+                                    {game.away_info.PTS}
+                                  </Typography>
+                                </Stack>
+
+                                <Stack
+                                  direction={"column"}
+                                  sx={{
+                                    textAlign: "left",
+                                    fontFamily: "Roboto",
+                                  }}>
+                                  <Typography variant='body1'>
+                                    {game.home_info.TEAM_ABBREVIATION}
+                                  </Typography>
+
+                                  <Typography
+                                    variant='body2'
+                                    color={
+                                      game.home_info.PTS > game.away_info.PTS
+                                        ? "#6fbf73"
+                                        : "#ffa199"
+                                    }>
+                                    {game.home_info.PTS}
+                                  </Typography>
+                                </Stack>
+                              </Stack>
                             </Stack>
+                          </Grid>
 
+                          <Grid item xs={5}>
                             <Stack
-                              direction={"column"}
-                              sx={{ textAlign: "left", fontFamily: "Roboto" }}>
-                              <Typography variant='body1'>
-                                {game.home_info.TEAM_ABBREVIATION}
-                              </Typography>
-
-                              <Typography
-                                variant='body2'
-                                color={
-                                  game.home_info.PTS > game.away_info.PTS
-                                    ? "#6fbf73"
-                                    : "#ffa199"
-                                }>
-                                {game.home_info.PTS}
-                              </Typography>
+                              justifyContent={"right"}
+                              direction={"column"}>
+                              <Chip
+                                size='small'
+                                variant='outlined'
+                                color='info'
+                                label={game.away_info.MATCHUP}
+                                sx={{ my: 1, mx: "auto", cursor: "pointer" }}
+                              />
+                              <Chip
+                                size='small'
+                                variant='outlined'
+                                color='info'
+                                label={game.date}
+                                sx={{ my: 1, mx: "auto", cursor: "pointer" }}
+                              />
+                              <Chip
+                                size='small'
+                                variant={"filled"}
+                                color='info'
+                                icon={<VisibilityIcon />}
+                                label={game.views}
+                                sx={{ my: 1, mx: "auto", cursor: "pointer" }}
+                              />
                             </Stack>
-                          </Stack>
-
-                          <Stack
-                            direction={"column"}
-                            ml={{ xs: "20%", md: "10%", lg: "20%" }}>
-                            <Chip
-                              size='small'
-                              variant='outlined'
-                              color='info'
-                              label={game.away_info.MATCHUP}
-                              sx={{ my: 1, mx: "auto", cursor: "pointer" }}
-                            />
-                            <Chip
-                              size='small'
-                              variant='outlined'
-                              color='info'
-                              label={game.date}
-                              sx={{ my: 1, mx: "auto", cursor: "pointer" }}
-                            />
-                            <Chip
-                              size='small'
-                              variant={"filled"}
-                              color='info'
-                              icon={<VisibilityIcon />}
-                              label={game.views}
-                              sx={{ my: 1, mx: "auto", cursor: "pointer" }}
-                            />
-                          </Stack>
-                        </Stack>
+                          </Grid>
+                        </Grid>
                       </Fade>
                     </Paper>
                   </Fade>

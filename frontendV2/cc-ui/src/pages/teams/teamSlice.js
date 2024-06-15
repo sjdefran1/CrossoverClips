@@ -16,10 +16,6 @@ const initialState = {
   selectedTeamIds: [null, null], // selected team id's for if checkbox should be disabled in mathcupDisplay
   disableTeamSelect: false, // set true when 2 teams selected
   searchOptions: {
-    "Season Type": {
-      "Regular Season": false,
-      Playoffs: false,
-    },
     // "Win or Loss": {
     //   Win: false,
     //   Loss: false,
@@ -35,6 +31,10 @@ const initialState = {
       "2016-17": true,
       "2015-16": true,
       "2014-15": true,
+    },
+    "Season Type": {
+      "Regular Season": false,
+      Playoffs: false,
     },
     // "Game Location": {
     //   Home: false,

@@ -11,6 +11,7 @@ import {
   Stack,
   IconButton,
   Hidden,
+  Paper,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -23,6 +24,7 @@ import TeamGameList from "./teamGameList";
 import { resetTeamPage } from "./teamSlice";
 import Loading from "../../components/loading";
 import MatchupDisplay2 from "./matchupDisplay2";
+import Search from "@mui/icons-material/Search";
 
 export default function Teams() {
   const teams = useSelector((state) => state.teams);
@@ -39,6 +41,18 @@ export default function Teams() {
     dispatch(fetchTeamsAxios());
     // eslint-disable-next-line
   }, []);
+
+  /**
+   * Close Accordion when second team is selected
+   */
+  React.useEffect(() => {
+    if (teams.selectedTeamOne?.id && teams.selectedTeamTwo?.id) {
+      setExpanded(false);
+    } else {
+      // when cleared want to reopen selector
+      setExpanded("panel1");
+    }
+  }, [teams.selectedTeamOne, teams.selectedTeamTwo]);
 
   /* TODO: fix dumb backend logic to clean this tf up */
   function submitSearch() {
@@ -73,82 +87,91 @@ export default function Teams() {
 
       {!teams.loading && (
         <Container>
-          <Grid container spacing={2} mt={2}>
-            {/* (left hand side) */}
-            <Grid item xs={12} md={6}>
-              {/* Mobile team display */}
-              <Hidden smUp>
-                {/* <MatchupDisplay /> */}
-                <MatchupDisplay2 />
-              </Hidden>
-              {/* Team Selector */}
-              <Accordion
-                defaultExpanded
-                expanded={expanded === "panel1"}
-                onChange={handleChange("panel1")}>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls='panel1-content'
-                  id='panel1-header'>
-                  Choose your team(s)
-                </AccordionSummary>
-                <AccordionDetails sx={{ maxHeight: "50vh", overflow: "auto" }}>
-                  {/* Team list */}
-                  <TeamSelector />
-                </AccordionDetails>
-              </Accordion>
+          <Paper elevation={0} sx={{ minHeight: "70vh" }}>
+            <Grid container spacing={2} mt={2}>
+              {/* (left hand side) */}
+              <Grid item xs={12} md={6}>
+                {/* Mobile team display */}
+                <Hidden mdUp>
+                  <MatchupDisplay2 />
+                </Hidden>
+                {/* Team Selector */}
+                <Accordion
+                  // defaultExpanded
+                  expanded={expanded === "panel1"}
+                  onChange={handleChange("panel1")}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls='panel1-content'
+                    id='panel1-header'>
+                    Choose your team(s)
+                  </AccordionSummary>
+                  <AccordionDetails
+                    sx={{ maxHeight: "50vh", overflow: "auto" }}>
+                    {/* Team list */}
+                    <TeamSelector />
+                  </AccordionDetails>
+                </Accordion>
 
-              {/* Fitlers */}
-              <Accordion
-                expanded={expanded === "panel2"}
-                onChange={handleChange("panel2")}>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls='panel2-content'
-                  id='panel2-header'>
-                  Search Filters (Optional)
-                </AccordionSummary>
-                <AccordionDetails>
-                  <TeamFilters />
-                </AccordionDetails>
-              </Accordion>
+                {/* Fitlers */}
+                <Accordion
+                  expanded={expanded === "panel2"}
+                  onChange={handleChange("panel2")}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls='panel2-content'
+                    id='panel2-header'>
+                    Search Filters (Optional)
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <TeamFilters />
+                  </AccordionDetails>
+                </Accordion>
 
-              {/* Submit/Delete Buttons */}
-              <Stack
-                direction={"row"}
-                spacing={1}
-                sx={{ justifyContent: "center", alignItems: "center", mt: 1 }}>
-                <Button
-                  variant='contained'
-                  color='success'
-                  disabled={!teams.selectedTeamOne?.id} // only avaialbe when a team has been clicked
-                  onClick={submitSearch}
-                  sx={{ my: 1 }}>
-                  Submit
-                </Button>
+                {/* Submit/Delete Buttons */}
+                <Stack
+                  direction={"row"}
+                  spacing={1}
+                  sx={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    mt: 1,
+                  }}>
+                  <Button
+                    variant='contained'
+                    color='success'
+                    startIcon={<Search />}
+                    disabled={!teams.selectedTeamOne?.id} // only avaialbe when a team has been clicked
+                    onClick={submitSearch}
+                    sx={{ my: 1 }}>
+                    Search
+                  </Button>
 
-                <IconButton
-                  disabled={!teams.selectedTeamOne?.id}
-                  onClick={() => dispatch(resetTeamPage())}>
-                  <DeleteIcon />
-                </IconButton>
-              </Stack>
+                  <IconButton
+                    disabled={!teams.selectedTeamOne?.id}
+                    onClick={() => dispatch(resetTeamPage())}>
+                    <DeleteIcon />
+                  </IconButton>
+                </Stack>
+              </Grid>
+
+              {/* (right side of desktop view) */}
+              <Grid item xs={12} md={6}>
+                <Hidden mdDown>
+                  <MatchupDisplay2 />
+                </Hidden>
+                {/* Request is complete, and we found games */}
+                {!teams.resultsLoading && !gamesAvailableBool && (
+                  <TeamGameList />
+                )}
+
+                {/* Request is complete, and we found NO games */}
+                {!teams.resultsLoading && gamesAvailableBool && (
+                  <p>No Games Returned</p>
+                )}
+              </Grid>
             </Grid>
-
-            {/* (right side of desktop view) */}
-            <Grid item xs={12} md={6}>
-              <Hidden smDown>
-                <MatchupDisplay2 />
-              </Hidden>
-              {/* Request is complete, and we found games */}
-              {!teams.resultsLoading && !gamesAvailableBool && <TeamGameList />}
-
-              {/* Request is complete, and we found NO games */}
-              {!teams.resultsLoading && gamesAvailableBool && (
-                <p>No Games Returned</p>
-              )}
-            </Grid>
-          </Grid>
+          </Paper>
         </Container>
       )}
     </>

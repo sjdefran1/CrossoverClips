@@ -102,6 +102,11 @@ export const gameSlice = createSlice({
       );
       let player_ids = players.map((player) => player[2]);
       state.filteredPlayers = player_ids;
+      state.currentlyRenderedPlays = state.currentShowingPlays.filter(
+        (play) =>
+          play.quarter === state.quarterSelected &&
+          state.filteredPlayers.includes(play.playerID)
+      );
     },
     handleQuarterChange(state, action) {
       if (state.quarterSelected === 1 && action.payload === 0) {
@@ -240,7 +245,7 @@ export const gameSlice = createSlice({
       // set the whole dict {fgm: [fgm plays]...}
       // set the currently showing to just fgm at start
       state.allStatTypePlayDict = action.payload.plays;
-      state.allPlaysSorted = sortAllPlays(state.allStatTypePlayDict);
+      // state.allPlaysSorted = sortAllPlays(state.allStatTypePlayDict);
 
       state.currentShowingPlays =
         action.payload.plays[state.currentlySelectedStatType];

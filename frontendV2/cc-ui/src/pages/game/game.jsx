@@ -113,10 +113,10 @@ export default function Game() {
                         {/* Desktop View */}
                         <Hidden smDown>
                           <Grid container>
-                            <Grid item sm={12} lg={8}>
+                            <Grid item xs={12} sm={6} lg={8}>
                               <PlayerFilter />
                             </Grid>
-                            <Grid item sm={12} lg={4}>
+                            <Grid item xs={12} sm={6} md={4}>
                               <GameStatFilter />
                             </Grid>
                           </Grid>
