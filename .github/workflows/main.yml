@@ -25,4 +25,4 @@ jobs:
       - name: Run script
         run: |
           cd cc-workflows
-          python your_script.py
+          python wakeup.py
