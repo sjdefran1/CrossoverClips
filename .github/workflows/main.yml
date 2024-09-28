@@ -1,0 +1,28 @@
+name: Run Python Script
+
+on:
+  schedule:
+    - cron: '5 0 * * *'  # Runs daily at midnight UTC
+    
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          cd cc-workflows
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run script
+        run: |
+          cd cc-workflows
+          python your_script.py
