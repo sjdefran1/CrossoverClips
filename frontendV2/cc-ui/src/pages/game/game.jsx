@@ -146,7 +146,7 @@ export default function Game() {
                     )}
                   </>
                   {tabValue === 1 && (
-                    <Grid item sm={12}>
+                    <Grid item xs={12}>
                       <GameStatsDash />
                     </Grid>
                   )}

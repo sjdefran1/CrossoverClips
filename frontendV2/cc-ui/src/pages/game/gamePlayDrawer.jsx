@@ -91,6 +91,14 @@ export default function TemporaryDrawer() {
         </Accordion>
         <DrawerStatSelect />
         <List disablePadding>
+          {currentlyRenderedPlays.length === 0 && (
+            <Typography
+              sx={{ textAlign: "center", padding: 1 }}
+              variant='body1'>
+              No plays this quarter with selected options
+            </Typography>
+          )}
+
           {currentlyRenderedPlays
             // .filter((play) => play.quarter === quarterSelected)
             .map((play, index) => (
