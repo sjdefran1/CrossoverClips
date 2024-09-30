@@ -28,16 +28,28 @@ class PlayByPlayService:
             return url["lurl"].split(f"{self.gameId}/")[1].split("/")
 
     def getPlayByPlay(self) -> dict:
+        """
+        returns play by play json from `playByPlayV2` nba api
+        """
         try:
             url = f"https://stats.nba.com/stats/playbyplayv2?EndPeriod=9&GameID={self.gameId}&StartPeriod=1"
             response = requests.get(url=url, headers=headers, timeout=15)
-            response = dict(response.json())
+            response = response.json()
+            response = response["resultSets"][0]["rowSet"]
             return response
         except:
             # raise something
             print("request timeout")
 
     def getHighlightUrls(self, stat_type: str) -> dict[str, str]:
+        """
+        hits nba's `videodetailasset` which returns highlight urls
+        based on `actionNumbers` which is a sequential id
+        for plays or stats in a game
+
+        ### Returns
+        {'action_number': 'highlight url'}
+        """
         params: dict = {
             "GameID": self.gameId,  # not required,
             "ContextMeasure": stat_type,
