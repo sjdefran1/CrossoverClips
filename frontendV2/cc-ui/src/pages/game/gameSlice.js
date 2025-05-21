@@ -29,6 +29,7 @@ const initialState = {
   currentUrl: "",
   fullScreenVideo: false,
   videoPlayerEnabled: false,
+  brokenGame: false,
 };
 
 const sortAllPlays = (plays) => {
@@ -241,6 +242,12 @@ export const gameSlice = createSlice({
      * PlayByPlay
      */
     builder.addCase(fetchPlayByPlayByGameId.fulfilled, (state, action) => {
+      if (action.payload?.error) {
+        state.brokenGame = true;
+        state.playByPlayLoading = false;
+        return;
+      }
+
       state.playByPlayLoading = false;
       // set the whole dict {fgm: [fgm plays]...}
       // set the currently showing to just fgm at start

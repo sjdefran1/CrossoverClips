@@ -79,4 +79,12 @@ export const quickLinks = [
       finals: "/date/2024-06-06",
     },
   },
+  {
+    "24-25": {
+      openingDay: "/date/2024-10-22",
+      christmas: "/date/2024-12-25",
+      playoffs: "/date/2025-04-19",
+      finals: "/date/2025-06-05",
+    },
+  },
 ].reverse();

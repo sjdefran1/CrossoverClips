@@ -14,9 +14,14 @@ export const fetchBasicGameInfo = createAsyncThunk(
 export const fetchPlayByPlayByGameId = createAsyncThunk(
   "game/fetchPlayByPlayByGameId",
   async (data) => {
-    return axios
-      .post(baseRequestURL + "/pgres/playByPlay", data)
-      .then((response) => response.data);
+    const response = await axios.post(
+      baseRequestURL + "/pgres/playByPlay",
+      data
+    );
+    if (response.data == null) {
+      return { error: "No data returned" };
+    }
+    return response.data;
   }
 );
 
