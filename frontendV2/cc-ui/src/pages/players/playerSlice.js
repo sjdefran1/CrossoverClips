@@ -24,6 +24,7 @@ const initialState = {
   teamId: [], // games while player was on this team
   filterAutoOptions: {
     Season: {
+      "2024-25": false,
       "2023-24": false,
       "2022-23": false,
       "2021-22": false,

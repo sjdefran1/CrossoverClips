@@ -21,6 +21,7 @@ const initialState = {
     //   Loss: false,
     // },
     Seasons: {
+      "2024-25": true,
       "2023-24": true,
       "2022-23": true,
       "2021-22": true,
